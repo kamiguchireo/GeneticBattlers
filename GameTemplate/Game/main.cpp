@@ -2,6 +2,7 @@
 #include "system/system.h"
 #include "Player.h"
 #include "level/Level.h"
+#include "GameObjectManager.h"
 
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -16,8 +17,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera3D.SetTarget({ 0.0f, 100.0f, 0.0f });
 	g_camera3D.SetFar(10000.0f);
 	
+	//CGameObjectManager gameObject;
+
 	//プレイヤー
-	Player player;
+	Player*player;
+
+	player = NewGO<Player>(0,"player");
+
+	bool Delete = false;
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
@@ -30,10 +37,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		}
 		//物理エンジンの更新。
 		g_physics.Update();
+
+		if (Delete == false)
+		{
+		    DeleteGO(player);
+			Delete = true;
+		}
+		GameObjectManager().Start();
+		GameObjectManager().Update();
+
 		//プレイヤーの更新。
-		player.Update();
+		//player.Update();
 		//プレイヤーの描画。
-		player.Draw();
+		//player.Draw();
 		//カメラの更新。
 		g_camera3D.Update();
 		//描画終了。

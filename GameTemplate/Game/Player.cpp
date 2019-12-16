@@ -8,13 +8,18 @@ Player::Player()
 	m_model.Init(L"Assets/modelData/unityChan.cmo");
 }
 
-
 Player::~Player()
 {
 }
 
+bool Player::Start()
+{
+
+	return true;
+}
 void Player::Update()
 {
+	Draw();
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
 }
