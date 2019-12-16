@@ -24,8 +24,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	player = NewGO<Player>(0,"player");
 
-	bool Delete = false;
-
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
@@ -38,11 +36,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//物理エンジンの更新。
 		g_physics.Update();
 
-		if (Delete == false)
-		{
-		    DeleteGO(player);
-			Delete = true;
-		}
 		GameObjectManager().Start();
 		GameObjectManager().Update();
 

@@ -20,8 +20,9 @@ bool Player::Start()
 void Player::Update()
 {
 	Draw();
+	m_position.x += 1.0f;
 	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
+	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 }
 void Player::Draw()
 {
