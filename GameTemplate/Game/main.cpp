@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "system/system.h"
-#include "Player.h"
 #include "level/Level.h"
 #include "GameObjectManager.h"
+#include "Game.h"
 
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -19,10 +19,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	
 	//CGameObjectManager gameObject;
 
-	//プレイヤー
-	Player*player;
-
-	player = NewGO<Player>(0,"player");
+	//ゲームクラスの生成。
+	NewGO<Game>(0, nullptr);
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
@@ -39,10 +37,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		GameObjectManager().Start();
 		GameObjectManager().Update();
 
-		//プレイヤーの更新。
-		//player.Update();
-		//プレイヤーの描画。
-		//player.Draw();
 		//カメラの更新。
 		g_camera3D.Update();
 		//描画終了。

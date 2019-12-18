@@ -147,6 +147,8 @@
     <ClCompile Include="ShaderResourceView.cpp">
       <Filter>Source Files\graphics\GPUView</Filter>
     </ClCompile>
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="monster\MonsterBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -254,6 +256,8 @@
     <ClInclude Include="ShaderResourceView.h">
       <Filter>Source Files\graphics\GPUView</Filter>
     </ClInclude>
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="monster\MonsterBase.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
