@@ -126,31 +126,33 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
-    <ClCompile Include="GameObject.cpp">
+    <ClCompile Include="Game.cpp" />
+    <ClCompile Include="monster\MonsterBase.cpp" />
+    <ClCompile Include="SourceFile\GameObject\GameObject.cpp">
       <Filter>Source Files\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjectManager.cpp">
+    <ClCompile Include="SourceFile\GameObject\GameObjectManager.cpp">
       <Filter>Source Files\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="Sprite.cpp">
+    <ClCompile Include="SourceFile\graphic\2D\Sprite.cpp">
       <Filter>Source Files\2D</Filter>
     </ClCompile>
-    <ClCompile Include="StructuredBuffer.cpp">
+    <ClCompile Include="SourceFile\graphic\GPUBuffer\IndexBuffer.cpp">
       <Filter>Source Files\GPUBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="IndexBuffer.cpp">
+    <ClCompile Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.cpp">
       <Filter>Source Files\GPUBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="Primitive.cpp">
-      <Filter>Source Files\graphics</Filter>
+    <ClCompile Include="SourceFile\graphic\GPUBuffer\VertexBuffer.cpp">
+      <Filter>Source Files\GPUBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderResourceView.cpp">
+    <ClCompile Include="SourceFile\graphic\GPUView\ShaderResourceView.cpp">
       <Filter>Source Files\graphics\GPUView</Filter>
     </ClCompile>
-    <ClCompile Include="VertexBuffer.cpp">
-      <Filter>Source Files\GPUBuffer</Filter>
+    <ClCompile Include="SourceFile\graphic\Primitive.cpp">
+      <Filter>Source Files\graphics</Filter>
     </ClCompile>
-    <ClCompile Include="RenderContext.cpp">
+    <ClCompile Include="SourceFile\graphic\RenderContext.cpp">
       <Filter>Source Files\graphics</Filter>
     </ClCompile>
   </ItemGroup>
@@ -238,32 +240,34 @@
     </ClInclude>
     <ClInclude Include="Player.h" />
     <ClInclude Include="stdafx.h" />
-    <ClInclude Include="GameObject.h">
-      <Filter>Source Files\GameObject</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjectManager.h">
-      <Filter>Source Files\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="util\Util.h" />
-    <ClInclude Include="Sprite.h">
+    <ClInclude Include="Game.h" />
+    <ClInclude Include="monster\MonsterBase.h" />
+    <ClInclude Include="SourceFile\GameObject\GameObject.h">
+      <Filter>Source Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceFile\GameObject\GameObjectManager.h">
+      <Filter>Source Files\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceFile\graphic\2D\Sprite.h">
       <Filter>Source Files\2D</Filter>
     </ClInclude>
-    <ClInclude Include="StructuredBuffer.h">
+    <ClInclude Include="SourceFile\graphic\GPUBuffer\IndexBuffer.h">
       <Filter>Source Files\GPUBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="IndexBuffer.h">
+    <ClInclude Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.h">
       <Filter>Source Files\GPUBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="Primitive.h">
-      <Filter>Source Files\graphics</Filter>
+    <ClInclude Include="SourceFile\graphic\GPUBuffer\VertexBuffer.h">
+      <Filter>Source Files\GPUBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderResourceView.h">
+    <ClInclude Include="SourceFile\graphic\GPUView\ShaderResourceView.h">
       <Filter>Source Files\graphics\GPUView</Filter>
     </ClInclude>
-    <ClInclude Include="VertexBuffer.h">
-      <Filter>Source Files\GPUBuffer</Filter>
+    <ClInclude Include="SourceFile\graphic\Primitive.h">
+      <Filter>Source Files\graphics</Filter>
     </ClInclude>
-    <ClInclude Include="RenderContext.h">
+    <ClInclude Include="SourceFile\graphic\RenderContext.h">
       <Filter>Source Files\graphics</Filter>
     </ClInclude>
   </ItemGroup>

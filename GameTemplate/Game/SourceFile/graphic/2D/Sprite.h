@@ -1,7 +1,7 @@
 #pragma once
-#include "ShaderResourceView.h"
+#include "SourceFile/graphic/GPUView/ShaderResourceView.h"
 #include "graphics/Shader.h"
-#include "Primitive.h"
+#include "SourceFile/graphic/Primitive.h"
 
 namespace Engine {
 	class Sprite

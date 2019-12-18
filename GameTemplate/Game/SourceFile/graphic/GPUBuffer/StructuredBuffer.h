@@ -1,5 +1,5 @@
 #pragma once
-#include "ShaderResourceView.h"
+#include "SourceFile/graphic/GPUView/ShaderResourceView.h"
 
 namespace Engine {
 	//テクスチャやストラクチャバッファなど、シェーダーで使用するリソースで使用するビュー

@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "character/CharacterController.h"
-#include "GameObjectManager.h"
+#include "SourceFile/GameObject/GameObjectManager.h"
 
 class Player:public IGameObject
 {

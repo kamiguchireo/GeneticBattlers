@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "system/system.h"
 #include "level/Level.h"
-#include "GameObjectManager.h"
+#include "SourceFile/GameObject/GameObjectManager.h"
 #include "Game.h"
 
 ///////////////////////////////////////////////////////////////////

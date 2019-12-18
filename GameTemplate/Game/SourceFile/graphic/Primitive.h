@@ -1,6 +1,6 @@
 #pragma once
-#include "IndexBuffer.h"
-#include "VertexBuffer.h"
+#include "SourceFile/graphic/GPUBuffer/IndexBuffer.h"
+#include "SourceFile/graphic/GPUBuffer/VertexBuffer.h"
 namespace Engine {
 	
 	//プリミティブ

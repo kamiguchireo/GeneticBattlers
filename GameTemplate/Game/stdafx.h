@@ -36,8 +36,8 @@
 #include "graphics/animation/Animation.h"
 #include "graphics/animation/AnimationClip.h"
 #include "graphics/Camera.h"
-#include "GameObject.h"
-#include "GameObjectManager.h"
+#include "Sourcefile/GameObject/GameObject.h"
+#include "Sourcefile/GameObject/GameObjectManager.h"
 
 using namespace Engine;
 
