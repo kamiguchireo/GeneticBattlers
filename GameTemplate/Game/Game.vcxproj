@@ -130,6 +130,7 @@
     <ClCompile Include="physics\PhysicsStaticObject.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Primitive.cpp" />
+    <ClCompile Include="RenderContext.cpp" />
     <ClCompile Include="ShaderResourceView.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -138,6 +139,7 @@
     </ClCompile>
     <ClCompile Include="StructuredBuffer.cpp" />
     <ClCompile Include="system\system.cpp" />
+    <ClCompile Include="VertexBuffer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="character\CharacterController.h" />
@@ -173,12 +175,14 @@
     <ClInclude Include="physics\PhysicsStaticObject.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Primitive.h" />
+    <ClInclude Include="RenderContext.h" />
     <ClInclude Include="ShaderResourceView.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StructuredBuffer.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="util\Util.h" />
+    <ClInclude Include="VertexBuffer.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

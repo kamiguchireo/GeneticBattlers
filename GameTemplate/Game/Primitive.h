@@ -1,6 +1,6 @@
 #pragma once
 #include "IndexBuffer.h"
-
+#include "VertexBuffer.h"
 namespace Engine {
 	
 	//プリミティブ
@@ -12,6 +12,8 @@ namespace Engine {
 		//デストラクタ
 		~Primitive();
 
+		void Release();
+
 		bool Create(
 			D3D_PRIMITIVE_TOPOLOGY topology,
 			int numVertex,
@@ -21,6 +23,12 @@ namespace Engine {
 			IndexBuffer::EnIndexType indexType,
 			void*pSrcIndexBuffer
 		);
+
+	private:
+		IndexBuffer m_indexBuffer;		//インデックスバッファ
+		VertexBuffer m_vertexBuffer;		//頂点バッファ
+		D3D_PRIMITIVE_TOPOLOGY m_topology;		//トポロジー
 	};
+
 
 }
