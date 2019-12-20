@@ -37,17 +37,17 @@
     <Filter Include="Source Files\GameObject">
       <UniqueIdentifier>{29a046cc-62df-4712-a76b-28e99376dbb9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\2D">
-      <UniqueIdentifier>{3bd8536f-d001-4f76-ae6d-d243788bf5ed}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GPUBuffer">
-      <UniqueIdentifier>{abfae801-c6d7-4cb4-b9b5-ddac7cb9069d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\graphics">
       <UniqueIdentifier>{252e4ac3-af5d-4fc7-9031-8b0d46424579}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\graphics\GPUView">
       <UniqueIdentifier>{b4b89bd5-9add-4f96-904c-ea1b8b2ac55d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\graphics\2D">
+      <UniqueIdentifier>{3bd8536f-d001-4f76-ae6d-d243788bf5ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\graphics\GPUBuffer">
+      <UniqueIdentifier>{abfae801-c6d7-4cb4-b9b5-ddac7cb9069d}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -135,16 +135,16 @@
       <Filter>Source Files\GameObject</Filter>
     </ClCompile>
     <ClCompile Include="SourceFile\graphic\2D\Sprite.cpp">
-      <Filter>Source Files\2D</Filter>
+      <Filter>Source Files\graphics\2D</Filter>
     </ClCompile>
     <ClCompile Include="SourceFile\graphic\GPUBuffer\IndexBuffer.cpp">
-      <Filter>Source Files\GPUBuffer</Filter>
+      <Filter>Source Files\graphics\GPUBuffer</Filter>
     </ClCompile>
     <ClCompile Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.cpp">
-      <Filter>Source Files\GPUBuffer</Filter>
+      <Filter>Source Files\graphics\GPUBuffer</Filter>
     </ClCompile>
     <ClCompile Include="SourceFile\graphic\GPUBuffer\VertexBuffer.cpp">
-      <Filter>Source Files\GPUBuffer</Filter>
+      <Filter>Source Files\graphics\GPUBuffer</Filter>
     </ClCompile>
     <ClCompile Include="SourceFile\graphic\GPUView\ShaderResourceView.cpp">
       <Filter>Source Files\graphics\GPUView</Filter>
@@ -156,7 +156,7 @@
       <Filter>Source Files\graphics</Filter>
     </ClCompile>
     <ClCompile Include="SpriteRender.cpp">
-      <Filter>Source Files\2D</Filter>
+      <Filter>Source Files\graphics\2D</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -253,16 +253,16 @@
       <Filter>Source Files\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="SourceFile\graphic\2D\Sprite.h">
-      <Filter>Source Files\2D</Filter>
+      <Filter>Source Files\graphics\2D</Filter>
     </ClInclude>
     <ClInclude Include="SourceFile\graphic\GPUBuffer\IndexBuffer.h">
-      <Filter>Source Files\GPUBuffer</Filter>
+      <Filter>Source Files\graphics\GPUBuffer</Filter>
     </ClInclude>
     <ClInclude Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.h">
-      <Filter>Source Files\GPUBuffer</Filter>
+      <Filter>Source Files\graphics\GPUBuffer</Filter>
     </ClInclude>
     <ClInclude Include="SourceFile\graphic\GPUBuffer\VertexBuffer.h">
-      <Filter>Source Files\GPUBuffer</Filter>
+      <Filter>Source Files\graphics\GPUBuffer</Filter>
     </ClInclude>
     <ClInclude Include="SourceFile\graphic\GPUView\ShaderResourceView.h">
       <Filter>Source Files\graphics\GPUView</Filter>
@@ -274,7 +274,7 @@
       <Filter>Source Files\graphics</Filter>
     </ClInclude>
     <ClInclude Include="SpriteRender.h">
-      <Filter>Source Files\2D</Filter>
+      <Filter>Source Files\graphics\2D</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
