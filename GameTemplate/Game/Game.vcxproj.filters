@@ -155,9 +155,7 @@
     <ClCompile Include="SpriteRender.cpp">
       <Filter>Source Files\graphics\2D</Filter>
     </ClCompile>
-    <ClCompile Include="ShaderResourceView.cpp">
-      <Filter>Source Files\graphics\GPUView</Filter>
-    </ClCompile>
+    <ClCompile Include="ShaderResourceView.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -273,9 +271,7 @@
     <ClInclude Include="SpriteRender.h">
       <Filter>Source Files\graphics\2D</Filter>
     </ClInclude>
-    <ClInclude Include="ShaderResourceView.h">
-      <Filter>Source Files\graphics\GPUView</Filter>
-    </ClInclude>
+    <ClInclude Include="ShaderResourceView.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
