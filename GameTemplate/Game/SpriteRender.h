@@ -1,5 +1,5 @@
 #pragma once
-#include "SourceFile/graphic/GPUView/ShaderResourceView.h"
+#include "ShaderResourceView.h"
 
 namespace Engine {
 	namespace prefab {

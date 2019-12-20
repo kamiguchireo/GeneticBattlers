@@ -1,5 +1,5 @@
 #pragma once
-#include "SourceFile/graphic/GPUView/ShaderResourceView.h"
+#include "ShaderResourceView.h"
 #include "graphics/Shader.h"
 #include "SourceFile/graphic/Primitive.h"
 
