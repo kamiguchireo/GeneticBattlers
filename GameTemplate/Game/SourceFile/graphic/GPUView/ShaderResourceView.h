@@ -11,6 +11,10 @@ namespace Engine {
 		//StructuredBuffer用のSRVを作成
 		bool Create(CStructuredBuffer&structuredBuffer);
 
+		//DDSファイルからテクスチャ用のSRVを作成
+		//fileName		ファイル名
+		bool CreateFromDDSTextureFromFile(const wchar_t*fileName);
+
 		//開放処理
 		void Release();
 
