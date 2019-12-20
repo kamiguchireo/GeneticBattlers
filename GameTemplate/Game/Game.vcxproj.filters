@@ -40,14 +40,14 @@
     <Filter Include="Source Files\graphics">
       <UniqueIdentifier>{252e4ac3-af5d-4fc7-9031-8b0d46424579}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\graphics\GPUView">
-      <UniqueIdentifier>{b4b89bd5-9add-4f96-904c-ea1b8b2ac55d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\graphics\2D">
       <UniqueIdentifier>{3bd8536f-d001-4f76-ae6d-d243788bf5ed}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\graphics\GPUBuffer">
       <UniqueIdentifier>{abfae801-c6d7-4cb4-b9b5-ddac7cb9069d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\graphics\GPUView">
+      <UniqueIdentifier>{6ab67cee-2d8b-44bf-8373-cbd57325ae48}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -146,9 +146,6 @@
     <ClCompile Include="SourceFile\graphic\GPUBuffer\VertexBuffer.cpp">
       <Filter>Source Files\graphics\GPUBuffer</Filter>
     </ClCompile>
-    <ClCompile Include="SourceFile\graphic\GPUView\ShaderResourceView.cpp">
-      <Filter>Source Files\graphics\GPUView</Filter>
-    </ClCompile>
     <ClCompile Include="SourceFile\graphic\Primitive.cpp">
       <Filter>Source Files\graphics</Filter>
     </ClCompile>
@@ -157,6 +154,9 @@
     </ClCompile>
     <ClCompile Include="SpriteRender.cpp">
       <Filter>Source Files\graphics\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="ShaderResourceView.cpp">
+      <Filter>Source Files\graphics\GPUView</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -264,9 +264,6 @@
     <ClInclude Include="SourceFile\graphic\GPUBuffer\VertexBuffer.h">
       <Filter>Source Files\graphics\GPUBuffer</Filter>
     </ClInclude>
-    <ClInclude Include="SourceFile\graphic\GPUView\ShaderResourceView.h">
-      <Filter>Source Files\graphics\GPUView</Filter>
-    </ClInclude>
     <ClInclude Include="SourceFile\graphic\Primitive.h">
       <Filter>Source Files\graphics</Filter>
     </ClInclude>
@@ -275,6 +272,9 @@
     </ClInclude>
     <ClInclude Include="SpriteRender.h">
       <Filter>Source Files\graphics\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="ShaderResourceView.h">
+      <Filter>Source Files\graphics\GPUView</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

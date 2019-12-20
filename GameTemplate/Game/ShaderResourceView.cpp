@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "ShaderResourceView.h"
-#include "StructuredBuffer.h"
+#include "SourceFile/graphic/GPUBuffer/StructuredBuffer.h"
 
 namespace Engine {
 	ShaderResourceView::ShaderResourceView()

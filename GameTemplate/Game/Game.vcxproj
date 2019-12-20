@@ -101,6 +101,7 @@
   <ItemGroup>
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="ShaderResourceView.cpp" />
     <ClCompile Include="SourceFile\GameObject\GameObject.cpp" />
     <ClCompile Include="SourceFile\GameObject\GameObjectManager.cpp" />
     <ClCompile Include="graphics\animation\Animation.cpp" />
@@ -131,7 +132,6 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="SourceFile\graphic\Primitive.cpp" />
     <ClCompile Include="SourceFile\graphic\RenderContext.cpp" />
-    <ClCompile Include="SourceFile\graphic\GPUView\ShaderResourceView.cpp" />
     <ClCompile Include="SourceFile\graphic\2D\Sprite.cpp" />
     <ClCompile Include="SpriteRender.cpp" />
     <ClCompile Include="stdafx.cpp">
@@ -145,6 +145,7 @@
   <ItemGroup>
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="ShaderResourceView.h" />
     <ClInclude Include="SourceFile\GameObject\GameObject.h" />
     <ClInclude Include="SourceFile\GameObject\GameObjectManager.h" />
     <ClInclude Include="graphics\animation\Animation.h" />
@@ -177,7 +178,6 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="SourceFile\graphic\Primitive.h" />
     <ClInclude Include="SourceFile\graphic\RenderContext.h" />
-    <ClInclude Include="SourceFile\graphic\GPUView\ShaderResourceView.h" />
     <ClInclude Include="SourceFile\graphic\2D\Sprite.h" />
     <ClInclude Include="SpriteRender.h" />
     <ClInclude Include="stdafx.h" />
