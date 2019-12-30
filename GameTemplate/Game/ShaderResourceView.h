@@ -19,6 +19,7 @@ namespace Engine {
 		void Release();
 
 	private:
+		ID3D11Device*m_pd3dDevice;
 		ID3D11ShaderResourceView* m_srv = nullptr;
 		bool m_isValid = false;		//有効なデータかどうか
 	};

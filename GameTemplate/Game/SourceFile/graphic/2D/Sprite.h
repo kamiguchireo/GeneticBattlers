@@ -2,11 +2,14 @@
 #include "ShaderResourceView.h"
 #include "graphics/Shader.h"
 #include "SourceFile/graphic/Primitive.h"
+#include "ConstantBuffer.h"
 
 namespace Engine {
 	class Sprite
 	{
 	public:
+		//起点
+		static const CVector2 DEFAULT_PIVOT;
 		//コンストラクタ
 		Sprite();
 		//デストラクタ
@@ -17,12 +20,39 @@ namespace Engine {
 		tex		.テクスチャ
 		*/
 		void Init(ShaderResourceView&tex, float w, float h);
+
+		//テクスチャを設定
+		//tex		テクスチャ
+		void SetTexture(ShaderResourceView& tex)
+		{
+			m_textureSRV = &tex;
+		}
+
+		//アップデート関数
+		//trans		平行移動
+		//rot		回転
+		//scale		拡大
+		//pivot		起点
+		//0.5, 0.5で画像の中心が起点。
+		//0.0, 0.0で画像の左下。
+		//1.0, 1.0で画像の右上。
+		void Update(const CVector3& trans, const CQuaternion& rot, const CVector3& scale, const CVector2& pivot = DEFAULT_PIVOT);
 	
 	private:
+		//定数バッファ(ConstantBuffer)のCreate関数の引数に使用する
+		struct SSpriteCB
+		{
+			CMatrix WVP;		//ワールドビュープロジェクション行列
+			CVector4 mulColor;		//乗算カラー
+		};
 		Shader m_ps;			//ピクセルシェーダー
 		Shader m_vs;			//頂点シェーダー
 		CVector2 m_size = CVector2::Zero();			//サイズ
 		Primitive m_primitive;			//プリミティブ
+		ShaderResourceView* m_textureSRV = nullptr;		//テクスチャ
+		ConstantBuffer m_cb;
+		CMatrix m_world = CMatrix::Identity();		//ワールド行列
+		bool m_isInited = false;		//初期化フラグ
 	};
 
 }

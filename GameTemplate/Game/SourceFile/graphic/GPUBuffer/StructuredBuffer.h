@@ -21,11 +21,6 @@ namespace Engine {
 		//ŠJ•ú‚µ‚Ä—~‚µ‚­‚ÎRelease‚ðŒÄ‚Ô‚ñ‚¾‚È
 		void Release();
 
-		//SRV‚ðŽæ“¾
-		ShaderResourceView& GetSRV()
-		{
-			return m_srv;
-		}
 	private:
 		ID3D11Buffer*m_structuredBuffer = nullptr;		//void‚Ý‚½‚¢‚È•Ö—˜‚È“z
 		ShaderResourceView m_srv;						//SRV

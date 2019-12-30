@@ -55,4 +55,33 @@ namespace Engine {
 		m_isValid = true;
 		return true;
 	}
+	//DDSファイルからテクスチャ用のSRVを作成
+	//fileName		ファイル名
+	bool ShaderResourceView::CreateFromDDSTextureFromFile(const wchar_t*fileName)
+	{
+		//すでに中身があるかもしれないから
+		//開放処理をする
+		Release();
+		//失敗の原因まで出してくれる便利な奴
+		HRESULT hr = DirectX::CreateDDSTextureFromFileEx(
+			m_pd3dDevice,
+			fileName,
+			0,
+			D3D11_USAGE_DEFAULT,		//バッファーで想定されている読み書きの方法
+			D3D11_BIND_SHADER_RESOURCE,		//バッファーをどのようにパイプラインにバインドするか
+			0,
+			0,
+			false,
+			nullptr
+			,&m_srv
+		);
+		//失敗の原因を特定
+		if (FAILED(hr))
+		{
+			//失敗したのでfalseを返す
+			return false;
+		}
+		//成功したのでtrueを返す
+		return true;
+	}
 }

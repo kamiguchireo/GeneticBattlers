@@ -20,9 +20,13 @@ namespace Engine {
 		D3D_PRIMITIVE_TOPOLOGY  topology,
 		int numVertex,
 		int vertexStride,
+		//頂点バッファへのポインタ
 		void* pSrcVertexBuffer,
+		//インデックスの数
 		int numIndex,
+		//インデックスの型
 		IndexBuffer::EnIndexType indexType,
+		//インデックスバッファへのポインタ
 		void* pSrcIndexBuffer)
 	{
 		//中身があるかもしれないから開放処理を行う
