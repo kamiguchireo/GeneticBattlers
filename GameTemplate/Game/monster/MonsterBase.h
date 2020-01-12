@@ -1,4 +1,6 @@
 #pragma once
+//前方宣言。
+struct Skill;
 
 /// <summary>
 /// ステータスの構造体。
@@ -7,13 +9,13 @@
 /// 魔法攻撃力はINTだとint型と間違えそうだからMATとした。
 /// </remarks>
 struct Status {
-	int HP;
-	int MP;
-	int ATK;
-	int DEF;
-	int MAT;
-	int MDF;
-	int DEX;
+	int HP,
+		MP,
+		ATK,
+		DEF,
+		MAT,
+		MDF,
+		DEX;
 };
 /// <summary>
 /// モンスターステート。
@@ -54,6 +56,14 @@ public:
 		m_status.HP -= damage;
 	}
 	/// <summary>
+	/// HPを回復させる。
+	/// </summary>
+	/// <param name="healing">回復量。</param>
+	void Healing(int healing)
+	{
+		m_status.HP += healing;
+	}
+	/// <summary>
 	/// MPを使う。
 	/// </summary>
 	/// <param name="mp">消費MP量。</param>
@@ -64,11 +74,16 @@ public:
 	
 
 protected:
+	/// <summary>
+	/// ステートに応じて行動を決める。
+	/// </summary>
+	void Action();
+
 	SkinModel* m_model = nullptr;
 	CVector3 m_position = CVector3::Zero();				//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転。
 	Status m_status;									//ステータス。
 	bool m_isDeath = false;								//戦闘不能フラグ。
-	int m_stateAI = 0;									//ステート。
+	int m_stateAI = en_state_Good;						//ステート。
 };
 

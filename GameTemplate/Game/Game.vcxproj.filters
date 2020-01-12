@@ -49,6 +49,12 @@
     <Filter Include="Source Files\graphics\GPUView">
       <UniqueIdentifier>{6ab67cee-2d8b-44bf-8373-cbd57325ae48}</UniqueIdentifier>
     </Filter>
+    <Filter Include="monster">
+      <UniqueIdentifier>{9090f47d-59d3-40b5-a088-f677f024e2d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="skill">
+      <UniqueIdentifier>{1bc3184a-29a2-49ae-bba0-789ee1507af7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -127,7 +133,6 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="stdafx.cpp" />
     <ClCompile Include="Game.cpp" />
-    <ClCompile Include="monster\MonsterBase.cpp" />
     <ClCompile Include="SourceFile\GameObject\GameObject.cpp">
       <Filter>Source Files\GameObject</Filter>
     </ClCompile>
@@ -163,6 +168,12 @@
     </ClCompile>
     <ClCompile Include="ShaderResourceView.cpp">
       <Filter>Source Files\graphics\GPUView</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\MonsterBase.cpp">
+      <Filter>monster</Filter>
+    </ClCompile>
+    <ClCompile Include="SkillList.cpp">
+      <Filter>skill</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -251,7 +262,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="util\Util.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="monster\MonsterBase.h" />
     <ClInclude Include="SourceFile\GameObject\GameObject.h">
       <Filter>Source Files\GameObject</Filter>
     </ClInclude>
@@ -287,6 +297,12 @@
     </ClInclude>
     <ClInclude Include="ShaderResourceView.h">
       <Filter>Source Files\graphics\GPUView</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\MonsterBase.h">
+      <Filter>monster</Filter>
+    </ClInclude>
+    <ClInclude Include="SkillList.h">
+      <Filter>skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
