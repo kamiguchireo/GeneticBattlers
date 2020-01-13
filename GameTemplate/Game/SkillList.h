@@ -6,7 +6,7 @@
 /// スキルの威力。
 /// 消費MP量。
 /// </summary>
-struct Skill {
+struct SkillData {
 	char skillName[30];
 	int skillPower = 1;
 	int useMP = 0;
@@ -18,6 +18,6 @@ public:
 	SkillList();
 	~SkillList();
 private:
-	std::vector<Skill>m_skillList;
+	std::vector<SkillData>m_skillList;
 };
 

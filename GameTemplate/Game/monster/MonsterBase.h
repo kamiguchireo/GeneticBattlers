@@ -1,6 +1,6 @@
 #pragma once
 //前方宣言。
-struct Skill;
+struct SkillData;
 
 /// <summary>
 /// ステータスの構造体。
@@ -9,13 +9,20 @@ struct Skill;
 /// 魔法攻撃力はINTだとint型と間違えそうだからMATとした。
 /// </remarks>
 struct Status {
-	int HP,
+	int MAXHP,
+		HP,
+		MAXMP,
 		MP,
 		ATK,
 		DEF,
 		MAT,
 		MDF,
 		DEX;
+		//baseATK,
+		//baseDEF,
+		//baseMAT,
+		//baseMDF,
+		//baseDEX;
 };
 /// <summary>
 /// モンスターステート。
@@ -71,6 +78,12 @@ public:
 	{
 		m_status.MP -= mp;
 	}
+	/// <summary>
+	/// スキルを使用する。
+	/// </summary>
+	/// <param name="skill">スキルデータへのポインタ。</param>
+	/// <param name="target">ターゲット。</param>
+	void UseSkill(SkillData* skill,MonsterBase& target);
 	
 
 protected:
@@ -78,8 +91,7 @@ protected:
 	/// ステートに応じて行動を決める。
 	/// </summary>
 	void Action();
-
-	SkinModel* m_model = nullptr;
+	SkinModel* m_model = nullptr;						//モデルデータ。
 	CVector3 m_position = CVector3::Zero();				//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転。
 	Status m_status;									//ステータス。
