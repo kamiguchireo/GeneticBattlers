@@ -4,7 +4,7 @@
 
 namespace Engine {
 	namespace prefab {
-		class SpriteRender
+		class SpriteRender:public IGameObject
 		{
 		public:
 			//コンストラクタ

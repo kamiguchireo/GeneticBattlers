@@ -3,6 +3,7 @@
 #include "level/Level.h"
 #include "SourceFile/GameObject/GameObjectManager.h"
 #include "Game.h"
+#include "SpriteRender.h"
 
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -21,6 +22,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//ゲームクラスの生成。
 	NewGO<Game>(0, nullptr);
+
+	//スプライトの確認のためのポインタ
+	prefab::SpriteRender*m_spriteRender;
+
+	//スプライトを初期化
+	//m_spriteRender = NewGO<prefab::SpriteRender>(0,"sprite");
+	//m_spriteRender->Init(L"sprite/mikyan.dds", 400, 300);
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)

@@ -38,6 +38,7 @@
 #include "graphics/Camera.h"
 #include "Sourcefile/GameObject/GameObject.h"
 #include "Sourcefile/GameObject/GameObjectManager.h"
+#include "SpriteRender.h"
 
 using namespace Engine;
 

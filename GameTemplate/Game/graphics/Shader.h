@@ -1,7 +1,7 @@
 /*!
  * @brief	シェーダークラス。
  */
-
+#include "GraphicsEngine.h"
 #pragma once
 
 /*!
@@ -57,6 +57,7 @@ public:
 		return m_blobOut->GetBufferSize();
 	}
 private:
+	GraphicsEngine m_graphicsEngine;		//グラフィックエンジン
 	void*				m_shader = nullptr;					//!<シェーダー。
 	ID3D11InputLayout*	m_inputLayout = nullptr;			//!<入力レイアウト。
 	ID3DBlob*			m_blobOut = nullptr;
