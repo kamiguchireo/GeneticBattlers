@@ -37,12 +37,12 @@ namespace Engine {
 			//‰Šú‰»ƒf[ƒ^‚Ö‚Ìƒ|ƒCƒ“ƒ^
 			InitData.pSysMem = pInitData;
 			//Ž¸”s‚ÌŒ´ˆö‚ð“Á’è
-			hr = GraphicEngine.GetD3DDevice()->CreateBuffer(&bufferDesc, &InitData, &m_gpuBuffer);
+			hr = g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bufferDesc, &InitData, &m_gpuBuffer);
 		}
 		else 
 		{
 			//Ž¸”s‚ÌŒ´ˆö‚ð“Á’è
-			hr = GraphicEngine.GetD3DDevice()->CreateBuffer(&bufferDesc, NULL, &m_gpuBuffer);
+			hr = g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bufferDesc, NULL, &m_gpuBuffer);
 		}
 		//Ž¸”s‚µ‚½‚ç
 		if (FAILED(hr))

@@ -27,8 +27,6 @@ namespace Engine {
 	private:
 		//GPUBuffer
 		ID3D11Buffer* m_gpuBuffer = nullptr;	
-		//グラフィックエンジン
-		GraphicsEngine GraphicEngine;
 	};
 
 }

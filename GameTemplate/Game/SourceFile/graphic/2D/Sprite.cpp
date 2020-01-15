@@ -22,9 +22,9 @@ namespace Engine {
 	{
 		//シェーダーロード
 		//ピクセルシェーダー
-		m_ps.Load("shader/sprite.fx", "PSMain", Shader::EnType::PS);
+		m_ps.Load("Assets/shader/sprite.fx", "PSMain", Shader::EnType::PS);
 		//頂点シェーダー
-		m_vs.Load("shader/sprite.fx", "VSMain", Shader::EnType::VS);
+		m_vs.Load("Assets/shader/sprite.fx", "VSMain", Shader::EnType::VS);
 		//サイズを代入
 		m_size.x = w;
 		m_size.y = h;

@@ -46,7 +46,7 @@ namespace Engine {
 		//初期化データへのポインタ
 		InitData.pSysMem = pSrcVertexBuffer;
 		//失敗の原因まで出してくれる便利な奴
-		HRESULT hr = GraphicsEngine().GetD3DDevice()->CreateBuffer(&bd, &InitData, &m_vertexBuffer);
+		HRESULT hr = g_graphicsEngine->GetD3DDevice()->CreateBuffer(&bd, &InitData, &m_vertexBuffer);
 		//失敗した場合
 		if (FAILED(hr))
 		{
