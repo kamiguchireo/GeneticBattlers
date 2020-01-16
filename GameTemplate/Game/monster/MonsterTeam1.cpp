@@ -21,6 +21,7 @@ bool MonsterTeam1::Start()
 
 void MonsterTeam1::Update()
 {
+	m_position.y = m_activeTime;
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
 	//描画処理。
