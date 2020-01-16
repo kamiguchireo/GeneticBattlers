@@ -172,10 +172,11 @@
     <ClCompile Include="monster\MonsterBase.cpp">
       <Filter>monster</Filter>
     </ClCompile>
-    <ClCompile Include="SkillList.cpp">
+    <ClCompile Include="monster\MonsterTeam1.cpp" />
+    <ClCompile Include="Skill\SkillList.cpp">
       <Filter>skill</Filter>
     </ClCompile>
-    <ClCompile Include="monster\MonsterTeam1.cpp" />
+    <ClCompile Include="Skill\SkillBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -302,10 +303,11 @@
     <ClInclude Include="monster\MonsterBase.h">
       <Filter>monster</Filter>
     </ClInclude>
-    <ClInclude Include="SkillList.h">
+    <ClInclude Include="monster\MonsterTeam1.h" />
+    <ClInclude Include="Skill\SkillList.h">
       <Filter>skill</Filter>
     </ClInclude>
-    <ClInclude Include="monster\MonsterTeam1.h" />
+    <ClInclude Include="Skill\SkillBase.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

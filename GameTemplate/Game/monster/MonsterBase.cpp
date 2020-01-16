@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "MonsterBase.h"
-#include "SkillList.h"
+#include "Skill/SkillList.h"
 
 
 MonsterBase::MonsterBase()
@@ -65,15 +65,19 @@ bool MonsterBase::Action()
 	switch (m_stateAI)
 	{
 	case en_state_Good:
+		flag = Action_good();
 		break;
 	
 	case en_state_Usually:
+		flag = Action_usually();
 		break;
 	
 	case en_state_Bad:
+		flag = Action_bad();
 		break;
 	
 	case en_state_Death:
+		return true;
 		break;
 	}
 	return flag;

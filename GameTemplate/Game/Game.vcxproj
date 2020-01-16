@@ -105,7 +105,8 @@
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="monster\MonsterTeam1.cpp" />
     <ClCompile Include="ShaderResourceView.cpp" />
-    <ClCompile Include="SkillList.cpp" />
+    <ClCompile Include="Skill\SkillBase.cpp" />
+    <ClCompile Include="Skill\SkillList.cpp" />
     <ClCompile Include="SourceFile\GameObject\GameObject.cpp" />
     <ClCompile Include="SourceFile\GameObject\GameObjectManager.cpp" />
     <ClCompile Include="graphics\animation\Animation.cpp" />
@@ -153,7 +154,8 @@
     <ClInclude Include="Game.h" />
     <ClInclude Include="monster\MonsterTeam1.h" />
     <ClInclude Include="ShaderResourceView.h" />
-    <ClInclude Include="SkillList.h" />
+    <ClInclude Include="Skill\SkillBase.h" />
+    <ClInclude Include="Skill\SkillList.h" />
     <ClInclude Include="SourceFile\GameObject\GameObject.h" />
     <ClInclude Include="SourceFile\GameObject\GameObjectManager.h" />
     <ClInclude Include="graphics\animation\Animation.h" />

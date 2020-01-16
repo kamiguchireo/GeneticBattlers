@@ -27,3 +27,20 @@ void MonsterTeam1::Update()
 	//•`‰æˆ—B
 	Draw();
 }
+
+bool MonsterTeam1::Action_good()
+{
+	m_status.DEX += rand() % 5 - 3;
+
+	return true;
+}
+
+bool MonsterTeam1::Action_usually()
+{
+	return false;
+}
+
+bool MonsterTeam1::Action_bad()
+{
+	return false;
+}

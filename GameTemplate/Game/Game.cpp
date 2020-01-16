@@ -5,8 +5,9 @@
 #include "monster/MonsterTeam1.h"
 
 Game::Game()
-{	//プレイヤー
-	player = NewGO<Player>(0, "player");
+{	
+	////プレイヤー
+	//player = NewGO<Player>(0, "player");
 }
 
 
