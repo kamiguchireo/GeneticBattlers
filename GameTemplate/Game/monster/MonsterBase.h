@@ -54,6 +54,16 @@ public:
 	{
 		return m_status;
 	}
+	//ステータスの設定。
+	//正直ファイルからロードしたい。
+	void SetStatus(int hp, int mp, int atk, int def, int mat, int mdf, int dex);
+	//座標の設定。
+	void SetPosition(const CVector3& pos)
+	{
+		m_position = pos;
+	}
+	//描画処理。
+	void Draw();
 	/// <summary>
 	/// ダメージを与える。
 	/// </summary>
@@ -61,6 +71,7 @@ public:
 	void Damage(int damage)
 	{
 		m_status.HP -= damage;
+		m_status.HP = max(0, m_status.HP);
 	}
 	/// <summary>
 	/// HPを回復させる。
@@ -69,6 +80,7 @@ public:
 	void Healing(int healing)
 	{
 		m_status.HP += healing;
+		m_status.HP = min(0, m_status.MAXHP);
 	}
 	/// <summary>
 	/// MPを使う。
@@ -91,7 +103,7 @@ protected:
 	/// ステートに応じて行動を決める。
 	/// </summary>
 	void Action();
-	SkinModel* m_model = nullptr;						//モデルデータ。
+	SkinModel m_model;									//モデルデータ。
 	CVector3 m_position = CVector3::Zero();				//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転。
 	Status m_status;									//ステータス。

@@ -103,6 +103,7 @@
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="monster\MonsterTeam1.cpp" />
     <ClCompile Include="ShaderResourceView.cpp" />
     <ClCompile Include="SkillList.cpp" />
     <ClCompile Include="SourceFile\GameObject\GameObject.cpp" />
@@ -150,6 +151,7 @@
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="monster\MonsterTeam1.h" />
     <ClInclude Include="ShaderResourceView.h" />
     <ClInclude Include="SkillList.h" />
     <ClInclude Include="SourceFile\GameObject\GameObject.h" />

@@ -175,6 +175,7 @@
     <ClCompile Include="SkillList.cpp">
       <Filter>skill</Filter>
     </ClCompile>
+    <ClCompile Include="monster\MonsterTeam1.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -304,6 +305,7 @@
     <ClInclude Include="SkillList.h">
       <Filter>skill</Filter>
     </ClInclude>
+    <ClInclude Include="monster\MonsterTeam1.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
