@@ -3,6 +3,7 @@
 #include "graphics/Shader.h"
 #include "SourceFile/graphic/Primitive.h"
 #include "ConstantBuffer.h"
+#include "SourceFile/graphic/RenderContext.h"
 
 namespace Engine {
 	class Sprite
@@ -38,6 +39,12 @@ namespace Engine {
 		//1.0, 1.0で画像の右上。
 		void Update(const CVector3& trans, const CQuaternion& rot, const CVector3& scale, const CVector2& pivot = DEFAULT_PIVOT);
 	
+		/*
+		描画
+		viewMatrix		ビュー行列
+		projMatrix		プロジェクション行列
+		*/
+		void Draw(RenderContext& renderContext, const CMatrix&viewMatrix, const CMatrix& projMatrix);
 	private:
 		//定数バッファ(ConstantBuffer)のCreate関数の引数に使用する
 		struct SSpriteCB
@@ -47,6 +54,7 @@ namespace Engine {
 		};
 		Shader m_ps;			//ピクセルシェーダー
 		Shader m_vs;			//頂点シェーダー
+		CVector4 m_mulColor = CVector4::White();		//乗算カラー
 		CVector2 m_size = CVector2::Zero();			//サイズ
 		Primitive m_primitive;			//プリミティブ
 		ShaderResourceView* m_textureSRV = nullptr;		//テクスチャ

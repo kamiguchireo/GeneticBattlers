@@ -18,8 +18,12 @@ namespace Engine {
 		//開放処理
 		void Release();
 
+		//ID3D11ShaderResourceViewを取得
+		ID3D11ShaderResourceView*&GetBody()
+		{
+			return m_srv;
+		}
 	private:
-		ID3D11Device*m_pd3dDevice;
 		ID3D11ShaderResourceView* m_srv = nullptr;
 		bool m_isValid = false;		//有効なデータかどうか
 	};

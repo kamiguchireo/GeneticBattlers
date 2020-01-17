@@ -64,7 +64,7 @@ namespace Engine {
 		Release();
 		//失敗の原因まで出してくれる便利な奴
 		HRESULT hr = DirectX::CreateDDSTextureFromFileEx(
-			m_pd3dDevice,
+			g_graphicsEngine->GetD3DDevice(),
 			fileName,
 			0,
 			D3D11_USAGE_DEFAULT,		//バッファーで想定されている読み書きの方法

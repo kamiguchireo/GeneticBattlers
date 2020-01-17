@@ -11,6 +11,17 @@ namespace Engine {
 		//開放処理
 		void Release();
 
+		//頂点ストライドを取得
+		int GetStride() const
+		{
+			return m_stride;
+		}
+
+		//ID3D11Buffer*を取得
+		ID3D11Buffer*& GetBody()
+		{
+			return m_vertexBuffer;
+		}
 		/*
 		頂点バッファの作成
 		numVertex		頂点数

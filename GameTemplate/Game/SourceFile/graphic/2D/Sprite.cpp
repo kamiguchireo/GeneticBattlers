@@ -83,7 +83,7 @@ namespace Engine {
 	//sale		拡大
 	void Sprite::Update(const CVector3& trans, const CQuaternion& rot, const CVector3& scale, const CVector2& pivot)
 	{
-		if (m_isInited = false)
+		if (m_isInited == false)
 		{
 			//初期化されていないとき
 			//何も返さない
@@ -128,5 +128,36 @@ namespace Engine {
 		m_world.Mul(m_world,m_Rot);
 		//平行移動行列を掛ける
 		m_world.Mul(m_world, m_Trans);
+	}
+	/*
+	描画
+	viewMatrix		ビュー行列
+	projMatrix		プロジェクション行列
+	*/
+	void Sprite::Draw(RenderContext&rc, const CMatrix&viewMatrix, const CMatrix&projMatrix)
+	{
+		if (m_isInited == false)
+		{
+			//初期化されていない
+			return;
+		}
+		if (m_textureSRV == nullptr)
+		{
+			return;
+		}
+		SSpriteCB cb;
+		cb.WVP = m_world;		//ワールドビュープロジェクション行列
+		cb.WVP.Mul(cb.WVP, viewMatrix);		//ワールド行列にビュー行列を乗算
+		cb.WVP.Mul(cb.WVP, projMatrix);		//ワールド行列にプロジェクション行列を乗算
+		cb.mulColor = m_mulColor;		//乗算カラーを初期化
+
+		//ここからリソースコンテキストを利用していく
+		rc.UpdateSubresource(m_cb, &cb);		//サブリソースを更新
+		rc.VSSetConstantBuffer(0, m_cb);		//VSステージに定数バッファを設定
+		rc.PSSetConstantBuffer(0, m_cb);		//PSステージに定数バッファを設定
+		rc.PSSetShaderResource(0, *m_textureSRV);		//PSステージにSRVを設定
+		rc.PSSetShader(m_ps);		//ピクセルシェーダーを設定
+		rc.VSSetShader(m_vs);		//頂点シェーダーを設定
+		m_primitive.Draw(rc);
 	}
 }

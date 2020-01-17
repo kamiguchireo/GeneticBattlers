@@ -108,8 +108,8 @@ void Shader::Release()
 bool Shader::Load(const char* filePath, const char* entryFuncName, EnType shaderType)
 {
 	Release();
-	auto&ge = m_graphicsEngine;
-	bool result = ShaderResources::GetInstance().Load(
+	auto&ge = g_graphicsEngine;
+		bool result = ShaderResources::GetInstance().Load(
 		m_shader,
 		m_inputLayout,
 		m_blobOut,

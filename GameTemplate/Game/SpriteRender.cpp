@@ -20,5 +20,12 @@ namespace Engine {
 			m_sprite.Update(m_position, m_rotation, m_scale, m_pivot);
 		}
 
+		void SpriteRender::PostRender(RenderContext&rc)
+		{
+			if (m_isDraw3D == false)
+			{
+				m_sprite.Draw(rc, g_graphicsEngine->Get2DCamera().GetViewMatrix(), g_graphicsEngine->Get2DCamera().GetProjectionMatrix());
+			}
+		}
 	}
 }

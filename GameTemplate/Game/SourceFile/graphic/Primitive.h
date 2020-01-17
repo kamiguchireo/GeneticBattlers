@@ -1,8 +1,9 @@
 #pragma once
 #include "SourceFile/graphic/GPUBuffer/IndexBuffer.h"
 #include "SourceFile/graphic/GPUBuffer/VertexBuffer.h"
+#include "SourceFile/graphic/RenderContext.h"
+
 namespace Engine {
-	
 	//プリミティブ
 	class Primitive
 	{
@@ -12,6 +13,7 @@ namespace Engine {
 		//デストラクタ
 		~Primitive();
 
+		//開放処理
 		void Release();
 
 		bool Create(
@@ -23,6 +25,12 @@ namespace Engine {
 			IndexBuffer::EnIndexType indexType,
 			void*pSrcIndexBuffer
 		);
+
+		//描画
+		void Draw(RenderContext& rc);
+
+		//描画
+		void Draw(RenderContext& rc, int numVertex);
 
 	private:
 		IndexBuffer m_indexBuffer;		//インデックスバッファ

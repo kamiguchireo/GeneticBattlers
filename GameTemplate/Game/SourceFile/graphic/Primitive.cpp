@@ -53,4 +53,27 @@ namespace Engine {
 		return true;
 	}
 
+	//描画
+	void Primitive::Draw(RenderContext& rc)
+	{
+		//頂点バッファを設定。
+		rc.IASetVertexBuffer(m_vertexBuffer);
+		//インデックスバッファを設定
+		rc.IASetIndexBuffer(m_indexBuffer);
+		//プリミティブのトポロジーを設定。
+		rc.IASetPrimitiveTopology(m_topology);
+		//描画。
+		rc.DrawIndexed(m_indexBuffer.GetNumIndex(), 0, 0);
+	}
+
+	//描画
+	void Primitive::Draw(RenderContext& rc, int numVertex)
+	{
+		rc.IASetVertexBuffer(m_vertexBuffer);
+		//プリミティブのトポロジーを設定。
+		rc.IASetPrimitiveTopology(m_topology);
+		//描画。
+		rc.Draw(numVertex, 0);
+	}
+
 }
