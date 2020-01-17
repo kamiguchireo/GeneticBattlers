@@ -9,15 +9,15 @@ struct SkillData;
 /// 魔法攻撃力はINTだとint型と間違えそうだからMATとした。
 /// </remarks>
 struct Status {
-	int MAXHP,
-		HP,
-		MAXMP,
-		MP,
-		ATK,
-		DEF,
-		MAT,
-		MDF,
-		DEX;
+	int MAXHP	= 0,
+		HP		= 0,
+		MAXMP	= 0,
+		MP		= 0,
+		ATK		= 0,
+		DEF		= 0,
+		MAT		= 0,
+		MDF		= 0,
+		DEX		= 0;
 		//baseATK,
 		//baseDEF,
 		//baseMAT,
@@ -54,6 +54,25 @@ public:
 	{
 		return m_status;
 	}
+	//ステータスの設定。
+	//正直ファイルからロードしたい。
+	void SetStatus(int hp, int mp, int atk, int def, int mat, int mdf, int dex);
+	//ステータスの設定。(ステータス構造体ver)。
+	void SetStatus(const Status& status)
+	{
+		m_status = status;
+		m_status.HP = m_status.MAXHP;
+		m_status.MP = m_status.MAXMP;
+	}
+	//座標の設定。
+	void SetPosition(const CVector3& pos)
+	{
+		m_position = pos;
+	}
+	//描画処理。
+	void Draw();
+	//
+	bool AddATB();
 	/// <summary>
 	/// ダメージを与える。
 	/// </summary>
@@ -61,6 +80,7 @@ public:
 	void Damage(int damage)
 	{
 		m_status.HP -= damage;
+		m_status.HP = max(0, m_status.HP);
 	}
 	/// <summary>
 	/// HPを回復させる。
@@ -69,6 +89,7 @@ public:
 	void Healing(int healing)
 	{
 		m_status.HP += healing;
+		m_status.HP = min(0, m_status.MAXHP);
 	}
 	/// <summary>
 	/// MPを使う。
@@ -84,18 +105,25 @@ public:
 	/// <param name="skill">スキルデータへのポインタ。</param>
 	/// <param name="target">ターゲット。</param>
 	void UseSkill(SkillData* skill,MonsterBase& target);
-	
-
-protected:
+	//ステートの更新処理。
+	void StateUpdate();
 	/// <summary>
 	/// ステートに応じて行動を決める。
 	/// </summary>
-	void Action();
-	SkinModel* m_model = nullptr;						//モデルデータ。
+	bool Action();
+
+	virtual bool Action_good() { return false; }
+	virtual bool Action_usually() { return false; }
+	virtual bool Action_bad() { return false; }
+	
+
+protected:
+	SkinModel m_model;									//モデルデータ。
 	CVector3 m_position = CVector3::Zero();				//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転。
 	Status m_status;									//ステータス。
 	bool m_isDeath = false;								//戦闘不能フラグ。
 	int m_stateAI = en_state_Good;						//ステート。
+	float m_activeTime = 0.0f;
 };
 
