@@ -55,6 +55,7 @@ public:
 	 */
 	void EndRender();
 
+
 	ID3D11RasterizerState* GetRasterizerState()
 	{
 		return m_rasterizerState;

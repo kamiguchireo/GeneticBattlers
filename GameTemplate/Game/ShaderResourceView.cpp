@@ -62,26 +62,36 @@ namespace Engine {
 		//すでに中身があるかもしれないから
 		//開放処理をする
 		Release();
-		//失敗の原因まで出してくれる便利な奴
-		HRESULT hr = DirectX::CreateDDSTextureFromFileEx(
-			g_graphicsEngine->GetD3DDevice(),
-			fileName,
-			0,
-			D3D11_USAGE_DEFAULT,		//バッファーで想定されている読み書きの方法
-			D3D11_BIND_SHADER_RESOURCE,		//バッファーをどのようにパイプラインにバインドするか
-			0,
-			0,
-			false,
-			nullptr
-			,&m_srv
-		);
-		//失敗の原因を特定
-		if (FAILED(hr))
+		ID3D11ShaderResourceView* m_srv;
+		auto it = m_list.find(fileName);
+		if (it == m_list.end())
 		{
-			//失敗したのでfalseを返す
-			return false;
+			//失敗の原因まで出してくれる便利な奴
+			HRESULT hr = DirectX::CreateDDSTextureFromFileEx(
+				g_graphicsEngine->GetD3DDevice(),
+				fileName,
+				0,
+				D3D11_USAGE_DEFAULT,		//バッファーで想定されている読み書きの方法
+				D3D11_BIND_SHADER_RESOURCE,		//バッファーをどのようにパイプラインにバインドするか
+				0,
+				0,
+				false,
+				nullptr
+				, &m_srv
+			);
+			//失敗の原因を特定
+			if (FAILED(hr))
+			{
+				//失敗したのでfalseを返す
+				return false;
+			}
+			m_list.insert(std::make_pair(fileName, m_srv));
+		}
+		else
+		{
+			m_srv = it->second;
 		}
 		//成功したのでtrueを返す
-		return true;
+		return m_srv;
 	}
 }

@@ -27,11 +27,15 @@ namespace Engine {
 		);
 
 		//描画
-		void Draw(RenderContext& rc);
+		//void Draw(RenderContext& rc);
 
 		//描画
-		void Draw(RenderContext& rc, int numVertex);
+		//void Draw(RenderContext& rc, int numVertex);
 
+		//描画
+		void Draw(ID3D11DeviceContext&rc);
+		//描画
+		void Draw(ID3D11DeviceContext&rc, int numVertex);
 	private:
 		IndexBuffer m_indexBuffer;		//インデックスバッファ
 		VertexBuffer m_vertexBuffer;		//頂点バッファ

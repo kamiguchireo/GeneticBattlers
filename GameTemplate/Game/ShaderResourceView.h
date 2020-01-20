@@ -15,15 +15,20 @@ namespace Engine {
 		//fileName		ファイル名
 		bool CreateFromDDSTextureFromFile(const wchar_t*fileName);
 
+		//ID3D11DeviceContext*& GetBody()
+		//{
+		//	return m_srv;
+		//}
 		//開放処理
 		void Release();
 
 		//ID3D11ShaderResourceViewを取得
-		ID3D11ShaderResourceView*&GetBody()
+		ID3D11ShaderResourceView*& GetBody()
 		{
 			return m_srv;
 		}
 	private:
+		std::map<std::wstring, ID3D11ShaderResourceView*> m_list;
 		ID3D11ShaderResourceView* m_srv = nullptr;
 		bool m_isValid = false;		//有効なデータかどうか
 	};

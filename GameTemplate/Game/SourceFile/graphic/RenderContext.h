@@ -6,6 +6,7 @@
 #include "graphics/Shader.h"
 
 namespace Engine {
+
 	class RenderContext
 	{
 	public:

@@ -8,14 +8,14 @@ namespace Engine {
 		{
 			m_isDraw3D = isDraw3D;
 			m_texture.CreateFromDDSTextureFromFile(texFilePath);
-			m_sprite.Init(m_texture, w, h);
+			m_sprite.Init(m_texture.GetBody(), w, h);
 		}
 
 		//更新処理
 		void SpriteRender::Update()
 		{
 			//スプライトにテクスチャを設定する
-			m_sprite.SetTexture(m_texture);
+			//m_sprite.SetTexture(m_texture);
 			//スプライトの更新処理を呼び出す
 			m_sprite.Update(m_position, m_rotation, m_scale, m_pivot);
 		}

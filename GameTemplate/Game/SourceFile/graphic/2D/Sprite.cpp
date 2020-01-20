@@ -18,7 +18,7 @@ namespace Engine {
 	}
 
 	//初期化処理
-	void Sprite::Init(ShaderResourceView& tex, float w, float h)
+	void Sprite::Init(ID3D11ShaderResourceView* tex, float w, float h)
 	{
 		//シェーダーロード
 		//ピクセルシェーダー
@@ -71,7 +71,7 @@ namespace Engine {
 		);
 		//Init関数の中身
 		//テクスチャのシェーダーリソースビュー
-		m_textureSRV = &tex;
+		m_textureSRV = tex;
 		m_cb.Create(nullptr, sizeof(SSpriteCB));
 		//初期化フラグをtrueにする
 		m_isInited = true;
@@ -86,7 +86,6 @@ namespace Engine {
 		if (m_isInited == false)
 		{
 			//初期化されていないとき
-			//何も返さない
 			return;
 		}
 		//初期化されているとき
@@ -136,6 +135,7 @@ namespace Engine {
 	*/
 	void Sprite::Draw(RenderContext&rc, const CMatrix&viewMatrix, const CMatrix&projMatrix)
 	{
+		ID3D11DeviceContext* DeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 		if (m_isInited == false)
 		{
 			//初期化されていない
@@ -151,13 +151,20 @@ namespace Engine {
 		cb.WVP.Mul(cb.WVP, projMatrix);		//ワールド行列にプロジェクション行列を乗算
 		cb.mulColor = m_mulColor;		//乗算カラーを初期化
 
-		//ここからリソースコンテキストを利用していく
-		rc.UpdateSubresource(m_cb, &cb);		//サブリソースを更新
-		rc.VSSetConstantBuffer(0, m_cb);		//VSステージに定数バッファを設定
-		rc.PSSetConstantBuffer(0, m_cb);		//PSステージに定数バッファを設定
-		rc.PSSetShaderResource(0, *m_textureSRV);		//PSステージにSRVを設定
-		rc.PSSetShader(m_ps);		//ピクセルシェーダーを設定
-		rc.VSSetShader(m_vs);		//頂点シェーダーを設定
-		m_primitive.Draw(rc);
+		DeviceContext->UpdateSubresource(m_cb.GetBody(), 0, NULL, &cb, 0, 0);
+		DeviceContext->VSSetConstantBuffers(0, 1, &(m_cb.GetBody()));
+		DeviceContext->PSSetConstantBuffers(0, 1, &(m_cb.GetBody()));
+		DeviceContext->PSSetShaderResources(1, 1, &m_textureSRV);
+		DeviceContext->PSSetShader((ID3D11PixelShader*)m_ps.GetBody(), NULL, 0);
+		DeviceContext->VSSetShader((ID3D11VertexShader*)m_vs.GetBody(), NULL, 0);
+		DeviceContext->IASetInputLayout(m_vs.GetInputLayout());
+		m_primitive.Draw(*DeviceContext);
+		//rc.UpdateSubresource(m_cb, &cb);		//サブリソースを更新
+		//rc.VSSetConstantBuffer(0, m_cb);		//VSステージに定数バッファを設定
+		//rc.PSSetConstantBuffer(0, m_cb);		//PSステージに定数バッファを設定
+		//rc.PSSetShaderResource(0, *m_textureSRV);		//PSステージにSRVを設定
+		//rc.PSSetShader(m_ps);		//ピクセルシェーダーを設定
+		//rc.VSSetShader(m_vs);		//頂点シェーダーを設定
+		//m_primitive.Draw(rc);
 	}
 }

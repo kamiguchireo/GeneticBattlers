@@ -20,14 +20,14 @@ namespace Engine {
 		初期化
 		tex		.テクスチャ
 		*/
-		void Init(ShaderResourceView&tex, float w, float h);
+		void Init(ID3D11ShaderResourceView* tex, float w, float h);
 
 		//テクスチャを設定
 		//tex		テクスチャ
-		void SetTexture(ShaderResourceView& tex)
-		{
-			m_textureSRV = &tex;
-		}
+		//void SetTexture(ShaderResourceView& tex)
+		//{
+		//	m_textureSRV = &tex;
+		//}
 
 		//アップデート関数
 		//trans		平行移動
@@ -57,7 +57,8 @@ namespace Engine {
 		CVector4 m_mulColor = CVector4::White();		//乗算カラー
 		CVector2 m_size = CVector2::Zero();			//サイズ
 		Primitive m_primitive;			//プリミティブ
-		ShaderResourceView* m_textureSRV = nullptr;		//テクスチャ
+		//ShaderResourceView* m_textureSRV = nullptr;		//テクスチャ
+		ID3D11ShaderResourceView*m_textureSRV = nullptr;
 		ConstantBuffer m_cb;
 		CMatrix m_world = CMatrix::Identity();		//ワールド行列
 		bool m_isInited = false;		//初期化フラグ
