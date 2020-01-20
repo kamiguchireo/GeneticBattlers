@@ -3,12 +3,15 @@
 
 struct SkillData;
 
-class SkillList
+class SkillList : public IGameObject
 {
 public:
 	SkillList();
 	~SkillList();
+
+	virtual bool UseSkill() { return false; };
+
 private:
-	std::vector<SkillData>m_skillList;
+	//std::vector<SkillData>m_skillList;
 };
 
