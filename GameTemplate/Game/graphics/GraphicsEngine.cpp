@@ -103,6 +103,17 @@ void GraphicsEngine::Init(HWND hWnd)
 		&m_pd3dDeviceContext							//作成したD3Dデバイスコンテキストのアドレスの格納先。
 	);
 
+	m_pd3dDevice->CheckFeatureSupport(
+		D3D11_FEATURE_THREADING,
+		&m_featureDataThreading,
+		sizeof(m_featureDataThreading)
+	);
+	if (m_featureDataThreading.DriverCommandLists == TRUE)
+	{
+		m_pd3dDevice->CreateDeferredContext(0, &m_pDeferredDeviceContext);
+	}
+	//レンダリングコンテキストの初期化
+	m_renderContext.Init(m_pd3dDeviceContext, m_pDeferredDeviceContext);
 	//書き込み先になるレンダリングターゲットを作成。
 	ID3D11Texture2D* pBackBuffer = NULL;
 	m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
@@ -149,6 +160,7 @@ void GraphicsEngine::Init(HWND hWnd)
 	viewport.TopLeftY = 0;
 	viewport.MinDepth = 0.0f;
 	viewport.MaxDepth = 1.0f;
+
 	m_pd3dDeviceContext->RSSetViewports(1, &viewport);
 	m_pd3dDeviceContext->RSSetState(m_rasterizerState);
 }

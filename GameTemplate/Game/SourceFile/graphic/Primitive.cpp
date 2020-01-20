@@ -53,4 +53,58 @@ namespace Engine {
 		return true;
 	}
 
+	////描画
+	//void Primitive::Draw(RenderContext& rc)
+	//{
+	//	//頂点バッファを設定。
+	//	rc.IASetVertexBuffer(m_vertexBuffer);
+	//	//インデックスバッファを設定
+	//	rc.IASetIndexBuffer(m_indexBuffer);
+	//	//プリミティブのトポロジーを設定。
+	//	rc.IASetPrimitiveTopology(m_topology);
+	//	//描画。
+	//	rc.DrawIndexed(m_indexBuffer.GetNumIndex(), 0, 0);
+	//}
+
+
+
+	////描画
+	//void Primitive::Draw(RenderContext& rc, int numVertex)
+	//{
+	//	rc.IASetVertexBuffer(m_vertexBuffer);
+	//	//プリミティブのトポロジーを設定。
+	//	rc.IASetPrimitiveTopology(m_topology);
+	//	//描画。
+	//	rc.Draw(numVertex, 0);
+	//}
+
+	void Primitive::Draw(ID3D11DeviceContext&rc)
+	{
+		//頂点バッファを設定
+		UINT ofset = 0;
+		UINT stride = m_vertexBuffer.GetStride();
+		rc.IASetVertexBuffers(0, 1, &(m_vertexBuffer.GetBody()), &stride, &ofset);
+		auto type = m_indexBuffer.GetIndexType();
+		rc.IASetIndexBuffer(
+			m_indexBuffer.GetBody(),
+			type == IndexBuffer::enIndexType_16 ? DXGI_FORMAT_R16_UINT : DXGI_FORMAT_R32_UINT,
+			0
+		);
+		//プリミティブのトポロジーを設定
+		rc.IASetPrimitiveTopology(m_topology);
+		//描画
+		rc.DrawIndexed(m_indexBuffer.GetNumIndex(), 0, 0);
+	}
+
+	void Primitive::Draw(ID3D11DeviceContext& rc, int numVertex)
+	{
+		//頂点バッファの設定
+		UINT ofset = 0;
+		UINT stride = m_vertexBuffer.GetStride();
+		rc.IASetVertexBuffers(0, 1, &(m_vertexBuffer.GetBody()), &stride, &ofset);
+		//プリミティブのトポロジーを設定
+		rc.IASetPrimitiveTopology(m_topology);
+		//描画
+		rc.Draw(numVertex, 0);
+	}
 }

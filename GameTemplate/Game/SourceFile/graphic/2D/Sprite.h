@@ -3,6 +3,7 @@
 #include "graphics/Shader.h"
 #include "SourceFile/graphic/Primitive.h"
 #include "ConstantBuffer.h"
+#include "SourceFile/graphic/RenderContext.h"
 
 namespace Engine {
 	class Sprite
@@ -19,14 +20,14 @@ namespace Engine {
 		初期化
 		tex		.テクスチャ
 		*/
-		void Init(ShaderResourceView&tex, float w, float h);
+		void Init(ID3D11ShaderResourceView* tex, float w, float h);
 
 		//テクスチャを設定
 		//tex		テクスチャ
-		void SetTexture(ShaderResourceView& tex)
-		{
-			m_textureSRV = &tex;
-		}
+		//void SetTexture(ShaderResourceView& tex)
+		//{
+		//	m_textureSRV = &tex;
+		//}
 
 		//アップデート関数
 		//trans		平行移動
@@ -38,6 +39,12 @@ namespace Engine {
 		//1.0, 1.0で画像の右上。
 		void Update(const CVector3& trans, const CQuaternion& rot, const CVector3& scale, const CVector2& pivot = DEFAULT_PIVOT);
 	
+		/*
+		描画
+		viewMatrix		ビュー行列
+		projMatrix		プロジェクション行列
+		*/
+		void Draw(RenderContext& renderContext, const CMatrix&viewMatrix, const CMatrix& projMatrix);
 	private:
 		//定数バッファ(ConstantBuffer)のCreate関数の引数に使用する
 		struct SSpriteCB
@@ -47,9 +54,11 @@ namespace Engine {
 		};
 		Shader m_ps;			//ピクセルシェーダー
 		Shader m_vs;			//頂点シェーダー
+		CVector4 m_mulColor = CVector4::White();		//乗算カラー
 		CVector2 m_size = CVector2::Zero();			//サイズ
 		Primitive m_primitive;			//プリミティブ
-		ShaderResourceView* m_textureSRV = nullptr;		//テクスチャ
+		//ShaderResourceView* m_textureSRV = nullptr;		//テクスチャ
+		ID3D11ShaderResourceView*m_textureSRV = nullptr;
 		ConstantBuffer m_cb;
 		CMatrix m_world = CMatrix::Identity();		//ワールド行列
 		bool m_isInited = false;		//初期化フラグ

@@ -1,6 +1,7 @@
 #pragma once
 #include "GameObject.h"
 #include "util/Util.h"
+#include "SourceFile/graphic/RenderContext.h"
 
 namespace Engine {
 	class CGameObjectManager
@@ -120,7 +121,9 @@ namespace Engine {
 	public:
 		void Start();
 		void Update();
-
+		void PostRender(RenderContext& rc);
+		//描画処理の実行
+		void ExecuteRender();
 	private:
 		//ゲームオブジェクトの削除を実行
 		void ExecuteDeleteGameObjects();

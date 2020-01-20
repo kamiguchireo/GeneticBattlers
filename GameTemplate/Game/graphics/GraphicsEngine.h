@@ -1,4 +1,7 @@
 #pragma once
+#include "Camera.h"
+#include "SourceFile/graphic/RenderContext.h"
+
 /*!
  *@brief	グラフィックスエンジン。
  */
@@ -30,6 +33,19 @@ public:
 	{
 		return m_pd3dDeviceContext;
 	}
+	Camera&GetMainCamera()
+	{
+		return m_mainCamera;		//カメラ
+	}
+	Camera&Get2DCamera()
+	{
+		return m_2DCamera;
+	}
+	//レンダリングコンテキストのインスタンスを取得
+	Engine::RenderContext& GetRenderContext()
+	{
+		return m_renderContext;
+	}
 	/*!
 	 *@brief	描画開始。
 	 */
@@ -38,7 +54,18 @@ public:
 	 *@brief	描画終了。
 	 */
 	void EndRender();
+
+
+	ID3D11RasterizerState* GetRasterizerState()
+	{
+		return m_rasterizerState;
+	}
 private:
+	Camera m_mainCamera;		//カメラ
+	Camera m_2DCamera;
+	Engine::RenderContext m_renderContext;		//レンダリングコンテキスト。
+	//ID3D11DeviceContext* m_pImmediateContext = nullptr;		//D3D11即時デバイスコンテキスト
+	ID3D11DeviceContext* m_pDeferredDeviceContext = nullptr;		//D3D11ディファードデバイスコンテキスト
 	D3D_FEATURE_LEVEL		m_featureLevel;				//Direct3D デバイスのターゲットとなる機能セット。
 	ID3D11Device*			m_pd3dDevice = NULL;		//D3D11デバイス。
 	IDXGISwapChain*			m_pSwapChain = NULL;		//スワップチェイン。
@@ -47,7 +74,7 @@ private:
 	ID3D11RasterizerState*	m_rasterizerState = NULL;	//ラスタライザステート。
 	ID3D11Texture2D*		m_depthStencil = NULL;		//デプスステンシル。
 	ID3D11DepthStencilView* m_depthStencilView = NULL;	//デプスステンシルビュー。
-
+	D3D11_FEATURE_DATA_THREADING m_featureDataThreading;
 };
 
 extern GraphicsEngine* g_graphicsEngine;			//グラフィックスエンジン

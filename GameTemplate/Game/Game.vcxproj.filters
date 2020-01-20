@@ -314,4 +314,7 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\mikyan.jpg" />
+  </ItemGroup>
 </Project>

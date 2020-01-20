@@ -28,11 +28,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//スプライトを初期化
 	m_spriteRender = NewGO<prefab::SpriteRender>(0,"sprite");
-	m_spriteRender->Init(L"sprite/mikyan.dds", 400, 300);
+	m_spriteRender->Init(L"Assets/sprite/mikyan.dds", 400, 300);
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
+		
 		//描画開始。
 		g_graphicsEngine->BegineRender();
 		//ゲームパッドの更新。	
@@ -44,7 +45,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		GameObjectManager().Start();
 		GameObjectManager().Update();
-
 		//カメラの更新。
 		g_camera3D.Update();
 		//描画終了。

@@ -20,7 +20,8 @@ namespace Engine {
 
 			//アップデート関数
 			void Update();
-
+			//描画
+			void PostRender(RenderContext&rc)override final;
 		private:
 			bool m_isDraw3D = false;		//3D空間で描画する
 			ShaderResourceView m_texture;		//テクスチャ

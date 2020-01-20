@@ -1,7 +1,6 @@
 #include "stdafx.h"
 #include "GameObjectManager.h"
 
-
 namespace Engine {
 
 	void CGameObjectManager::Start()
@@ -24,7 +23,7 @@ namespace Engine {
 				obj->UpdateWrapper();
 			}
 		}
-
+		ExecuteRender();
 		ExecuteDeleteGameObjects();
 	}
 
@@ -54,5 +53,23 @@ namespace Engine {
 			}
 			goList.clear();
 		}
+	}
+
+	void CGameObjectManager::PostRender(RenderContext& rc)
+	{
+		for (GameObjectList objList : m_gameObjectListArray)
+		{
+			for (IGameObject*obj : objList)
+			{
+				obj->PostRenderWrapper(rc);
+			}
+		}
+	}
+
+	void CGameObjectManager::ExecuteRender()
+	{
+		RenderContext& renderContext = g_graphicsEngine->GetRenderContext();
+		//2D‚Ì•\Ž¦
+		PostRender(renderContext);
 	}
 }

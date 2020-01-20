@@ -26,6 +26,21 @@ namespace Engine {
 		//開放
 		void Release();
 
+		//インデックスの型を取得
+		EnIndexType GetIndexType() const
+		{
+			return m_indexType;
+		}
+		//ID3D11Bufferを取得
+		ID3D11Buffer*GetBody()const
+		{
+			return m_indexBuffer;
+		}
+		//インデックスの数を取得
+		unsigned int GetNumIndex()const
+		{
+			return m_numIndex;
+		}
 	private:
 		bool m_isCreated = false;		//インデックスバッファが作成されているかどうか
 		ID3D11Buffer* m_indexBuffer = nullptr;		//インデックスバッファ
