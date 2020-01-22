@@ -24,7 +24,7 @@ namespace Engine {
 		{
 			if (m_isDraw3D == false)
 			{
-				m_sprite.Draw(rc, g_graphicsEngine->Get2DCamera().GetViewMatrix(), g_graphicsEngine->Get2DCamera().GetProjectionMatrix());
+				m_sprite.Draw(g_graphicsEngine->Get2DCamera().GetViewMatrix(), g_graphicsEngine->Get2DCamera().GetProjectionMatrix());
 			}
 		}
 	}

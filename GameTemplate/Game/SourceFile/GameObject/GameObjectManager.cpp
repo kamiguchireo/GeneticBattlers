@@ -70,6 +70,7 @@ namespace Engine {
 	{
 		RenderContext& renderContext = g_graphicsEngine->GetRenderContext();
 		//2D‚Ì•\Ž¦
+		g_graphicsEngine->Execute2DDraw();
 		PostRender(renderContext);
 	}
 }

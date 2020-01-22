@@ -1,6 +1,7 @@
 #pragma once
 #include "Camera.h"
 #include "SourceFile/graphic/RenderContext.h"
+#include "SourceFile/graphic/2D/Sprite.h"
 
 /*!
  *@brief	グラフィックスエンジン。
@@ -39,7 +40,16 @@ public:
 	}
 	Camera&Get2DCamera()
 	{
-		return m_2DCamera;
+		return g_camera2D;
+	}
+
+	void Execute2DDraw()
+	{
+		m_sprite.Draw
+		(
+			g_camera2D.GetViewMatrix(),
+			g_camera2D.GetProjectionMatrix()
+		);
 	}
 	//レンダリングコンテキストのインスタンスを取得
 	Engine::RenderContext& GetRenderContext()
@@ -62,7 +72,8 @@ public:
 	}
 private:
 	Camera m_mainCamera;		//カメラ
-	Camera m_2DCamera;
+	//Camera m_2DCamera;
+	Engine::Sprite m_sprite;
 	Engine::RenderContext m_renderContext;		//レンダリングコンテキスト。
 	//ID3D11DeviceContext* m_pImmediateContext = nullptr;		//D3D11即時デバイスコンテキスト
 	ID3D11DeviceContext* m_pDeferredDeviceContext = nullptr;		//D3D11ディファードデバイスコンテキスト

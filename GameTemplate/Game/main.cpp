@@ -4,6 +4,8 @@
 #include "SourceFile/GameObject/GameObjectManager.h"
 #include "Game.h"
 #include "SpriteRender.h"
+#include "ShaderResourceView.h"
+#include "SourceFile/graphic/2D/Sprite.h"
 
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -24,11 +26,19 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	NewGO<Game>(0, nullptr);
 
 	//スプライトの確認のためのポインタ
-	prefab::SpriteRender*m_spriteRender;
+	//prefab::SpriteRender*m_spriteRender;
 
 	//スプライトを初期化
-	m_spriteRender = NewGO<prefab::SpriteRender>(0,"sprite");
-	m_spriteRender->Init(L"Assets/sprite/mikyan.dds", 400, 300);
+	//m_spriteRender = NewGO<prefab::SpriteRender>(0,"sprite");
+	//m_spriteRender->Init(L"Assets/sprite/mikyan.dds", 400, 300);
+	const float FRAME_BUFFER_W = 1280.0;				//フレームバッファの幅。
+	const float FRAME_BUFFER_H = 720.0f;				//フレームバッファの高さ。
+
+	ShaderResourceView m_srv;
+	Sprite sprite;
+	m_srv.CreateFromDDSTextureFromFile(L"Assets/sprite/mikyan.dds");
+	sprite.Init(m_srv.GetBody(), FRAME_BUFFER_W, FRAME_BUFFER_H);
+	sprite.Update(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
@@ -47,6 +57,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		GameObjectManager().Update();
 		//カメラの更新。
 		g_camera3D.Update();
+		sprite.Update(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
+
 		//描画終了。
 		g_graphicsEngine->EndRender();
 	}

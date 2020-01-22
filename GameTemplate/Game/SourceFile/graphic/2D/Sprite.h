@@ -44,7 +44,7 @@ namespace Engine {
 		viewMatrix		ビュー行列
 		projMatrix		プロジェクション行列
 		*/
-		void Draw(RenderContext& renderContext, const CMatrix&viewMatrix, const CMatrix& projMatrix);
+		void Draw(const CMatrix&viewMatrix, const CMatrix& projMatrix);
 	private:
 		//定数バッファ(ConstantBuffer)のCreate関数の引数に使用する
 		struct SSpriteCB

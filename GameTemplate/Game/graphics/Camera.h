@@ -10,6 +10,7 @@ public:
 	 * この関数を呼ばないと、カメラは動かないので注意が必要です。
 	 */
 	void Update();
+
 	/*!
 	 * @brief	カメラ行列を取得。
 	 */
@@ -87,7 +88,9 @@ public:
 	{
 		m_viewAngle = angle;
 	}
+
 private:
+
 	CMatrix	m_viewMatrix = CMatrix::Identity();		//ビュー行列。
 	CMatrix m_projMatrix = CMatrix::Identity();		//プロジェクション行列。
 	CVector3 m_target = CVector3::Zero();			//注視点。
@@ -99,3 +102,4 @@ private:
 };
 
 extern Camera g_camera3D;		//!<3Dカメラ。
+extern Camera g_camera2D;

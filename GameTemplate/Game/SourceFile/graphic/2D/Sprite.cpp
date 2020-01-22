@@ -36,19 +36,19 @@ namespace Engine {
 		{
 			{
 				CVector4(-halfW,-halfH,0.0f,1.0f),
-				CVector2(0.0f,1.0f),
+				CVector2(0.0f,0.0f),
 			},
 			{
 				CVector4(halfW,-halfH,0.0f,1.0f),
-				CVector2(1.0f,1.0),
+				CVector2(1.0f,0.0),
 			},
 		    {
 				CVector4(-halfW,halfH,0.0f,1.0f),
-				CVector2(1.0f,0.0f),
+				CVector2(1.0f,1.0f),
 			},
 			{
 				CVector4(halfW,halfH,0.0f,1.0f),
-				CVector2(1.0f,0.0f),
+				CVector2(0.0f,1.0f),
 			},
 		};
 		short indices[] = { 0,1,2,3 };
@@ -133,7 +133,7 @@ namespace Engine {
 	viewMatrix		ビュー行列
 	projMatrix		プロジェクション行列
 	*/
-	void Sprite::Draw(RenderContext&rc, const CMatrix&viewMatrix, const CMatrix&projMatrix)
+	void Sprite::Draw(const CMatrix&viewMatrix, const CMatrix&projMatrix)
 	{
 		ID3D11DeviceContext* DeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 		if (m_isInited == false)

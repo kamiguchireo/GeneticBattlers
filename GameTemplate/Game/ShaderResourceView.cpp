@@ -57,7 +57,7 @@ namespace Engine {
 	}
 	//DDSファイルからテクスチャ用のSRVを作成
 	//fileName		ファイル名
-	bool ShaderResourceView::CreateFromDDSTextureFromFile(const wchar_t*fileName)
+	ID3D11ShaderResourceView* ShaderResourceView::CreateFromDDSTextureFromFile(const wchar_t*fileName)
 	{
 		//すでに中身があるかもしれないから
 		//開放処理をする
