@@ -36,19 +36,19 @@ namespace Engine {
 		{
 			{
 				CVector4(-halfW,-halfH,0.0f,1.0f),
-				CVector2(0.0f,0.0f),
+				CVector2(0.0f,1.0f),
 			},
 			{
 				CVector4(halfW,-halfH,0.0f,1.0f),
-				CVector2(1.0f,0.0),
+				CVector2(1.0f,1.0),
 			},
 		    {
 				CVector4(-halfW,halfH,0.0f,1.0f),
-				CVector2(1.0f,1.0f),
+				CVector2(0.0f,0.0f),
 			},
 			{
 				CVector4(halfW,halfH,0.0f,1.0f),
-				CVector2(0.0f,1.0f),
+				CVector2(1.0f,0.0f),
 			},
 		};
 		short indices[] = { 0,1,2,3 };

@@ -39,8 +39,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	ShaderResourceView m_srv;
 	Sprite sprite;
-	m_srv.CreateFromDDSTextureFromFile(L"Assets/sprite/mikyan.dds");
-	sprite.Init(m_srv.GetBody(), FRAME_BUFFER_W, FRAME_BUFFER_H);
+	m_srv.CreateFromDDSTextureFromFile(L"Assets/sprite/win.dds");
+	sprite.Init(m_srv.GetBody(), 500.0f, 500.0f);
 	sprite.Update({0.0,0.0,5.0}, CQuaternion::Identity(), CVector3::One());
 	g_camera2D.Update2D();
 	
