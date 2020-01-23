@@ -136,11 +136,11 @@ namespace Engine {
 	void Sprite::Draw(const CMatrix&viewMatrix, const CMatrix&projMatrix)
 	{
 		ID3D11DeviceContext* DeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-		if (m_isInited == false)
-		{
-			//‰Šú‰»‚³‚ê‚Ä‚¢‚È‚¢
-			return;
-		}
+		//if (m_isInited == false)
+		//{
+		//	//‰Šú‰»‚³‚ê‚Ä‚¢‚È‚¢
+		//	return;
+		//}
 		if (m_textureSRV == nullptr)
 		{
 			return;

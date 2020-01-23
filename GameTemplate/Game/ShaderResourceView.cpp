@@ -57,12 +57,12 @@ namespace Engine {
 	}
 	//DDSファイルからテクスチャ用のSRVを作成
 	//fileName		ファイル名
-	ID3D11ShaderResourceView* ShaderResourceView::CreateFromDDSTextureFromFile(const wchar_t*fileName)
+	bool ShaderResourceView::CreateFromDDSTextureFromFile(const wchar_t*fileName)
 	{
 		//すでに中身があるかもしれないから
 		//開放処理をする
 		Release();
-		ID3D11ShaderResourceView* m_srv;
+		//ID3D11ShaderResourceView* m_srv;
 		auto it = m_list.find(fileName);
 		if (it == m_list.end())
 		{
@@ -76,8 +76,8 @@ namespace Engine {
 				0,
 				0,
 				false,
-				nullptr
-				, &m_srv
+				nullptr,
+				&m_srv
 			);
 			//失敗の原因を特定
 			if (FAILED(hr))
@@ -92,6 +92,7 @@ namespace Engine {
 			m_srv = it->second;
 		}
 		//成功したのでtrueを返す
-		return m_srv;
+		m_isValid = true;
+		return true;
 	}
 }

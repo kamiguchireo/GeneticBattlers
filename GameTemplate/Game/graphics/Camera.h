@@ -10,6 +10,7 @@ public:
 	 * この関数を呼ばないと、カメラは動かないので注意が必要です。
 	 */
 	void Update();
+	void Update2D();
 
 	/*!
 	 * @brief	カメラ行列を取得。

@@ -13,7 +13,7 @@ namespace Engine {
 
 		//DDSファイルからテクスチャ用のSRVを作成
 		//fileName		ファイル名
-		ID3D11ShaderResourceView* CreateFromDDSTextureFromFile(const wchar_t*fileName);
+		bool CreateFromDDSTextureFromFile(const wchar_t*fileName);
 
 		//ID3D11DeviceContext*& GetBody()
 		//{

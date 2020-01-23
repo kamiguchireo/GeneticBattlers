@@ -22,3 +22,15 @@ void Camera::Update()
 		);
 	}
 }
+
+void Camera::Update2D()
+{
+	//ビュー行列を計算。
+	m_viewMatrix.MakeLookAt(
+		m_position,
+		m_target,
+		m_up
+	);
+	m_projMatrix.MakeOrthoProjectionMatrix(FRAME_BUFFER_W, FRAME_BUFFER_H, m_near, m_far);
+
+}
