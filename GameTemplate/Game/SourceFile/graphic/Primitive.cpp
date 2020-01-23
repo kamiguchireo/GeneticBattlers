@@ -33,7 +33,7 @@ namespace Engine {
 		Release();
 		m_topology = topology;
 		//頂点バッファのCreate
-		bool result = m_vertexBuffer.Create(numVertex, vertexStride, pSrcIndexBuffer);
+		bool result = m_vertexBuffer.Create(numVertex, vertexStride, pSrcVertexBuffer);
 		if (!result)
 		{
 			//失敗したらfalseを返す

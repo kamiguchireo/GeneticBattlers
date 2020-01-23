@@ -20,6 +20,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera3D.SetTarget({ 0.0f, 100.0f, 0.0f });
 	g_camera3D.SetFar(10000.0f);
 	
+	g_camera2D.SetPosition({ 0.0f, 0.0f, 0.0f });
+	g_camera2D.SetTarget({ 0.0f, 0.0f, 10.0f });
+	g_camera2D.SetFar(100.0f);
 	//CGameObjectManager gameObject;
 
 	//ゲームクラスの生成。
@@ -38,8 +41,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	Sprite sprite;
 	m_srv.CreateFromDDSTextureFromFile(L"Assets/sprite/mikyan.dds");
 	sprite.Init(m_srv.GetBody(), FRAME_BUFFER_W, FRAME_BUFFER_H);
-	sprite.Update(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
-
+	sprite.Update({0.0,0.0,5.0}, CQuaternion::Identity(), CVector3::One());
+	g_camera2D.Update2D();
+	
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
@@ -57,7 +61,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		GameObjectManager().Update();
 		//カメラの更新。
 		g_camera3D.Update();
-		sprite.Update(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
+		sprite.Update({ 0.0,0.0,5.0 }, CQuaternion::Identity(), CVector3::One());
+		sprite.Draw
+		(
+			g_camera2D.GetViewMatrix(),
+			g_camera2D.GetProjectionMatrix()
+		);
+		//g_graphicsEngine->Execute2DDraw();
 
 		//描画終了。
 		g_graphicsEngine->EndRender();

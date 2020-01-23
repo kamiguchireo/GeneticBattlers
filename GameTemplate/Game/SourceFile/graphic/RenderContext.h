@@ -130,13 +130,13 @@ namespace Engine {
 		StartIndexLocation		描画を開始するインデックスの位置。大抵0で大丈夫
 		BaseVertexLocation		ベース頂点インデックス。大抵0で大丈夫
 		*/
-		void DrawIndexed(
-			_In_ UINT IndexCount,		//インデックスの数
-			_In_ UINT StartIndexLocation,		//描画を開始するインデックスの位置
-			_In_ INT BaseVertexLocation)		//ベース頂点インデックス
-		{
-			m_pD3DDeviceContext->DrawIndexed(IndexCount, StartIndexLocation, BaseVertexLocation);
-		}
+		//void DrawIndexed(
+		//	_In_ UINT IndexCount,		//インデックスの数
+		//	_In_ UINT StartIndexLocation,		//描画を開始するインデックスの位置
+		//	_In_ INT BaseVertexLocation)		//ベース頂点インデックス
+		//{
+		//	m_pD3DDeviceContext->DrawIndexed(IndexCount, StartIndexLocation, BaseVertexLocation);
+		//}
 
 		/*
 		描画

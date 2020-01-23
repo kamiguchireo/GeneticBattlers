@@ -113,7 +113,7 @@ void GraphicsEngine::Init(HWND hWnd)
 		m_pd3dDevice->CreateDeferredContext(0, &m_pDeferredDeviceContext);
 	}
 	//レンダリングコンテキストの初期化
-	m_renderContext.Init(m_pd3dDeviceContext, m_pDeferredDeviceContext);
+	//m_renderContext.Init(m_pd3dDeviceContext, m_pDeferredDeviceContext);
 	//書き込み先になるレンダリングターゲットを作成。
 	ID3D11Texture2D* pBackBuffer = NULL;
 	m_pSwapChain->GetBuffer(0, __uuidof(ID3D11Texture2D), (LPVOID*)&pBackBuffer);
