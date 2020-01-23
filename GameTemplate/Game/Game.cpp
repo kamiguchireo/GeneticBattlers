@@ -52,13 +52,17 @@ void Game::InitMonster()
 
 void Game::MonsterAction()
 {
+	//誰も行動していないなら中断。
 	if (m_monsterACT == nullptr)return;
 
+	//行動が終わるまで行動をさせる。
 	bool is_playAction = m_monsterACT->Action();
 
+	//行動が終わったらポインタにnullを入れる。
 	if (is_playAction) {
 		m_monsterACT = nullptr;
 
+		//残りHPに応じてステートを更新。
 		for (int i = 0; i < m_monsterTeam1List.size(); i++) {
 			m_monsterTeam1List[i]->StateUpdate();
 		}
@@ -67,13 +71,18 @@ void Game::MonsterAction()
 
 void Game::ActiveTimeUpdate()
 {
+	//行動中なら中断。
 	if (m_monsterACT != nullptr)return;
 
+	//全員のタイムゲージを加算していく。
 	for (int i = 0; i < m_monsterTeam1List.size(); i++)
 	{
 		bool is_action = m_monsterTeam1List[i]->AddATB();
+
+		//ゲージが溜まり切ったらポインタを取得する。　
 		if (is_action) {
 			m_monsterACT = m_monsterTeam1List[i];
+			m_monsterACT->SelectUseSkill(m_monsterTeam1List);
 		}
 	}
 }

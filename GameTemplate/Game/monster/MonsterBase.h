@@ -1,6 +1,9 @@
 #pragma once
+#include "Skill/SkillBase.h"
 //前方宣言。
 struct SkillData;
+//enum Elements;
+//class SkillBase;
 
 /// <summary>
 /// ステータスの構造体。
@@ -54,6 +57,10 @@ public:
 	{
 		return m_status;
 	}
+	const Elements& GetElements() const
+	{
+		return m_elemnts;
+	}
 	//ステータスの設定。
 	//正直ファイルからロードしたい。
 	void SetStatus(int hp, int mp, int atk, int def, int mat, int mdf, int dex);
@@ -105,6 +112,9 @@ public:
 	/// <param name="skill">スキルデータへのポインタ。</param>
 	/// <param name="target">ターゲット。</param>
 	void UseSkill(SkillData* skill,MonsterBase& target);
+
+	//void SelectUseSkill(MonsterBase* list);
+	void SelectUseSkill(const std::vector<MonsterBase*>& list);
 	//ステートの更新処理。
 	void StateUpdate();
 	/// <summary>
@@ -124,6 +134,9 @@ protected:
 	Status m_status;									//ステータス。
 	bool m_isDeath = false;								//戦闘不能フラグ。
 	int m_stateAI = en_state_Good;						//ステート。
-	float m_activeTime = 0.0f;
+	float m_activeTime = 0.0f;							//アクティブタイム。
+	Elements m_elemnts = en_elements_Empty;				//属性。
+	SkillBase* m_useSkill = nullptr;					//使用しているスキルのポインタ。
+	MonsterBase* m_target = nullptr;					//スキルの対象。
 };
 

@@ -35,6 +35,9 @@ void MonsterBase::Draw()
 
 bool MonsterBase::AddATB()
 {
+	//死亡時は処理を中断する。
+	if (m_stateAI == en_state_Death) return true;
+
 	m_activeTime += (float)m_status.DEX / 60.0f * 5;
 	if (m_activeTime > 100.0f) {
 		m_activeTime = 0.0f;
@@ -43,19 +46,53 @@ bool MonsterBase::AddATB()
 	return false;
 }
 
+void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& list)
+{
+	if (m_useSkill != nullptr) return;
+
+	//残りHPに応じて行動を決める。
+	switch (m_stateAI)
+	{
+	case en_state_Good:
+		m_useSkill = NewGO<Attack>(0);
+		m_target = list[rand() % 3];
+		break;
+
+	case en_state_Usually:
+		m_useSkill = NewGO<Attack>(0);
+		m_target = list[rand() % 3];
+		break;
+
+	case en_state_Bad:
+		m_useSkill = NewGO<Attack>(0);
+		m_target = list[rand() % 3];
+		break;
+
+	case en_state_Death:
+		break;
+	}
+}
+
 void MonsterBase::StateUpdate()
 {
 	//現在HP/最大HPの割合からステートを変化させる。
-	if (2 / 3 < m_status.HP / m_status.MAXHP) {
+	float nowHP = (float)m_status.HP / (float)m_status.MAXHP;
+
+	if (2.0f / 3.0f < nowHP) {
 		m_stateAI = en_state_Good;
 	}
-	else if (1 / 3 < m_status.HP / m_status.MAXHP) {
+	else if (1.0f / 3.0f < nowHP
+		&& 2.0f / 3.0f > nowHP) {
 		m_stateAI = en_state_Usually;
 	}
-	else if (m_status.HP > 0) {
+	else if (0 < m_status.HP
+		&& 1.0f / 3.0f > nowHP) {
 		m_stateAI = en_state_Bad;
 	}
-	else { m_stateAI = en_state_Death; }
+	else { 
+		m_stateAI = en_state_Death; 
+		m_activeTime = 0.0f;
+	}
 }
 
 bool MonsterBase::Action()
