@@ -61,7 +61,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		GameObjectManager().Update();
 		//カメラの更新。
 		g_camera3D.Update();
-		sprite.Update(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
+		sprite.Update({ 0.0,0.0,5.0 }, CQuaternion::Identity(), CVector3::One());
 		sprite.Draw
 		(
 			g_camera2D.GetViewMatrix(),

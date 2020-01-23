@@ -154,7 +154,7 @@ namespace Engine {
 		DeviceContext->UpdateSubresource(m_cb.GetBody(), 0, NULL, &cb, 0, 0);
 		DeviceContext->VSSetConstantBuffers(0, 1, &(m_cb.GetBody()));
 		DeviceContext->PSSetConstantBuffers(0, 1, &(m_cb.GetBody()));
-		DeviceContext->PSSetShaderResources(1, 1, &m_textureSRV);
+		DeviceContext->PSSetShaderResources(0, 1, &m_textureSRV);
 		DeviceContext->PSSetShader((ID3D11PixelShader*)m_ps.GetBody(), NULL, 0);
 		DeviceContext->VSSetShader((ID3D11VertexShader*)m_vs.GetBody(), NULL, 0);
 		DeviceContext->IASetInputLayout(m_vs.GetInputLayout());

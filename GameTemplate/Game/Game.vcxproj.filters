@@ -316,5 +316,6 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\mikyan.jpg" />
+    <ImageContentTask Include="Assets\sprite\win.png" />
   </ItemGroup>
 </Project>
