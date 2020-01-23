@@ -34,6 +34,8 @@ bool MonsterTeam1::Start()
 
 void MonsterTeam1::Update()
 {
+	if (m_stateAI == en_state_Death) return;	//死亡時は更新しない。
+
 	m_position.y = m_activeTime;
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
@@ -51,6 +53,17 @@ bool MonsterTeam1::Action_good()
 		m_status.DEX += rand() % 5 - 3;
 		m_animation.Play(en_anim_walk, 0.3f);
 
+		MonsterBase* attack = this;
+
+		m_useSkill->UseSkill(attack, m_target);
+
+		if (m_useSkill != nullptr)
+		{
+			DeleteGO(m_useSkill);
+			m_useSkill = nullptr;
+		}
+		m_target = nullptr;
+
 		return true;
 	}
 
@@ -59,10 +72,50 @@ bool MonsterTeam1::Action_good()
 
 bool MonsterTeam1::Action_usually()
 {
+	m_animation.Play(en_anim_run, 0.3f);
+
+	if (!m_animation.IsPlaying()) {
+		m_status.DEX += rand() % 5 - 2;
+		m_animation.Play(en_anim_walk, 0.3f);
+
+		MonsterBase* attack = this;
+
+		m_useSkill->UseSkill(attack, m_target);
+
+		if (m_useSkill != nullptr)
+		{
+			DeleteGO(m_useSkill);
+			m_useSkill = nullptr;
+		}
+		m_target = nullptr;
+
+		return true;
+	}
+
 	return false;
 }
 
 bool MonsterTeam1::Action_bad()
 {
+	m_animation.Play(en_anim_run, 0.3f);
+
+	if (!m_animation.IsPlaying()) {
+		m_status.DEX += rand() % 5 - 1;
+		m_animation.Play(en_anim_walk, 0.3f);
+
+		MonsterBase* attack = this;
+
+		m_useSkill->UseSkill(attack, m_target);
+
+		if (m_useSkill != nullptr)
+		{
+			DeleteGO(m_useSkill);
+			m_useSkill = nullptr;
+		}
+		m_target = nullptr;
+
+		return true;
+	}
+
 	return false;
 }
