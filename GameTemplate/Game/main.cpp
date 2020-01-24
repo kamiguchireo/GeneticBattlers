@@ -38,7 +38,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	const float FRAME_BUFFER_H = 720.0f;				//フレームバッファの高さ。
 
 	ShaderResourceView m_srv;
-	Sprite sprite;
+	//Sprite sprite;
 	//m_srv.CreateFromDDSTextureFromFile(L"Assets/sprite/win.dds");
 	//sprite.Init(m_srv.GetBody(), 500.0f, 500.0f);
 	//sprite.Update({0.0,0.0,5.0}, CQuaternion::Identity(), CVector3::One());
@@ -61,7 +61,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		GameObjectManager().Update();
 		//カメラの更新。
 		g_camera3D.Update();
-		sprite.Update({ 0.0,0.0,5.0 }, CQuaternion::Identity(), CVector3::One());
+		//sprite.Update({ 0.0,0.0,5.0 }, CQuaternion::Identity(), CVector3::One());
 		//sprite.Draw
 		//(
 		//	g_camera2D.GetViewMatrix(),
