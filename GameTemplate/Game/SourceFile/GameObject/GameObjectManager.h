@@ -87,6 +87,7 @@ namespace Engine {
 				}
 			}
 			//Œ©‚Â‚©‚ç‚È‚©‚Á‚½
+			throw;
 			return nullptr;
 		}
 

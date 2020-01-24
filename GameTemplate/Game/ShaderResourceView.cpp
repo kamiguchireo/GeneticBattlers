@@ -83,6 +83,7 @@ namespace Engine {
 			if (FAILED(hr))
 			{
 				//Ž¸”s‚µ‚½‚Ì‚Åfalse‚ð•Ô‚·
+				throw;
 				return false;
 			}
 			m_list.insert(std::make_pair(fileName, m_srv));

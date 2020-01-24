@@ -18,6 +18,11 @@ namespace Engine {
 			//m_sprite.SetTexture(m_texture);
 			//スプライトの更新処理を呼び出す
 			m_sprite.Update(m_position, m_rotation, m_scale, m_pivot);
+			m_sprite.Draw
+			(
+				g_camera2D.GetViewMatrix(),
+				g_camera2D.GetProjectionMatrix()
+			);
 		}
 
 		void SpriteRender::PostRender(RenderContext&rc)
