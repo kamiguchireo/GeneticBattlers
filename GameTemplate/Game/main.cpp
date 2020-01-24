@@ -37,7 +37,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	const float FRAME_BUFFER_W = 1280.0;				//フレームバッファの幅。
 	const float FRAME_BUFFER_H = 720.0f;				//フレームバッファの高さ。
 
-	ShaderResourceView m_srv;
+	//ShaderResourceView m_srv;
 	//Sprite sprite;
 	//m_srv.CreateFromDDSTextureFromFile(L"Assets/sprite/win.dds");
 	//sprite.Init(m_srv.GetBody(), 500.0f, 500.0f);
