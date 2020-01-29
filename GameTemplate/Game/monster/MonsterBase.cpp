@@ -50,22 +50,24 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& list)
 {
 	if (m_useSkill != nullptr) return;
 
+	SkillList* skillList = SkillList::GetInstance();
+
 	//c‚èHP‚É‰‚¶‚Äs“®‚ğŒˆ‚ß‚éB
 	switch (m_stateAI)
 	{
 	case en_state_Good:
-		m_useSkill = NewGO<Attack>(0);
+		m_useSkill = skillList->GetSkillData(0, 0);
 		m_target = list[rand() % 3];
 		break;
 
 	case en_state_Usually:
-		m_useSkill = NewGO<Attack>(0);
+		m_useSkill = skillList->GetSkillData(1, 0);
 		m_target = list[rand() % 3];
 		break;
 
 	case en_state_Bad:
-		m_useSkill = NewGO<Attack>(0);
-		m_target = list[rand() % 3];
+		m_useSkill = skillList->GetSkillData(4, 0);
+		m_target = this;
 		break;
 
 	case en_state_Death:
