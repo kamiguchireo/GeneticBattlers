@@ -177,6 +177,7 @@
       <Filter>skill</Filter>
     </ClCompile>
     <ClCompile Include="Skill\SkillBase.cpp" />
+    <ClCompile Include="Network\SampleNetwork.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -308,6 +309,7 @@
       <Filter>skill</Filter>
     </ClInclude>
     <ClInclude Include="Skill\SkillBase.h" />
+    <ClInclude Include="Network\SampleNetwork.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
