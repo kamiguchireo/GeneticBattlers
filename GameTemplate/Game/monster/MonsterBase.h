@@ -5,6 +5,8 @@ struct SkillData;
 //enum Elements;
 //class SkillBase;
 
+const int ActionNum = 10;							//AIがとりうる行動の数。
+
 /// <summary>
 /// ステータスの構造体。
 /// </summary>
@@ -12,21 +14,20 @@ struct SkillData;
 /// 魔法攻撃力はINTだとint型と間違えそうだからMATとした。
 /// </remarks>
 struct Status {
-	int MAXHP	= 0,
-		HP		= 0,
-		MAXMP	= 0,
+	int HP		= 0,
 		MP		= 0,
 		ATK		= 0,
 		DEF		= 0,
 		MAT		= 0,
 		MDF		= 0,
 		DEX		= 0;
-		//baseATK,
-		//baseDEF,
-		//baseMAT,
-		//baseMDF,
-		//baseDEX;
 };
+
+struct AIData {
+	int skillNo = 0;
+	float rate = 0.0f;
+};
+
 /// <summary>
 /// モンスターステート。
 /// </summary>
@@ -44,9 +45,21 @@ enum MonsterState {
 class MonsterBase:public IGameObject
 {
 public:
+	/// <summary>
+	/// コンストラクタ。
+	/// </summary>
 	MonsterBase();
+	/// <summary>
+	/// デストラクタ。
+	/// </summary>
 	~MonsterBase();
-	
+
+	/// <summary>
+	/// binファイルからデータを読み込む。
+	/// </summary>
+	/// <param name="filePath">ファイルパス。</param>
+	void Init(const wchar_t* filePath);
+
 	//座標を取得。
 	const CVector3& GetPosition() const
 	{
@@ -57,6 +70,12 @@ public:
 	{
 		return m_status;
 	}
+	//基礎ステータスを取得。
+	const Status& GetStatusBase() const
+	{
+		return m_statusBase;
+	}
+	//モンスターの属性を取得。
 	const Elements& GetElements() const
 	{
 		return m_elemnts;
@@ -67,9 +86,8 @@ public:
 	//ステータスの設定。(ステータス構造体ver)。
 	void SetStatus(const Status& status)
 	{
-		m_status = status;
-		m_status.HP = m_status.MAXHP;
-		m_status.MP = m_status.MAXMP;
+		m_statusBase = status;
+		m_status = m_statusBase;
 	}
 	//座標の設定。
 	void SetPosition(const CVector3& pos)
@@ -78,7 +96,7 @@ public:
 	}
 	//描画処理。
 	void Draw();
-	//
+	//アクティブタイムを加算する。
 	bool AddATB();
 	/// <summary>
 	/// ダメージを与える。
@@ -96,7 +114,7 @@ public:
 	void Healing(int healing)
 	{
 		m_status.HP += healing;
-		m_status.HP = min(m_status.HP, m_status.MAXHP);
+		m_status.HP = min(m_status.HP, m_statusBase.HP);
 	}
 	/// <summary>
 	/// MPを回復させる。
@@ -105,7 +123,7 @@ public:
 	void HealingMP(int healing)
 	{
 		m_status.MP += healing;
-		m_status.MP = min(m_status.MP, m_status.MAXMP);
+		m_status.MP = min(m_status.MP, m_statusBase.MP);
 	}
 	/// <summary>
 	/// MPを使う。
@@ -120,15 +138,13 @@ public:
 		return true;
 	}
 	/// <summary>
-	/// スキルを使用する。
+	/// スキルのターゲットを定める。
 	/// </summary>
-	/// <param name="skill">スキルデータへのポインタ。</param>
-	/// <param name="target">ターゲット。</param>
-	//void UseSkill(SkillData* skill,MonsterBase& target);
-
-	//void SelectUseSkill(MonsterBase* list);
+	/// <param name="list">ターゲットを選ぶためのリスト</param>
 	void SelectUseSkill(const std::vector<MonsterBase*>& list);
-	//ステートの更新処理。
+	/// <summary>
+	///ステートの更新処理。 
+	/// </summary>
 	void StateUpdate();
 	/// <summary>
 	/// ステートに応じて行動を決める。
@@ -144,7 +160,9 @@ protected:
 	SkinModel m_model;									//モデルデータ。
 	CVector3 m_position = CVector3::Zero();				//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転。
+	Status m_statusBase;								//基礎ステータス。
 	Status m_status;									//ステータス。
+	AIData m_AI[3][ActionNum];							//AIデータ。
 	bool m_isDeath = false;								//戦闘不能フラグ。
 	int m_stateAI = en_state_Good;						//ステート。
 	float m_activeTime = 0.0f;							//アクティブタイム。

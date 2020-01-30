@@ -178,6 +178,9 @@
     </ClCompile>
     <ClCompile Include="Skill\SkillBase.cpp" />
     <ClCompile Include="Network\SampleNetwork.cpp" />
+    <ClCompile Include="gameScenes\BattleScenes.cpp" />
+    <ClCompile Include="gameScenes\TitleScene.cpp" />
+    <ClCompile Include="Fade.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -310,6 +313,9 @@
     </ClInclude>
     <ClInclude Include="Skill\SkillBase.h" />
     <ClInclude Include="Network\SampleNetwork.h" />
+    <ClInclude Include="gameScenes\BattleScenes.h" />
+    <ClInclude Include="gameScenes\TitleScene.h" />
+    <ClInclude Include="Fade.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -319,5 +325,7 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\mikyan.jpg" />
     <ImageContentTask Include="Assets\sprite\win.png" />
+    <ImageContentTask Include="Assets\sprite\preset\fade.png" />
+    <ImageContentTask Include="Assets\sprite\fade.png" />
   </ItemGroup>
 </Project>

@@ -3,10 +3,10 @@
 class MonsterBase;
 
 enum Elements {
-	en_elements_Fire,
-	en_elements_Reef,
-	en_elements_Water,
-	en_elements_Empty,
+	en_elements_Fire,		//!<炎属性。
+	en_elements_Reef,		//!<草属性。
+	en_elements_Water,		//!<水属性。
+	en_elements_Empty,		//!<無属性。
 	en_elements_Num
 };
 

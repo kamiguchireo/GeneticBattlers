@@ -22,8 +22,8 @@ public:
 	/// <param name="table">スキルの属性
 	/// <remarks>０通常行動</remarks>
 	/// <remarks>１炎魔法</remarks>
-	/// <remarks>２水魔法</remarks>
-	/// <remarks>３木魔法</remarks>
+	/// <remarks>２草魔法</remarks>
+	/// <remarks>３水魔法</remarks>
 	/// <remarks>４回復、バフ魔法</remarks>
 	/// </param>
 	/// <param name="no">スキルナンバー</param>
