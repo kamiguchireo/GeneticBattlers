@@ -3,6 +3,7 @@
 #include "level/Level.h"
 #include "SourceFile/GameObject/GameObjectManager.h"
 #include "Game.h"
+#include "Fade.h"
 #include "SpriteRender.h"
 #include "ShaderResourceView.h"
 #include "SourceFile/graphic/2D/Sprite.h"
@@ -20,13 +21,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera3D.SetTarget({ 0.0f, 100.0f, 0.0f });
 	g_camera3D.SetFar(10000.0f);
 	
-	g_camera2D.SetPosition({ 0.0f, 0.0f, 0.0f });
-	g_camera2D.SetTarget({ 0.0f, 0.0f, 10.0f });
+	g_camera2D.SetPosition({ 0.0f, 0.0f, 10.0f });
+	g_camera2D.SetTarget({ 0.0f, 0.0f, 0.0f });
 	g_camera2D.SetFar(100.0f);
 	//CGameObjectManager gameObject;
 
 	//ゲームクラスの生成。
 	NewGO<Game>(0, nullptr);
+	NewGO<Fade>(1, nullptr);
 
 	//スプライトの確認のためのポインタ
 	prefab::SpriteRender*m_spriteRender;
@@ -34,8 +36,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//スプライトを初期化
 	m_spriteRender = NewGO<prefab::SpriteRender>(0,"sprite");
 	m_spriteRender->Init(L"Assets/sprite/mikyan.dds", 400, 300);
-	const float FRAME_BUFFER_W = 1280.0;				//フレームバッファの幅。
-	const float FRAME_BUFFER_H = 720.0f;				//フレームバッファの高さ。
+	//const float FRAME_BUFFER_W = 1280.0;				//フレームバッファの幅。
+	//const float FRAME_BUFFER_H = 720.0f;				//フレームバッファの高さ。
 
 	//ShaderResourceView m_srv;
 	//Sprite sprite;

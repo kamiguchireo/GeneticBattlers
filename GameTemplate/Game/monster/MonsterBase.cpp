@@ -14,15 +14,16 @@ MonsterBase::~MonsterBase()
 
 void MonsterBase::SetStatus(int hp, int mp, int atk, int def, int mat, int mdf, int dex)
 {
-	m_status.MAXHP = hp;
-	m_status.HP = m_status.MAXHP;
-	m_status.MAXMP = mp;
-	m_status.MP = m_status.MAXMP;
-	m_status.ATK = atk;
-	m_status.DEF = def;
-	m_status.MAT = mat;
-	m_status.MDF = mdf;
-	m_status.DEX = dex;
+	//基礎ステータスを設定。
+	m_statusBase.HP = hp;
+	m_statusBase.MP = mp;
+	m_statusBase.ATK = atk;
+	m_statusBase.DEF = def;
+	m_statusBase.MAT = mat;
+	m_statusBase.MDF = mdf;
+	m_statusBase.DEX = dex;
+	//ステータスに代入。
+	m_status = m_statusBase;
 }
 
 void MonsterBase::Draw()
@@ -78,7 +79,7 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& list)
 void MonsterBase::StateUpdate()
 {
 	//現在HP/最大HPの割合からステートを変化させる。
-	float nowHP = (float)m_status.HP / (float)m_status.MAXHP;
+	float nowHP = (float)m_status.HP / (float)m_statusBase.HP;
 
 	if (2.0f / 3.0f < nowHP) {
 		m_stateAI = en_state_Good;

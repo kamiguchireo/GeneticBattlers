@@ -99,6 +99,8 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Fade.cpp" />
+    <ClCompile Include="gameScenes\BattleScenes.cpp" />
     <ClCompile Include="CGPUBuffer.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
@@ -147,8 +149,11 @@
     <ClCompile Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.cpp" />
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="SourceFile\graphic\GPUBuffer\VertexBuffer.cpp" />
+    <ClCompile Include="gameScenes\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Fade.h" />
+    <ClInclude Include="gameScenes\BattleScenes.h" />
     <ClInclude Include="CGPUBuffer.h" />
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="ConstantBuffer.h" />
@@ -195,6 +200,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.h" />
     <ClInclude Include="system\system.h" />
+    <ClInclude Include="gameScenes\TitleScene.h" />
     <ClInclude Include="util\Util.h" />
     <ClInclude Include="SourceFile\graphic\GPUBuffer\VertexBuffer.h" />
   </ItemGroup>
@@ -209,6 +215,12 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\win.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\preset\fade.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\preset\fade.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

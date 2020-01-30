@@ -22,6 +22,15 @@ namespace Engine {
 		*/
 		void Init(ID3D11ShaderResourceView* tex, float w, float h);
 
+		/*
+		乗算カラーを設定
+		mulColor	乗算カラー
+		*/
+		void SetMulColor(const CVector4& mulColor)
+		{
+			m_mulColor = mulColor;
+		}
+
 		//テクスチャを設定
 		//tex		テクスチャ
 		//void SetTexture(ShaderResourceView& tex)

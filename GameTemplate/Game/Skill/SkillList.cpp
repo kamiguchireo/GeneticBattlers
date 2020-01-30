@@ -59,7 +59,7 @@ bool Attack::UseSkill(MonsterBase * attack, MonsterBase * target)
 //‹xŒeB
 bool Rest::UseSkill(MonsterBase * attack, MonsterBase * target)
 {
-	int result = attack->GetStatus().MAXMP * skillPower;
+	int result = attack->GetStatusBase().MP * skillPower;
 
 	attack->HealingMP(result);
 

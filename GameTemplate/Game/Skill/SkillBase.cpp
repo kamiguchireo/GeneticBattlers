@@ -30,8 +30,11 @@ float SkillBase::GetCompatibility(int attack, int target)
 
 int SkillBase::DamageCalcuration(MonsterBase * attack, MonsterBase * target)
 {
+	//ダメージ計算を行う。
 	int damage = 0;
 	int Attack, Defence;
+
+	//魔法攻撃かどうか。
 	if (!isMagic) {
 		Attack = attack->GetStatus().ATK;
 		Defence = target->GetStatus().DEF;
