@@ -219,9 +219,6 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\preset\fade.png" />
   </ItemGroup>
-  <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\preset\fade.png" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />
