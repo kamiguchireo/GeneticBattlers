@@ -6,6 +6,8 @@
 #include <math.h>
 #include <vector>
 #include <list>
+#include "Photon/Common-cpp/inc/common.h"
+
 #include <D3Dcompiler.h>
 #include <Windows.h>
 #include <d3d11.h>
