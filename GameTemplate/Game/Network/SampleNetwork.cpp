@@ -16,11 +16,16 @@ void SampleNetwork::connect(void)
 	}
 }
 
+void SampleNetwork::run(void)
+{
+	m_LoadBalancingClient.service();
+}
+
 void main(void)
 {
 	static const ExitGames::Common::JString appID = L"<no-app-id>";
 	static const ExitGames::Common::JString appVersion = L"1.0";
-
+	
 	SampleNetwork networkLogic(appID, appVersion);
 	networkLogic.connect();
 }
