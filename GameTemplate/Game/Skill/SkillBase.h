@@ -40,7 +40,12 @@ public:
 	}
 	//int型引数ver。
 	float GetCompatibility(int attack, int target);
-
+	/// <summary>
+	/// ダメージ計算。
+	/// </summary>
+	/// <param name="attack">攻撃するキャラ。</param>
+	/// <param name="target">ターゲットのキャラ。</param>
+	/// <returns>ダメージ量。</returns>
 	int DamageCalcuration(MonsterBase* attack, MonsterBase* target);
 
 	static float eleResist;		//相性不利。
@@ -51,7 +56,9 @@ protected:
 	char skillName[30];
 	float skillPower = 1.0f;
 	int useMP = 0;
+	int m_skillNo = 0;
 	Elements m_skillElements = en_elements_Empty;
+	bool isMagic = false;
 
 	//属性相性。[攻撃側][対象側]
 	const float m_elementsComp[en_elements_Num][en_elements_Num]=

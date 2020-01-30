@@ -1,7 +1,10 @@
 #pragma once
+#include "Skill/SkillList.h"
+
 class Player;
 class MonsterBase;
 class MonsterTeam1;
+class SkillList;
 
 class Game:public IGameObject
 {
@@ -19,5 +22,6 @@ private:
 	std::vector<MonsterBase*>m_monsterTeam2List;
 	MonsterBase* m_monsterACT = nullptr;
 	Player*player;
+	SkillList skillList;
 };
 

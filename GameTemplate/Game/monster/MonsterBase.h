@@ -96,22 +96,35 @@ public:
 	void Healing(int healing)
 	{
 		m_status.HP += healing;
-		m_status.HP = min(0, m_status.MAXHP);
+		m_status.HP = min(m_status.HP, m_status.MAXHP);
+	}
+	/// <summary>
+	/// MPを回復させる。
+	/// </summary>
+	/// <param name="healing">回復量。</param>
+	void HealingMP(int healing)
+	{
+		m_status.MP += healing;
+		m_status.MP = min(m_status.MP, m_status.MAXMP);
 	}
 	/// <summary>
 	/// MPを使う。
 	/// </summary>
 	/// <param name="mp">消費MP量。</param>
-	void UseMP(int mp)
+	bool UseMP(int mp)
 	{
+		if (m_status.MP < mp) {
+			return false;	//MPが足りないときの処理。
+		}
 		m_status.MP -= mp;
+		return true;
 	}
 	/// <summary>
 	/// スキルを使用する。
 	/// </summary>
 	/// <param name="skill">スキルデータへのポインタ。</param>
 	/// <param name="target">ターゲット。</param>
-	void UseSkill(SkillData* skill,MonsterBase& target);
+	//void UseSkill(SkillData* skill,MonsterBase& target);
 
 	//void SelectUseSkill(MonsterBase* list);
 	void SelectUseSkill(const std::vector<MonsterBase*>& list);

@@ -31,8 +31,20 @@ float SkillBase::GetCompatibility(int attack, int target)
 int SkillBase::DamageCalcuration(MonsterBase * attack, MonsterBase * target)
 {
 	int damage = 0;
-	int Attack = attack->GetStatus().ATK;
-	int Defence = target->GetStatus().DEF;
+	int Attack, Defence;
+	if (!isMagic) {
+		Attack = attack->GetStatus().ATK;
+		Defence = target->GetStatus().DEF;
+	}
+	else {
+		Attack = attack->GetStatus().MAT;
+		Defence = target->GetStatus().MDF;
+	}
+	
+	//MP‚ðŽg‚¤B
+	if (!attack->UseMP(useMP)) {
+		return 0;
+	}
 	//‘®«‘Š«B
 	float comp = GetCompatibility(m_skillElements, target->GetElements());
 

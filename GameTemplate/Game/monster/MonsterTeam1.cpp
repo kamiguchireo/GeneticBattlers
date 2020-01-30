@@ -59,7 +59,7 @@ bool MonsterTeam1::Action_good()
 
 		if (m_useSkill != nullptr)
 		{
-			DeleteGO(m_useSkill);
+			//DeleteGO(m_useSkill);
 			m_useSkill = nullptr;
 		}
 		m_target = nullptr;
@@ -84,7 +84,7 @@ bool MonsterTeam1::Action_usually()
 
 		if (m_useSkill != nullptr)
 		{
-			DeleteGO(m_useSkill);
+			//DeleteGO(m_useSkill);
 			m_useSkill = nullptr;
 		}
 		m_target = nullptr;
@@ -109,7 +109,7 @@ bool MonsterTeam1::Action_bad()
 
 		if (m_useSkill != nullptr)
 		{
-			DeleteGO(m_useSkill);
+			//DeleteGO(m_useSkill);
 			m_useSkill = nullptr;
 		}
 		m_target = nullptr;
