@@ -326,5 +326,6 @@
     <ImageContentTask Include="Assets\sprite\mikyan.jpg" />
     <ImageContentTask Include="Assets\sprite\win.png" />
     <ImageContentTask Include="Assets\sprite\preset\fade.png" />
+    <ImageContentTask Include="Assets\sprite\PreTitle.png" />
   </ItemGroup>
 </Project>

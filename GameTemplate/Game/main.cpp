@@ -4,6 +4,7 @@
 #include "SourceFile/GameObject/GameObjectManager.h"
 #include "Game.h"
 #include "Fade.h"
+#include "gameScenes/TitleScene.h"
 #include "SpriteRender.h"
 #include "ShaderResourceView.h"
 #include "SourceFile/graphic/2D/Sprite.h"
@@ -27,8 +28,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//CGameObjectManager gameObject;
 
 	//ゲームクラスの生成。
-	NewGO<Game>(0, nullptr);
-	NewGO<Fade>(1, nullptr);
+	//NewGO<Game>(0, nullptr);
+	NewGO<TitleScene>(0, nullptr);
+	NewGO<Fade>(1, "Fade");
 
 	//スプライトの確認のためのポインタ
 	prefab::SpriteRender*m_spriteRender;
