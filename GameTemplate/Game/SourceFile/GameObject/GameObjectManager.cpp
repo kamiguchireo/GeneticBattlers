@@ -23,7 +23,7 @@ namespace Engine {
 				obj->UpdateWrapper();
 			}
 		}
-		ExecuteRender();
+		//ExecuteRender();
 		ExecuteDeleteGameObjects();
 	}
 
@@ -55,22 +55,22 @@ namespace Engine {
 		}
 	}
 
-	void CGameObjectManager::PostRender(RenderContext& rc)
-	{
-		for (GameObjectList objList : m_gameObjectListArray)
-		{
-			for (IGameObject*obj : objList)
-			{
-				obj->PostRenderWrapper(rc);
-			}
-		}
-	}
+	//void CGameObjectManager::PostRender(RenderContext& rc)
+	//{
+	//	for (GameObjectList objList : m_gameObjectListArray)
+	//	{
+	//		for (IGameObject*obj : objList)
+	//		{
+	//			obj->PostRenderWrapper(rc);
+	//		}
+	//	}
+	//}
 
-	void CGameObjectManager::ExecuteRender()
-	{
-		RenderContext& renderContext = g_graphicsEngine->GetRenderContext();
-		//2D‚Ì•\Ž¦
-		//g_graphicsEngine->Execute2DDraw();
-		PostRender(renderContext);
-	}
+	//void CGameObjectManager::ExecuteRender()
+	//{
+	//	RenderContext& renderContext = g_graphicsEngine->GetRenderContext();
+	//	//2D‚Ì•\Ž¦
+	//	//g_graphicsEngine->Execute2DDraw();
+	//	PostRender(renderContext);
+	//}
 }
