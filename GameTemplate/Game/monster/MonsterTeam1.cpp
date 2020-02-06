@@ -9,7 +9,6 @@ MonsterTeam1::MonsterTeam1()
 
 MonsterTeam1::~MonsterTeam1()
 {
-
 }
 
 bool MonsterTeam1::Start()
@@ -110,6 +109,7 @@ bool MonsterTeam1::Action_bad()
 
 		if (m_useSkill != nullptr)
 		{
+			//DeleteGO(m_useSkill);
 			m_useSkill = nullptr;
 		}
 		m_target = nullptr;

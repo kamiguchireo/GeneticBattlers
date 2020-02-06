@@ -4,7 +4,6 @@
 class MonsterBase;
 class MonsterTeam1;
 //class SkillList;
-class Fade;
 
 class BattleScenes : public IGameObject
 {
@@ -25,17 +24,10 @@ public:
 	void MonsterAction();
 
 private:
-	enum BattleState {
-		enState_FadeIn,
-		enState_Battle,
-		enState_FadeOut,
-	};
-	BattleState m_state = enState_FadeIn;
 	void ActiveTimeUpdate();
 	std::vector<MonsterBase*>m_monsterTeam1List;
 	std::vector<MonsterBase*>m_monsterTeam2List;
 	MonsterBase* m_monsterACT = nullptr;
 	SkillList skillList;
-	Fade* m_fade = nullptr;
 };
 
