@@ -274,3 +274,4 @@ paket-files/
 __pycache__/
 *.pyc
 /Game/Assets/font
+/GameTemplate/Game/EffekseerRuntime130
