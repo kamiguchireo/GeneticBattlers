@@ -22,8 +22,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera3D.SetTarget({ 0.0f, 100.0f, 0.0f });
 	g_camera3D.SetFar(10000.0f);
 	
-	g_camera2D.SetPosition({ 0.0f, 0.0f, 10.0f });
-	g_camera2D.SetTarget({ 0.0f, 0.0f, 0.0f });
+	g_camera2D.SetPosition({ 0.0f, 0.0f, 0.0f });
+	g_camera2D.SetTarget({ 0.0f, 0.0f, 10.0f });
 	g_camera2D.SetFar(100.0f);
 	//CGameObjectManager gameObject;
 
