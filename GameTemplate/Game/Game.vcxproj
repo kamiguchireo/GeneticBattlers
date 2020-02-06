@@ -105,6 +105,7 @@
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="Network\Listener.cpp" />
     <ClCompile Include="monster\MonsterTeam1.cpp" />
     <ClCompile Include="Network\SampleNetwork.cpp" />
     <ClCompile Include="ShaderResourceView.cpp" />
@@ -158,6 +159,7 @@
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="Network\Listener.h" />
     <ClInclude Include="monster\MonsterTeam1.h" />
     <ClInclude Include="Network\SampleNetwork.h" />
     <ClInclude Include="ShaderResourceView.h" />

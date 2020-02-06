@@ -1,8 +1,8 @@
 #pragma once
 #include "Photon/Common-cpp/inc/JString.h"
 #include "Photon/LoadBalancing-cpp/inc/client.h"
-#include "Photon/LoadBalancing-cpp/inc/listener.h"
 #include "Photon/Common-cpp/inc/Logger.h"
+#include "Network/Listener.h"
 
 class SampleNetwork
 {
@@ -14,7 +14,7 @@ public:
 
 private:
 	ExitGames::LoadBalancing::Client m_LoadBalancingClient;
-	ExitGames::LoadBalancing::Listener* m_Listener;
+	Listener m_Listener;
 	ExitGames::Common::Logger mLogger;
 };
 
