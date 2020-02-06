@@ -2,7 +2,7 @@
 #include "SampleNetwork.h"
 
 SampleNetwork::SampleNetwork(const ExitGames::Common::JString& appID, const ExitGames::Common::JString& appVersion)
-	:m_LoadBalancingClient(*m_Listener,appID,appVersion)
+	:m_LoadBalancingClient(m_Listener,appID,appVersion)
 {
 
 }
