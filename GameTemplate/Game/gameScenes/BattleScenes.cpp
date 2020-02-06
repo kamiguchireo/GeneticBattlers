@@ -2,6 +2,8 @@
 #include "BattleScenes.h"
 #include "monster/MonsterBase.h"
 #include "monster/MonsterTeam1.h"
+#include "TitleScene.h"
+#include "Fade.h"
 
 BattleScenes::BattleScenes()
 {
@@ -10,20 +12,43 @@ BattleScenes::BattleScenes()
 
 BattleScenes::~BattleScenes()
 {
-
+	for (auto m : m_monsterTeam1List)
+	{
+		DeleteGO(m);
+	}
 }
 
 bool BattleScenes::Start()
 {
 	InitMonster();
 
+	m_fade = Fade::GetInstance();
+	m_fade->StartFadeIn();
+
 	return true;
 }
 
 void BattleScenes::Update()
 {
-	ActiveTimeUpdate();
-	MonsterAction();
+	switch (m_state)
+	{
+	case enState_FadeIn:
+		if (!m_fade->IsFade())	m_state = enState_Battle;
+		break;
+	case enState_Battle:
+		ActiveTimeUpdate();
+		MonsterAction();
+		if (g_pad[0].IsTrigger(enButtonStart)) m_state = enState_FadeOut;
+		break;
+	case enState_FadeOut:
+		if (!m_fade->IsFade())
+		{
+			NewGO<TitleScene>(0);
+			DeleteGO(this);
+		}
+		break;
+	}
+
 }
 
 void BattleScenes::InitMonster()
