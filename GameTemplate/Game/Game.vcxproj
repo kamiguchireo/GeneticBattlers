@@ -99,6 +99,7 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SourceFile\graphic\Effect\CEffect.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="gameScenes\BattleScenes.cpp" />
     <ClCompile Include="CGPUBuffer.cpp" />
@@ -153,6 +154,7 @@
     <ClCompile Include="gameScenes\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SourceFile\graphic\Effect\CEffect.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="gameScenes\BattleScenes.h" />
     <ClInclude Include="CGPUBuffer.h" />

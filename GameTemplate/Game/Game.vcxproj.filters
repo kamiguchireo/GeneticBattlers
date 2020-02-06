@@ -182,6 +182,7 @@
     <ClCompile Include="gameScenes\TitleScene.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Network\Listener.cpp" />
+    <ClCompile Include="SourceFile\graphic\Effect\CEffect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -318,6 +319,7 @@
     <ClInclude Include="Fade.h" />
     <ClInclude Include="Network\Listener.h" />
     <ClInclude Include="Network\SampleNetwork.h" />
+    <ClInclude Include="SourceFile\graphic\Effect\CEffect.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
