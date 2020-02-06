@@ -21,7 +21,7 @@ bool Fade::Start()
 {
 	m_texture.CreateFromDDSTextureFromFile(L"Assets/sprite/fade.dds");
 	m_sprite.Init(m_texture.GetBody(), FRAME_BUFFER_W, FRAME_BUFFER_H);
-	m_sprite.Update({ 0.0f,0.0f,9.0f }, CQuaternion::Identity(), CVector3::One());
+	m_sprite.Update({ 0.0f,0.0f,1.0f }, CQuaternion::Identity(), CVector3::One());
 
 	return true;
 }

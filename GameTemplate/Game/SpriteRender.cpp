@@ -27,10 +27,10 @@ namespace Engine {
 
 		void SpriteRender::PostRender(RenderContext&rc)
 		{
-			if (m_isDraw3D == false)
-			{
-				m_sprite.Draw(g_graphicsEngine->Get2DCamera().GetViewMatrix(), g_graphicsEngine->Get2DCamera().GetProjectionMatrix());
-			}
+			//if (m_isDraw3D == false)
+			//{
+			//	m_sprite.Draw(g_graphicsEngine->Get2DCamera().GetViewMatrix(), g_graphicsEngine->Get2DCamera().GetProjectionMatrix());
+			//}
 		}
 	}
 }
