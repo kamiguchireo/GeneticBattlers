@@ -9,7 +9,7 @@ TitleScene::TitleScene()
 
 TitleScene::~TitleScene()
 {
-	if (!m_sprite)
+	if (m_sprite != nullptr)
 	{
 		DeleteGO(m_sprite);
 	}

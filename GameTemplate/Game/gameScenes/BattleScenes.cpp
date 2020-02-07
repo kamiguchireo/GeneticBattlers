@@ -38,7 +38,11 @@ void BattleScenes::Update()
 	case enState_Battle:
 		ActiveTimeUpdate();
 		MonsterAction();
-		if (g_pad[0].IsTrigger(enButtonStart)) m_state = enState_FadeOut;
+		if (g_pad[0].IsTrigger(enButtonStart)) 
+		{
+			m_state = enState_FadeOut; 
+			m_fade->StartFadeOut();
+		}
 		break;
 	case enState_FadeOut:
 		if (!m_fade->IsFade())
