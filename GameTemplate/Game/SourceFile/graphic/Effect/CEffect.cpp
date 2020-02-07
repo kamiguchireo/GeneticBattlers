@@ -21,14 +21,36 @@ namespace Engine {
 			}
 		}
 
+		void CEffect::managerInit()
+		{
+			//レンダラーを初期化
+			m_renderer = EffekseerRendererDX11::Renderer::Create(
+				g_graphicsEngine->GetD3DDevice(),
+				g_graphicsEngine->GetD3DDeviceContext(),
+				2000);
+
+			//エフェクトマネージャーを初期化
+			m_manager = Effekseer::Manager::Create(10000);
+			//描画用インスタンスから描画機能を設定
+			m_manager->SetSpriteRenderer(m_renderer->CreateSpriteRenderer());
+			m_manager->SetRibbonRenderer(m_renderer->CreateRibbonRenderer());
+			m_manager->SetRingRenderer(m_renderer->CreateRingRenderer());
+			m_manager->SetTrackRenderer(m_renderer->CreateTrackRenderer());
+			m_manager->SetModelRenderer(m_renderer->CreateModelRenderer());
+
+			//描画用インスタンスからテクスチャの読み込み機能を設定
+			m_manager->SetTextureLoader(m_renderer->CreateTextureLoader());
+			m_manager->SetModelLoader(m_renderer->CreateModelLoader());
+		}
 		void CEffect::Play(const wchar_t* filePath)
 		{
+			managerInit();
 			int nameKey = Util::MakeHash(filePath);
 			m_effect = GetResource(nameKey);
 			if (m_effect == nullptr)
 			{
 				//未登録
-				m_effect = CreateEffekseerEffect(filePath);
+				m_effect = Effekseer::Effect::Create(m_manager, (const EFK_CHAR*)filePath);
 				if (m_effect == nullptr)
 				{
 					//エフェクトのロードに失敗したぜ！
@@ -42,6 +64,14 @@ namespace Engine {
 
 		void CEffect::Update()
 		{
+			Effekseer::Matrix44 efCameraMat;
+			g_camera3D.GetViewMatrix().CopyTo(efCameraMat);
+			Effekseer::Matrix44 efProjMat;
+			g_camera3D.GetProjectionMatrix().CopyTo(efProjMat);
+			//カメラ行列とプロジェクション行列を設定。
+			m_renderer->SetCameraMatrix(efCameraMat);
+			m_renderer->SetProjectionMatrix(efProjMat);
+			m_manager->Update();
 			CMatrix m_Trans, m_Rot, m_Scale, m_Base = CMatrix::Identity();
 			m_Trans.MakeTranslation(m_position);
 			m_Rot.MakeRotationFromQuaternion(m_rotation);
@@ -49,6 +79,7 @@ namespace Engine {
 			m_Base.Mul(m_Scale, m_Rot);
 			m_Base.Mul(m_Base, m_Trans);
 			m_manager->SetBaseMatrix(m_handle, m_Base);
+			m_manager->Draw();
 			if (IsPlay() == false)
 			{
 				//再生完了したら終わる

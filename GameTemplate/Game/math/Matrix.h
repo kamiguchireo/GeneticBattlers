@@ -25,6 +25,10 @@ public:
 		float m[4][4];
 	};
 public:
+	void CopyTo(Effekseer::Matrix44& efMat) const
+	{
+		memcpy(efMat.Values, m, sizeof(efMat.Values));
+	}
 	operator DirectX::XMMATRIX() const
 	{
 		return DirectX::XMLoadFloat4x4(&mat);

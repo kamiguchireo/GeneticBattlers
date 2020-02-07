@@ -149,7 +149,7 @@ void VertexBuffer::Unlock()
 	if( m_isLock )
 	{
 		D3D11_MAPPED_SUBRESOURCE mappedResource;
-		GetRenderer()->GetImmidiateContext()->Map(
+		GetRenderer()->GetContext()->Map(
 			m_buffer,
 			0,
 			D3D11_MAP_WRITE_DISCARD,
@@ -158,13 +158,13 @@ void VertexBuffer::Unlock()
 	
 		memcpy( mappedResource.pData, m_resource, m_size );
 	
-		GetRenderer()->GetImmidiateContext()->Unmap( m_buffer, 0 );
+		GetRenderer()->GetContext()->Unmap( m_buffer, 0 );
 	}
 
 	if(m_ringBufferLock)
 	{
 		D3D11_MAPPED_SUBRESOURCE mappedResource;
-		GetRenderer()->GetImmidiateContext()->Map(
+		GetRenderer()->GetContext()->Map(
 			m_buffer,
 			0,
 			m_ringLockedOffset != 0 ? D3D11_MAP_WRITE_NO_OVERWRITE : D3D11_MAP_WRITE_DISCARD,
@@ -179,7 +179,7 @@ void VertexBuffer::Unlock()
 
 		memcpy( dst, src, m_ringLockedSize );
 	
-		GetRenderer()->GetImmidiateContext()->Unmap( m_buffer, 0 );
+		GetRenderer()->GetContext()->Unmap( m_buffer, 0 );
 	}
 
 	m_resource = NULL;

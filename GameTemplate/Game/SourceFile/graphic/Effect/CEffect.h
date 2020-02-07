@@ -1,5 +1,6 @@
 #pragma once
 #include "Effekseer.h"
+#include "EffekseerRendererDX11.h"
 
 namespace Engine {
 	namespace prefab{
@@ -55,6 +56,8 @@ namespace Engine {
 				return m_manager->GetShown(m_handle);
 			}
 
+			void managerInit();
+
 			Effekseer::Effect* CreateEffekseerEffect(const wchar_t* filePath)
 			{
 				return Effekseer::Effect::Create(m_manager, (const EFK_CHAR*)filePath);
@@ -67,6 +70,7 @@ namespace Engine {
 			Effekseer::Effect*m_effect = nullptr;
 			Effekseer::Handle m_handle = -1;
 			Effekseer::Manager* m_manager = nullptr;
+			EffekseerRenderer::Renderer* m_renderer = nullptr;
 			CVector3 m_position = CVector3::Zero();		//ç¿ïW
 			CQuaternion m_rotation = CQuaternion::Identity();		//âÒì]
 			CVector3 m_scale = CVector3::One();		//ägëÂ
