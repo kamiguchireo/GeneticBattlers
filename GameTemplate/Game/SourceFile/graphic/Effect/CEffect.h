@@ -1,5 +1,5 @@
 #pragma once
-#include "EffekseerRuntime130/src/Effekseer/Effekseer.h"
+#include "Effekseer.h"
 
 namespace Engine {
 	namespace prefab{
@@ -34,11 +34,39 @@ namespace Engine {
 				m_scale = scale;
 			}
 
+			Effekseer::Effect*GetResource(int nameKey)
+			{
+				auto it = m_resourceMap.find(nameKey);
+				if (it != m_resourceMap.end())
+				{
+					return it->second;
+				}
+				return nullptr;
+			}
+
+			void RegistResource(int nameKey,Effekseer::Effect*res)
+			{
+				m_resourceMap.insert(std::pair<int, Effekseer::Effect*>(nameKey, res));
+			}
+
+			//エフェクトが再生中か判定
+			bool IsPlay()
+			{
+				return m_manager->GetShown(m_handle);
+			}
+
+			Effekseer::Effect* CreateEffekseerEffect(const wchar_t* filePath)
+			{
+				return Effekseer::Effect::Create(m_manager, (const EFK_CHAR*)filePath);
+			}
+
 			//更新
-			//void Update();
+			void Update();
 		private:
+			std::map<int, Effekseer::Effect*> m_resourceMap;
 			Effekseer::Effect*m_effect = nullptr;
 			Effekseer::Handle m_handle = -1;
+			Effekseer::Manager* m_manager = nullptr;
 			CVector3 m_position = CVector3::Zero();		//座標
 			CQuaternion m_rotation = CQuaternion::Identity();		//回転
 			CVector3 m_scale = CVector3::One();		//拡大

@@ -46,7 +46,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <LibraryPath>$(ProjectDir)/DirectXTK\Bin\Desktop_2015_Win10\x64\Debug;$(SolutionDir)/x64/Debug;$(ProjectDir)Photon/Photon-cpp/lib;$(ProjectDir)Photon/Common-cpp/lib;$(ProjectDir)Photon/LoadBalancing-cpp/lib;$(ProjectDir)EffekseerRuntime130/src/lib/x86;$(LibraryPath)</LibraryPath>
+    <LibraryPath>$(ProjectDir)/DirectXTK\Bin\Desktop_2015_Win10\x64\Debug;$(SolutionDir)/x64/Debug;$(ProjectDir)Photon/Photon-cpp/lib;$(ProjectDir)Photon/Common-cpp/lib;$(ProjectDir)Photon/LoadBalancing-cpp/lib;$(ProjectDir)/exlib/x64;$(LibraryPath)</LibraryPath>
     <IncludePath>$(ProjectDir);$(ProjectDir)/bulletPhysics/src;$(ProjectDir)Photon/;$(ProjectDir)EffekseerRuntime130/src/include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
