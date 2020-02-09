@@ -20,11 +20,15 @@ public:
 
 	bool Start();
 	void Update();
-
+	//モンスターの初期化。
 	void InitMonster();
+	//モンスターに行動させる。
 	void MonsterAction();
 
 private:
+	//アクティブタイムバーの更新。
+	void ActiveTimeUpdate();
+	//フェード切り替え
 	enum SceneState {
 		enState_FadeIn,
 		enState_Battle,
@@ -32,10 +36,12 @@ private:
 	};
 	Fade* m_fade = nullptr;
 	SceneState m_state = enState_FadeIn;
-	void ActiveTimeUpdate();
+	//モンスターのポインタ。
 	std::vector<MonsterBase*>m_monsterTeam1List;
 	std::vector<MonsterBase*>m_monsterTeam2List;
-	MonsterBase* m_monsterACT = nullptr;
-	SkillList skillList;
+
+	SkinModel m_model;						//!<ステージのモデル。
+	MonsterBase* m_monsterACT = nullptr;	//!<現在行動中のモンスター。
+	SkillList skillList;					//!<スキルリスト。
 };
 

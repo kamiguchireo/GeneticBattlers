@@ -30,8 +30,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//ゲームクラスの生成。
 	//NewGO<Game>(0, nullptr);
-	//NewGO<TitleScene>(0, nullptr);
-	//NewGO<Fade>(1, "Fade");
+	NewGO<TitleScene>(0, nullptr);
+	NewGO<Fade>(1, "Fade");
 
 	////スプライトの確認のためのポインタ
 	//prefab::SpriteRender*m_spriteRender;
@@ -48,13 +48,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//sprite.Init(m_srv.GetBody(), 500.0f, 500.0f);
 	//sprite.Update({0.0,0.0,5.0}, CQuaternion::Identity(), CVector3::One());
 
-	//エフェクトを作成。
-	prefab::CEffect* effect = NewGO<prefab::CEffect>(0);
-	//エフェクトを再生。
-	effect->Play(L"Assets/effect/test.efk");
-	CVector3 emitPos = CVector3::Zero();
-	emitPos.y += 10.0f;
-	effect->SetPosition(emitPos);
+	////エフェクトを作成。
+	//prefab::CEffect* effect = NewGO<prefab::CEffect>(0);
+	////エフェクトを再生。
+	//effect->Play(L"Assets/effect/test.efk");
+	//CVector3 emitPos = CVector3::Zero();
+	//emitPos.y += 10.0f;
+	//effect->SetPosition(emitPos);
 	
 
 	g_camera2D.Update2D();
