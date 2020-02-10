@@ -20,6 +20,12 @@ BattleScenes::~BattleScenes()
 
 bool BattleScenes::Start()
 {
+	m_model.Init(L"Assets/modelData/testGround.cmo");
+	m_model.UpdateWorldMatrix(
+		{ 0.0f,-50.0f,0.0f },
+		CQuaternion::Identity(),
+		CVector3::One()
+		);
 	InitMonster();
 
 	m_fade = Fade::GetInstance();
@@ -53,6 +59,8 @@ void BattleScenes::Update()
 		break;
 	}
 
+	//ステージを表示させる。
+	m_model.Draw(g_camera3D.GetViewMatrix(), g_camera3D.GetProjectionMatrix());
 }
 
 void BattleScenes::InitMonster()
