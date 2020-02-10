@@ -183,6 +183,8 @@
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Network\Listener.cpp" />
     <ClCompile Include="SourceFile\graphic\Effect\CEffect.cpp" />
+    <ClCompile Include="SourceFile\Sound\SoundEngine.cpp" />
+    <ClCompile Include="SourceFile\Sound\CWaveFileBank.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -320,6 +322,8 @@
     <ClInclude Include="Network\Listener.h" />
     <ClInclude Include="Network\SampleNetwork.h" />
     <ClInclude Include="SourceFile\graphic\Effect\CEffect.h" />
+    <ClInclude Include="SourceFile\Sound\SoundEngine.h" />
+    <ClInclude Include="CWaveFileBank.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

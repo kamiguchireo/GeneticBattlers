@@ -65,7 +65,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>DirectXTK.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies);xinput.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;Photon-cpp_vc15_debug_windows_mt_x64.lib;Common-cpp_vc15_debug_windows_mt_x64.lib;LoadBalancing-cpp_vc15_debug_windows_mt_x64.lib;Effekseer.Debug.lib;EffekseerRendererDX11.Debug.lib</AdditionalDependencies>
+      <AdditionalDependencies>DirectXTK.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies);xinput.lib;BulletCollision_Debug.lib;BulletDynamics_Debug.lib;LinearMath_Debug.lib;Photon-cpp_vc15_debug_windows_mt_x64.lib;Common-cpp_vc15_debug_windows_mt_x64.lib;LoadBalancing-cpp_vc15_debug_windows_mt_x64.lib;Effekseer.Debug.lib;EffekseerRendererDX11.Debug.lib;XAudio2.lib;Winmm.lib</AdditionalDependencies>
     </Link>
     <ImageContentTask>
       <ContentOutput>$(ProjectDir)\Assets\sprite\%(Filename).dds</ContentOutput>
@@ -99,6 +99,8 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SourceFile\Sound\CWaveFileBank.cpp" />
+    <ClCompile Include="SourceFile\Sound\SoundEngine.cpp" />
     <ClCompile Include="SourceFile\graphic\Effect\CEffect.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="gameScenes\BattleScenes.cpp" />
@@ -154,6 +156,8 @@
     <ClCompile Include="gameScenes\TitleScene.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CWaveFileBank.h" />
+    <ClInclude Include="SourceFile\Sound\SoundEngine.h" />
     <ClInclude Include="SourceFile\graphic\Effect\CEffect.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="gameScenes\BattleScenes.h" />

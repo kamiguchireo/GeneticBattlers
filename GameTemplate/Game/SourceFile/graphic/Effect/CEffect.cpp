@@ -71,7 +71,9 @@ namespace Engine {
 			//カメラ行列とプロジェクション行列を設定。
 			m_renderer->SetCameraMatrix(efCameraMat);
 			m_renderer->SetProjectionMatrix(efProjMat);
+
 			m_manager->Update();
+
 			CMatrix m_Trans, m_Rot, m_Scale, m_Base = CMatrix::Identity();
 			m_Trans.MakeTranslation(m_position);
 			m_Rot.MakeRotationFromQuaternion(m_rotation);
@@ -79,6 +81,7 @@ namespace Engine {
 			m_Base.Mul(m_Scale, m_Rot);
 			m_Base.Mul(m_Base, m_Trans);
 			m_manager->SetBaseMatrix(m_handle, m_Base);
+
 			m_manager->Draw();
 			if (IsPlay() == false)
 			{

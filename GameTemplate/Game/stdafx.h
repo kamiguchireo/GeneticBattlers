@@ -1,19 +1,25 @@
 #pragma once
 
+#include <WinSock2.h>
+#include <windows.h>
+#include <d3d11.h>
+#include <D3Dcompiler.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <memory>
-#include <math.h>
+#include <cstdlib>
 #include <vector>
 #include <list>
-#include "Photon/Common-cpp/inc/common.h"
-
-#include <D3Dcompiler.h>
-#include <Windows.h>
-#include <d3d11.h>
-#include <map>
-#include <functional>
+#include <queue>
+#include <stack>
 #include <algorithm>
+#include <map>
+#include <wincodec.h>
+#include <wincodecsdk.h>
+#include <Xinput.h>
+#include <xaudio2.h>
+#include <x3daudio.h>
+#include <xaudio2fx.h>
+
+//#include "Photon/Common-cpp/inc/common.h"
 
 #include "btBulletDynamicsCommon.h"
 #include "BulletCollision\CollisionDispatch\btGhostObject.h"
@@ -41,6 +47,10 @@
 #include "Sourcefile/GameObject/GameObject.h"
 #include "Sourcefile/GameObject/GameObjectManager.h"
 #include "SpriteRender.h"
+
+#include <xaudio2.h>
+#include <xaudio2fx.h>
+#include <x3daudio.h>
 
 using namespace Engine;
 
