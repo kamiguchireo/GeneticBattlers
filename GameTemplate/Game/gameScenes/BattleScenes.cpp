@@ -20,13 +20,22 @@ BattleScenes::~BattleScenes()
 
 bool BattleScenes::Start()
 {
-	m_model.Init(L"Assets/modelData/testGround.cmo");
-	m_model.UpdateWorldMatrix(
-		{ 0.0f,-50.0f,0.0f },
-		CQuaternion::Identity(),
-		CVector3::One()
-		);
-	InitMonster();
+	m_level.Init(L"Assets/level/testStage.tkl",[&](LevelObjectData& objData) {
+		if (wcscmp(objData.name, L"testGround") == 0)
+		{
+			m_model.Init(L"Assets/modelData/testGround.cmo");
+			m_model.UpdateWorldMatrix(
+				objData.position,
+				objData.rotation,
+				CVector3::One()
+			);
+			return true;
+		}
+
+		return false;
+		});
+
+	//InitMonster();
 
 	m_fade = Fade::GetInstance();
 	m_fade->StartFadeIn();
@@ -61,6 +70,8 @@ void BattleScenes::Update()
 
 	//ステージを表示させる。
 	m_model.Draw(g_camera3D.GetViewMatrix(), g_camera3D.GetProjectionMatrix());
+	//レベルの描画。
+	m_level.Draw();
 }
 
 void BattleScenes::InitMonster()
@@ -68,6 +79,7 @@ void BattleScenes::InitMonster()
 	const int MonsterNum = 3;
 
 	for (int i = 0; i < MonsterNum; i++) {
+		MonsterBase* monster = NewGO<MonsterTeam1>(0);
 		CVector3 pos(-50.0f + 50.0f*i, 0.0f, 0.0f);
 		Status hoge;
 		hoge.HP = rand() % 50 + 100;
@@ -77,7 +89,6 @@ void BattleScenes::InitMonster()
 		hoge.MAT = rand() % 10 + 10;
 		hoge.MDF = rand() % 10 + 10;
 		hoge.DEX = rand() % 10 + 10;
-		MonsterBase* monster = NewGO<MonsterTeam1>(0);
 		monster->SetPosition(pos);
 		monster->SetStatus(hoge);
 		m_monsterTeam1List.push_back(monster);

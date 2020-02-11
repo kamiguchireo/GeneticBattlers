@@ -1,5 +1,6 @@
 #pragma once
 #include "Skill/SkillList.h"
+#include "level/Level.h"
 
 class MonsterBase;
 class MonsterTeam1;
@@ -36,6 +37,8 @@ private:
 	};
 	Fade* m_fade = nullptr;
 	SceneState m_state = enState_FadeIn;
+
+	Level m_level;
 	//モンスターのポインタ。
 	std::vector<MonsterBase*>m_monsterTeam1List;
 	std::vector<MonsterBase*>m_monsterTeam2List;

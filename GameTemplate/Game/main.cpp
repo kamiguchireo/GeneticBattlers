@@ -30,8 +30,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//ゲームクラスの生成。
 	//NewGO<Game>(0, nullptr);
-	//NewGO<TitleScene>(0, nullptr);
-	//NewGO<Fade>(1, "Fade");
+	NewGO<TitleScene>(0, nullptr);
+	NewGO<Fade>(1, "Fade");
 
 	////スプライトの確認のためのポインタ
 	//prefab::SpriteRender*m_spriteRender;
@@ -92,6 +92,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			CVector3 emitPos = CVector3::Zero();
 			emitPos.y += 100.0f;
 			effect->SetPosition(emitPos);
+			effect->SetSacle({ 10.0f,10.0f,10.0f });
 		}
 		//描画終了。
 		g_graphicsEngine->EndRender();
