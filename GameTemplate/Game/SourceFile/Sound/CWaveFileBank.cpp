@@ -6,7 +6,6 @@
 namespace Engine {
 	CWaveFileBank::CWaveFileBank()
 	{
-		int a = 0;
 	}
 	CWaveFileBank::~CWaveFileBank()
 	{

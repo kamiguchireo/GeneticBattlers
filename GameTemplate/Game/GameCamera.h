@@ -17,5 +17,6 @@ public:
 
 private:
 	CVector3 m_firstPosition = CVector3::Zero();
+	CVector3 m_firstTarget = CVector3::Zero();
 };
 

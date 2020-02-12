@@ -34,6 +34,39 @@ bool BattleScenes::Start()
 			);
 			return true;
 		}
+		if (wcscmp(objData.name, L"testModel") == 0)
+		{
+			MonsterBase* monster = NewGO<MonsterTeam1>(0);
+			Status hoge;
+			hoge.HP = rand() % 50 + 100;
+			hoge.MP = rand() % 50 + 100;
+			hoge.ATK = rand() % 10 + 10;
+			hoge.DEF = rand() % 10 + 10;
+			hoge.MAT = rand() % 10 + 10;
+			hoge.MDF = rand() % 10 + 10;
+			hoge.DEX = rand() % 10 + 10;
+			monster->SetPosition(objData.position);
+			monster->SetStatus(hoge);
+			m_monsterTeam1List.push_back(monster);
+
+			return true;
+		}
+		if (wcscmp(objData.name, L"Attacker") == 0)
+		{
+		
+			return true;
+		}	
+		if (wcscmp(objData.name, L"Healer") == 0)
+		{
+		
+			return true;
+		}
+		if (wcscmp(objData.name, L"Buff") == 0)
+		{
+		
+			return true;
+		}
+
 
 		return false;
 		});
