@@ -99,7 +99,7 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="SourceFile\Sound\CSoundSource.cpp" />
     <ClCompile Include="SourceFile\Sound\CWaveFileBank.cpp" />
     <ClCompile Include="SourceFile\Sound\SoundEngine.cpp" />
     <ClCompile Include="SourceFile\graphic\Effect\CEffect.cpp" />
@@ -155,10 +155,11 @@
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="SourceFile\graphic\GPUBuffer\VertexBuffer.cpp" />
     <ClCompile Include="gameScenes\TitleScene.cpp" />
+    <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="CWaveFileBank.h" />
-    <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="SourceFile\Sound\CSoundSource.h" />
+    <ClInclude Include="SourceFile\Sound\CWaveFileBank.h" />
     <ClInclude Include="SourceFile\Sound\SoundEngine.h" />
     <ClInclude Include="SourceFile\graphic\Effect\CEffect.h" />
     <ClInclude Include="Fade.h" />
@@ -213,6 +214,7 @@
     <ClInclude Include="gameScenes\TitleScene.h" />
     <ClInclude Include="util\Util.h" />
     <ClInclude Include="SourceFile\graphic\GPUBuffer\VertexBuffer.h" />
+    <ClInclude Include="SourceFile\Sound\WaveFile.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\testGround.fbx" />
