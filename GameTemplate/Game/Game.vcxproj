@@ -99,6 +99,7 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="SourceFile\Sound\CWaveFileBank.cpp" />
     <ClCompile Include="SourceFile\Sound\SoundEngine.cpp" />
     <ClCompile Include="SourceFile\graphic\Effect\CEffect.cpp" />
@@ -157,6 +158,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CWaveFileBank.h" />
+    <ClInclude Include="GameCamera.h" />
     <ClInclude Include="SourceFile\Sound\SoundEngine.h" />
     <ClInclude Include="SourceFile\graphic\Effect\CEffect.h" />
     <ClInclude Include="Fade.h" />

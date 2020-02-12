@@ -185,6 +185,7 @@
     <ClCompile Include="SourceFile\graphic\Effect\CEffect.cpp" />
     <ClCompile Include="SourceFile\Sound\SoundEngine.cpp" />
     <ClCompile Include="SourceFile\Sound\CWaveFileBank.cpp" />
+    <ClCompile Include="GameCamera.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -324,6 +325,7 @@
     <ClInclude Include="SourceFile\graphic\Effect\CEffect.h" />
     <ClInclude Include="SourceFile\Sound\SoundEngine.h" />
     <ClInclude Include="CWaveFileBank.h" />
+    <ClInclude Include="GameCamera.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

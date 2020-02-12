@@ -6,6 +6,7 @@ class MonsterBase;
 class MonsterTeam1;
 //class SkillList;
 class Fade;
+class GameCamera;
 
 class BattleScenes : public IGameObject
 {
@@ -46,5 +47,6 @@ private:
 	SkinModel m_model;						//!<ステージのモデル。
 	MonsterBase* m_monsterACT = nullptr;	//!<現在行動中のモンスター。
 	SkillList skillList;					//!<スキルリスト。
+	GameCamera* m_camera = nullptr;			//!<ゲームカメラ。
 };
 

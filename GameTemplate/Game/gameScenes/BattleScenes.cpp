@@ -4,6 +4,7 @@
 #include "monster/MonsterTeam1.h"
 #include "TitleScene.h"
 #include "Fade.h"
+#include "GameCamera.h"
 
 BattleScenes::BattleScenes()
 {
@@ -12,6 +13,7 @@ BattleScenes::BattleScenes()
 
 BattleScenes::~BattleScenes()
 {
+	DeleteGO(m_camera);
 	for (auto m : m_monsterTeam1List)
 	{
 		DeleteGO(m);
@@ -20,6 +22,7 @@ BattleScenes::~BattleScenes()
 
 bool BattleScenes::Start()
 {
+	//レベル。
 	m_level.Init(L"Assets/level/testStage.tkl",[&](LevelObjectData& objData) {
 		if (wcscmp(objData.name, L"testGround") == 0)
 		{
@@ -37,6 +40,9 @@ bool BattleScenes::Start()
 
 	//InitMonster();
 
+	//カメラ。
+	m_camera = NewGO<GameCamera>(0);
+	//フェード。
 	m_fade = Fade::GetInstance();
 	m_fade->StartFadeIn();
 
