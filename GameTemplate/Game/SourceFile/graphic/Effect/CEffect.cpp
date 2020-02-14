@@ -82,7 +82,10 @@ namespace Engine {
 			m_Base.Mul(m_Base, m_Trans);
 			m_manager->SetBaseMatrix(m_handle, m_Base);
 
+			m_renderer->BeginRendering();
 			m_manager->Draw();
+			m_renderer->EndRendering();
+
 			if (IsPlay() == false)
 			{
 				//Ä¶Š®—¹‚µ‚½‚çI‚í‚é
