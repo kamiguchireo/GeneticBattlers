@@ -49,7 +49,7 @@ namespace Engine {
 				enStreamingQueueing,	//キューイング中。
 			};
 
-			std::shared_ptr<CWaveFile> m_waveFile;
+			std::shared_ptr<CWaveFile> m_waveFile;		//波形データ
 			FLOAT32 m_emitterAzimuths[2];
 			FLOAT32 m_matrixCoefficients[2 * 8];
 			bool m_isStreaming = false;		//ストリーミング再生かどうか

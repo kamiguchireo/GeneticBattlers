@@ -28,16 +28,6 @@ namespace Engine {
 
 		IXAudio2SourceVoice* CreateXAudio2SourceVoice(CWaveFile* waveFile);
 
-		//3Dサウンドソースを削除
-		void Remove3DSoundSource(prefab::CSoundSource*ss)
-		{
-			auto it = std::find(m_soundSources.begin(), m_soundSources.end(), ss);
-			if (it != m_soundSources.end())
-			{
-				m_soundSources.erase(it);
-			}
-		}
-
 		//出力チャンネルの数を取得
 		int GetNumChannel()const
 		{
@@ -50,11 +40,6 @@ namespace Engine {
 			return m_waveFileBank;
 		}
 
-		//3Dサウンドソースを追加
-		void Add3DSoundSource(prefab::CSoundSource*ss)
-		{
-			m_soundSources.push_back(ss);
-		}
 		auto RemoveSoundSource(prefab::CSoundSource* ss)
 		{
 			auto it = std::find(m_soundSources.begin(), m_soundSources.end(), ss);
@@ -64,6 +49,7 @@ namespace Engine {
 			return it;
 
 		}
+
 	private:
 		IXAudio2* m_xAudio2 = nullptr;
 		IXAudio2MasteringVoice* m_masteringVoice = nullptr;

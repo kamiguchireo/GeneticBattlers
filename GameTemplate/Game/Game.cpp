@@ -26,6 +26,7 @@ bool Game::Start()
 	m_spriteRender = NewGO<prefab::SpriteRender>(0, "sprite");
 	m_spriteRender->Init(L"Assets/sprite/mikyan.dds", 400, 300);
 
+	
 	return true;
 }
 
