@@ -10,7 +10,7 @@
 #include "SourceFile/graphic/2D/Sprite.h"
 #include "SourceFile/graphic/Effect/CEffect.h"
 #include "SourceFile/Sound/CSoundSource.h"
-#include "SourceFile/Sound/CWaveFileBank.h"
+#include "SourceFile/Sound/SoundEngine.h"
 
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -58,10 +58,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//emitPos.y += 100.0f;
 	//effect->SetPosition(emitPos);
 
-	prefab::CSoundSource* ss;
-	ss = NewGO<prefab::CSoundSource>(0);
-	ss->Init(L"Assets/sound/bgm_00.wav");
-	ss->Play(false);
+	CSoundEngine se;
+	se.Init();
+
+	prefab::CSoundSource ss;
+	//ss = NewGO<prefab::CSoundSource>(0);
+	ss.Init(L"Assets/sound/bgm_00.wav");
+	ss.Play(false);
 
 	g_camera2D.Update2D();
 	
