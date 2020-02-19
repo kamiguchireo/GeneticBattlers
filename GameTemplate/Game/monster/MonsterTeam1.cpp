@@ -119,3 +119,8 @@ bool MonsterTeam1::Action_bad()
 
 	return false;
 }
+
+bool MonsterTeam1::BattleAction()
+{
+	return false;
+}

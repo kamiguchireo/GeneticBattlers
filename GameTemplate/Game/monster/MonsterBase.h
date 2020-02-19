@@ -154,6 +154,7 @@ public:
 	virtual bool Action_good() { return false; }
 	virtual bool Action_usually() { return false; }
 	virtual bool Action_bad() { return false; }
+	virtual bool BattleAction() = 0;
 	
 
 protected:

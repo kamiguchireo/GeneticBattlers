@@ -11,6 +11,7 @@ public:
 	bool Action_good();
 	bool Action_usually();
 	bool Action_bad();
+	bool BattleAction();
 private:
 	//s“®‚Ìó‘Ô‘JˆÚ‚Ì—ñ‹“B
 	enum ActionState {
