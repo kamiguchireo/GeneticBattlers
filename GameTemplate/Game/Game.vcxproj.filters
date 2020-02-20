@@ -191,6 +191,7 @@
     <ClCompile Include="monster\Attacker.cpp" />
     <ClCompile Include="monster\Healer.cpp" />
     <ClCompile Include="monster\Supporter.cpp" />
+    <ClCompile Include="SourceFile\Light\DirectionLight.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -336,6 +337,7 @@
     <ClInclude Include="monster\Attacker.h" />
     <ClInclude Include="monster\Healer.h" />
     <ClInclude Include="monster\Supporter.h" />
+    <ClInclude Include="SourceFile\Light\DirectionLight.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

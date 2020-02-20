@@ -32,8 +32,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//ゲームクラスの生成。
 	//NewGO<Game>(0, nullptr);
-	NewGO<TitleScene>(0, nullptr);
-	NewGO<Fade>(1, "Fade");
+	//NewGO<TitleScene>(0, nullptr);
+	//NewGO<Fade>(1, "Fade");
 
 	////スプライトの確認のためのポインタ
 	//prefab::SpriteRender*m_spriteRender;
@@ -58,13 +58,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//emitPos.y += 100.0f;
 	//effect->SetPosition(emitPos);
 
-	CSoundEngine se;
-	se.Init();
+	//CSoundEngine se;
+	//se.Init();
 
-	prefab::CSoundSource ss;
-	//ss = NewGO<prefab::CSoundSource>(0);
-	ss.Init(L"Assets/sound/bgm_00.wav");
-	ss.Play(false);
+	//prefab::CSoundSource ss;
+	////ss = NewGO<prefab::CSoundSource>(0);
+	//ss.Init(L"Assets/sound/bgm_00.wav");
+	//ss.Play(false);
 
 	g_camera2D.Update2D();
 	
@@ -93,18 +93,18 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//);
 		//g_graphicsEngine->Execute2DDraw();
 
-		if(GetAsyncKeyState(VK_UP))
-		{
+		//if(GetAsyncKeyState(VK_UP))
+		//{
 
-			//エフェクトを作成。
-			prefab::CEffect* effect = NewGO<prefab::CEffect>(0);
-			//エフェクトを再生。
-			effect->Play(L"Assets/effect/test.efk");
-			CVector3 emitPos = CVector3::Zero();
-			emitPos.y += 100.0f;
-			effect->SetPosition(emitPos);
-			effect->SetScale({ 10.0f,10.0f,10.0f });
-		}
+		//	//エフェクトを作成。
+		//	prefab::CEffect* effect = NewGO<prefab::CEffect>(0);
+		//	//エフェクトを再生。
+		//	effect->Play(L"Assets/effect/test.efk");
+		//	CVector3 emitPos = CVector3::Zero();
+		//	emitPos.y += 100.0f;
+		//	effect->SetPosition(emitPos);
+		//	effect->SetScale({ 10.0f,10.0f,10.0f });
+		//}
 		//描画終了。
 		g_graphicsEngine->EndRender();
 	}
