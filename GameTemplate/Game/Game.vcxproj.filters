@@ -187,6 +187,10 @@
     <ClCompile Include="SourceFile\Sound\CWaveFileBank.cpp" />
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
     <ClCompile Include="SourceFile\Sound\CSoundSource.cpp" />
+    <ClCompile Include="GameCamera.cpp" />
+    <ClCompile Include="monster\Attacker.cpp" />
+    <ClCompile Include="monster\Healer.cpp" />
+    <ClCompile Include="monster\Supporter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -328,6 +332,10 @@
     <ClInclude Include="SourceFile\Sound\CWaveFileBank.h" />
     <ClInclude Include="SourceFile\Sound\WaveFile.h" />
     <ClInclude Include="SourceFile\Sound\CSoundSource.h" />
+    <ClInclude Include="GameCamera.h" />
+    <ClInclude Include="monster\Attacker.h" />
+    <ClInclude Include="monster\Healer.h" />
+    <ClInclude Include="monster\Supporter.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

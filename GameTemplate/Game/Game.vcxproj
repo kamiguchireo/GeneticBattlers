@@ -99,6 +99,8 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="monster\Healer.cpp" />
+    <ClCompile Include="monster\Attacker.cpp" />
     <ClCompile Include="GameCamera.cpp" />
     <ClCompile Include="SourceFile\Sound\CSoundSource.cpp" />
     <ClCompile Include="SourceFile\Sound\CWaveFileBank.cpp" />
@@ -153,12 +155,15 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
     </ClCompile>
     <ClCompile Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.cpp" />
+    <ClCompile Include="monster\Supporter.cpp" />
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="SourceFile\graphic\GPUBuffer\VertexBuffer.cpp" />
     <ClCompile Include="gameScenes\TitleScene.cpp" />
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="monster\Healer.h" />
+    <ClInclude Include="monster\Attacker.h" />
     <ClInclude Include="GameCamera.h" />
     <ClInclude Include="SourceFile\Sound\CSoundSource.h" />
     <ClInclude Include="SourceFile\Sound\CWaveFileBank.h" />
@@ -212,6 +217,7 @@
     <ClInclude Include="SpriteRender.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.h" />
+    <ClInclude Include="monster\Supporter.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="gameScenes\TitleScene.h" />
     <ClInclude Include="util\Util.h" />
