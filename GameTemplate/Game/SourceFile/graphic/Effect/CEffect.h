@@ -30,7 +30,7 @@ namespace Engine {
 			}
 
 			//Šg‘å—¦‚ğİ’è
-			void SetSacle(const CVector3&scale)
+			void SetScale(const CVector3&scale)
 			{
 				m_scale = scale;
 			}

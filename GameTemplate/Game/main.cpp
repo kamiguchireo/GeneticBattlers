@@ -95,6 +95,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		if(GetAsyncKeyState(VK_UP))
 		{
+
 			//エフェクトを作成。
 			prefab::CEffect* effect = NewGO<prefab::CEffect>(0);
 			//エフェクトを再生。
@@ -102,7 +103,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			CVector3 emitPos = CVector3::Zero();
 			emitPos.y += 100.0f;
 			effect->SetPosition(emitPos);
-			effect->SetSacle({ 10.0f,10.0f,10.0f });
+			effect->SetScale({ 10.0f,10.0f,10.0f });
 		}
 		//描画終了。
 		g_graphicsEngine->EndRender();
