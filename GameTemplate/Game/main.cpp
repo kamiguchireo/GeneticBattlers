@@ -32,8 +32,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//ゲームクラスの生成。
 	//NewGO<Game>(0, nullptr);
-	//NewGO<TitleScene>(0, nullptr);
-	//NewGO<Fade>(1, "Fade");
+	NewGO<TitleScene>(0, nullptr);
+	NewGO<Fade>(1, "Fade");
 
 	////スプライトの確認のためのポインタ
 	//prefab::SpriteRender*m_spriteRender;
