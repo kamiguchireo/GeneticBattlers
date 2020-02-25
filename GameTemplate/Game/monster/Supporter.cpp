@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Supporter.h"
+#include "Skill/SkillList.h"
 
 Supporter::Supporter()
 {

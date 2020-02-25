@@ -28,6 +28,9 @@ void MonsterBase::SetStatus(int hp, int mp, int atk, int def, int mat, int mdf, 
 
 void MonsterBase::Draw()
 {
+	//ワールド行列の更新。
+	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
+	//描画処理。
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix()
@@ -37,10 +40,10 @@ void MonsterBase::Draw()
 bool MonsterBase::AddATB()
 {
 	//死亡時は処理を中断する。
-	if (m_stateAI == en_state_Death) return true;
+	if (m_stateAI == en_state_Death) return false;
 
-	m_activeTime += (float)m_status.DEX / 60.0f * 5;
-	if (m_activeTime > 100.0f) {
+	m_activeTime += (float)m_status.DEX / 144.0f;
+	if (m_activeTime > m_coolTime) {
 		m_activeTime = 0.0f;
 		return true;
 	}
@@ -58,16 +61,16 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& list)
 	{
 	case en_state_Good:
 		m_useSkill = skillList->GetSkillData(0, 0);
-		m_target = list[rand() % 3];
+		m_target = list[rand() % list.size()];
 		break;
 
 	case en_state_Usually:
-		m_useSkill = skillList->GetSkillData(1, 0);
-		m_target = list[rand() % 3];
+		m_useSkill = skillList->GetSkillData(0, 1);
+		m_target = list[rand() % list.size()];
 		break;
 
 	case en_state_Bad:
-		m_useSkill = skillList->GetSkillData(4, 0);
+		m_useSkill = skillList->GetSkillData(1, 0);
 		m_target = this;
 		break;
 

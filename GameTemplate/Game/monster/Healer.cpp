@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "Healer.h"
+#include "Skill/SkillList.h"
 
 Healer::Healer()
 {
