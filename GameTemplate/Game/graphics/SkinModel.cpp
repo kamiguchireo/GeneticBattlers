@@ -28,6 +28,9 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 	m_modelDx = g_skinModelDataManager.Load(filePath, m_skeleton);
 
 	m_enFbxUpAxis = enFbxUpAxis;
+
+	CQuaternion direction = { 0.707,-0.707,0.0,1.0 };
+	SetLightDir(direction);
 }
 void SkinModel::InitSkeleton(const wchar_t* filePath)
 {
@@ -123,6 +126,8 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 	d3dDeviceContext->PSSetSamplers(0, 1, &m_samplerState);
 	//ボーン行列をGPUに転送。
 	m_skeleton.SendBoneMatrixArrayToGPU();
+
+	DL.Draw();
 
 	//描画。
 	m_modelDx->Draw(

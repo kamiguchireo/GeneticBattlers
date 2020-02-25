@@ -6,10 +6,40 @@ namespace Engine {
 		DirectionLight::DirectionLight()
 		{
 
+			InitConstantBuffer();
 		}
 		DirectionLight::~DirectionLight()
 		{
+			//ライト用の定数バッファの解放
+			if (m_lightCb != nullptr)
+			{
+				m_lightCb->Release();
+			}
+		}
 
+		//bool DirectionLight::Start()
+		//{
+		//	InitConstantBuffer();
+		//	m_dirLight.direction = { 1.0f, 0.0f, 0.0f, 0.0f };
+		//	m_dirLight.color = { 1.0f, 1.0f, 1.0f, 1.0f };
+		//	return true;
+		//}
+
+		//void DirectionLight::Update()
+		//{
+		//	CQuaternion qRot;
+		//	qRot.SetRotationDeg(CVector3::AxisY(), 2.0f);
+		//	qRot.Multiply(m_dirLight.direction);
+		//	Draw();
+		//}
+
+		void DirectionLight::Draw()
+		{
+			auto dc = g_graphicsEngine->GetD3DDeviceContext();
+			//ライト用の定数バッファを更新
+			dc->UpdateSubresource(m_lightCb, 0, nullptr, &m_dirLight, 0, 0);
+			//定数バッファをシェーダースロットに設定
+			dc->PSSetConstantBuffers(0, 1, &m_lightCb);
 		}
 
 		//定数バッファの初期化

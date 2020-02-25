@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Skeleton.h"
+#include "SourceFile/Light/DirectionLight.h"
 
 /*!
 *@brief	FBXの上方向。
@@ -53,6 +54,16 @@ public:
 	*  カメラ座標系の3Dモデルをスクリーン座標系に変換する行列です。
 	*/
 	void Draw( CMatrix viewMatrix, CMatrix projMatrix );
+
+	void SetLightDir(CQuaternion dir)
+	{
+		DL.SetDirection(dir);
+	}
+
+	void SetLightColor(CVector4 col)
+	{
+		DL.SetColor(col);
+	}
 	/*!
 	*@brief	スケルトンの取得。
 	*/
@@ -107,5 +118,6 @@ private:
 	CMatrix				m_worldMatrix;					//!<ワールド行列。
 	DirectX::Model*		m_modelDx;						//!<DirectXTKが提供するモデルクラス。
 	ID3D11SamplerState* m_samplerState = nullptr;		//!<サンプラステート。
+	Engine::prefab::DirectionLight DL;
 };
 

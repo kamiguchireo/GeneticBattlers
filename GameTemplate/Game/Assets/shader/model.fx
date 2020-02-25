@@ -28,6 +28,11 @@ cbuffer VSPSCb : register(b0){
 	float4x4 mProj;
 };
 
+cbuffer LightCb:register(b0)
+{
+	float3 dligDirection;
+	float4 dligColor;
+}
 
 /////////////////////////////////////////////////////////////
 //各種構造体
@@ -140,7 +145,13 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 //--------------------------------------------------------------------------------------
 // ピクセルシェーダーのエントリ関数。
 //--------------------------------------------------------------------------------------
-float4 PSMain( PSInput In ) : SV_Target0
+float4 PSMain(PSInput In) : SV_Target0
 {
-	return albedoTexture.Sample(Sampler, In.TexCoord);
+	float4 albedoColor = albedoTexture.Sample(Sampler,In.TexCoord);
+	//ディレクションライトの拡散反射光を計算する
+	float3 lig = max(0.0f,dot(dligDirection, In.Normal * -1.0f)) * dligColor;
+	float4 finalColor = float4(0.0f, 0.0f, 0.0f, 1.0f);
+	finalColor.xyz = albedoColor.xyz * lig;
+	//return albedoTexture.Sample(Sampler, In.TexCoord);
+	return finalColor;
 }
