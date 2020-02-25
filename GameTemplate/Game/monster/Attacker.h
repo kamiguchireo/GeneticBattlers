@@ -9,5 +9,6 @@ public:
 	bool Start();
 	void Update();
 	bool BattleAction();
+	void SelectUseSkill(const std::vector<MonsterBase*>& list) override;
 };
 

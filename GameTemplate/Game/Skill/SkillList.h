@@ -1,7 +1,6 @@
 #pragma once
 #include "Skill/SkillBase.h"
 
-struct SkillData;
 class MonsterBase;
 
 
@@ -21,10 +20,8 @@ public:
 	/// </summary>
 	/// <param name="table">スキルの属性
 	/// <remarks>０通常行動</remarks>
-	/// <remarks>１炎魔法</remarks>
-	/// <remarks>２草魔法</remarks>
-	/// <remarks>３水魔法</remarks>
-	/// <remarks>４回復、バフ魔法</remarks>
+	/// <remarks>１回復魔法</remarks>
+	/// <remarks>２バフ魔法</remarks>
 	/// </param>
 	/// <param name="no">スキルナンバー</param>
 	/// <returns>スキルのデータ</returns>
@@ -35,67 +32,31 @@ public:
 
 private:
 	typedef std::vector<SkillBase*>SkillTable;
-	//SkillTable m_skillList[5];
 	std::vector<SkillTable>m_skillList;
 };
 
+//単体攻撃。
 class Attack : public SkillBase
 {
 public:
-	Attack() {
-		sprintf_s(skillName, "通常攻撃");
-		skillPower = 1.0f;
-		useMP = 0;
-		m_skillNo = 0;
-		m_skillElements = en_elements_Empty;
-		isMagic = false;
-	}
+	Attack() {}
 	bool UseSkill(MonsterBase* attack,MonsterBase* target);
 private:
 	
 };
 
-class Rest : public SkillBase
+//複数回攻撃。
+class DoubleAttack : public SkillBase
 {
 public:
-	Rest()
-	{
-		sprintf_s(skillName, "休憩");
-		skillPower = 0.5f;
-		useMP = 0;
-		m_skillNo = 1;
-		m_skillElements = en_elements_Empty;
-		isMagic = false;
-	}
+	DoubleAttack() {}
 	bool UseSkill(MonsterBase* attack, MonsterBase* target);
 };
 
-class Fire : public SkillBase
-{
-public:
-	Fire()
-	{
-		sprintf_s(skillName, "ファイア");
-		skillPower = 1.0f;
-		useMP = 10;
-		m_skillNo = 100;
-		m_skillElements = en_elements_Fire;
-		isMagic = true;
-	}
-	bool UseSkill(MonsterBase* attack, MonsterBase* target);
-};
-
+//単体回復。
 class Heal : public SkillBase
 {
 public:
-	Heal()
-	{
-		sprintf(skillName, "ヒール");
-		skillPower = 1.0f;
-		useMP = 10;
-		m_skillNo = 400;
-		m_skillElements = en_elements_Empty;
-		isMagic = true;
-	}
+	Heal(){}
 	bool UseSkill(MonsterBase* attack, MonsterBase* target);
 };

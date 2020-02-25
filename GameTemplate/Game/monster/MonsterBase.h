@@ -1,9 +1,5 @@
 #pragma once
 #include "Skill/SkillBase.h"
-//前方宣言。
-struct SkillData;
-//enum Elements;
-//class SkillBase;
 
 const int ActionNum = 10;							//AIがとりうる行動の数。
 
@@ -65,6 +61,10 @@ public:
 	{
 		return m_position;
 	}
+	const CQuaternion& GetRotation() const
+	{
+		return m_rotation;
+	}
 	//ステータスを取得。
 	const Status& GetStatus() const
 	{
@@ -94,10 +94,20 @@ public:
 	{
 		m_position = pos;
 	}
-	//描画処理。
+	//回転の設定。
+	void SetRotation(const CQuaternion& rot)
+	{
+		m_rotation = rot;
+	}
+	//描画処理とかをまとめたもの。
 	void Draw();
 	//アクティブタイムを加算する。
 	bool AddATB();
+	//クールタイムを設定する。
+	void SetCoolTime(float time)
+	{
+		m_coolTime = time;
+	}
 	/// <summary>
 	/// ダメージを与える。
 	/// </summary>
@@ -141,7 +151,7 @@ public:
 	/// スキルのターゲットを定める。
 	/// </summary>
 	/// <param name="list">ターゲットを選ぶためのリスト</param>
-	void SelectUseSkill(const std::vector<MonsterBase*>& list);
+	virtual void SelectUseSkill(const std::vector<MonsterBase*>& list);
 	/// <summary>
 	///ステートの更新処理。 
 	/// </summary>
@@ -167,6 +177,7 @@ protected:
 	bool m_isDeath = false;								//戦闘不能フラグ。
 	int m_stateAI = en_state_Good;						//ステート。
 	float m_activeTime = 0.0f;							//アクティブタイム。
+	float m_coolTime = 30.0f;							//クールタイム。
 	Elements m_elemnts = en_elements_Empty;				//属性。
 	SkillBase* m_useSkill = nullptr;					//使用しているスキルのポインタ。
 	MonsterBase* m_target = nullptr;					//スキルの対象。
