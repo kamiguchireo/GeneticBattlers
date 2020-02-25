@@ -17,6 +17,11 @@ namespace Engine {
 
 				//m_dirLight.direction = dir;
 			}
+
+			void SetColor(CVector4 color)
+			{
+				m_dirLight.color = color;
+			}
 			void Draw();
 
 			//定数バッファの初期化

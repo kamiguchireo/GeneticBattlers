@@ -54,6 +54,16 @@ public:
 	*  カメラ座標系の3Dモデルをスクリーン座標系に変換する行列です。
 	*/
 	void Draw( CMatrix viewMatrix, CMatrix projMatrix );
+
+	void SetLightDir(CQuaternion dir)
+	{
+		DL.SetDirection(dir);
+	}
+
+	void SetLightColor(CVector4 col)
+	{
+		DL.SetColor(col);
+	}
 	/*!
 	*@brief	スケルトンの取得。
 	*/

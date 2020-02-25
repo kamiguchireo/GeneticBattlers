@@ -149,7 +149,7 @@ float4 PSMain(PSInput In) : SV_Target0
 {
 	float4 albedoColor = albedoTexture.Sample(Sampler,In.TexCoord);
 	//ディレクションライトの拡散反射光を計算する
-	float3 lig = max(0.0f,dot(In.Normal * -1.0f,dligDirection)) * dligColor;
+	float3 lig = max(0.0f,dot(dligDirection, In.Normal * -1.0f)) * dligColor;
 	float4 finalColor = float4(0.0f, 0.0f, 0.0f, 1.0f);
 	finalColor.xyz = albedoColor.xyz * lig;
 	//return albedoTexture.Sample(Sampler, In.TexCoord);
