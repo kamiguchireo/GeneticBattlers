@@ -71,13 +71,15 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//m_model.Init(L"Assets/modelData/unityChan.cmo");
 	//CVector3 m_pos = { 100.0f,0.0f,0.0f };
 	//m_model.UpdateWorldMatrix(m_pos, CQuaternion::Identity(), CVector3::One());
+	//CQuaternion m_ligdir2 = { 0.707,0.0,1.0,1.0 };
+	//m_model.SetLightDir(m_ligdir2);
 
 	//SkinModel m_model2;
 	//m_model2.Init(L"Assets/modelData/unityChan.cmo");
 	//CVector3 m_pos2 = { -100.0f,0.0f,0.0f };
 	//m_model2.UpdateWorldMatrix(m_pos2, CQuaternion::Identity(), CVector3::One());
-	//CVector4 m_ligCol = { 1.0f,0.0f,0.0f,0.0f };
-	//CQuaternion m_ligdir = { 0.0f,0.0f,1.0f,1.0f };
+	//CVector4 m_ligCol = { 1.0,1.0,1.0,1.0 };
+	//CQuaternion m_ligdir = { 0.707,0.0,1.0,1.0 };
 	//m_model2.SetLightColor(m_ligCol);
 	//m_model2.SetLightDir(m_ligdir);
 

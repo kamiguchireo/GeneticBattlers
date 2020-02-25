@@ -11,6 +11,7 @@ namespace Engine {
 			//bool Start();
 			//void Update();
 
+			//ディレクションライトの向き
 			void SetDirection(CQuaternion dir)
 			{
 				dir.Multiply(m_dirLight.direction);
@@ -18,10 +19,13 @@ namespace Engine {
 				//m_dirLight.direction = dir;
 			}
 
+			//ディレクションライトの色
 			void SetColor(CVector4 color)
 			{
 				m_dirLight.color = color;
 			}
+
+
 			void Draw();
 
 			//定数バッファの初期化

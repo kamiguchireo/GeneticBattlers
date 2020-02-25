@@ -5,7 +5,6 @@ namespace Engine {
 	namespace prefab {
 		DirectionLight::DirectionLight()
 		{
-
 			InitConstantBuffer();
 		}
 		DirectionLight::~DirectionLight()
