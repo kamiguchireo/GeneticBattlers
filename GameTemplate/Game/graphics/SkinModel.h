@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Skeleton.h"
+#include "SourceFile/Light/DirectionLight.h"
 
 /*!
 *@brief	FBXの上方向。
@@ -107,5 +108,6 @@ private:
 	CMatrix				m_worldMatrix;					//!<ワールド行列。
 	DirectX::Model*		m_modelDx;						//!<DirectXTKが提供するモデルクラス。
 	ID3D11SamplerState* m_samplerState = nullptr;		//!<サンプラステート。
+	Engine::prefab::DirectionLight DL;
 };
 

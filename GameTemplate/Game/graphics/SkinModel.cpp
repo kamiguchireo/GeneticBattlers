@@ -124,6 +124,11 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 	//ボーン行列をGPUに転送。
 	m_skeleton.SendBoneMatrixArrayToGPU();
 
+	CQuaternion qRot;
+	qRot.SetRotationDeg(CVector3::AxisY(), 2.0f);
+	DL.SetDirection(qRot);
+	DL.Draw();
+
 	//描画。
 	m_modelDx->Draw(
 		d3dDeviceContext,

@@ -1,5 +1,5 @@
 #pragma once
-
+#include "SourceFile/GameObject/GameObjectManager.h"
 namespace Engine {
 	namespace prefab{
 		class DirectionLight :public IGameObject
@@ -7,6 +7,17 @@ namespace Engine {
 		public:
 			DirectionLight();
 			~DirectionLight();
+
+			//bool Start();
+			//void Update();
+
+			void SetDirection(CQuaternion dir)
+			{
+				dir.Multiply(m_dirLight.direction);
+
+				//m_dirLight.direction = dir;
+			}
+			void Draw();
 
 			//定数バッファの初期化
 			void InitConstantBuffer();
@@ -16,6 +27,7 @@ namespace Engine {
 				CVector4 direction = CVector4::White();		//ライトの向き
 				CVector4 color = CVector4::White();		//ライトの色
 			};
+			SDirectionLight m_dirLight;
 			ID3D11Buffer* m_lightCb = nullptr;		//ライト用の定数バッファ
 			D3D11_BUFFER_DESC bufferDesc;
 		};

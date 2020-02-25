@@ -11,6 +11,7 @@
 #include "SourceFile/graphic/Effect/CEffect.h"
 #include "SourceFile/Sound/CSoundSource.h"
 #include "SourceFile/Sound/SoundEngine.h"
+#include "SourceFile/Light/DirectionLight.h"
 
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -32,8 +33,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//ゲームクラスの生成。
 	//NewGO<Game>(0, nullptr);
-	NewGO<TitleScene>(0, nullptr);
-	NewGO<Fade>(1, "Fade");
+	//NewGO<TitleScene>(0, nullptr);
+	//NewGO<Fade>(1, "Fade");
 
 	////スプライトの確認のためのポインタ
 	//prefab::SpriteRender*m_spriteRender;
@@ -65,6 +66,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	////ss = NewGO<prefab::CSoundSource>(0);
 	//ss.Init(L"Assets/sound/bgm_00.wav");
 	//ss.Play(false);
+
+	SkinModel m_model;
+	m_model.Init(L"Assets/modelData/unityChan.cmo");
+	m_model.UpdateWorldMatrix(CVector3::Zero(), CQuaternion::Identity(), CVector3::One());
+
+	//prefab::DirectionLight* DL;
+	//DL = NewGO<prefab::DirectionLight>(0);
 
 	g_camera2D.Update2D();
 	
@@ -105,6 +113,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//	effect->SetPosition(emitPos);
 		//	effect->SetScale({ 10.0f,10.0f,10.0f });
 		//}
+
+		//モデルのドロー
+		m_model.Draw
+		(
+			g_camera3D.GetViewMatrix(),
+			g_camera3D.GetProjectionMatrix()
+		);
+
 		//描画終了。
 		g_graphicsEngine->EndRender();
 	}
