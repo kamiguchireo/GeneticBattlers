@@ -55,15 +55,19 @@ public:
 	*/
 	void Draw( CMatrix viewMatrix, CMatrix projMatrix );
 
+	//ディレクションライトの向き
 	void SetLightDir(CQuaternion dir)
 	{
 		DL.SetDirection(dir);
 	}
 
+	//ディレクションライトの色
 	void SetLightColor(CVector4 col)
 	{
 		DL.SetColor(col);
 	}
+
+
 	/*!
 	*@brief	スケルトンの取得。
 	*/
