@@ -53,15 +53,15 @@ namespace Engine {
 			//エフェクトが再生中か判定
 			bool IsPlay()
 			{
-				return m_manager->GetShown(m_handle);
+				return g_graphicsEngine->GetEffekseerManager().GetShown(m_handle);
 			}
 
-			void managerInit();
+			//void managerInit();
 
-			Effekseer::Effect* CreateEffekseerEffect(const wchar_t* filePath)
-			{
-				return Effekseer::Effect::Create(m_manager, (const EFK_CHAR*)filePath);
-			}
+			//Effekseer::Effect* CreateEffekseerEffect(const wchar_t* filePath)
+			//{
+			//	return Effekseer::Effect::Create(m_manager, (const EFK_CHAR*)filePath);
+			//}
 
 			//更新
 			void Update();
@@ -69,8 +69,8 @@ namespace Engine {
 			std::map<int, Effekseer::Effect*> m_resourceMap;
 			Effekseer::Effect*m_effect = nullptr;
 			Effekseer::Handle m_handle = -1;
-			Effekseer::Manager* m_manager = nullptr;
-			EffekseerRenderer::Renderer* m_renderer = nullptr;
+			//Effekseer::Manager* m_manager = nullptr;
+			//EffekseerRenderer::Renderer* m_renderer = nullptr;
 			CVector3 m_position = CVector3::Zero();		//座標
 			CQuaternion m_rotation = CQuaternion::Identity();		//回転
 			CVector3 m_scale = CVector3::One();		//拡大

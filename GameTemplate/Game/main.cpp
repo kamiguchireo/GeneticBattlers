@@ -31,11 +31,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera2D.SetFar(100.0f);
 	//CGameObjectManager gameObject;
 
+	//エフェクサーマネージャーの初期化
+	g_graphicsEngine->managerInit();
+	
 	//ゲームクラスの生成。
 	//NewGO<Game>(0, nullptr);
 	NewGO<TitleScene>(0, nullptr);
 	NewGO<Fade>(1, "Fade");
-
+	
 	////スプライトの確認のためのポインタ
 	//prefab::SpriteRender*m_spriteRender;
 

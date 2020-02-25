@@ -2,6 +2,8 @@
 #include "Camera.h"
 #include "SourceFile/graphic/RenderContext.h"
 #include "SourceFile/graphic/2D/Sprite.h"
+#include "EffekseerRendererDX11.h"
+#include "Effekseer.h"
 
 /*!
  *@brief	グラフィックスエンジン。
@@ -70,6 +72,23 @@ public:
 	{
 		return m_rasterizerState;
 	}
+
+	void managerInit();
+	
+	//Effekseerマネージャの取得。 
+	Effekseer::Manager& GetEffekseerManager()
+	{
+		return *m_manager;
+	}
+
+	EffekseerRenderer::Renderer& GetEffekseerRender()
+	{
+		return *m_renderer;
+	}
+	Effekseer::Effect* GraphicsEngine::CreateEffekseerEffect(const wchar_t* filePath)
+	{
+		return Effekseer::Effect::Create(m_manager, (const EFK_CHAR*)filePath);
+	}
 private:
 	Camera m_mainCamera;		//カメラ
 	//Camera m_2DCamera;
@@ -86,6 +105,9 @@ private:
 	ID3D11Texture2D*		m_depthStencil = NULL;		//デプスステンシル。
 	ID3D11DepthStencilView* m_depthStencilView = NULL;	//デプスステンシルビュー。
 	D3D11_FEATURE_DATA_THREADING m_featureDataThreading;
+	Effekseer::Manager* m_manager = nullptr;
+	EffekseerRenderer::Renderer* m_renderer = nullptr;
+
 };
 
 extern GraphicsEngine* g_graphicsEngine;			//グラフィックスエンジン
