@@ -105,7 +105,8 @@ public:
 	static float eleNormal;		//相性普通。
 protected:
 	prefab::CEffect* skillEffect = nullptr;
-	wchar_t* effectPath = nullptr;
+	//wchar_t* effectPath = nullptr;
+	wchar_t effectPath[128];	//エフェクトのファイルパス。
 	char skillName[30];
 	float skillPower = 1.0f;
 	float coolTime = 0.0f;	//クールタイム

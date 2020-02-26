@@ -18,6 +18,7 @@ SkillList::SkillList()
 	SkillTable typeList[typeNum];
 	auto attack = NewGO<Attack>(0);
 	attack->InitSkill("通常攻撃", 1.0f, 30.0f, 0.95f, 0);
+	attack->SetEffect(L"Assets/effect/test.efk");
 	typeList[0].push_back(attack);
 	auto doublAttack = NewGO<DoubleAttack>(0);
 	doublAttack->InitSkill("ダブルアタック", 1.0f, 50.0f, 0.85f, 1);
@@ -54,8 +55,8 @@ bool Attack::UseSkill(MonsterBase * attack, MonsterBase * target)
 	static int skilltime = 0;
 	if(skillEffect == nullptr){
 		skillEffect = NewGO<prefab::CEffect>(0);
-		skillEffect->Play(L"Assets/effect/test.efk");
-		//skillEffect->Play(effectPath);
+		//skillEffect->Play(L"Assets/effect/test.efk");
+		skillEffect->Play(effectPath);
 		skillEffect->SetPosition(attack->GetPosition() + CVector3::AxisY()*20.0f);
 		skillEffect->SetRotation(attack->GetRotation());
 		skillEffect->SetScale(CVector3::One() * 20.0f);
