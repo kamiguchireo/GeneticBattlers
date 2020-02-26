@@ -32,6 +32,7 @@ cbuffer LightCb:register(b0)
 {
 	float3 dligDirection;
 	float4 dligColor;
+	int4 ActiveFlag;
 }
 
 /////////////////////////////////////////////////////////////
@@ -153,6 +154,12 @@ float4 PSMain(PSInput In) : SV_Target0
 		float4 finalColor = float4(0.0f, 0.0f, 0.0f, 1.0f);
 		finalColor.xyz = albedoColor.xyz * lig;
 		//return albedoTexture.Sample(Sampler, In.TexCoord);
-		return finalColor;
-
+		if (ActiveFlag.x == 0)
+		{
+			return finalColor;
+		}
+		else
+		{
+			return albedoColor;
+		}
 }

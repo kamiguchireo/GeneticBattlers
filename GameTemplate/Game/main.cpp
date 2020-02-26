@@ -76,6 +76,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//m_model.UpdateWorldMatrix(m_pos, CQuaternion::Identity(), CVector3::One());
 	//CQuaternion m_ligdir2 = { 0.707,0.0,1.0,1.0 };
 	//m_model.SetLightDir(m_ligdir2);
+	////m_model.SetActiveDLFlag(1);
 
 	//SkinModel m_model2;
 	//m_model2.Init(L"Assets/modelData/unityChan.cmo");

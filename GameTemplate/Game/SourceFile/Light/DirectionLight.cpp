@@ -5,6 +5,10 @@ namespace Engine {
 	namespace prefab {
 		DirectionLight::DirectionLight()
 		{
+			for (int i = 0; i < 4; i++)
+			{
+				m_dirLight.ActiveFlag[i] = 0;
+			}
 			InitConstantBuffer();
 		}
 		DirectionLight::~DirectionLight()
@@ -44,11 +48,13 @@ namespace Engine {
 		//定数バッファの初期化
 		void DirectionLight::InitConstantBuffer()
 		{
+			int bufferSize = sizeof(SDirectionLight);
 			//bufferDescをゼロにセット
 			ZeroMemory(&bufferDesc, sizeof(bufferDesc));
 			bufferDesc.Usage = D3D11_USAGE_DEFAULT;
 			//バッファのサイズ
-			bufferDesc.ByteWidth = sizeof(SDirectionLight);
+			//バッファは16バイトアライメントになっている必要がある
+			bufferDesc.ByteWidth = Raundup16(bufferSize);	
 			//定数バッファ
 			bufferDesc.BindFlags = D3D11_BIND_CONSTANT_BUFFER;
 			//CPUは使わない
