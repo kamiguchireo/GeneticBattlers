@@ -67,10 +67,16 @@ public:
 		DL.SetColor(col);
 	}
 
-	//ライトのアクティブフラグの変更
+	//ディレクションライトのアクティブフラグの変更
 	void SetActiveDLFlag(int i)
 	{
 		DL.SetActiveDLFlag(i);
+	}
+
+	//鏡面反射のアクティブフラグの変更
+	void SetActiveRLFlag(int i)
+	{
+		DL.SetActiveRLFlag(i);
 	}
 
 	/*!
