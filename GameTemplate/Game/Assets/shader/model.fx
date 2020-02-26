@@ -30,9 +30,11 @@ cbuffer VSPSCb : register(b0){
 
 cbuffer LightCb:register(b0)
 {
-	float3 dligDirection;
-	float4 dligColor;
-	int4 ActiveFlag;
+	float3 dligDirection;	//ライトの向き
+	float4 dligColor;	//ライトの色
+	float3 eyePos;	//視点の座標
+	float specPow;	//鏡面反射の絞り
+	uint3 ActiveFlag;	//ライトの各アクティブフラグ
 }
 
 /////////////////////////////////////////////////////////////
@@ -69,6 +71,7 @@ struct PSInput{
 	float3 Normal		: NORMAL;
 	float3 Tangent		: TANGENT;
 	float2 TexCoord 	: TEXCOORD0;
+	float3 worldPos:TEXCORD1;
 };
 /*!
  *@brief	スキン行列を計算。
@@ -94,6 +97,8 @@ PSInput VSMain( VSInputNmTxVcTangent In )
 {
 	PSInput psInput = (PSInput)0;
 	float4 pos = mul(mWorld, In.Position);
+	psInput.worldPos = pos;
+
 	pos = mul(mView, pos);
 	pos = mul(mProj, pos);
 	psInput.Position = pos;
@@ -150,10 +155,26 @@ float4 PSMain(PSInput In) : SV_Target0
 {
 	float4 albedoColor = albedoTexture.Sample(Sampler,In.TexCoord);
 	//ディレクションライトの拡散反射光を計算する
-		float3 lig = max(0.0f, dot(dligDirection, In.Normal * -1.0f)) * dligColor;
+	float3 lig = 0.0;
+		lig += max(0.0f, dot(In.Normal * -1.0f,dligDirection)) * dligColor.xyz;
 		float4 finalColor = float4(0.0f, 0.0f, 0.0f, 1.0f);
+		//鏡面反射の計算
+		if (ActiveFlag.y == 0)
+		{
+			//ライトを当てる面から視点に伸びるベクトルtoEyeDirを求める。
+			float3 toEyeDir = normalize(eyePos - In.worldPos);
+			//求めたtoEyeDirの反射ベクトルを求める。
+			float3 reflectEyeDir = -toEyeDir + 2 * dot(In.Normal, toEyeDir)* In.Normal;
+			//求めた反射ベクトルとディレクションライトの方向との内積を取って、スペキュラの強さを計算する。
+			float3 t = max(0.0f, dot(-dligDirection, reflectEyeDir));
+			//pow関数を使って、スペキュラを絞る。絞りの強さは定数バッファで渡されている。
+			float3 spec = pow(t, specPow) * dligColor.xyz;
+			//⑤ スペキュラ反射が求まったら、ligに加算する。
+			//鏡面反射を反射光に加算する。
+			lig += spec;
+
+		}
 		finalColor.xyz = albedoColor.xyz * lig;
-		//return albedoTexture.Sample(Sampler, In.TexCoord);
 		if (ActiveFlag.x == 0)
 		{
 			return finalColor;

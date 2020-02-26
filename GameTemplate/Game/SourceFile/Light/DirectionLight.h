@@ -14,9 +14,9 @@ namespace Engine {
 			//ディレクションライトの向き
 			void SetDirection(CQuaternion dir)
 			{
-				dir.Multiply(m_dirLight.direction);
+				//dir.Multiply(m_dirLight.direction);
 
-				//m_dirLight.direction = dir;
+				m_dirLight.direction = dir;
 			}
 
 			//ディレクションライトの色
@@ -33,6 +33,13 @@ namespace Engine {
 			{
 				m_dirLight.ActiveFlag[0] = i;
 			}
+
+			//鏡面反射のフラグ
+			//0なら有効
+			void SetActiveRLFlag(int i)
+			{
+				m_dirLight.ActiveFlag[1] = i;
+			}
 			void Draw();
 
 			//定数バッファの初期化
@@ -46,10 +53,11 @@ namespace Engine {
 		private:
 			struct SDirectionLight 
 			{
-				CVector4 direction = CVector4::White();		//ライトの向き
-				CVector4 color = CVector4::White();		//ライトの色
-				int ActiveFlag[4];		//アクティブフラグ0の時に有効にする
-				float				specPow;			//鏡面反射の絞り
+				CQuaternion direction = { 1.0f,0.0f,0.0f,0.0f };	//ライトの向き
+				CVector4 color = { 1.0f, 1.0f, 1.0f, 1.0f };		//ライトの色
+				CVector3 eyePos;		//視点の座標
+				float specPow;			//鏡面反射の絞り
+				unsigned int ActiveFlag[3];		//アクティブフラグ0の時に有効にする	
 			};
 			SDirectionLight m_dirLight;
 			ID3D11Buffer* m_lightCb = nullptr;		//ライト用の定数バッファ

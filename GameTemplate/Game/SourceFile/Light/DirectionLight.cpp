@@ -5,10 +5,13 @@ namespace Engine {
 	namespace prefab {
 		DirectionLight::DirectionLight()
 		{
-			for (int i = 0; i < 4; i++)
+			//アクティブフラグの初期化
+			for (int i = 0; i < 3; i++)
 			{
 				m_dirLight.ActiveFlag[i] = 0;
 			}
+			//鏡面反射の絞りの初期化
+			m_dirLight.specPow = 10.0;
 			InitConstantBuffer();
 		}
 		DirectionLight::~DirectionLight()
@@ -38,6 +41,8 @@ namespace Engine {
 
 		void DirectionLight::Draw()
 		{
+			//鏡面反射用のカメラの視点を取得する
+			m_dirLight.eyePos = g_camera3D.GetPosition();
 			auto dc = g_graphicsEngine->GetD3DDeviceContext();
 			//ライト用の定数バッファを更新
 			dc->UpdateSubresource(m_lightCb, 0, nullptr, &m_dirLight, 0, 0);
