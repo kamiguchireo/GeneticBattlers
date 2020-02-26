@@ -67,6 +67,11 @@ public:
 		DL.SetColor(col);
 	}
 
+	//ライトのアクティブフラグの変更
+	void SetActiveDLFlag(int i)
+	{
+		DL.SetActiveDLFlag(i);
+	}
 
 	/*!
 	*@brief	スケルトンの取得。
