@@ -10,5 +10,15 @@ public:
 	void Update();
 	bool BattleAction();
 	void SelectUseSkill(const std::vector<MonsterBase*>& list) override;
+
+private:
+	//enum enAnimation {
+	//	en_anim_Idle,
+	//	en_anim_Attack,
+	//	en_anim_Damage,
+	//	en_anim_num
+	//};
+	//Animation m_animation;
+	//AnimationClip m_animClip[en_anim_num];
 };
 

@@ -116,6 +116,7 @@ public:
 	{
 		m_status.HP -= damage;
 		m_status.HP = max(0, m_status.HP);
+		m_animation.Play(en_anim_Damage, 0.3f);
 	}
 	/// <summary>
 	/// HPを回復させる。
@@ -169,6 +170,15 @@ public:
 
 protected:
 	SkinModel m_model;									//モデルデータ。
+	//アニメーションの列挙。
+	enum enAnimation {
+		en_anim_Idle,
+		en_anim_Attack,
+		en_anim_Damage,
+		en_anim_num
+	};
+	Animation m_animation;								//アニメーション。
+	AnimationClip m_animClip[en_anim_num];				//アニメーションクリップ。
 	CVector3 m_position = CVector3::Zero();				//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転。
 	Status m_statusBase;								//基礎ステータス。

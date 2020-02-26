@@ -13,14 +13,45 @@ Attacker::~Attacker()
 bool Attacker::Start()
 {
 	m_model.Init(L"Assets/modelData/testModel.cmo");
-	Draw();
+	
+	//アニメーションクリップの読み込み。
+	m_animClip[en_anim_Idle].Load(L"Assets/animData/TestIdle.tka");
+	m_animClip[en_anim_Idle].SetLoopFlag(true);
+	m_animClip[en_anim_Attack].Load(L"Assets/animData/TestAttack.tka");
+	m_animClip[en_anim_Attack].SetLoopFlag(false);
+	m_animClip[en_anim_Damage].Load(L"Assets/animData/TestDamage.tka");
+	m_animClip[en_anim_Damage].SetLoopFlag(false);
+
+	//アニメーションの設定。
+	m_animation.Init(
+		m_model,
+		m_animClip,
+		en_anim_num
+	);
 
 	return true;
 }
 
 void Attacker::Update()
 {
+	switch (m_stateAI)
+	{
+	case en_state_Death:
+
+
+		break;
+	default:
+		//アニメーションされていないなら。
+		if (!m_animation.IsPlaying()) {
+			m_animation.Play(en_anim_Idle, 0.3f);
+		}
+
+		break;
+	}
+	//描画処理。
 	Draw();
+	//アニメーションの更新処理。
+	m_animation.Update(1.0f / 30.0f);
 }
 
 bool Attacker::BattleAction()
@@ -28,6 +59,8 @@ bool Attacker::BattleAction()
 	MonsterBase* attack = this;
 
 	bool flag = m_useSkill->UseSkill(attack, m_target);
+
+	m_animation.Play(en_anim_Attack, 0.3f);
 
 	if (m_useSkill != nullptr && flag)
 	{
