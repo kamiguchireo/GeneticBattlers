@@ -13,6 +13,8 @@ Attacker::~Attacker()
 bool Attacker::Start()
 {
 	m_model.Init(L"Assets/modelData/testModel.cmo");
+	m_model.SetActiveDLFlag(0);
+	m_model.SetActiveRLFlag(0);
 	
 	//アニメーションクリップの読み込み。
 	m_animClip[en_anim_Idle].Load(L"Assets/animData/TestIdle.tka");

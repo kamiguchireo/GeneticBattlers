@@ -21,14 +21,15 @@ private:
 		en_state_Num
 	};
 
+	////アニメーションの列挙。
 	//enum enAnimation {
-	//	en_anim_walk,
-	//	en_anim_run,
+	//	en_anim_Idle,
+	//	en_anim_Attack,
+	//	en_anim_Damage,
+	//	en_anim_Death,
 	//	en_anim_num
 	//};
-	//Animation m_animation;
-	//AnimationClip m_animClip[en_anim_num];
-
-	//ActionState m_actState = en_state_Tame;		//行動のステート。
+	//Animation m_animation;								//アニメーション。
+	//AnimationClip m_animClip[en_anim_num];				//アニメーションクリップ。
 };
 

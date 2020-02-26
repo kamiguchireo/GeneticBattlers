@@ -40,6 +40,8 @@ bool BattleScenes::Start()
 		if (wcscmp(objData.name, L"testGround") == 0)
 		{
 			m_model.Init(L"Assets/modelData/testGround.cmo");
+			m_model.SetActiveDLFlag(0);
+			m_model.SetActiveRLFlag(0);
 			m_model.UpdateWorldMatrix(
 				objData.position,
 				objData.rotation,
