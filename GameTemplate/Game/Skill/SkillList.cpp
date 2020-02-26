@@ -52,7 +52,6 @@ SkillList::~SkillList()
 //通常攻撃。
 bool Attack::UseSkill(MonsterBase * attack, MonsterBase * target)
 {
-	static int skilltime = 0;
 	if(skillEffect == nullptr){
 		skillEffect = NewGO<prefab::CEffect>(0);
 		//skillEffect->Play(L"Assets/effect/test.efk");
@@ -60,9 +59,8 @@ bool Attack::UseSkill(MonsterBase * attack, MonsterBase * target)
 		skillEffect->SetPosition(attack->GetPosition() + CVector3::AxisY()*20.0f);
 		skillEffect->SetRotation(attack->GetRotation());
 		skillEffect->SetScale(CVector3::One() * 20.0f);
-		skilltime = 0;
 	}
-	else if (skilltime > 20) {
+	else if (!skillEffect->IsPlay()) {
 		int damage = DamageCalcuration(attack, target);
 
 		target->Damage(damage);
@@ -73,15 +71,12 @@ bool Attack::UseSkill(MonsterBase * attack, MonsterBase * target)
 		return true;
 	}
 
-	skilltime++;
-
 	return false;
 }
 
 //ダブルアタック。
 bool DoubleAttack::UseSkill(MonsterBase * attack, MonsterBase * target)
 {
-	static int skilltime = 0;
 	if (skillEffect == nullptr) {
 		skillEffect = NewGO<prefab::CEffect>(0);
 		skillEffect->Play(L"Assets/effect/test.efk");
@@ -91,9 +86,8 @@ bool DoubleAttack::UseSkill(MonsterBase * attack, MonsterBase * target)
 		qRot.Multiply(attack->GetRotation());
 		skillEffect->SetRotation(qRot);
 		skillEffect->SetScale(CVector3::One() * 20.0f);
-		skilltime = 0;
 	}
-	else if (skilltime > 20) {
+	else if (!skillEffect->IsPlay()) {
 		int damage = DamageCalcuration(attack, target);
 
 		target->Damage(damage);
@@ -108,7 +102,6 @@ bool DoubleAttack::UseSkill(MonsterBase * attack, MonsterBase * target)
 		return true;
 	}
 
-	skilltime++;
 
 	return false;
 }
