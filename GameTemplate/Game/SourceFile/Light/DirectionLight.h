@@ -35,6 +35,7 @@ namespace Engine {
 			{
 				CVector4 direction = CVector4::White();		//ライトの向き
 				CVector4 color = CVector4::White();		//ライトの色
+				
 			};
 			SDirectionLight m_dirLight;
 			ID3D11Buffer* m_lightCb = nullptr;		//ライト用の定数バッファ
