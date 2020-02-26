@@ -21,6 +21,8 @@ bool Attacker::Start()
 	m_animClip[en_anim_Attack].SetLoopFlag(false);
 	m_animClip[en_anim_Damage].Load(L"Assets/animData/TestDamage.tka");
 	m_animClip[en_anim_Damage].SetLoopFlag(false);
+	m_animClip[en_anim_Death].Load(L"Assets/animData/TestDeath.tka");
+	m_animClip[en_anim_Death].SetLoopFlag(false);
 
 	//アニメーションの設定。
 	m_animation.Init(
@@ -37,7 +39,10 @@ void Attacker::Update()
 	switch (m_stateAI)
 	{
 	case en_state_Death:
-
+		if (!IsDeath) {
+			IsDeath = true;
+			m_animation.Play(en_anim_Death, 0.3f);
+		}
 
 		break;
 	default:

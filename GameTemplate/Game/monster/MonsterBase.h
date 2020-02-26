@@ -114,6 +114,9 @@ public:
 	/// <param name="damage">ダメージ量。</param>
 	void Damage(int damage)
 	{
+		if (IsDeath) {
+			return;
+		}
 		m_status.HP -= damage;
 		m_status.HP = max(0, m_status.HP);
 		m_animation.Play(en_anim_Damage, 0.3f);
@@ -175,6 +178,7 @@ protected:
 		en_anim_Idle,
 		en_anim_Attack,
 		en_anim_Damage,
+		en_anim_Death,
 		en_anim_num
 	};
 	Animation m_animation;								//アニメーション。
@@ -186,6 +190,7 @@ protected:
 	AIData m_AI[3][ActionNum];							//AIデータ。
 	bool m_isDeath = false;								//戦闘不能フラグ。
 	int m_stateAI = en_state_Good;						//ステート。
+	bool IsDeath = false;								//死亡フラグ。
 	float m_activeTime = 0.0f;							//アクティブタイム。
 	float m_coolTime = 30.0f;							//クールタイム。
 	Elements m_elemnts = en_elements_Empty;				//属性。

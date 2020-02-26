@@ -86,11 +86,37 @@ bool BattleScenes::Start()
 		}	
 		if (wcscmp(objData.name, L"Healer") == 0)
 		{
+			MonsterBase* attacker = NewGO<Attacker>(0);
+			Status hoge;
+			hoge.HP = 130;
+			hoge.MP = 100;			//Žg‚í‚ñ‚©‚à
+			hoge.ATK = 30;
+			hoge.DEF = 10;
+			hoge.MAT = 5;
+			hoge.MDF = 10;
+			hoge.DEX = 10;
+			attacker->SetStatus(hoge);
+			attacker->SetPosition(objData.position);
+			attacker->SetRotation(objData.rotation);
+			m_monsterTeam1List.push_back(attacker);
 		
 			return true;
 		}
 		if (wcscmp(objData.name, L"Buff") == 0)
 		{
+			MonsterBase* attacker = NewGO<Attacker>(0);
+			Status hoge;
+			hoge.HP = 130;
+			hoge.MP = 100;			//Žg‚í‚ñ‚©‚à
+			hoge.ATK = 30;
+			hoge.DEF = 10;
+			hoge.MAT = 5;
+			hoge.MDF = 10;
+			hoge.DEX = 10;
+			attacker->SetStatus(hoge);
+			attacker->SetPosition(objData.position);
+			attacker->SetRotation(objData.rotation);
+			m_monsterTeam1List.push_back(attacker);
 		
 			return true;
 		}

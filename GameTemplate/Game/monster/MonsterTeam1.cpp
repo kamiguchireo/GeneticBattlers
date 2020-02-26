@@ -23,6 +23,9 @@ bool MonsterTeam1::Start()
 	m_animClip[en_anim_Attack].SetLoopFlag(true);
 	m_animClip[en_anim_Damage].Load(L"Assets/animData/damage.tka");
 	m_animClip[en_anim_Damage].SetLoopFlag(false);
+	m_animClip[en_anim_Death].Load(L"Assets/animData/KneelDown.tka");
+	m_animClip[en_anim_Death].SetLoopFlag(false);
+
 
 	//アニメーションの設定。
 	m_animation.Init(
