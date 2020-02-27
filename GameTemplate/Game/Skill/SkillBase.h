@@ -79,6 +79,11 @@ public:
 	{
 		return m_skillNo;
 	}
+	//
+	const bool GetIsMagic()const
+	{
+		return m_isMagic;
+	}
 
 	/// <summary>
 	/// ‘®«‘Š«‚ğæ“¾‚·‚éB

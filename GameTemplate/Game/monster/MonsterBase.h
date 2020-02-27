@@ -155,7 +155,7 @@ public:
 	/// スキルのターゲットを定める。
 	/// </summary>
 	/// <param name="list">ターゲットを選ぶためのリスト</param>
-	virtual void SelectUseSkill(const std::vector<MonsterBase*>& list);
+	virtual void SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const std::vector<MonsterBase*>& allylist);
 	/// <summary>
 	///ステートの更新処理。 
 	/// </summary>
@@ -177,6 +177,7 @@ protected:
 	enum enAnimation {
 		en_anim_Idle,
 		en_anim_Attack,
+		en_anim_Magic,
 		en_anim_Damage,
 		en_anim_Death,
 		en_anim_num

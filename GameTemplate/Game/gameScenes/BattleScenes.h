@@ -46,6 +46,8 @@ private:
 
 	SkinModel m_model;						//!<ステージのモデル。
 	MonsterBase* m_monsterACT = nullptr;	//!<現在行動中のモンスター。
+	std::vector<MonsterBase*>m_monsterACTList;	//!<行動中のリスト。
+	float battleCoolTime = 0.0f;
 	SkillList skillList;					//!<スキルリスト。
 	GameCamera* m_camera = nullptr;			//!<ゲームカメラ。
 };

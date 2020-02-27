@@ -3,6 +3,7 @@
 #include "monster/MonsterBase.h"
 #include "monster/MonsterTeam1.h"
 #include "monster/Attacker.h"
+#include "monster/Healer.h"
 #include "TitleScene.h"
 #include "Fade.h"
 #include "GameCamera.h"
@@ -15,14 +16,6 @@ BattleScenes::BattleScenes()
 BattleScenes::~BattleScenes()
 {
 	DeleteGO(m_camera);
-	//for (auto m : m_monsterTeam1List)
-	//{
-	//	DeleteGO(m);
-	//}
-	//for (auto m : m_monsterTeam2List)
-	//{
-	//	DeleteGO(m);
-	//}
 	for (int i = 0; i < m_monsterTeam1List.size(); i++)
 	{
 		DeleteGO(m_monsterTeam1List[i]);
@@ -88,19 +81,19 @@ bool BattleScenes::Start()
 		}	
 		if (wcscmp(objData.name, L"Healer") == 0)
 		{
-			MonsterBase* attacker = NewGO<Attacker>(0);
+			MonsterBase* healer = NewGO<Healer>(0);
 			Status hoge;
 			hoge.HP = 130;
 			hoge.MP = 100;			//使わんかも
-			hoge.ATK = 30;
+			hoge.ATK = 5;
 			hoge.DEF = 10;
-			hoge.MAT = 5;
-			hoge.MDF = 10;
+			hoge.MAT = 30;
+			hoge.MDF = 20;
 			hoge.DEX = 10;
-			attacker->SetStatus(hoge);
-			attacker->SetPosition(objData.position);
-			attacker->SetRotation(objData.rotation);
-			m_monsterTeam1List.push_back(attacker);
+			healer->SetStatus(hoge);
+			healer->SetPosition(objData.position);
+			healer->SetRotation(objData.rotation);
+			m_monsterTeam1List.push_back(healer);
 		
 			return true;
 		}
@@ -146,8 +139,11 @@ void BattleScenes::Update()
 		if (!m_fade->IsFade())	m_state = enState_Battle;
 		break;
 	case enState_Battle:
-		ActiveTimeUpdate();
-		MonsterAction();
+		battleCoolTime -= 1.0f / 72.0f;
+		if (battleCoolTime < 0.0f) {
+			ActiveTimeUpdate();
+			MonsterAction();
+		}
 		if (g_pad[0].IsTrigger(enButtonStart)) 
 		{
 			m_state = enState_FadeOut; 
@@ -193,14 +189,19 @@ void BattleScenes::InitMonster()
 void BattleScenes::MonsterAction()
 {
 	//誰も行動していないなら中断。
-	if (m_monsterACT == nullptr)return;
+	if (m_monsterACTList.size() == 0 )return;
+
+	m_monsterACT = m_monsterACTList.front();
 
 	//行動が終わるまで行動をさせる。
 	bool is_playAction = m_monsterACT->BattleAction();
 
 	//行動が終わったらポインタにnullを入れる。
 	if (is_playAction) {
+		m_monsterACTList.erase(m_monsterACTList.begin());
 		m_monsterACT = nullptr;
+
+		battleCoolTime = 1.0f;
 
 		//残りHPに応じてステートを更新。
 		for (int i = 0; i < m_monsterTeam1List.size(); i++) {
@@ -215,7 +216,7 @@ void BattleScenes::MonsterAction()
 void BattleScenes::ActiveTimeUpdate()
 {
 	//行動中なら中断。
-	if (m_monsterACT != nullptr)return;
+	if (m_monsterACTList.size() != 0)return;
 
 	//全員のタイムゲージを加算していく。
 	for (int i = 0; i < m_monsterTeam1List.size(); i++)
@@ -224,8 +225,8 @@ void BattleScenes::ActiveTimeUpdate()
 
 		//ゲージが溜まり切ったらポインタを取得する。　
 		if (is_action) {
-			m_monsterACT = m_monsterTeam1List[i];
-			m_monsterACT->SelectUseSkill(m_monsterTeam2List);
+			m_monsterACTList.push_back(m_monsterTeam1List[i]);
+			m_monsterTeam1List[i]->SelectUseSkill(m_monsterTeam2List, m_monsterTeam1List);
 		}
 	}	
 	for (int i = 0; i < m_monsterTeam2List.size(); i++)
@@ -234,8 +235,8 @@ void BattleScenes::ActiveTimeUpdate()
 
 		//ゲージが溜まり切ったらポインタを取得する。　
 		if (is_action) {
-			m_monsterACT = m_monsterTeam2List[i];
-			m_monsterACT->SelectUseSkill(m_monsterTeam1List);
+			m_monsterACTList.push_back(m_monsterTeam2List[i]);
+			m_monsterTeam2List[i]->SelectUseSkill(m_monsterTeam1List, m_monsterTeam2List);
 		}
 	}
 }

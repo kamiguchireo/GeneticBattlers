@@ -21,6 +21,8 @@ bool Attacker::Start()
 	m_animClip[en_anim_Idle].SetLoopFlag(true);
 	m_animClip[en_anim_Attack].Load(L"Assets/animData/TestAttack.tka");
 	m_animClip[en_anim_Attack].SetLoopFlag(false);
+	m_animClip[en_anim_Magic].Load(L"Assets/animData/TestMagic.tka");
+	m_animClip[en_anim_Magic].SetLoopFlag(false);
 	m_animClip[en_anim_Damage].Load(L"Assets/animData/TestDamage.tka");
 	m_animClip[en_anim_Damage].SetLoopFlag(false);
 	m_animClip[en_anim_Death].Load(L"Assets/animData/TestDeath.tka");
@@ -67,7 +69,12 @@ bool Attacker::BattleAction()
 
 	bool flag = m_useSkill->UseSkill(attack, m_target);
 
-	m_animation.Play(en_anim_Attack, 0.3f);
+	if (!m_useSkill->GetIsMagic()) {
+		m_animation.Play(en_anim_Attack, 0.3f);
+	}
+	else if (m_useSkill->GetIsMagic()) {
+		m_animation.Play(en_anim_Magic, 0.3f);
+	}
 
 	if (m_useSkill != nullptr && flag)
 	{
@@ -78,10 +85,8 @@ bool Attacker::BattleAction()
 	return flag;
 }
 
-void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& list)
+void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const std::vector<MonsterBase*>& allylist)
 {
-	//if (m_useSkill != nullptr) return;
-
 	SkillList* skillList = SkillList::GetInstance();
 
 	//int listSize = list.size();
@@ -97,7 +102,7 @@ void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& list)
 		else {
 			m_useSkill = skillList->GetSkillData(0, 0);
 		}
-		m_target = list[rand() % list.size()];
+		m_target = enemylist[rand() % enemylist.size()];
 		break;
 
 	case en_state_Usually:
@@ -107,12 +112,12 @@ void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& list)
 		else {
 			m_useSkill = skillList->GetSkillData(0, 0);
 		}
-		m_target = list[rand() % list.size()];
+		m_target = enemylist[rand() % enemylist.size()];
 		break;
 
 	case en_state_Bad:
 		m_useSkill = skillList->GetSkillData(0, 1);
-		m_target = list[rand() % list.size()];
+		m_target = enemylist[rand() % enemylist.size()];
 		break;
 
 	case en_state_Death:

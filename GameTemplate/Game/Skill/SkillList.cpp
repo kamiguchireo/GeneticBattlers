@@ -16,19 +16,21 @@ SkillList::SkillList()
 	//通常行動。
 	const int typeNum = 2;
 	SkillTable typeList[typeNum];
-	auto attack = NewGO<Attack>(0);
+	auto attack = NewGO<Attack>(0);		//通常攻撃。
 	attack->InitSkill("通常攻撃", 1.0f, 30.0f, 0.95f, 0);
 	attack->SetEffect(L"Assets/effect/test.efk");
 	typeList[0].push_back(attack);
-	auto doublAttack = NewGO<DoubleAttack>(0);
+	auto doublAttack = NewGO<DoubleAttack>(0);		//ダブルアタック。
 	doublAttack->InitSkill("ダブルアタック", 1.0f, 50.0f, 0.85f, 1);
 	typeList[0].push_back(doublAttack);
 
 	//回復魔法。
-	auto heal = NewGO<Heal>(0);
+	auto heal = NewGO<Heal>(0);		//ヒール。
 	heal->InitSkill("ヒール", 1.0f, 30.0f, 1.0f, 100, en_elements_Empty, true);
 	typeList[1].push_back(heal);
-
+	auto hiheal = NewGO<Heal>(0);	//ハイヒール。
+	hiheal->InitSkill("ハイヒール", 2.0f, 50.0f, 1.0f, 101, en_elements_Empty, true);
+	typeList[1].push_back(hiheal);
 
 	for (int i = 0; i < typeNum; i++)
 	{
@@ -110,9 +112,22 @@ bool DoubleAttack::UseSkill(MonsterBase * attack, MonsterBase * target)
 //ヒール。
 bool Heal::UseSkill(MonsterBase * attack, MonsterBase * target)
 {
-	int result = attack->GetStatus().MAT * skillPower;
+	if (skillEffect == nullptr) {
+		skillEffect = NewGO<prefab::CEffect>(0);
+		skillEffect->Play(L"Assets/effect/chant1.efk");
+		skillEffect->SetPosition(attack->GetPosition() + CVector3::AxisY()*20.0f);
+		skillEffect->SetScale(CVector3::One() * 50.0f);
+	}
+	else if (!skillEffect->IsPlay()) {
+		int result = attack->GetStatus().MAT * skillPower;
 
-	target->Healing(result);
+		target->Healing(result);
+		attack->SetCoolTime(coolTime);
+
+		skillEffect = nullptr;
+
+		return true;
+	}
 
 	return false;
 }

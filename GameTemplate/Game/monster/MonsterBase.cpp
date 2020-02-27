@@ -50,7 +50,7 @@ bool MonsterBase::AddATB()
 	return false;
 }
 
-void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& list)
+void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const std::vector<MonsterBase*>& allylist)
 {
 	if (m_useSkill != nullptr) return;
 
@@ -61,12 +61,12 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& list)
 	{
 	case en_state_Good:
 		m_useSkill = skillList->GetSkillData(0, 0);
-		m_target = list[rand() % list.size()];
+		m_target = enemylist[rand() % enemylist.size()];
 		break;
 
 	case en_state_Usually:
 		m_useSkill = skillList->GetSkillData(0, 1);
-		m_target = list[rand() % list.size()];
+		m_target = enemylist[rand() % enemylist.size()];
 		break;
 
 	case en_state_Bad:

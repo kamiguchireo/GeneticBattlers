@@ -9,7 +9,7 @@ public:
 	bool Start();
 	void Update();
 	bool BattleAction();
-	void SelectUseSkill(const std::vector<MonsterBase*>& list) override;
+	void SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const std::vector<MonsterBase*>& allylist) override;
 
 private:
 	//enum enAnimation {

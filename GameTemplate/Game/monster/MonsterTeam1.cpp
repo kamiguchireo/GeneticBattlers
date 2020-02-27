@@ -19,14 +19,16 @@ bool MonsterTeam1::Start()
 	m_model.SetActiveRLFlag(0);
 
 	//アニメーションクリップの読み込み。
-	m_animClip[en_anim_Idle].Load(L"Assets/animData/walk.tka");
+	m_animClip[en_anim_Idle].Load(L"Assets/animData/idle.tka");
 	m_animClip[en_anim_Idle].SetLoopFlag(true);
 	m_animClip[en_anim_Attack].Load(L"Assets/animData/run.tka");
 	m_animClip[en_anim_Attack].SetLoopFlag(true);
+	m_animClip[en_anim_Magic].Load(L"Assets/animData/walk.tka");
+	m_animClip[en_anim_Magic].SetLoopFlag(true);
 	m_animClip[en_anim_Damage].Load(L"Assets/animData/damage.tka");
 	m_animClip[en_anim_Damage].SetLoopFlag(false);
 	m_animClip[en_anim_Death].Load(L"Assets/animData/KneelDown.tka");
-	m_animClip[en_anim_Death].SetLoopFlag(false);
+	m_animClip[en_anim_Death].SetLoopFlag(false);	
 
 
 	//アニメーションの設定。
@@ -73,7 +75,12 @@ bool MonsterTeam1::Action_good()
 {
 	if (m_useSkill == nullptr) return true;
 
-	m_animation.Play(en_anim_Attack, 0.3f);
+	if (!m_useSkill->GetIsMagic()){
+		m_animation.Play(en_anim_Attack, 0.3f);
+	}
+	else if (m_useSkill->GetIsMagic()) {
+		m_animation.Play(en_anim_Magic, 0.3f);
+	}
 
 	MonsterBase* attack = this;
 
@@ -94,7 +101,12 @@ bool MonsterTeam1::Action_usually()
 {
 	if (m_useSkill == nullptr) return true;
 
-	m_animation.Play(en_anim_Attack, 0.3f);
+	if (!m_useSkill->GetIsMagic()) {
+		m_animation.Play(en_anim_Attack, 0.3f);
+	}
+	else if (m_useSkill->GetIsMagic()) {
+		m_animation.Play(en_anim_Magic, 0.3f);
+	}
 
 	MonsterBase* attack = this;
 
@@ -115,7 +127,12 @@ bool MonsterTeam1::Action_bad()
 {
 	if (m_useSkill == nullptr) return true;
 
-	m_animation.Play(en_anim_Attack, 0.3f);
+	if (!m_useSkill->GetIsMagic()) {
+		m_animation.Play(en_anim_Attack, 0.3f);
+	}
+	else if (m_useSkill->GetIsMagic()) {
+		m_animation.Play(en_anim_Magic, 0.3f);
+	}
 
 	MonsterBase* attack = this;
 
