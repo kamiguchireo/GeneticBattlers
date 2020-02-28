@@ -85,7 +85,7 @@ bool Healer::BattleAction()
 	return flag;
 }
 
-void Healer::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const std::vector<MonsterBase*>& allylist)
+void Healer::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)
 {
 	SkillList* skillList = SkillList::GetInstance();	//スキルリストの取得。
 	int res = rand() % 10;	//適当な乱数。
@@ -95,16 +95,16 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const st
 	int maxHP = 0;
 	int minHP = 100000;
 
-	for (int i = 0; i < allylist.size(); i++)
+	for (int i = 0; i < m_team.size(); i++)
 	{
-		if (allylist[i]->GetStatus().HP > maxHP) {
-			maxHP = allylist[i]->GetStatus().HP;
+		if (m_team[i]->GetStatus().HP > maxHP) {
+			maxHP = m_team[i]->GetStatus().HP;
 			int hoge = HPsort[2];
 			HPsort[2] = HPsort[i];
 			HPsort[i] = hoge;
 		}
-		else if (allylist[i]->GetStatus().HP < minHP) {
-			minHP = allylist[i]->GetStatus().HP;
+		else if (m_team[i]->GetStatus().HP < minHP) {
+			minHP = m_team[i]->GetStatus().HP;
 			int hoge = HPsort[0];
 			HPsort[0] = HPsort[i];
 			HPsort[i] = hoge;
@@ -121,7 +121,7 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const st
 		else {
 			m_useSkill = skillList->GetSkillData(1, 0);
 		}
-		m_target = allylist[HPsort[0]];
+		m_target = m_team[HPsort[0]];
 		break;
 
 	case en_state_Usually:
@@ -131,12 +131,12 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const st
 		else {
 			m_useSkill = skillList->GetSkillData(1, 0);
 		}
-		m_target = allylist[HPsort[0]];
+		m_target = m_team[HPsort[0]];
 		break;
 
 	case en_state_Bad:
 		m_useSkill = skillList->GetSkillData(1, 1);
-		m_target = allylist[HPsort[0]];
+		m_target = m_team[HPsort[0]];
 		break;
 
 	case en_state_Death:

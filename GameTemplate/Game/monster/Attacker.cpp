@@ -85,7 +85,7 @@ bool Attacker::BattleAction()
 	return flag;
 }
 
-void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const std::vector<MonsterBase*>& allylist)
+void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)
 {
 	SkillList* skillList = SkillList::GetInstance();
 
@@ -102,7 +102,7 @@ void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const 
 		else {
 			m_useSkill = skillList->GetSkillData(0, 0);
 		}
-		m_target = enemylist[rand() % enemylist.size()];
+		m_target = e_team[rand() % e_team.size()];
 		break;
 
 	case en_state_Usually:
@@ -112,12 +112,12 @@ void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const 
 		else {
 			m_useSkill = skillList->GetSkillData(0, 0);
 		}
-		m_target = enemylist[rand() % enemylist.size()];
+		m_target = e_team[rand() % e_team.size()];
 		break;
 
 	case en_state_Bad:
 		m_useSkill = skillList->GetSkillData(0, 1);
-		m_target = enemylist[rand() % enemylist.size()];
+		m_target = e_team[rand() % e_team.size()];
 		break;
 
 	case en_state_Death:

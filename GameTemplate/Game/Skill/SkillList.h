@@ -1,7 +1,6 @@
 #pragma once
 #include "Skill/SkillBase.h"
-
-class MonsterBase;
+#include "monster/MonsterBase.h"
 
 
 class SkillList : public IGameObject
@@ -59,4 +58,30 @@ class Heal : public SkillBase
 public:
 	Heal(){}
 	bool UseSkill(MonsterBase* attack, MonsterBase* target);
+};
+
+class BuffSkill : public SkillBase
+{
+public:
+	BuffSkill() {}
+	bool UseSkill(MonsterBase* attack, MonsterBase* target);
+	void SetStatusBuff(StatusBuff status)
+	{
+		m_status = status;
+	}
+private:
+	StatusBuff m_status = en_buff_ATK;
+};
+
+class BuffSkillWide :public SkillBase
+{
+public:
+	BuffSkillWide() {}
+	bool UseSkill(MonsterBase* attack, MonsterBase* target);
+	void SetStatusBuff(StatusBuff status)
+	{
+		m_status = status;
+	}
+private:
+	StatusBuff m_status = en_buff_ATK;
 };

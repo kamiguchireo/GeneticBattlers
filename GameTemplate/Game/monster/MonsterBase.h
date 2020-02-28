@@ -11,12 +11,22 @@ const int ActionNum = 10;							//AIがとりうる行動の数。
 /// </remarks>
 struct Status {
 	int HP		= 0,
-		MP		= 0,
+		//MP		= 0,
 		ATK		= 0,
 		DEF		= 0,
 		MAT		= 0,
 		MDF		= 0,
 		DEX		= 0;
+};
+
+//バフの列挙。
+enum StatusBuff {
+	en_buff_ATK,
+	en_buff_DEF,
+	en_buff_MAT,
+	en_buff_MDF,
+	en_buff_DEX,
+	en_buff_num
 };
 
 struct AIData {
@@ -80,6 +90,11 @@ public:
 	{
 		return m_elemnts;
 	}
+	//チームメンバーリストを取得。
+	const std::vector<MonsterBase*> GetTeamMenber()const
+	{
+		return m_teamMenber;
+	}
 	//ステータスの設定。
 	//正直ファイルからロードしたい。
 	void SetStatus(int hp, int mp, int atk, int def, int mat, int mdf, int dex);
@@ -98,6 +113,11 @@ public:
 	void SetRotation(const CQuaternion& rot)
 	{
 		m_rotation = rot;
+	}
+	//味方チームのリストを設定。
+	void SetTeamMenber(const std::vector<MonsterBase*>& list)
+	{
+		m_teamMenber = list;
 	}
 	//描画処理とかをまとめたもの。
 	void Draw();
@@ -125,37 +145,46 @@ public:
 	/// HPを回復させる。
 	/// </summary>
 	/// <param name="healing">回復量。</param>
-	void Healing(int healing)
-	{
-		m_status.HP += healing;
-		m_status.HP = min(m_status.HP, m_statusBase.HP);
-	}
+	void Healing(int healing);
+
+	///// <summary>
+	///// MPを回復させる。
+	///// </summary>
+	///// <param name="healing">回復量。</param>
+	//void HealingMP(int healing)
+	//{
+	//	m_status.MP += healing;
+	//	m_status.MP = min(m_status.MP, m_statusBase.MP);
+	//}
+	///// <summary>
+	///// MPを使う。
+	///// </summary>
+	///// <param name="mp">消費MP量。</param>
+	//bool UseMP(int mp)
+	//{
+	//	if (m_status.MP < mp) {
+	//		return false;	//MPが足りないときの処理。
+	//	}
+	//	m_status.MP -= mp;
+	//	return true;
+	//}
+
 	/// <summary>
-	/// MPを回復させる。
+	/// バフをかける。
 	/// </summary>
-	/// <param name="healing">回復量。</param>
-	void HealingMP(int healing)
-	{
-		m_status.MP += healing;
-		m_status.MP = min(m_status.MP, m_statusBase.MP);
-	}
-	/// <summary>
-	/// MPを使う。
-	/// </summary>
-	/// <param name="mp">消費MP量。</param>
-	bool UseMP(int mp)
-	{
-		if (m_status.MP < mp) {
-			return false;	//MPが足りないときの処理。
-		}
-		m_status.MP -= mp;
-		return true;
-	}
+	/// <param name="status">バフをかけるステータス。</param>
+	/// <param name="pow">バフの威力。</param>
+	/// <param name="time">バフの効果時間。</param>
+	void Monster_Buff(StatusBuff status,float pow,float time);
+	//バフをリセットする。
+	void ResetBuff(int i);
+
 	/// <summary>
 	/// スキルのターゲットを定める。
 	/// </summary>
-	/// <param name="list">ターゲットを選ぶためのリスト</param>
-	virtual void SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const std::vector<MonsterBase*>& allylist);
+	/// <param name="e_team">敵のチーム。</param>
+	/// <param name="m_team">味方のチーム。</param>
+	virtual void SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team);
 	/// <summary>
 	///ステートの更新処理。 
 	/// </summary>
@@ -194,7 +223,9 @@ protected:
 	bool IsDeath = false;								//死亡フラグ。
 	float m_activeTime = 0.0f;							//アクティブタイム。
 	float m_coolTime = 30.0f;							//クールタイム。
+	float buffTimeList[en_buff_num] = { 0.0f };			//バフタイム。
 	Elements m_elemnts = en_elements_Empty;				//属性。
+	std::vector<MonsterBase*> m_teamMenber;				//自分のチーム。
 	SkillBase* m_useSkill = nullptr;					//使用しているスキルのポインタ。
 	MonsterBase* m_target = nullptr;					//スキルの対象。
 };
