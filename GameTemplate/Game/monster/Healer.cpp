@@ -89,25 +89,16 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::
 {
 	SkillList* skillList = SkillList::GetInstance();	//スキルリストの取得。
 	int res = rand() % 10;	//適当な乱数。
-	const int size = 3;
 
-	int HPsort[size] = { 0,1,2 };
-	int maxHP = 0;
-	int minHP = 100000;
+	auto list = m_team;	//ソートするためにリストをコピー。
 
-	for (int i = 0; i < m_team.size(); i++)
-	{
-		if (m_team[i]->GetStatus().HP > maxHP) {
-			maxHP = m_team[i]->GetStatus().HP;
-			int hoge = HPsort[2];
-			HPsort[2] = HPsort[i];
-			HPsort[i] = hoge;
-		}
-		else if (m_team[i]->GetStatus().HP < minHP) {
-			minHP = m_team[i]->GetStatus().HP;
-			int hoge = HPsort[0];
-			HPsort[0] = HPsort[i];
-			HPsort[i] = hoge;
+	for (int i = 0; i < list.size(); i++) {
+		for (int j = i; j < list.size(); j++) {
+			if (list[i]->GetStatus().HP > list[j]->GetStatus().HP) {
+				auto hoge = list[i];
+				list[i] = list[j];
+				list[j] = hoge;
+			}
 		}
 	}
 
@@ -121,7 +112,7 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::
 		else {
 			m_useSkill = skillList->GetSkillData(1, 0);
 		}
-		m_target = m_team[HPsort[0]];
+		m_target = list[0];
 		break;
 
 	case en_state_Usually:
@@ -131,12 +122,12 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::
 		else {
 			m_useSkill = skillList->GetSkillData(1, 0);
 		}
-		m_target = m_team[HPsort[0]];
+		m_target = list[0];
 		break;
 
 	case en_state_Bad:
 		m_useSkill = skillList->GetSkillData(1, 1);
-		m_target = m_team[HPsort[0]];
+		m_target = list[0];
 		break;
 
 	case en_state_Death:
