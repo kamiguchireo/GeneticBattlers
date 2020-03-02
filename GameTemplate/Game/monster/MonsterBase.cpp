@@ -193,6 +193,9 @@ void MonsterBase::StateUpdate()
 		m_stateAI = en_state_Death; 
 		m_activeTime = 0.0f;
 	}
+	float res = m_activeTime / m_coolTime;
+	res = min(1.0f, res);
+	m_UI->SetScaling(res);
 }
 
 bool MonsterBase::Action()

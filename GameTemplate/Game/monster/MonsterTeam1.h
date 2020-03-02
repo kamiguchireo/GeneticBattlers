@@ -12,6 +12,11 @@ public:
 	bool Action_usually();
 	bool Action_bad();
 	bool BattleAction();
+
+	void SetUIPos(const CVector3& pos)
+	{
+		m_UIpos = pos;
+	}
 private:
 	//行動の状態遷移の列挙。
 	enum ActionState {
@@ -20,6 +25,8 @@ private:
 		en_state_Return,
 		en_state_Num
 	};
+
+	CVector3 m_UIpos = CVector3::Zero();
 
 	////アニメーションの列挙。
 	//enum enAnimation {

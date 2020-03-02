@@ -20,6 +20,7 @@ bool StatusUI::Start()
 	m_ATBG->SetPosition(m_position);
 	m_scale.x = m_scaleX;
 	m_ATBG->SetScale(m_scale);
+	m_ATBG->SetMulColor({ 0.0f,1.0f,1.0f,1.0f });
 	m_ATB = NewGO<prefab::SpriteRender>(0);
 	m_ATB->Init(L"Assets/sprite/ATB.dds", 200.0f, 20.0f);
 	m_ATB->SetPivot({ 0.0f,0.0f });

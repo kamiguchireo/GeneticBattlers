@@ -43,6 +43,7 @@ bool MonsterTeam1::Start()
 
 	//UI‚ğì‚éB
 	m_UI = NewGO<StatusUI>(0);
+	m_UI->SetPosition(m_UIpos);
 
 	return true;
 }

@@ -60,6 +60,9 @@ bool BattleScenes::Start()
 			monster->SetRotation(objData.rotation);
 			m_monsterTeam2List.push_back(monster);
 
+			CVector3 uipos = { objData.position.x / -2.5f - 50.0f,300.0f,0.0f };
+			monster->SetUIPos(uipos);
+
 			return true;
 		}
 		if (wcscmp(objData.name, L"Attacker") == 0)

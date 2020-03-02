@@ -115,6 +115,8 @@ public:
 	{
 		m_rotation = rot;
 	}
+	//UIの位置を設定する。
+	virtual void SetUIPos(const CVector3& pos){}
 	//味方チームのリストを設定。
 	void SetTeamMenber(const std::vector<MonsterBase*>& list)
 	{
