@@ -151,6 +151,7 @@
     <ClCompile Include="SourceFile\graphic\RenderContext.cpp" />
     <ClCompile Include="SourceFile\graphic\2D\Sprite.cpp" />
     <ClCompile Include="SpriteRender.cpp" />
+    <ClCompile Include="StatusUI.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -163,6 +164,7 @@
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="SourceFile\Light\DirectionLight.h" />
     <ClInclude Include="monster\Healer.h" />
     <ClInclude Include="monster\Attacker.h" />
@@ -217,6 +219,7 @@
     <ClInclude Include="SourceFile\graphic\RenderContext.h" />
     <ClInclude Include="SourceFile\graphic\2D\Sprite.h" />
     <ClInclude Include="SpriteRender.h" />
+    <ClInclude Include="StatusUI.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.h" />
     <ClInclude Include="monster\Supporter.h" />
@@ -245,6 +248,13 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\PreTitle.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\ATB.png" />
+    <ImageContentTask Include="Assets\sprite\ATBG.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Game.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

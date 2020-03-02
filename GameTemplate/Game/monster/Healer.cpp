@@ -8,6 +8,7 @@ Healer::Healer()
 
 Healer::~Healer()
 {
+	DeleteGO(m_UI);
 }
 
 bool Healer::Start()
@@ -34,6 +35,10 @@ bool Healer::Start()
 		m_animClip,
 		en_anim_num
 	);
+
+	//UIを作る。
+	m_UI = NewGO<StatusUI>(0);
+	m_UI->SetPosition({ 300.0f,-200.0f,0.0f });
 
 	return true;
 }
@@ -85,29 +90,20 @@ bool Healer::BattleAction()
 	return flag;
 }
 
-void Healer::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const std::vector<MonsterBase*>& allylist)
+void Healer::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)
 {
 	SkillList* skillList = SkillList::GetInstance();	//スキルリストの取得。
 	int res = rand() % 10;	//適当な乱数。
-	const int size = 3;
 
-	int HPsort[size] = { 0,1,2 };
-	int maxHP = 0;
-	int minHP = 100000;
+	auto list = m_team;	//ソートするためにリストをコピー。
 
-	for (int i = 0; i < allylist.size(); i++)
-	{
-		if (allylist[i]->GetStatus().HP > maxHP) {
-			maxHP = allylist[i]->GetStatus().HP;
-			int hoge = HPsort[2];
-			HPsort[2] = HPsort[i];
-			HPsort[i] = hoge;
-		}
-		else if (allylist[i]->GetStatus().HP < minHP) {
-			minHP = allylist[i]->GetStatus().HP;
-			int hoge = HPsort[0];
-			HPsort[0] = HPsort[i];
-			HPsort[i] = hoge;
+	for (int i = 0; i < list.size(); i++) {
+		for (int j = i; j < list.size(); j++) {
+			if (list[i]->GetStatus().HP > list[j]->GetStatus().HP) {
+				auto hoge = list[i];
+				list[i] = list[j];
+				list[j] = hoge;
+			}
 		}
 	}
 
@@ -121,7 +117,7 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const st
 		else {
 			m_useSkill = skillList->GetSkillData(1, 0);
 		}
-		m_target = allylist[HPsort[0]];
+		m_target = list[0];
 		break;
 
 	case en_state_Usually:
@@ -131,12 +127,12 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const st
 		else {
 			m_useSkill = skillList->GetSkillData(1, 0);
 		}
-		m_target = allylist[HPsort[0]];
+		m_target = list[0];
 		break;
 
 	case en_state_Bad:
 		m_useSkill = skillList->GetSkillData(1, 1);
-		m_target = allylist[HPsort[0]];
+		m_target = list[0];
 		break;
 
 	case en_state_Death:

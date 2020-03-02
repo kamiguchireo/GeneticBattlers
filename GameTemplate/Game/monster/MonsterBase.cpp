@@ -16,7 +16,7 @@ void MonsterBase::SetStatus(int hp, int mp, int atk, int def, int mat, int mdf, 
 {
 	//基礎ステータスを設定。
 	m_statusBase.HP = hp;
-	m_statusBase.MP = mp;
+	//m_statusBase.MP = mp;
 	m_statusBase.ATK = atk;
 	m_statusBase.DEF = def;
 	m_statusBase.MAT = mat;
@@ -43,6 +43,20 @@ bool MonsterBase::AddATB()
 	if (m_stateAI == en_state_Death) return false;
 
 	m_activeTime += (float)m_status.DEX / 144.0f;
+	for (int i = 0; i < en_buff_num; i++) {
+		if (buffTimeList[i] >= 0.0f) continue;
+
+		buffTimeList[i] -= 1.0f / 144.0f;
+		if (buffTimeList[i] < 0.0f) {
+			ResetBuff(i);
+		}
+	}
+
+	//アクティブタイムゲージ。
+	float res = m_activeTime / m_coolTime;
+	res = min(1.0f, res);
+	m_UI->SetScaling(res);
+
 	if (m_activeTime > m_coolTime) {
 		m_activeTime = 0.0f;
 		return true;
@@ -50,7 +64,87 @@ bool MonsterBase::AddATB()
 	return false;
 }
 
-void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, const std::vector<MonsterBase*>& allylist)
+void MonsterBase::Healing(int healing)
+{
+	m_status.HP += healing;
+	m_status.HP = min(m_status.HP, m_statusBase.HP);
+
+	//エフェクトの再生。
+	auto ef = NewGO<prefab::CEffect>(0);
+	ef->Play(L"Assets/effect/heal.efk");
+	ef->SetPosition(m_position + CVector3::AxisY()*20.0f);
+	ef->SetScale(CVector3::One()*80.0f);
+}
+
+void MonsterBase::Monster_Buff(StatusBuff status, float pow, float time)
+{
+	////バフの効果が続いているなら中断。
+	//if (buffTimeList[status] >= 0.0f) {
+	//	return;
+	//}
+	
+	//エフェクトの再生。
+	auto ef = NewGO<prefab::CEffect>(0);
+	ef->Play(L"Assets/effect/buff.efk");
+	ef->SetPosition(m_position + CVector3::AxisY()*20.0f);
+	ef->SetScale(CVector3::One()*80.0f);
+
+	//バフをかける。
+	switch (status)
+	{
+	case en_buff_ATK:
+		m_status.ATK = m_statusBase.ATK * pow;
+		break;
+	case en_buff_DEF:
+		m_status.DEF = m_statusBase.DEF * pow;
+		break;
+	case en_buff_MAT:
+		m_status.MAT = m_statusBase.MAT * pow;
+		break;
+	case en_buff_MDF:
+		m_status.MDF = m_statusBase.MDF * pow;
+		break;
+	case en_buff_DEX:
+		m_status.DEX = m_statusBase.DEX * pow;
+		break;
+	default:
+		return;
+	}
+	buffTimeList[status] = time;
+}
+
+void MonsterBase::ResetBuff(int i)
+{
+	////効果時間があるなら中断。
+	//if (buffTimeList[i] > 0.0f) {
+	//	return;
+	//}
+	//ステータスを元のステータスに戻す。
+	switch (i)
+	{
+	case en_buff_ATK:
+		m_status.ATK = m_statusBase.ATK;
+		break;
+	case en_buff_DEF:
+		m_status.DEF = m_statusBase.DEF;
+		break;
+	case en_buff_MAT:
+		m_status.MAT = m_statusBase.MAT;
+		break;
+	case en_buff_MDF:
+		m_status.MDF = m_statusBase.MDF;
+		break;
+	case en_buff_DEX:
+		m_status.DEX = m_statusBase.DEX;
+		break;
+	default:
+		return;
+	}
+	//
+	buffTimeList[i] = 0.0f;
+}
+
+void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)
 {
 	if (m_useSkill != nullptr) return;
 
@@ -61,12 +155,12 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& enemylist, con
 	{
 	case en_state_Good:
 		m_useSkill = skillList->GetSkillData(0, 0);
-		m_target = enemylist[rand() % enemylist.size()];
+		m_target = e_team[rand() % e_team.size()];
 		break;
 
 	case en_state_Usually:
 		m_useSkill = skillList->GetSkillData(0, 1);
-		m_target = enemylist[rand() % enemylist.size()];
+		m_target = e_team[rand() % e_team.size()];
 		break;
 
 	case en_state_Bad:
