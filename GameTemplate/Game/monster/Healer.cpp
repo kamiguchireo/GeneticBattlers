@@ -8,6 +8,7 @@ Healer::Healer()
 
 Healer::~Healer()
 {
+	DeleteGO(m_UI);
 }
 
 bool Healer::Start()
@@ -34,6 +35,10 @@ bool Healer::Start()
 		m_animClip,
 		en_anim_num
 	);
+
+	//UI‚ğì‚éB
+	m_UI = NewGO<StatusUI>(0);
+	m_UI->SetPosition({ 300.0f,-200.0f,0.0f });
 
 	return true;
 }

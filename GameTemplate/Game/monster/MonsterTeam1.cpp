@@ -9,6 +9,7 @@ MonsterTeam1::MonsterTeam1()
 
 MonsterTeam1::~MonsterTeam1()
 {
+	DeleteGO(m_UI);
 }
 
 bool MonsterTeam1::Start()
@@ -39,6 +40,9 @@ bool MonsterTeam1::Start()
 	);
 
 	m_animation.Play(en_anim_Idle, 0.3f);
+
+	//UI‚ğì‚éB
+	m_UI = NewGO<StatusUI>(0);
 
 	return true;
 }

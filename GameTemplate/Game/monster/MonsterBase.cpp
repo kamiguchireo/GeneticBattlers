@@ -52,6 +52,11 @@ bool MonsterBase::AddATB()
 		}
 	}
 
+	//アクティブタイムゲージ。
+	float res = m_activeTime / m_coolTime;
+	res = min(1.0f, res);
+	m_UI->SetScaling(res);
+
 	if (m_activeTime > m_coolTime) {
 		m_activeTime = 0.0f;
 		return true;

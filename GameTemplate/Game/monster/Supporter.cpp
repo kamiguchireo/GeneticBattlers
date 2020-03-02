@@ -8,6 +8,7 @@ Supporter::Supporter()
 
 Supporter::~Supporter()
 {
+	DeleteGO(m_UI);
 }
 
 bool Supporter::Start()
@@ -35,6 +36,10 @@ bool Supporter::Start()
 		en_anim_num
 	);
 
+	//UI‚ğì‚éB
+	m_UI = NewGO<StatusUI>(0);
+	m_UI->SetPosition({ -500.0f,-200.0f,0.0f });
+	
 	return true;
 }
 

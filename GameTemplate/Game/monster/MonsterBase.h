@@ -1,5 +1,6 @@
 #pragma once
 #include "Skill/SkillBase.h"
+#include "../StatusUI.h"
 
 const int ActionNum = 10;							//AIがとりうる行動の数。
 
@@ -228,5 +229,7 @@ protected:
 	std::vector<MonsterBase*> m_teamMenber;				//自分のチーム。
 	SkillBase* m_useSkill = nullptr;					//使用しているスキルのポインタ。
 	MonsterBase* m_target = nullptr;					//スキルの対象。
+	//UIを表示させる。
+	StatusUI* m_UI;
 };
 

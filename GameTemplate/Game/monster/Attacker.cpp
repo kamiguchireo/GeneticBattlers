@@ -8,6 +8,7 @@ Attacker::Attacker()
 
 Attacker::~Attacker()
 {
+	DeleteGO(m_UI);
 }
 
 bool Attacker::Start()
@@ -34,6 +35,10 @@ bool Attacker::Start()
 		m_animClip,
 		en_anim_num
 	);
+
+	//UI‚ğì‚éB
+	m_UI = NewGO<StatusUI>(0);
+	m_UI->SetPosition({ -100.0f,-200.0f,0.0f });
 
 	return true;
 }
