@@ -9,7 +9,7 @@ namespace Engine {
 
 	RenderTarget::~RenderTarget()
 	{
-
+		Release();
 	}
 
 	//‰ğ•úˆ—
