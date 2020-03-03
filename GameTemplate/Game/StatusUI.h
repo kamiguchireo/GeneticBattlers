@@ -27,7 +27,7 @@ private:
 	//0.0, 0.0‚Å‰æ‘œ‚Ì¶‰ºB
 	//1.0, 1.0‚Å‰æ‘œ‚Ì‰EãB
 	CVector2 m_pivot = CVector2::Zero();
-	float m_scaleX = 1.0f;
+	float m_scaleX = 0.0f;
 
 };
 
