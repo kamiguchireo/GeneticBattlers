@@ -354,10 +354,9 @@
     <ImageContentTask Include="Assets\sprite\win.png" />
     <ImageContentTask Include="Assets\sprite\preset\fade.png" />
     <ImageContentTask Include="Assets\sprite\PreTitle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\sprite\ATBG.png" />
-    <Image Include="Assets\sprite\ATB.png" />
+    <ImageContentTask Include="Assets\sprite\ATB.png" />
+    <ImageContentTask Include="Assets\sprite\ATBG.png" />
+    <ImageContentTask Include="Assets\sprite\para.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />
