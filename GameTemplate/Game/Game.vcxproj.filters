@@ -193,6 +193,7 @@
     <ClCompile Include="monster\Supporter.cpp" />
     <ClCompile Include="SourceFile\Light\DirectionLight.cpp" />
     <ClCompile Include="StatusUI.cpp" />
+    <ClCompile Include="SourceFile\graphic\RenderTarget.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -341,6 +342,7 @@
     <ClInclude Include="SourceFile\Light\DirectionLight.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="StatusUI.h" />
+    <ClInclude Include="SourceFile\graphic\RenderTarget.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -354,10 +356,8 @@
     <ImageContentTask Include="Assets\sprite\win.png" />
     <ImageContentTask Include="Assets\sprite\preset\fade.png" />
     <ImageContentTask Include="Assets\sprite\PreTitle.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\sprite\ATBG.png" />
-    <Image Include="Assets\sprite\ATB.png" />
+    <ImageContentTask Include="Assets\sprite\ATB.png" />
+    <ImageContentTask Include="Assets\sprite\ATBG.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />
