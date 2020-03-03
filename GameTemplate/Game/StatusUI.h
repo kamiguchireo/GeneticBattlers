@@ -17,6 +17,7 @@ public:
 	}
 
 private:
+	prefab::SpriteRender* m_para = nullptr;
 	prefab::SpriteRender* m_ATB = nullptr;
 	prefab::SpriteRender* m_ATBG = nullptr;
 

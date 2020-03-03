@@ -38,7 +38,7 @@ bool Healer::Start()
 
 	//UI‚ğì‚éB
 	m_UI = NewGO<StatusUI>(0);
-	m_UI->SetPosition({ 300.0f,-200.0f,0.0f });
+	m_UI->SetPosition({ 350.0f,-250.0f,0.0f });
 
 	return true;
 }
