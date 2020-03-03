@@ -25,7 +25,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera2D.SetTarget({ 0.0f, 0.0f, 10.0f });
 	g_camera2D.SetFar(100.0f);
 	
-	//Gameの生成。
+	//Gameの生成。a
 	//エンジンの実験してるので中身は触らないで
 	//NewGO<Game>(0, nullptr);
 
