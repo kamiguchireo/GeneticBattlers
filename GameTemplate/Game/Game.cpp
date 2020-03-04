@@ -58,14 +58,16 @@ void Game::Update()
 	m_model.Draw
 	(
 		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
+		g_camera3D.GetProjectionMatrix(),
+		0
 	);
 
 	//ÉÇÉfÉã2ÇÃÉhÉçÅ[
 	m_model2.Draw
 	(
 		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
+		g_camera3D.GetProjectionMatrix(),
+		0
 	);
 
 	//if(GetAsyncKeyState(VK_UP))

@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SkinModel.h"
 #include "SkinModelDataManager.h"
+#include "graphics/SkinModelEffect.h"
 
 SkinModel::~SkinModel()
 {
@@ -107,7 +108,7 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 	//スケルトンの更新。
 	m_skeleton.Update(m_worldMatrix);
 }
-void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
+void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix,int renderMode)
 {
 	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
 
@@ -129,6 +130,12 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix)
 
 	DL.Draw();
 
+
+	//エフェクトにクエリを行う。
+	m_modelDx->UpdateEffects([&](DirectX::IEffect* material) {
+		auto modelMaterial = reinterpret_cast<ModelEffect*>(material);
+		modelMaterial->SetRenderMode(renderMode);
+	});
 	//描画。
 	m_modelDx->Draw(
 		d3dDeviceContext,

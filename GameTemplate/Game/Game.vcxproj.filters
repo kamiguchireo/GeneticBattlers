@@ -194,7 +194,6 @@
     <ClCompile Include="SourceFile\Light\DirectionLight.cpp" />
     <ClCompile Include="StatusUI.cpp" />
     <ClCompile Include="SourceFile\graphic\RenderTarget.cpp" />
-    <ClCompile Include="MyEngine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -344,7 +343,6 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="StatusUI.h" />
     <ClInclude Include="SourceFile\graphic\RenderTarget.h" />
-    <ClInclude Include="MyEngine.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
