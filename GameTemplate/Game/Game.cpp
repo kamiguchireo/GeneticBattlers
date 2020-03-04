@@ -36,12 +36,12 @@ bool Game::Start()
 	m_model.UpdateWorldMatrix(m_pos, CQuaternion::Identity(), CVector3::One());
 	CQuaternion m_ligdir2 = { 1.0f,0.0f,0.0f,0.0f };
 	m_model.SetLightDir(m_ligdir2);
-	//m_model.SetActiveDLFlag(1);
+	m_model.SetActiveDLFlag(1);
 	m_model.SetActiveRLFlag(0);
 
 	//ƒ‚ƒfƒ‹2
 	m_model2.Init(L"Assets/modelData/unityChan.cmo");
-	CVector3 m_pos2 = { -100.0f,0.0f,100.0f };
+	CVector3 m_pos2 = { 40.0f,0.0f,0.0f };
 	m_model2.UpdateWorldMatrix(m_pos2, CQuaternion::Identity(), CVector3::One());
 	CVector4 m_ligCol = { 1.0f,1.0f,1.0f,1.0f };
 	CQuaternion m_ligdir = { 0.707f,0.0f,1.0f,1.0f};

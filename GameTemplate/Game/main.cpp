@@ -25,13 +25,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera2D.SetTarget({ 0.0f, 0.0f, 10.0f });
 	g_camera2D.SetFar(100.0f);
 	
-	//Gameの生成。a
+	//Gameの生成。
 	//エンジンの実験してるので中身は触らないで
-	//NewGO<Game>(0, nullptr);
+	NewGO<Game>(0, nullptr);
 
 	//ここに必要なものはNewGOしていってください
-	NewGO<TitleScene>(0, nullptr);
-	NewGO<Fade>(1, "Fade");
+	//NewGO<TitleScene>(0, nullptr);
+	//NewGO<Fade>(1, "Fade");
 	
 	//エフェクサーマネージャーの初期化
 	//コメントアウトしないで
