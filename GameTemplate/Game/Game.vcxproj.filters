@@ -363,4 +363,8 @@
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\sprite\HP.png" />
+    <Image Include="Assets\sprite\HPG.png" />
+  </ItemGroup>
 </Project>

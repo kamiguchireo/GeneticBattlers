@@ -196,6 +196,7 @@ void MonsterBase::StateUpdate()
 	float res = m_activeTime / m_coolTime;
 	res = min(1.0f, res);
 	m_UI->SetScaling(res);
+	m_UI->SetHPScaling(nowHP);
 }
 
 bool MonsterBase::Action()

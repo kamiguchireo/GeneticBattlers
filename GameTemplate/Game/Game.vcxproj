@@ -261,6 +261,10 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\para.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\HP.png" />
+    <ImageContentTask Include="Assets\sprite\HPG.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />
