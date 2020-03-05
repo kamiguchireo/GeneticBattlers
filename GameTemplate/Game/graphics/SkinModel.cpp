@@ -108,6 +108,11 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 	//スケルトンの更新。
 	m_skeleton.Update(m_worldMatrix);
 }
+
+//シルエット描画の仕方
+//①背景のモデルを0を指定して描画
+//②シルエット描画したいモデルを引数3つ目に1を指定してDrawを呼ぶ
+//③シルエット描画したいモデルを引数3つ目に0を指定してDrawを呼ぶ
 void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix,int renderMode)
 {
 	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());

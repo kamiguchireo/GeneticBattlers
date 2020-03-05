@@ -62,14 +62,21 @@ void Game::Update()
 		0
 	);
 
-	//モデル2のドロー
+	//モデル2のシルエットのドロー
+	m_model2.Draw
+	(
+		g_camera3D.GetViewMatrix(),
+		g_camera3D.GetProjectionMatrix(),
+		1
+	);
+
+	//モデル2の通常のドロー
 	m_model2.Draw
 	(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
 		0
 	);
-
 	//if(GetAsyncKeyState(VK_UP))
 	//{
 		//エフェクトをNewGO
