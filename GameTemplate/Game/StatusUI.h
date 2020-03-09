@@ -27,6 +27,8 @@ private:
 	prefab::SpriteRender* m_ATBG = nullptr;		//!<ATBゲージ
 	prefab::SpriteRender* m_HP = nullptr;		//!<HPバー
 	prefab::SpriteRender* m_HPG = nullptr;		//!<HPゲージ
+	prefab::SpriteRender* m_Good = nullptr;		//!<Goodボタン
+	prefab::SpriteRender* m_Bad = nullptr;		//!<Badボタン
 
 	CVector3 m_position = CVector3::Zero();
 	CVector3 m_scale = CVector3::One();
@@ -35,6 +37,7 @@ private:
 	//0.0, 0.0で画像の左下。
 	//1.0, 1.0で画像の右上。
 	CVector2 m_pivot = CVector2::Zero();
+	CVector4 m_Gray = { 0.6f,0.6f,0.6f,1.0f };
 	float m_scaleX = 0.0f;
 	float m_hpX = 1.0f;
 

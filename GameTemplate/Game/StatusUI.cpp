@@ -12,6 +12,8 @@ StatusUI::~StatusUI()
 	DeleteGO(m_ATBG);
 	DeleteGO(m_HP);
 	DeleteGO(m_HPG);
+	DeleteGO(m_Good);
+	DeleteGO(m_Bad);
 }
 
 bool StatusUI::Start()
@@ -58,7 +60,27 @@ bool StatusUI::Start()
 	m_HP->SetPivot({ 0.0f,0.0f });
 	m_HP->SetPosition(hpPos);
 
+	//評価ボタンの位置を設定。
+	const float yPos = 25.0f;
+	const float xPos = 50.0f;
+	//HPゲージ。
+	CVector3 goodPos = m_position;
+	goodPos.y -= yPos;
+	goodPos.x += xPos;
+	m_Good= NewGO<prefab::SpriteRender>(0);
+	m_Good->Init(L"Assets/sprite/Good.dds", 50.0f, 50.0f);
+	m_Good->SetPosition(goodPos);
+	m_Good->SetMulColor(m_Gray);
 
+	//HPバー。
+	CVector3 badPos = m_position;
+	badPos.y -= yPos;
+	badPos.x -= xPos;
+	m_Bad = NewGO<prefab::SpriteRender>(0);
+	m_Bad->Init(L"Assets/sprite/Bad.dds", 50.0f, 50.0f);
+	m_Bad->SetPosition(badPos);
+	m_Bad->SetMulColor(m_Gray);
+	
 	return true;
 }
 

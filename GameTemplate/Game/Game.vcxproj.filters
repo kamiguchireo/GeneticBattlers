@@ -359,12 +359,12 @@
     <ImageContentTask Include="Assets\sprite\ATB.png" />
     <ImageContentTask Include="Assets\sprite\ATBG.png" />
     <ImageContentTask Include="Assets\sprite\para.png" />
+    <ImageContentTask Include="Assets\sprite\HP.png" />
+    <ImageContentTask Include="Assets\sprite\HPG.png" />
+    <ImageContentTask Include="Assets\sprite\Bad.png" />
+    <ImageContentTask Include="Assets\sprite\Good.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\sprite\HP.png" />
-    <Image Include="Assets\sprite\HPG.png" />
   </ItemGroup>
 </Project>
