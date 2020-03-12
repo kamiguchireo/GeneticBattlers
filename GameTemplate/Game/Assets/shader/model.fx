@@ -8,6 +8,7 @@
 /////////////////////////////////////////////////////////////
 //アルベドテクスチャ。
 Texture2D<float4> albedoTexture : register(t0);	
+Texture2D<float4>g_shadowMap:register(t2);
 //ボーン行列
 StructuredBuffer<float4x4> boneMatrix : register(t1);
 
@@ -26,12 +27,17 @@ cbuffer VSPSCb : register(b0){
 	float4x4 mWorld;
 	float4x4 mView;
 	float4x4 mProj;
+	float4x4 mLightView;		//ライトビュー行列
+	float4x4 mLightProj;		//ライトプロジェクション行列
+	int isShadowReciever;		//シャドウレシーバーフラグ
 };
 
-cbuffer LightCb:register(b0)
+static const int NUM_DIRECTION_LIG = 4;
+
+cbuffer LightCb:register(b1)
 {
-	float3 dligDirection;	//ライトの向き
-	float4 dligColor;	//ライトの色
+	float3 dligDirection[NUM_DIRECTION_LIG];	//ライトの向き
+	float4 dligColor[NUM_DIRECTION_LIG];	//ライトの色
 	float3 eyePos;	//視点の座標
 	float specPow;	//鏡面反射の絞り
 	uint3 ActiveFlag;	//ライトの各アクティブフラグ
@@ -71,7 +77,13 @@ struct PSInput{
 	float3 Normal		: NORMAL;
 	float3 Tangent		: TANGENT;
 	float2 TexCoord 	: TEXCOORD0;
-	float3 worldPos:TEXCORD1;
+	float3 worldPos:TEXCOORD1;
+	float4 posInLVP:TEXCOORD2;		//ライトビュープロジェクション空間での座標
+};
+
+//シャドウマップ用のピクセルシェーダーへの入力構造体
+struct PSInput_ShadowMap {
+	float4 Position:SV_POSITION;		//座標
 };
 /*!
  *@brief	スキン行列を計算。
@@ -96,12 +108,22 @@ float4x4 CalcSkinMatrix(VSInputNmTxWeights In)
 PSInput VSMain( VSInputNmTxVcTangent In ) 
 {
 	PSInput psInput = (PSInput)0;
+	
 	float4 pos = mul(mWorld, In.Position);
+	float4 pos2 = pos;
 	psInput.worldPos = pos;
-
 	pos = mul(mView, pos);
 	pos = mul(mProj, pos);
+
 	psInput.Position = pos;
+
+	if (isShadowReciever == 1)
+	{
+		//ライトビュープロジェクション空間に変換
+		psInput.posInLVP = mul(mLightView, pos2);
+		psInput.posInLVP = mul(mLightProj, psInput.posInLVP);
+	}
+
 	psInput.TexCoord = In.TexCoord;
 	psInput.Normal = normalize(mul(mWorld, In.Normal));
 	psInput.Tangent = normalize(mul(mWorld, In.Tangent));
@@ -141,7 +163,7 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 	}
 	psInput.Normal = normalize( mul(skinning, In.Normal) );
 	psInput.Tangent = normalize( mul(skinning, In.Tangent) );
-	
+
 	pos = mul(mView, pos);
 	pos = mul(mProj, pos);
 	psInput.Position = pos;
@@ -154,35 +176,85 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 float4 PSMain(PSInput In) : SV_Target0
 {
 	float4 albedoColor = albedoTexture.Sample(Sampler,In.TexCoord);
+
 	//ディレクションライトの拡散反射光を計算する
 	float3 lig = 0.0;
-		lig += max(0.0f, dot(In.Normal * -1.0f,dligDirection)) * dligColor.xyz;
+	if (ActiveFlag.x == 0)
+	{
+		for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
+			lig += max(0.0f, dot(In.Normal * -1.0f, dligDirection[i])) * dligColor[i];
+		}
+	}
+		float3 DepthColor = 0.0;
+		//最終的な色
 		float4 finalColor = float4(0.0f, 0.0f, 0.0f, 1.0f);
+
+
 		//鏡面反射の計算
 		if (ActiveFlag.y == 0)
 		{
-			//ライトを当てる面から視点に伸びるベクトルtoEyeDirを求める。
-			float3 toEyeDir = normalize(eyePos - In.worldPos);
-			//求めたtoEyeDirの反射ベクトルを求める。
-			float3 reflectEyeDir = -toEyeDir + 2 * dot(In.Normal, toEyeDir)* In.Normal;
-			//求めた反射ベクトルとディレクションライトの方向との内積を取って、スペキュラの強さを計算する。
-			float3 t = max(0.0f, dot(-dligDirection, reflectEyeDir));
-			//pow関数を使って、スペキュラを絞る。絞りの強さは定数バッファで渡されている。
-			float3 spec = pow(t, specPow) * dligColor.xyz;
-			//⑤ スペキュラ反射が求まったら、ligに加算する。
-			//鏡面反射を反射光に加算する。
-			lig += spec;
+			for (int i = 0; i < NUM_DIRECTION_LIG; i++) {
+				//ライトを当てる面から視点に伸びるベクトルtoEyeDirを求める。
+				float3 toEyeDir = normalize(eyePos - In.worldPos);
+				//求めたtoEyeDirの反射ベクトルを求める。
+				float3 reflectEyeDir = -toEyeDir + 2 * dot(In.Normal, toEyeDir)* In.Normal;
+				//求めた反射ベクトルとディレクションライトの方向との内積を取って、スペキュラの強さを計算する。
+				float3 t = max(0.0f, dot(-dligDirection[i], reflectEyeDir));
+				//pow関数を使って、スペキュラを絞る。絞りの強さは定数バッファで渡されている。
+				float3 spec = pow(t, specPow) * dligColor[i].xyz;
+				//⑤ スペキュラ反射が求まったら、ligに加算する。
+				//鏡面反射を反射光に加算する。
+				lig += spec;
+				}
+			}
+		//シャドウレシーバーのフラグが1
+		if (isShadowReciever == 1)
+		{
+			//LVP空間から見た時の最も手前の深度値をシャドウマップから取得する
+			float2 shadowMapUV = In.posInLVP.xy / In.posInLVP.w;
+			//シャドウマップのUV座標を0.0～1.0にする
+			//shadowMapUV *= float2(0.5f, -0.5f);
+			//shadowMapUV += 0.5f;
+			shadowMapUV += 1.0;
+			shadowMapUV *= 0.5;
+			//シャドウマップの範囲内かどうかを判定する。
+			if (shadowMapUV.x > 0.0&&shadowMapUV.x < 1.0
+				&&shadowMapUV.y > 0.0&&shadowMapUV.y < 1.0
+				)
+			{
+				//LVP空間での深度値を計算
+				float zInLVP = In.posInLVP.z / In.posInLVP.w;
+				//シャドウマップに書き込まれている深度値を取得
+				float zInShadowMap = g_shadowMap.Sample(Sampler, shadowMapUV);
 
+				if (zInLVP > zInShadowMap + 0.01f)
+				{
+					//影が落ちているので、光を弱くする
+					lig *= 0.5f;
+
+				}
+			}
 		}
-		finalColor.xyz = albedoColor.xyz * lig;
+
+		finalColor = albedoColor;
 		if (ActiveFlag.x == 0)
 		{
-			return finalColor;
+
+			finalColor.xyz = albedoColor.xyz * lig;
 		}
-		else
-		{
-			return albedoColor;
-		}
+		return finalColor;
+		//if (isShadowReciever == 1)
+		//{
+		//	albedoColor.xyz *= lig;
+		//}
+		//if (ActiveFlag.x == 0)
+		//{
+		//	return finalColor;
+		//}
+		//else
+		//{
+		//	return albedoColor;
+		//}
 }
 
 //--------------------------------------------------------------------------------------
@@ -191,4 +263,22 @@ float4 PSMain(PSInput In) : SV_Target0
 float4 PSMain_Silhouette(PSInput In) : SV_Target0
 {
 	return float4(0.5f, 0.5f, 0.5f, 1.0f);
+}
+
+//シャドウマップ生成用の頂点シェーダー
+PSInput_ShadowMap VSMain_ShadowMap(VSInputNmTxVcTangent In)
+{
+	PSInput_ShadowMap psInput = (PSInput_ShadowMap)0;
+	float4 pos = mul(mWorld, In.Position);
+	pos = mul(mView, pos);
+	pos = mul(mProj, pos);
+	psInput.Position = pos;
+	return psInput;
+}
+
+//ピクセルシェーダーのエントリ関数
+float4 PSMain_ShadowMap(PSInput_ShadowMap In): SV_Target0
+{
+	//射影空間でのZ値を返す
+	return In.Position.z / In.Position.w;
 }

@@ -99,6 +99,7 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SourceFile\graphic\ShadowMap.cpp" />
     <ClCompile Include="SourceFile\graphic\RenderTarget.cpp" />
     <ClCompile Include="SourceFile\Light\DirectionLight.cpp" />
     <ClCompile Include="monster\Healer.cpp" />
@@ -165,6 +166,7 @@
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SourceFile\graphic\ShadowMap.h" />
     <ClInclude Include="SourceFile\graphic\RenderTarget.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SourceFile\Light\DirectionLight.h" />
@@ -232,6 +234,7 @@
     <ClInclude Include="SourceFile\Sound\WaveFile.h" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="Assets\modelData\EngineGround.FBX" />
     <MeshContentTask Include="Assets\modelData\testGround.fbx" />
     <MeshContentTask Include="Assets\modelData\testModel.fbx" />
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

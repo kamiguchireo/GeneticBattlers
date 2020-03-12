@@ -23,6 +23,22 @@ namespace Engine {
 			}
 		}
 
+		void DirectionLight::InitDirectionLight()
+		{
+			
+				m_dirLight.direction[0] = { 1.0f, 0.0f, 0.0f, 0.0f };
+				m_dirLight.color[0] = { 0.7f, 0.7f, 0.7f, 1.0f };
+
+				m_dirLight.direction[1] = { -0.707f, -0.707f, 0.0f, 0.0f };
+				m_dirLight.color[1] = { 0.4f, 0.4f, 0.4f, 1.0f };
+
+				m_dirLight.direction[2] = { 0.0f, -0.707f, 0.707f, 0.0f };
+				m_dirLight.color[2] = { 0.4f, 0.4f, 0.4f, 1.0f };
+
+				m_dirLight.direction[3] = { 1.0f, 0.0f, -1.0f, 0.0f };
+				m_dirLight.color[3] = { 0.4f, 0.4f, 0.4f, 1.0f };
+			
+		}
 		//bool DirectionLight::Start()
 		//{
 		//	InitConstantBuffer();
@@ -47,7 +63,7 @@ namespace Engine {
 			//ライト用の定数バッファを更新
 			dc->UpdateSubresource(m_lightCb, 0, nullptr, &m_dirLight, 0, 0);
 			//定数バッファをシェーダースロットに設定
-			dc->PSSetConstantBuffers(0, 1, &m_lightCb);
+			dc->PSSetConstantBuffers(1, 1, &m_lightCb);
 		}
 
 		//定数バッファの初期化

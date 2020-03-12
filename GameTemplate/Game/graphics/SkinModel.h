@@ -18,6 +18,7 @@ class SkinModel
 public:
 	//メッシュが見つかったときのコールバック関数。
 	using OnFindMesh = std::function<void(const std::unique_ptr<DirectX::ModelMeshPart>&)>;
+	SkinModel();
 	/*!
 	*@brief	デストラクタ。
 	*/
@@ -53,19 +54,26 @@ public:
 	*@param[in]	projMatrix		プロジェクション行列。
 	*  カメラ座標系の3Dモデルをスクリーン座標系に変換する行列です。
 	*/
-	void Draw( CMatrix viewMatrix, CMatrix projMatrix,int renderMode = 0 );
+	void Draw
+	( 
+		CMatrix viewMatrix,
+		CMatrix projMatrix,
+		EnRenderMode renderMode = enRenderMode_Normal,
+		CMatrix m_ligProj = CMatrix::Identity(),
+		CMatrix m_ligView = CMatrix::Identity()
+	);
 
-	//ディレクションライトの向き
-	void SetLightDir(CQuaternion dir)
-	{
-		DL.SetDirection(dir);
-	}
+	////ディレクションライトの向き
+	//void SetLightDir(CQuaternion dir)
+	//{
+	//	DL.SetDirection(dir);
+	//}
 
-	//ディレクションライトの色
-	void SetLightColor(CVector4 col)
-	{
-		DL.SetColor(col);
-	}
+	////ディレクションライトの色
+	//void SetLightColor(CVector4 col)
+	//{
+	//	DL.SetColor(col);
+	//}
 
 	//ディレクションライトのアクティブフラグの変更
 	void SetActiveDLFlag(int i)
@@ -79,6 +87,11 @@ public:
 		DL.SetActiveRLFlag(i);
 	}
 
+	//シャドウレシーバーのアクティブフラグ
+	void SetShadowReciever(bool flag)
+	{
+		IsShadowReciever = flag;
+	}
 	/*!
 	*@brief	スケルトンの取得。
 	*/
@@ -123,9 +136,12 @@ private:
 private:
 	//定数バッファ。
 	struct SVSConstantBuffer {
-		CMatrix mWorld;
-		CMatrix mView;
-		CMatrix mProj;
+		CMatrix mWorld;		//ワールド行列
+		CMatrix mView;		//ビュー行列
+		CMatrix mProj;		//プロジェクション行列
+		CMatrix mLightView;		//ライトビュー行列
+		CMatrix mLightProj;		//ライトプロジェクション行列
+		int isShadowReciever;		//シャドウレシーバーのフラグ
 	};
 	EnFbxUpAxis			m_enFbxUpAxis = enFbxUpAxisZ;	//!<FBXの上方向。
 	ID3D11Buffer*		m_cb = nullptr;					//!<定数バッファ。
@@ -134,5 +150,8 @@ private:
 	DirectX::Model*		m_modelDx;						//!<DirectXTKが提供するモデルクラス。
 	ID3D11SamplerState* m_samplerState = nullptr;		//!<サンプラステート。
 	Engine::prefab::DirectionLight DL;
+	bool IsShadowReciever = false;
+	SVSConstantBuffer vsCb;
+
 };
 

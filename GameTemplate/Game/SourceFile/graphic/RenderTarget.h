@@ -36,6 +36,18 @@ namespace Engine {
 		{
 			return m_renderTargetSRV;
 		}
+
+		//ビューポートの取得
+		D3D11_VIEWPORT*GetViewport()
+		{
+			return &m_viewport;
+		}
+
+		//SRVの取得
+		ID3D11ShaderResourceView* GetSRV()
+		{
+			return m_renderTargetSRV;
+		}
 	private:
 		ID3D11Texture2D* m_renderTargetTex = nullptr;		//レンダリングターゲットとなるテクスチャ。
 		//レンダリングターゲットとなるテクスチャの作成
@@ -46,6 +58,7 @@ namespace Engine {
 		ID3D11Texture2D* m_depthStencilTex = nullptr;		//デプスステンシルとなるテクスチャ。
 		ID3D11DepthStencilView*	m_depthStencilView = nullptr;		//デプスステンシルビュー。
 		ID3D11ShaderResourceView*	m_renderTargetSRV = nullptr;		//レンダリングターゲットのSRV
+		D3D11_VIEWPORT m_viewport;
 	};
 
 }

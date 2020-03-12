@@ -194,6 +194,7 @@
     <ClCompile Include="SourceFile\Light\DirectionLight.cpp" />
     <ClCompile Include="StatusUI.cpp" />
     <ClCompile Include="SourceFile\graphic\RenderTarget.cpp" />
+    <ClCompile Include="SourceFile\graphic\ShadowMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -343,6 +344,7 @@
     <ClInclude Include="resource.h" />
     <ClInclude Include="StatusUI.h" />
     <ClInclude Include="SourceFile\graphic\RenderTarget.h" />
+    <ClInclude Include="SourceFile\graphic\ShadowMap.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -350,6 +352,7 @@
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\testGround.fbx" />
     <MeshContentTask Include="Assets\modelData\testModel.fbx" />
+    <MeshContentTask Include="Assets\modelData\EngineGround.FBX" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\mikyan.jpg" />

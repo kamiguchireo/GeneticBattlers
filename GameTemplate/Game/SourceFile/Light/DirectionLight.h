@@ -1,29 +1,34 @@
 #pragma once
 #include "SourceFile/GameObject/GameObjectManager.h"
+const int NUM_DIRECTION_LIG = 4;
+
 namespace Engine {
 	namespace prefab{
 		class DirectionLight :public IGameObject
 		{
 		public:
+
 			DirectionLight();
 			~DirectionLight();
 
 			//bool Start();
 			//void Update();
 
-			//ディレクションライトの向き
-			void SetDirection(CQuaternion dir)
-			{
-				//dir.Multiply(m_dirLight.direction);
+			void InitDirectionLight();
 
-				m_dirLight.direction = dir;
-			}
+			////ディレクションライトの向き
+			//void SetDirection(CQuaternion dir)
+			//{
+			//	//dir.Multiply(m_dirLight.direction);
 
-			//ディレクションライトの色
-			void SetColor(CVector4 color)
-			{
-				m_dirLight.color = color;
-			}
+			//	m_dirLight.direction = dir;
+			//}
+
+			////ディレクションライトの色
+			//void SetColor(CVector4 color)
+			//{
+			//	m_dirLight.color = color;
+			//}
 
 			//アクティブフラグの変更
 			//ディレクションライトを有効にするかどうか
@@ -53,8 +58,12 @@ namespace Engine {
 		private:
 			struct SDirectionLight 
 			{
-				CQuaternion direction = { 1.0f,0.0f,0.0f,0.0f };	//ライトの向き
-				CVector4 color = { 1.0f, 1.0f, 1.0f, 1.0f };		//ライトの色
+				//CVector4 direction = { 1.0f,0.0f,0.0f,0.0f };	//ライトの向き
+				//CVector4 color = { 1.0f, 1.0f, 1.0f, 1.0f };		//ライトの色
+				
+				CVector4 direction[NUM_DIRECTION_LIG];	//ライトの向き
+				CVector4 color[NUM_DIRECTION_LIG];		//ライトの色
+
 				CVector3 eyePos;		//視点の座標
 				float specPow;			//鏡面反射の絞り
 				unsigned int ActiveFlag[3];		//アクティブフラグ0の時に有効にする	
