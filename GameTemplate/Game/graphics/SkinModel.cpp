@@ -3,6 +3,10 @@
 #include "SkinModelDataManager.h"
 #include "graphics/SkinModelEffect.h"
 
+SkinModel::SkinModel()
+{
+	vsCb.isShadowReciever = 0;
+}
 SkinModel::~SkinModel()
 {
 	if (m_cb != nullptr) {
@@ -30,8 +34,9 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 
 	m_enFbxUpAxis = enFbxUpAxis;
 
-	CQuaternion direction = { 0.707,-0.707,0.0,1.0 };
-	SetLightDir(direction);
+	DL.InitDirectionLight();
+	//CQuaternion direction = { 0.707,-0.707,0.0,1.0 };
+	//SetLightDir(direction);
 }
 void SkinModel::InitSkeleton(const wchar_t* filePath)
 {
@@ -113,17 +118,31 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 //①背景のモデルを0を指定して描画
 //②シルエット描画したいモデルを引数3つ目に1を指定してDrawを呼ぶ
 //③シルエット描画したいモデルを引数3つ目に0を指定してDrawを呼ぶ
-void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix,int renderMode)
+void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix,EnRenderMode renderMode,CMatrix m_ligProj,CMatrix m_ligView)
 {
 	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
 
 	ID3D11DeviceContext* d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 
 	//定数バッファの内容を更新。
-	SVSConstantBuffer vsCb;
 	vsCb.mWorld = m_worldMatrix;
 	vsCb.mProj = projMatrix;
 	vsCb.mView = viewMatrix;
+
+	//ライトカメラのビュー行列、プロジェクション行列を送る
+	vsCb.mLightProj = m_ligProj;
+	vsCb.mLightView = m_ligView;
+
+	//シャドウレシーバーのアクセスフラグがtrue
+	if (IsShadowReciever == true)
+	{
+		vsCb.isShadowReciever = 1;
+	}
+	else
+	{
+		vsCb.isShadowReciever = 0;
+	}
+
 	d3dDeviceContext->UpdateSubresource(m_cb, 0, nullptr, &vsCb, 0, 0);
 	//定数バッファをGPUに転送。
 	d3dDeviceContext->VSSetConstantBuffers(0, 1, &m_cb);

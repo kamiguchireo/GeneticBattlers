@@ -13,8 +13,11 @@ protected:
 	Shader m_vsShader;
 	Shader m_psShader;
 	Shader m_psSilhouette;		//シルエット描画用のピクセルシェーダー。
+	Shader m_psShadowMap;		//シャドウマップ生成用のピクセルシェーダー
+	Shader m_vsShadowMap;		//シャドウマップ生成用の頂点シェーダー
 	bool isSkining;
 	ID3D11ShaderResourceView* m_albedoTex = nullptr;
+	ID3D11ShaderResourceView* m_shadow = nullptr;
 	ID3D11DepthStencilState* m_silhouettoDepthStepsilState = nullptr;	//シルエット描画用のデプスステンシルステート。
 
 public:
@@ -24,6 +27,9 @@ public:
 		m_psShader.Load("Assets/shader/model.fx", "PSMain", Shader::EnType::PS);
 		//シルエット用のピクセルシェーダーをロード
 		m_psSilhouette.Load("Assets/shader/model.fx", "PSMain_Silhouette", Shader::EnType::PS);
+		//シャドウマップ用のシェーダーをロード
+		m_psShadowMap.Load("Assets/shader/model.fx", "PSMain_ShadowMap", Shader::EnType::PS);
+		m_vsShadowMap.Load("Assets/shader/model.fx", "VSMain_ShadowMap", Shader::EnType::VS);
 		//デプスステンシルの初期化。
 		InitSilhouettoDepthStepsilState();
 

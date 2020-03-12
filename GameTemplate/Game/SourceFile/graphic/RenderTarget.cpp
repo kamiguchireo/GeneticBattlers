@@ -109,12 +109,20 @@ namespace Engine {
 		depthTexDesc.Format = DXGI_FORMAT_D32_FLOAT;
 		//デプスステンシルテクスチャを作成する。
 		d3dDevice->CreateTexture2D(&depthTexDesc, nullptr, &m_depthStencilTex);
+
+		//ビューポート
+		m_viewport.TopLeftX = 0;
+		m_viewport.TopLeftY = 0;
+		m_viewport.Width = w;
+		m_viewport.Height = h;
+		m_viewport.MinDepth = 0.0f;
+		m_viewport.MaxDepth = 1.0f;
 	}
 
 	void RenderTarget::ClearRenderTarget(float*clearColor)
 	{
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 		d3dDeviceContext->ClearRenderTargetView(m_renderTargetView, clearColor);
-		d3dDeviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+		//d3dDeviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	}
 }

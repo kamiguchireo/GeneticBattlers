@@ -4,7 +4,15 @@
 #include "SourceFile/graphic/2D/Sprite.h"
 #include "EffekseerRendererDX11.h"
 #include "Effekseer.h"
+#include "SourceFile/graphic/ShadowMap.h"
 
+enum EnRenderMode
+{
+	enRenderMode_CreateShadowMap,		//シャドウマップ生成
+	enRenderMode_Normal,				//通常レンダリング
+	enRenderMode_silhouette,			//シルエット生成用レンダリング
+	enRenderMode_shadowReciever,		//シャドウレシーバーとして生成
+};
 /*!
  *@brief	グラフィックスエンジン。
  */
@@ -89,6 +97,12 @@ public:
 	{
 		return Effekseer::Effect::Create(m_manager, (const EFK_CHAR*)filePath);
 	}
+
+	Engine::ShadowMap* GetShadowMap()
+	{
+		return &m_shadowmap;
+	}
+
 private:
 	Camera m_mainCamera;		//カメラ
 	//Camera m_2DCamera;
@@ -107,7 +121,7 @@ private:
 	D3D11_FEATURE_DATA_THREADING m_featureDataThreading;
 	Effekseer::Manager* m_manager = nullptr;
 	EffekseerRenderer::Renderer* m_renderer = nullptr;
-
+	Engine::ShadowMap m_shadowmap;
 };
 
 extern GraphicsEngine* g_graphicsEngine;			//グラフィックスエンジン
