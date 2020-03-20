@@ -54,7 +54,7 @@ namespace Engine {
 		D3D11_TEXTURE2D_DESC texDesc = { 0 };
 		ID3D11RenderTargetView*	m_renderTargetView = nullptr;		//レンダーターゲットビュー。
 		//デプスステンシルテクスチャの作成
-		D3D11_TEXTURE2D_DESC depthTexDesc = texDesc;
+		D3D11_TEXTURE2D_DESC depthTexDesc;
 		ID3D11Texture2D* m_depthStencilTex = nullptr;		//デプスステンシルとなるテクスチャ。
 		ID3D11DepthStencilView*	m_depthStencilView = nullptr;		//デプスステンシルビュー。
 		ID3D11ShaderResourceView*	m_renderTargetSRV = nullptr;		//レンダリングターゲットのSRV

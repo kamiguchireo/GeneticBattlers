@@ -63,8 +63,8 @@ namespace Engine {
 		//‘¾—zŒõ‚©‚ç‚Ì‰e‚ğ—‚Æ‚µ‚½‚¢‚È‚çA•½s“Š‰es—ñ‚ğì¬‚·‚é
 		m_lightProMatrix.MakeOrthoProjectionMatrix
 		(
-			1500,
-			1500,
+			3000,
+			3000,
 			0.1f,
 			5000.0f
 		);

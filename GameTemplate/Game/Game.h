@@ -24,5 +24,6 @@ private:
 	RenderTarget m_shadowMapRT;		//シャドウマップを描画するレンダリングターゲット
 	CVector3 m_ligPos = { 0.0f,300.0f,0.0f };
 	CVector3 m_ligDir = { 1.0f,0.0f,0.0f };
+	CVector3 m_position = CVector3::Zero();
 };
 

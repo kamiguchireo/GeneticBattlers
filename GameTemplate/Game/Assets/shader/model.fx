@@ -8,9 +8,10 @@
 /////////////////////////////////////////////////////////////
 //アルベドテクスチャ。
 Texture2D<float4> albedoTexture : register(t0);	
-Texture2D<float4>g_shadowMap:register(t2);
 //ボーン行列
 StructuredBuffer<float4x4> boneMatrix : register(t1);
+//シャドウテクスチャ
+Texture2D<float4>g_shadowMap:register(t2);
 
 /////////////////////////////////////////////////////////////
 // SamplerState
@@ -108,19 +109,17 @@ float4x4 CalcSkinMatrix(VSInputNmTxWeights In)
 PSInput VSMain( VSInputNmTxVcTangent In ) 
 {
 	PSInput psInput = (PSInput)0;
-	
-	float4 pos = mul(mWorld, In.Position);
-	float4 pos2 = pos;
-	psInput.worldPos = pos;
-	pos = mul(mView, pos);
-	pos = mul(mProj, pos);
+	//ローカル座標系からワールド座標系に変換する。
+	float4 worldPos = mul(mWorld, In.Position);
+	//ワールド座標系からカメラ座標系に変換する。
+	psInput.Position = mul(mView, worldPos);
+	//カメラ座標系からスクリーン座標系に変換する。
+	psInput.Position = mul(mProj, psInput.Position);
 
-	psInput.Position = pos;
 
-	if (isShadowReciever == 1)
-	{
-		//ライトビュープロジェクション空間に変換
-		psInput.posInLVP = mul(mLightView, pos2);
+	if (isShadowReciever == 1) {
+		//続いて、ライトビュープロジェクション空間に変換。
+		psInput.posInLVP = mul(mLightView, worldPos);
 		psInput.posInLVP = mul(mLightProj, psInput.posInLVP);
 	}
 
@@ -176,7 +175,7 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 float4 PSMain(PSInput In) : SV_Target0
 {
 	float4 albedoColor = albedoTexture.Sample(Sampler,In.TexCoord);
-
+	float3 ShadowColor = 0.0;
 	//ディレクションライトの拡散反射光を計算する
 	float3 lig = 0.0;
 	if (ActiveFlag.x == 0)
@@ -186,9 +185,10 @@ float4 PSMain(PSInput In) : SV_Target0
 		}
 	}
 		float3 DepthColor = 0.0;
+
 		//最終的な色
 		float4 finalColor = float4(0.0f, 0.0f, 0.0f, 1.0f);
-
+		finalColor = albedoColor;
 
 		//鏡面反射の計算
 		if (ActiveFlag.y == 0)
@@ -213,10 +213,8 @@ float4 PSMain(PSInput In) : SV_Target0
 			//LVP空間から見た時の最も手前の深度値をシャドウマップから取得する
 			float2 shadowMapUV = In.posInLVP.xy / In.posInLVP.w;
 			//シャドウマップのUV座標を0.0～1.0にする
-			//shadowMapUV *= float2(0.5f, -0.5f);
-			//shadowMapUV += 0.5f;
-			shadowMapUV += 1.0;
-			shadowMapUV *= 0.5;
+			shadowMapUV *= float2(0.5f, -0.5f);
+			shadowMapUV += 0.5f;
 			//シャドウマップの範囲内かどうかを判定する。
 			if (shadowMapUV.x > 0.0&&shadowMapUV.x < 1.0
 				&&shadowMapUV.y > 0.0&&shadowMapUV.y < 1.0
@@ -231,17 +229,17 @@ float4 PSMain(PSInput In) : SV_Target0
 				{
 					//影が落ちているので、光を弱くする
 					lig *= 0.5f;
-
 				}
+
+
 			}
 		}
 
-		finalColor = albedoColor;
 		if (ActiveFlag.x == 0)
 		{
-
 			finalColor.xyz = albedoColor.xyz * lig;
 		}
+
 		return finalColor;
 		//if (isShadowReciever == 1)
 		//{

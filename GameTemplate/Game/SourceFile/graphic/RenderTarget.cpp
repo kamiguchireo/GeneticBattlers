@@ -18,22 +18,27 @@ namespace Engine {
 		if (m_renderTargetTex != nullptr)
 		{
 			m_renderTargetTex->Release();
+			m_renderTargetTex = nullptr;
 		}
 		if (m_renderTargetSRV != nullptr)
 		{
 			m_renderTargetSRV->Release();
+			m_renderTargetSRV = nullptr;
 		}
 		if (m_renderTargetView != nullptr)
 		{
 			m_renderTargetView->Release();
+			m_renderTargetView = nullptr;
 		}
 		if (m_depthStencilView != nullptr)
 		{
 			m_depthStencilView->Release();
+			m_depthStencilView = nullptr;
 		}
 		if (m_depthStencilTex != nullptr)
 		{
 			m_depthStencilTex->Release();
+			m_depthStencilTex = nullptr;
 		}
 	}
 
@@ -92,6 +97,15 @@ namespace Engine {
 		//レンダリングターゲットビューの作成。
 		d3dDevice->CreateRenderTargetView(m_renderTargetTex, &viewDesc, &m_renderTargetView);
 		D3D11_DEPTH_STENCIL_VIEW_DESC depthStencilViewDesc;
+
+		depthTexDesc = texDesc;
+		//デプスステンシルビューにバインドする。
+		depthTexDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
+		//32bit浮動小数点のデプスステンシルバッファを作成する。
+		depthTexDesc.Format = DXGI_FORMAT_D32_FLOAT;
+		//デプスステンシルテクスチャを作成する。
+		d3dDevice->CreateTexture2D(&depthTexDesc, nullptr, &m_depthStencilTex);
+
 		//フォーマットは深度ステンシルと同じにする。
 		depthStencilViewDesc.Format = depthTexDesc.Format;
 		//2Dテクスチャを扱うことを指定する。
@@ -103,12 +117,7 @@ namespace Engine {
 		//デプスステンシルビューを作成。
 		d3dDevice->CreateDepthStencilView(m_depthStencilTex, &depthStencilViewDesc, &m_depthStencilView);
 
-		//デプスステンシルビューにバインドする。
-		depthTexDesc.BindFlags = D3D11_BIND_DEPTH_STENCIL;
-		//32bit浮動小数点のデプスステンシルバッファを作成する。
-		depthTexDesc.Format = DXGI_FORMAT_D32_FLOAT;
-		//デプスステンシルテクスチャを作成する。
-		d3dDevice->CreateTexture2D(&depthTexDesc, nullptr, &m_depthStencilTex);
+
 
 		//ビューポート
 		m_viewport.TopLeftX = 0;
@@ -123,6 +132,6 @@ namespace Engine {
 	{
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 		d3dDeviceContext->ClearRenderTargetView(m_renderTargetView, clearColor);
-		//d3dDeviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
+		d3dDeviceContext->ClearDepthStencilView(m_depthStencilView, D3D11_CLEAR_DEPTH, 1.0f, 0);
 	}
 }

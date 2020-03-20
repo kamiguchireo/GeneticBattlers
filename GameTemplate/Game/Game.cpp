@@ -5,7 +5,7 @@
 
 Game::Game()
 {	
-	g_camera3D.SetPosition({ 0.0f, 500.0f, 1100.0f });
+	g_camera3D.SetPosition({ 0.0f, 200.0f, 500.0f });
 	g_camera3D.SetTarget({ 0.0f, 200.0f, 0.0f });
 
 }
@@ -39,8 +39,8 @@ bool Game::Start()
 	CQuaternion m_ligdir2 = { 1.0f,.0f,0.0f,0.0f };
 	//m_model.SetLightDir(m_ligdir2);
 	m_model.SetActiveDLFlag(0);
-	m_model.SetActiveRLFlag(0);
-
+	m_model.SetActiveRLFlag(1);
+	m_position = m_pos;
 	////ƒ‚ƒfƒ‹2
 	//m_model2.Init(L"Assets/modelData/unityChan.cmo");
 	//CVector3 m_pos2 = { 40.0f,0.0f,0.0f };
@@ -57,14 +57,31 @@ bool Game::Start()
 	m_model3.UpdateWorldMatrix(m_pos3, CQuaternion::Identity(), CVector3::One());
 	CQuaternion m_ligdir3 = { 0.0f,-1.0f,0.0f,0.0f };
 	//m_model3.SetLightDir(m_ligdir3);
-	m_model3.SetActiveDLFlag(1);
+	m_model3.SetActiveDLFlag(0);
 	m_model3.SetShadowReciever(true);
-
+	
 	return true;
 }
 
 void Game::Update()
 {	
+	if (GetAsyncKeyState(VK_UP))
+	{
+		m_position.z--;
+	}
+	if (GetAsyncKeyState(VK_DOWN))
+	{
+		m_position.z++;
+	}
+	if (GetAsyncKeyState(VK_RIGHT))
+	{
+		m_position.x--;
+	}	
+	if (GetAsyncKeyState(VK_LEFT))
+	{
+		m_position.x++;
+	}
+	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
 	m_shadowMap->Update({ 1000.0f, 1000.0f, 1000.0f },
 		{ 0.0f, 0.0f, 0.0f });

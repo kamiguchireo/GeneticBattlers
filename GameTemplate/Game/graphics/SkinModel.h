@@ -117,6 +117,7 @@ public:
 	enum EnSkinModelSRVReg {
 		enSkinModelSRVReg_DiffuseTexture = 0,		//!<ディフューズテクスチャ。
 		enSkinModelSRVReg_BoneMatrix,				//!<ボーン行列。
+		enSkinModelSRVReg_ShadowTexture = 2,		//シャドウテクスチャ
 	};
 private:
 	/*!
