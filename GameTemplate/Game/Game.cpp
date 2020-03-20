@@ -182,14 +182,18 @@ void Game::Render()
 	(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
-		enRenderMode_Normal
+		enRenderMode_Normal,
+		m_shadowMap->GetLigthProjMatrix(),
+		m_shadowMap->GetLightViewMatrix()
 	);
 	//モデル3のドロー
 	m_model3.Draw
 	(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
-		enRenderMode_Normal
+		enRenderMode_Normal,
+		m_shadowMap->GetLigthProjMatrix(),
+		m_shadowMap->GetLightViewMatrix()
 	);
 
 	//描画終了

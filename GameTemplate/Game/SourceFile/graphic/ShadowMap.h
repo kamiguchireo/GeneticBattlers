@@ -28,6 +28,15 @@ namespace Engine {
 		{
 			m_shadowCasters.push_back(shadowCaster);
 		}
+
+		CMatrix GetLightViewMatrix()
+		{
+			return m_lightViewMatrix;
+		}
+		CMatrix GetLigthProjMatrix()
+		{
+			return m_lightProMatrix;
+		}
 	private:
 		RenderTarget m_shadowMapRT;
 		CVector3 m_lightCameraPos = CVector3::Zero();
