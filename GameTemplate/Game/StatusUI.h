@@ -20,6 +20,19 @@ public:
 		m_hpX = scale;
 		m_HPG->SetScale({ m_hpX,1.0f,1.0f });
 	}
+	//評価ボタンの選択。
+	void SetGood() {
+		m_Good->SetMulColor(CVector4::White());
+		m_Bad->SetMulColor(m_Gray);
+	}
+	void SetBad() {
+		m_Good->SetMulColor(m_Gray);
+		m_Bad->SetMulColor(CVector4::White());
+	}
+	void ScoreReset(){
+		m_Good->SetMulColor(m_Gray);
+		m_Bad->SetMulColor(m_Gray);
+	}
 
 private:
 	prefab::SpriteRender* m_para = nullptr;		//!<パラメータ背景

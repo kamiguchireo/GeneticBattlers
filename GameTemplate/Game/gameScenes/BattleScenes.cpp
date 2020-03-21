@@ -150,11 +150,34 @@ void BattleScenes::Update()
 		if (!m_fade->IsFade())	m_state = enState_Battle;
 		break;
 	case enState_Battle:
-		battleCoolTime -= 1.0f / 72.0f;
+
+		/*battleCoolTime -= 1.0f / 72.0f;
 		if (battleCoolTime < 0.0f) {
 			ActiveTimeUpdate();
 			MonsterAction();
+		}*/
+
+
+		switch (m_battleState)
+		{
+		//アクティブタイムを加算。
+		case enState_ATB:
+			ActiveTimeUpdate();
+			break;
+		//行動処理を行う。
+		case enState_ACT:
+			MonsterAction();
+			break;
+		//評価処理を行う。
+		case enState_Scoring:
+			MonsterScoring();
+			break;
+
+		default:
+			break;
 		}
+		
+
 		if (g_pad[0].IsTrigger(enButtonStart)) 
 		{
 			m_state = enState_FadeOut; 
@@ -199,20 +222,15 @@ void BattleScenes::InitMonster()
 
 void BattleScenes::MonsterAction()
 {
-	//誰も行動していないなら中断。
-	if (m_monsterACTList.size() == 0 )return;
+	////誰も行動していないなら中断。
+	//if (m_monsterACTList.size() == 0 )return;
 
 	m_monsterACT = m_monsterACTList.front();
 
 	//行動が終わるまで行動をさせる。
 	bool is_playAction = m_monsterACT->BattleAction();
 
-	//行動が終わったらポインタにnullを入れる。
 	if (is_playAction) {
-		m_monsterACTList.erase(m_monsterACTList.begin());
-		m_monsterACT = nullptr;
-
-		battleCoolTime = 1.0f;
 
 		//残りHPに応じてステートを更新。
 		for (int i = 0; i < m_monsterTeam1List.size(); i++) {
@@ -221,8 +239,11 @@ void BattleScenes::MonsterAction()
 		for (int i = 0; i < m_monsterTeam2List.size(); i++) {
 			m_monsterTeam2List[i]->StateUpdate();
 		}
+
+		m_battleState = enState_Scoring;
 	}
 }
+
 
 void BattleScenes::ActiveTimeUpdate()
 {
@@ -238,6 +259,8 @@ void BattleScenes::ActiveTimeUpdate()
 		if (is_action) {
 			m_monsterACTList.push_back(m_monsterTeam1List[i]);
 			m_monsterTeam1List[i]->SelectUseSkill(m_monsterTeam2List, m_monsterTeam1List);
+			//ステートを変更。
+			m_battleState = enState_ACT;
 		}
 	}	
 	for (int i = 0; i < m_monsterTeam2List.size(); i++)
@@ -248,6 +271,28 @@ void BattleScenes::ActiveTimeUpdate()
 		if (is_action) {
 			m_monsterACTList.push_back(m_monsterTeam2List[i]);
 			m_monsterTeam2List[i]->SelectUseSkill(m_monsterTeam1List, m_monsterTeam2List);
+			//ステートを変更。
+			m_battleState = enState_ACT;
 		}
+	}
+}
+
+void BattleScenes::MonsterScoring()
+{
+	bool flag = m_monsterACT->ACTScoring();
+
+	if (flag) {
+		//行動が終わったらポインタにnullを入れる。
+		m_monsterACTList.erase(m_monsterACTList.begin());
+		m_monsterACT = nullptr;
+
+		//誰も行動していないなら
+		if (m_monsterACTList.size() == 0) {
+			m_battleState = enState_ATB;
+		}
+		else {
+			m_battleState = enState_ACT;
+		}
+
 	}
 }
