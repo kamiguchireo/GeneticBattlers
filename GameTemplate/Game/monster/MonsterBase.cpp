@@ -226,7 +226,7 @@ void MonsterBase::StateUpdate()
 {
 	//現在HP/最大HPの割合からステートを変化させる。
 	float nowHP = (float)m_status.HP / (float)m_statusBase.HP;
-
+	//ステートの変更。
 	if (2.0f / 3.0f < nowHP) {
 		m_stateAI = en_state_Good;
 	}
@@ -242,6 +242,7 @@ void MonsterBase::StateUpdate()
 		m_stateAI = en_state_Death; 
 		m_activeTime = 0.0f;
 	}
+	//UIに反映。
 	float res = m_activeTime / m_coolTime;
 	res = min(1.0f, res);
 	m_UI->SetScaling(res);

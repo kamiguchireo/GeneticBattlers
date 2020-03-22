@@ -139,3 +139,7 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::
 		break;
 	}
 }
+
+void Healer::Init(const wchar_t * filePath)
+{
+}

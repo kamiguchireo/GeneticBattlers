@@ -94,41 +94,75 @@ void Supporter::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const st
 {
 	SkillList* skillList = SkillList::GetInstance();
 
-	int res = rand() % 10;	//適当な乱数。
 
-	int tagNum = rand() % m_team.size();
+	auto list = m_team;	//ソートするためにリストをコピー。
 
-	//残りHPに応じて行動を決める。
-	switch (m_stateAI)
-	{
-	case en_state_Good:
-		if (res < 3) {
-			m_useSkill = skillList->GetSkillData(2, 1);
-			m_target = this;
+	for (int i = 0; i < list.size(); i++) {
+		for (int j = i; j < list.size(); j++) {
+			if (list[i]->GetStatus().HP > list[j]->GetStatus().HP) {
+				auto hoge = list[i];
+				list[i] = list[j];
+				list[j] = hoge;
+			}
 		}
-		else {
-			m_useSkill = skillList->GetSkillData(2, 0);
-			m_target = m_team[tagNum];
-		}
-		break;
-
-	case en_state_Usually:
-		if (res < 5) {
-			m_useSkill = skillList->GetSkillData(2, 1);
-			m_target = this;
-		}
-		else {
-			m_useSkill = skillList->GetSkillData(2, 0);
-			m_target = m_team[tagNum];
-		}
-		break;
-
-	case en_state_Bad:
-		m_useSkill = skillList->GetSkillData(2, 1);
-		m_target = this;
-		break;
-
-	case en_state_Death:
-		break;
 	}
+
+	int res = rand() % 100;	//適当な乱数。
+	int sum = 0;
+	
+	for (int i = 0; i < 3; i++) {
+		sum += (int)(m_AI[i].rate * 100);
+		if (sum > res) {
+			int skillTable = (int)(m_AI[i].skillNo / 100);
+			int skillNo = m_AI[i].skillNo % 100;
+			int targetNo = m_AI[i].target;
+			m_useSkill = skillList->GetSkillData(skillTable, skillNo);
+			m_target = list[targetNo];
+			break;
+		}
+	}
+
+	//int res = rand() % 10;	//適当な乱数。
+	//int tagNum = rand() % m_team.size();
+
+	////残りHPに応じて行動を決める。
+	//switch (m_stateAI)
+	//{
+	//case en_state_Good:
+	//	if (res < 3) {
+	//		m_useSkill = skillList->GetSkillData(2, 1);
+	//		m_target = this;
+	//	}
+	//	else {
+	//		m_useSkill = skillList->GetSkillData(2, 0);
+	//		m_target = m_team[tagNum];
+	//	}
+	//	break;
+
+	//case en_state_Usually:
+	//	if (res < 5) {
+	//		m_useSkill = skillList->GetSkillData(2, 1);
+	//		m_target = this;
+	//	}
+	//	else {
+	//		m_useSkill = skillList->GetSkillData(2, 0);
+	//		m_target = m_team[tagNum];
+	//	}
+	//	break;
+
+	//case en_state_Bad:
+	//	m_useSkill = skillList->GetSkillData(2, 1);
+	//	m_target = this;
+	//	break;
+
+	//case en_state_Death:
+	//	break;
+	//}
+}
+
+void Supporter::Init(const wchar_t * filePath)
+{
+	m_AI[0] = { 201,0,0.5f };
+	m_AI[1] = { 200,1,0.2f };
+	m_AI[2] = { 200,0,0.3f };
 }

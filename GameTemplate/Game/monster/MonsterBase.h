@@ -31,8 +31,12 @@ enum StatusBuff {
 };
 
 //行動テーブルのデータ。
+//!<skillNo		スキル番号。
+//!<target		ターゲット番号。
+//!<rate		使用頻度。
 struct AIData {
 	int skillNo = 0;
+	int target = 0;
 	float rate = 0.0f;
 };
 

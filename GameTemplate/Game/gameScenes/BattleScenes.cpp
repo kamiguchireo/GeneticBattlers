@@ -115,6 +115,7 @@ bool BattleScenes::Start()
 			support->SetStatus(hoge);
 			support->SetPosition(objData.position);
 			support->SetRotation(objData.rotation);
+			support->Init(L"sop");
 			m_monsterTeam1List.push_back(support);
 		
 			return true;

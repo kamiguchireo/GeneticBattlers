@@ -129,3 +129,7 @@ void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std
 		break;
 	}
 }
+
+void Attacker::Init(const wchar_t * filePath)
+{
+}
