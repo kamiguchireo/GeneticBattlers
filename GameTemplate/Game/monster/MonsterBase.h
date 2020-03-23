@@ -78,7 +78,12 @@ public:
 	/// binファイルからデータを読み込む。
 	/// </summary>
 	/// <param name="filePath">ファイルパス。</param>
-	virtual void Init(const wchar_t* filePath) {};
+	virtual void Init(const char* filePath) {};
+	/// <summary>
+	/// binファイルにデータを書き込む。
+	/// </summary>
+	/// <param name="filePath">ファイルパス。</param>
+	virtual void Save(const char* filePath) {};
 
 	//座標を取得。
 	const CVector3& GetPosition() const

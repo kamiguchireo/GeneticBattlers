@@ -124,7 +124,7 @@ void Supporter::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const st
 	}
 }
 
-void Supporter::Init(const wchar_t * filePath)
+void Supporter::Init(const char* filePath)
 {
 	m_AI[0] = { 200,0,0.25f };
 	m_AI[1] = { 200,1,0.1f };

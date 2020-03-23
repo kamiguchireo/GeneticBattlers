@@ -123,7 +123,7 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::
 	}
 }
 
-void Healer::Init(const wchar_t * filePath)
+void Healer::Init(const char* filePath)
 {
 	m_AI[0] = { 100,0,0.25f };
 	m_AI[1] = { 100,1,0.1f };

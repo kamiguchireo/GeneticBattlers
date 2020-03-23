@@ -19,6 +19,7 @@ BattleScenes::~BattleScenes()
 	DeleteGO(m_camera);
 	for (int i = 0; i < m_monsterTeam1List.size(); i++)
 	{
+		m_monsterTeam1List[i]->Save("Assets/AIData/Attacker.bin");
 		DeleteGO(m_monsterTeam1List[i]);
 	}
 	for (int i = 0; i < m_monsterTeam2List.size(); i++)
@@ -79,7 +80,7 @@ bool BattleScenes::Start()
 			attacker->SetStatus(hoge);
 			attacker->SetPosition(objData.position);
 			attacker->SetRotation(objData.rotation);
-			attacker->Init(L"Attack");
+			attacker->Init("Assets/AIData/Attacker.bin");
 			m_monsterTeam1List.push_back(attacker);
 
 			return true;
@@ -98,7 +99,7 @@ bool BattleScenes::Start()
 			healer->SetStatus(hoge);
 			healer->SetPosition(objData.position);
 			healer->SetRotation(objData.rotation);
-			healer->Init(L"heal");
+			healer->Init("heal");
 			m_monsterTeam1List.push_back(healer);
 		
 			return true;
@@ -117,7 +118,7 @@ bool BattleScenes::Start()
 			support->SetStatus(hoge);
 			support->SetPosition(objData.position);
 			support->SetRotation(objData.rotation);
-			support->Init(L"sop");
+			support->Init("sop");
 			m_monsterTeam1List.push_back(support);
 		
 			return true;

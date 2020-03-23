@@ -124,12 +124,36 @@ void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std
 	}
 }
 
-void Attacker::Init(const wchar_t * filePath)
+void Attacker::Init(const char* filePath)
 {
-	m_AI[0] = { 0,0,0.25f };
-	m_AI[1] = { 0,1,0.1f };
-	m_AI[2] = { 0,2,0.15f };
-	m_AI[3] = { 1,0,0.25f };
-	m_AI[4] = { 1,1,0.1f };
-	m_AI[5] = { 1,2,0.15f };
+	FILE* fp = fopen(filePath, "rb");
+	if (fp == nullptr) {
+		//ファイルが存在しないならデフォルト。
+		m_AI[0] = { 0,0,0.25f };
+		m_AI[1] = { 0,1,0.1f };
+		m_AI[2] = { 0,2,0.15f };
+		m_AI[3] = { 1,0,0.25f };
+		m_AI[4] = { 1,1,0.1f };
+		m_AI[5] = { 1,2,0.15f };
+
+		fclose(fp);
+		return;
+	}
+	fread(m_AI, sizeof(m_AI), 1, fp);
+
+	fclose(fp);
+}
+
+void Attacker::Save(const char * filePath)
+{
+	FILE* fp = fopen(filePath, "wb");
+
+	if (fp == nullptr) {
+		fclose(fp);
+		return;
+	}
+
+	fwrite(m_AI, sizeof(m_AI), 1, fp);
+
+	fclose(fp);
 }
