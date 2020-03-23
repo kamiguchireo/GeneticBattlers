@@ -102,8 +102,7 @@ public:
 	{
 		return &m_shadowmap;
 	}
-
-	ID3D11BlendState*GetBlendState()
+	ID3D11BlendState* GetBlendState()
 	{
 		return m_translucentBlendState;
 	}
@@ -126,7 +125,7 @@ private:
 	Effekseer::Manager* m_manager = nullptr;
 	EffekseerRenderer::Renderer* m_renderer = nullptr;
 	Engine::ShadowMap m_shadowmap;
-	ID3D11BlendState* m_translucentBlendState = nullptr;	//半透明合成用のブレンドステート。
+	ID3D11BlendState*m_translucentBlendState = nullptr;
 };
 
 extern GraphicsEngine* g_graphicsEngine;			//グラフィックスエンジン

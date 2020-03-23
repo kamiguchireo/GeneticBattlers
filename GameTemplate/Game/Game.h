@@ -13,7 +13,10 @@ public:
 	void Update();
 	void UpdateShadowMap();
 	void Render();
-
+	void ForwordRender();
+	void PostRender();
+	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
+	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
 private:
 	//prefab::SpriteRender*m_spriteRender;	//スプライトレンダー
 	prefab::CEffect* effect = NewGO<prefab::CEffect>(0);		//エフェクトを作成。
@@ -25,5 +28,11 @@ private:
 	CVector3 m_ligPos = { 0.0f,300.0f,0.0f };
 	CVector3 m_ligDir = { 1.0f,0.0f,0.0f };
 	CVector3 m_position = CVector3::Zero();
+	RenderTarget m_mainRenderTarget;		//メインレンダリングターゲット。
+	ID3D11RenderTargetView* oldRenderTargetView = nullptr;
+	ID3D11DepthStencilView* oldDepthStencilView = nullptr;
+	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
+	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
+
 };
 
