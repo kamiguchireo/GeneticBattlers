@@ -12,6 +12,7 @@ public:
 	bool Action_usually();
 	bool Action_bad();
 	bool BattleAction();
+	bool ACTScoring() { return true; };
 
 	void SetUIPos(const CVector3& pos)
 	{

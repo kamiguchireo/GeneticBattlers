@@ -2,7 +2,7 @@
 #include "Skill/SkillBase.h"
 #include "../StatusUI.h"
 
-const int ActionNum = 10;							//AIがとりうる行動の数。
+//const int ActionNum = 10;							//AIがとりうる行動の数。
 
 /// <summary>
 /// ステータスの構造体。
@@ -30,9 +30,22 @@ enum StatusBuff {
 	en_buff_num
 };
 
+//行動テーブルのデータ。
+//!<skillNo		スキル番号。
+//!<target		ターゲット番号。
+//!<rate		使用頻度。
 struct AIData {
 	int skillNo = 0;
+	int target = 0;
 	float rate = 0.0f;
+};
+
+//行動のリザルト。
+struct ACTResullt {
+	int damage = 0;
+	int skillNo = 0;
+	int target = 0;
+	bool score = false;
 };
 
 /// <summary>
@@ -65,7 +78,12 @@ public:
 	/// binファイルからデータを読み込む。
 	/// </summary>
 	/// <param name="filePath">ファイルパス。</param>
-	void Init(const wchar_t* filePath);
+	virtual void Init(const char* filePath) {};
+	/// <summary>
+	/// binファイルにデータを書き込む。
+	/// </summary>
+	/// <param name="filePath">ファイルパス。</param>
+	virtual void Save(const char* filePath) {};
 
 	//座標を取得。
 	const CVector3& GetPosition() const
@@ -126,6 +144,13 @@ public:
 	void Draw();
 	//アクティブタイムを加算する。
 	bool AddATB();
+	//行動の評価を行う。
+	virtual bool ACTScoring();
+	//行動のリザルトの設定。
+	void SetActResult(int No ,int damage) {
+		m_actRes.skillNo = No;
+		m_actRes.damage = damage;
+	}
 	//クールタイムを設定する。
 	void SetCoolTime(float time)
 	{
@@ -148,29 +173,7 @@ public:
 	/// HPを回復させる。
 	/// </summary>
 	/// <param name="healing">回復量。</param>
-	void Healing(int healing);
-
-	///// <summary>
-	///// MPを回復させる。
-	///// </summary>
-	///// <param name="healing">回復量。</param>
-	//void HealingMP(int healing)
-	//{
-	//	m_status.MP += healing;
-	//	m_status.MP = min(m_status.MP, m_statusBase.MP);
-	//}
-	///// <summary>
-	///// MPを使う。
-	///// </summary>
-	///// <param name="mp">消費MP量。</param>
-	//bool UseMP(int mp)
-	//{
-	//	if (m_status.MP < mp) {
-	//		return false;	//MPが足りないときの処理。
-	//	}
-	//	m_status.MP -= mp;
-	//	return true;
-	//}
+	int Healing(int healing);
 
 	/// <summary>
 	/// バフをかける。
@@ -204,6 +207,7 @@ public:
 	
 
 protected:
+	//	モデル関係
 	SkinModel m_model;									//モデルデータ。
 	//アニメーションの列挙。
 	enum enAnimation {
@@ -218,19 +222,26 @@ protected:
 	AnimationClip m_animClip[en_anim_num];				//アニメーションクリップ。
 	CVector3 m_position = CVector3::Zero();				//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転。
+
+	//	ステータス
 	Status m_statusBase;								//基礎ステータス。
 	Status m_status;									//ステータス。
-	AIData m_AI[3][ActionNum];							//AIデータ。
-	bool m_isDeath = false;								//戦闘不能フラグ。
+	AIData m_AI[6];										//AIデータ。
+	char m_AIPath[64];									//AIデータのファイルパス。
+	ACTResullt m_actRes;								//行動のリザルト。
+	int m_scoringFlag = 0;								//評価のフラグ。
 	int m_stateAI = en_state_Good;						//ステート。
 	bool IsDeath = false;								//死亡フラグ。
 	float m_activeTime = 0.0f;							//アクティブタイム。
 	float m_coolTime = 30.0f;							//クールタイム。
 	float buffTimeList[en_buff_num] = { 0.0f };			//バフタイム。
 	Elements m_elemnts = en_elements_Empty;				//属性。
+
+	//	ポインタとか。
 	std::vector<MonsterBase*> m_teamMenber;				//自分のチーム。
 	SkillBase* m_useSkill = nullptr;					//使用しているスキルのポインタ。
 	MonsterBase* m_target = nullptr;					//スキルの対象。
+
 	//UIを表示させる。
 	StatusUI* m_UI;
 };

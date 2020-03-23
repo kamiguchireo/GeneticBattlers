@@ -64,16 +64,66 @@ bool MonsterBase::AddATB()
 	return false;
 }
 
-void MonsterBase::Healing(int healing)
+//行動の評価。
+bool MonsterBase::ACTScoring()
 {
+	if (g_pad[0].IsTrigger(enButtonRight)) {		
+		m_scoringFlag = 1;
+	}
+	if (g_pad[0].IsTrigger(enButtonLeft)) {
+		m_scoringFlag = 0;
+	}
+	switch (m_scoringFlag)
+	{
+	case 0:
+		m_UI->SetGood();
+		break;
+	case 1:
+		m_UI->SetBad();
+		break;
+	default:
+		break;
+	}
+
+	if (g_pad[0].IsTrigger(enButtonA)) {
+		switch (m_scoringFlag)
+		{
+		case 0:
+			m_actRes.score = true;
+			break;
+		case 1:
+			m_actRes.score = false;
+			break;
+		default:
+			break;
+		}
+		m_UI->ScoreReset();
+		m_scoringFlag = 0;
+		return true;
+	}
+
+	return false;
+}
+
+int MonsterBase::Healing(int healing)
+{
+	int res = healing;
 	m_status.HP += healing;
-	m_status.HP = min(m_status.HP, m_statusBase.HP);
+	//最大HPを超えた。
+	if (m_status.HP > m_statusBase.HP) {
+		int diff = m_status.HP - m_statusBase.HP;
+		res -= diff;		//超えた分だけ引く。
+
+		m_status.HP = min(m_status.HP, m_statusBase.HP);
+	}
 
 	//エフェクトの再生。
 	auto ef = NewGO<prefab::CEffect>(0);
 	ef->Play(L"Assets/effect/heal.efk");
 	ef->SetPosition(m_position + CVector3::AxisY()*20.0f);
 	ef->SetScale(CVector3::One()*80.0f);
+
+	return res;
 }
 
 void MonsterBase::Monster_Buff(StatusBuff status, float pow, float time)
@@ -177,7 +227,7 @@ void MonsterBase::StateUpdate()
 {
 	//現在HP/最大HPの割合からステートを変化させる。
 	float nowHP = (float)m_status.HP / (float)m_statusBase.HP;
-
+	//ステートの変更。
 	if (2.0f / 3.0f < nowHP) {
 		m_stateAI = en_state_Good;
 	}
@@ -193,6 +243,7 @@ void MonsterBase::StateUpdate()
 		m_stateAI = en_state_Death; 
 		m_activeTime = 0.0f;
 	}
+	//UIに反映。
 	float res = m_activeTime / m_coolTime;
 	res = min(1.0f, res);
 	m_UI->SetScaling(res);

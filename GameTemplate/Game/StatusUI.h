@@ -11,6 +11,10 @@ public:
 	void SetPosition(const CVector3& pos) {
 		m_position = pos;
 	}
+	//敵用UIにする。
+	void EnableEnemy() {
+		m_isEnemy = true;
+	}
 	//ゲージの大きさを設定。
 	void SetScaling(float scale) {
 		m_scaleX = scale;
@@ -19,6 +23,19 @@ public:
 	void SetHPScaling(float scale) {
 		m_hpX = scale;
 		m_HPG->SetScale({ m_hpX,1.0f,1.0f });
+	}
+	//評価ボタンの選択。
+	void SetGood() {
+		m_Good->SetMulColor(CVector4::White());
+		m_Bad->SetMulColor(m_Gray);
+	}
+	void SetBad() {
+		m_Good->SetMulColor(m_Gray);
+		m_Bad->SetMulColor(CVector4::White());
+	}
+	void ScoreReset(){
+		m_Good->SetMulColor(m_Gray);
+		m_Bad->SetMulColor(m_Gray);
 	}
 
 private:
@@ -40,6 +57,6 @@ private:
 	CVector4 m_Gray = { 0.6f,0.6f,0.6f,1.0f };
 	float m_scaleX = 0.0f;
 	float m_hpX = 1.0f;
-
+	bool m_isEnemy = false;
 };
 

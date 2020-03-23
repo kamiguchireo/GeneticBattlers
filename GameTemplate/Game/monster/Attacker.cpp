@@ -94,38 +94,67 @@ void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std
 {
 	SkillList* skillList = SkillList::GetInstance();
 
-	//int listSize = list.size();
-	int res = rand() % 10;	//適当な乱数。
+	auto list = e_team;	//ソートするためにリストをコピー。
 
-	//残りHPに応じて行動を決める。
-	switch (m_stateAI)
-	{
-	case en_state_Good:
-		if (res < 3) {
-			m_useSkill = skillList->GetSkillData(0, 1);
+	for (int i = 0; i < list.size(); i++) {
+		for (int j = i; j < list.size(); j++) {
+			if (list[i]->GetStatus().HP > list[j]->GetStatus().HP) {
+				auto hoge = list[i];
+				list[i] = list[j];
+				list[j] = hoge;
+			}
 		}
-		else {
-			m_useSkill = skillList->GetSkillData(0, 0);
-		}
-		m_target = e_team[rand() % e_team.size()];
-		break;
-
-	case en_state_Usually:
-		if (res < 5) {
-			m_useSkill = skillList->GetSkillData(0, 1);
-		}
-		else {
-			m_useSkill = skillList->GetSkillData(0, 0);
-		}
-		m_target = e_team[rand() % e_team.size()];
-		break;
-
-	case en_state_Bad:
-		m_useSkill = skillList->GetSkillData(0, 1);
-		m_target = e_team[rand() % e_team.size()];
-		break;
-
-	case en_state_Death:
-		break;
 	}
+
+	int res = rand() % 100;	//適当な乱数。
+	int sum = 0;
+
+
+	int AINum = sizeof(m_AI) / sizeof(*m_AI);
+	for (int i = 0; i < AINum; i++) {
+		sum += (int)(m_AI[i].rate * 100);
+		if (sum > res) {
+			int skillTable = (int)(m_AI[i].skillNo / 100);
+			int skillNo = m_AI[i].skillNo % 100;
+			int targetNo = m_AI[i].target;
+			m_useSkill = skillList->GetSkillData(skillTable, skillNo);
+			m_target = list[targetNo];
+			break;
+		}
+	}
+}
+
+void Attacker::Init(const char* filePath)
+{
+	strcpy(m_AIPath, filePath);
+	FILE* fp = fopen(filePath, "rb");
+	if (fp == nullptr) {
+		//ファイルが存在しないならデフォルト。
+		m_AI[0] = { 0,0,0.25f };
+		m_AI[1] = { 0,1,0.1f };
+		m_AI[2] = { 0,2,0.15f };
+		m_AI[3] = { 1,0,0.25f };
+		m_AI[4] = { 1,1,0.1f };
+		m_AI[5] = { 1,2,0.15f };
+
+		return;
+	}
+	
+
+	fread(m_AI, sizeof(m_AI), 1, fp);
+
+	fclose(fp);
+}
+
+void Attacker::Save(const char * filePath)
+{
+	FILE* fp = fopen(m_AIPath, "wb");
+
+	if (fp == nullptr) {
+		return;
+	}
+
+	fwrite(m_AI, sizeof(m_AI), 1, fp);
+
+	fclose(fp);
 }
