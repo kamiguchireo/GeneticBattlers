@@ -227,6 +227,7 @@ protected:
 	Status m_statusBase;								//基礎ステータス。
 	Status m_status;									//ステータス。
 	AIData m_AI[6];										//AIデータ。
+	char m_AIPath[64];									//AIデータのファイルパス。
 	ACTResullt m_actRes;								//行動のリザルト。
 	int m_scoringFlag = 0;								//評価のフラグ。
 	int m_stateAI = en_state_Good;						//ステート。

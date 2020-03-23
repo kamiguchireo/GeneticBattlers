@@ -125,10 +125,33 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::
 
 void Healer::Init(const char* filePath)
 {
-	m_AI[0] = { 100,0,0.25f };
-	m_AI[1] = { 100,1,0.1f };
-	m_AI[2] = { 100,2,0.15f };
-	m_AI[3] = { 101,0,0.25f };
-	m_AI[4] = { 101,1,0.1f };
-	m_AI[5] = { 101,2,0.15f };
+	strcpy(m_AIPath, filePath);
+	FILE* fp = fopen(filePath, "rb");
+	if (fp == nullptr) {
+		//ファイルが存在しないならデフォルト。
+		m_AI[0] = { 100,0,0.25f };
+		m_AI[1] = { 100,1,0.1f };
+		m_AI[2] = { 100,2,0.15f };
+		m_AI[3] = { 101,0,0.25f };
+		m_AI[4] = { 101,1,0.1f };
+		m_AI[5] = { 101,2,0.15f };
+
+		return;
+	}
+	fread(m_AI, sizeof(m_AI), 1, fp);
+
+	fclose(fp);
+}
+
+void Healer::Save(const char * filePath)
+{
+	FILE* fp = fopen(m_AIPath, "wb");
+
+	if (fp == nullptr) {
+		return;
+	}
+
+	fwrite(m_AI, sizeof(m_AI), 1, fp);
+
+	fclose(fp);
 }

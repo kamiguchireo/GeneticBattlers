@@ -126,10 +126,33 @@ void Supporter::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const st
 
 void Supporter::Init(const char* filePath)
 {
-	m_AI[0] = { 200,0,0.25f };
-	m_AI[1] = { 200,1,0.1f };
-	m_AI[2] = { 200,2,0.15f };
-	m_AI[3] = { 201,0,0.25f };
-	m_AI[4] = { 201,1,0.1f };
-	m_AI[5] = { 201,2,0.15f };
+	strcpy(m_AIPath, filePath);
+	FILE* fp = fopen(filePath, "rb");
+	if (fp == nullptr) {
+		//ファイルが存在しないならデフォルト。
+		m_AI[0] = { 200,0,0.25f };
+		m_AI[1] = { 200,1,0.1f };
+		m_AI[2] = { 200,2,0.15f };
+		m_AI[3] = { 201,0,0.25f };
+		m_AI[4] = { 201,1,0.1f };
+		m_AI[5] = { 201,2,0.15f };
+
+		return;
+	}
+	fread(m_AI, sizeof(m_AI), 1, fp);
+
+	fclose(fp);
+}
+
+void Supporter::Save(const char * filePath)
+{
+	FILE* fp = fopen(m_AIPath, "wb");
+
+	if (fp == nullptr) {
+		return;
+	}
+
+	fwrite(m_AI, sizeof(m_AI), 1, fp);
+
+	fclose(fp);
 }
