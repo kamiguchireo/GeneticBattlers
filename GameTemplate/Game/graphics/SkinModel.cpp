@@ -118,6 +118,7 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 //①背景のモデルを0を指定して描画
 //②シルエット描画したいモデルを引数3つ目に1を指定してDrawを呼ぶ
 //③シルエット描画したいモデルを引数3つ目に0を指定してDrawを呼ぶ
+//影生成するときは第4引数と第5引数にシャドウマップの行列を入れてください
 void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix,EnRenderMode renderMode,CMatrix m_ligProj,CMatrix m_ligView)
 {
 	DirectX::CommonStates state(g_graphicsEngine->GetD3DDevice());
