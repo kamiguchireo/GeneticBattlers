@@ -136,6 +136,14 @@ namespace Engine {
 	void Sprite::Draw(const CMatrix&viewMatrix, const CMatrix&projMatrix)
 	{
 		ID3D11DeviceContext* DeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+
+		float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+		//半透明合成のブレンドステートを設定する。
+		DeviceContext->OMSetBlendState(
+			g_graphicsEngine->GetBlendState(),	//設定するブレンディングステート
+			blendFactor,				//ブレンディングファクター。気にしなくてよい
+			0xffffffff					//サンプリングマスク。気にしなくてよい。
+		);
 		//if (m_isInited == false)
 		//{
 		//	//初期化されていない
