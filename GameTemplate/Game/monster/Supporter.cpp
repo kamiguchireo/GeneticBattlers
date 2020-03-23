@@ -110,7 +110,8 @@ void Supporter::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const st
 	int res = rand() % 100;	//適当な乱数。
 	int sum = 0;
 	
-	for (int i = 0; i < 3; i++) {
+	int AINum = sizeof(m_AI) / sizeof(*m_AI);
+	for (int i = 0; i < AINum; i++) {
 		sum += (int)(m_AI[i].rate * 100);
 		if (sum > res) {
 			int skillTable = (int)(m_AI[i].skillNo / 100);
@@ -121,48 +122,14 @@ void Supporter::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const st
 			break;
 		}
 	}
-
-	//int res = rand() % 10;	//適当な乱数。
-	//int tagNum = rand() % m_team.size();
-
-	////残りHPに応じて行動を決める。
-	//switch (m_stateAI)
-	//{
-	//case en_state_Good:
-	//	if (res < 3) {
-	//		m_useSkill = skillList->GetSkillData(2, 1);
-	//		m_target = this;
-	//	}
-	//	else {
-	//		m_useSkill = skillList->GetSkillData(2, 0);
-	//		m_target = m_team[tagNum];
-	//	}
-	//	break;
-
-	//case en_state_Usually:
-	//	if (res < 5) {
-	//		m_useSkill = skillList->GetSkillData(2, 1);
-	//		m_target = this;
-	//	}
-	//	else {
-	//		m_useSkill = skillList->GetSkillData(2, 0);
-	//		m_target = m_team[tagNum];
-	//	}
-	//	break;
-
-	//case en_state_Bad:
-	//	m_useSkill = skillList->GetSkillData(2, 1);
-	//	m_target = this;
-	//	break;
-
-	//case en_state_Death:
-	//	break;
-	//}
 }
 
 void Supporter::Init(const wchar_t * filePath)
 {
-	m_AI[0] = { 201,0,0.5f };
-	m_AI[1] = { 200,1,0.2f };
-	m_AI[2] = { 200,0,0.3f };
+	m_AI[0] = { 200,0,0.25f };
+	m_AI[1] = { 200,1,0.1f };
+	m_AI[2] = { 200,2,0.15f };
+	m_AI[3] = { 201,0,0.25f };
+	m_AI[4] = { 201,1,0.1f };
+	m_AI[5] = { 201,2,0.15f };
 }

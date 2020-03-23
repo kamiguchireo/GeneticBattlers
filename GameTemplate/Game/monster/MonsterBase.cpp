@@ -68,10 +68,10 @@ bool MonsterBase::AddATB()
 bool MonsterBase::ACTScoring()
 {
 	if (g_pad[0].IsTrigger(enButtonRight)) {		
-		m_scoringFlag = 0;
+		m_scoringFlag = 1;
 	}
 	if (g_pad[0].IsTrigger(enButtonLeft)) {
-		m_scoringFlag = 1;
+		m_scoringFlag = 0;
 	}
 	switch (m_scoringFlag)
 	{
@@ -98,6 +98,7 @@ bool MonsterBase::ACTScoring()
 			break;
 		}
 		m_UI->ScoreReset();
+		m_scoringFlag = 0;
 		return true;
 	}
 

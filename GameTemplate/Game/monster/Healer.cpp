@@ -93,7 +93,6 @@ bool Healer::BattleAction()
 void Healer::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)
 {
 	SkillList* skillList = SkillList::GetInstance();	//スキルリストの取得。
-	int res = rand() % 10;	//適当な乱数。
 
 	auto list = m_team;	//ソートするためにリストをコピー。
 
@@ -107,39 +106,29 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::
 		}
 	}
 
-	//残りHPに応じて行動を決める。
-	switch (m_stateAI)
-	{
-	case en_state_Good:
-		if (res < 3) {
-			m_useSkill = skillList->GetSkillData(1, 1);
-		}
-		else {
-			m_useSkill = skillList->GetSkillData(1, 0);
-		}
-		m_target = list[0];
-		break;
+	int res = rand() % 100;	//適当な乱数。
+	int sum = 0;
 
-	case en_state_Usually:
-		if (res < 5) {
-			m_useSkill = skillList->GetSkillData(1, 1);
+	int AINum = sizeof(m_AI) / sizeof(*m_AI);
+	for (int i = 0; i < AINum; i++) {
+		sum += (int)(m_AI[i].rate * 100);
+		if (sum > res) {
+			int skillTable = (int)(m_AI[i].skillNo / 100);
+			int skillNo = m_AI[i].skillNo % 100;
+			int targetNo = m_AI[i].target;
+			m_useSkill = skillList->GetSkillData(skillTable, skillNo);
+			m_target = list[targetNo];
+			break;
 		}
-		else {
-			m_useSkill = skillList->GetSkillData(1, 0);
-		}
-		m_target = list[0];
-		break;
-
-	case en_state_Bad:
-		m_useSkill = skillList->GetSkillData(1, 1);
-		m_target = list[0];
-		break;
-
-	case en_state_Death:
-		break;
 	}
 }
 
 void Healer::Init(const wchar_t * filePath)
 {
+	m_AI[0] = { 100,0,0.25f };
+	m_AI[1] = { 100,1,0.1f };
+	m_AI[2] = { 100,2,0.15f };
+	m_AI[3] = { 101,0,0.25f };
+	m_AI[4] = { 101,1,0.1f };
+	m_AI[5] = { 101,2,0.15f };
 }

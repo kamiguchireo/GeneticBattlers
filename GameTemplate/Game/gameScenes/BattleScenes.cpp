@@ -79,6 +79,7 @@ bool BattleScenes::Start()
 			attacker->SetStatus(hoge);
 			attacker->SetPosition(objData.position);
 			attacker->SetRotation(objData.rotation);
+			attacker->Init(L"Attack");
 			m_monsterTeam1List.push_back(attacker);
 
 			return true;
@@ -97,6 +98,7 @@ bool BattleScenes::Start()
 			healer->SetStatus(hoge);
 			healer->SetPosition(objData.position);
 			healer->SetRotation(objData.rotation);
+			healer->Init(L"heal");
 			m_monsterTeam1List.push_back(healer);
 		
 			return true;

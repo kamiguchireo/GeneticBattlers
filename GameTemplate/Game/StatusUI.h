@@ -11,6 +11,10 @@ public:
 	void SetPosition(const CVector3& pos) {
 		m_position = pos;
 	}
+	//敵用UIにする。
+	void EnableEnemy() {
+		m_isEnemy = true;
+	}
 	//ゲージの大きさを設定。
 	void SetScaling(float scale) {
 		m_scaleX = scale;
@@ -53,6 +57,6 @@ private:
 	CVector4 m_Gray = { 0.6f,0.6f,0.6f,1.0f };
 	float m_scaleX = 0.0f;
 	float m_hpX = 1.0f;
-
+	bool m_isEnemy = false;
 };
 
