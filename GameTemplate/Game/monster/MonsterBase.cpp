@@ -232,11 +232,11 @@ void MonsterBase::StateUpdate()
 		m_stateAI = en_state_Good;
 	}
 	else if (1.0f / 3.0f < nowHP
-		&& 2.0f / 3.0f > nowHP) {
+		&& 2.0f / 3.0f >= nowHP) {
 		m_stateAI = en_state_Usually;
 	}
 	else if (0 < m_status.HP
-		&& 1.0f / 3.0f > nowHP) {
+		&& 1.0f / 3.0f >= nowHP) {
 		m_stateAI = en_state_Bad;
 	}
 	else { 

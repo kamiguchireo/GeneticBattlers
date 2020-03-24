@@ -156,13 +156,17 @@ public:
 	{
 		m_coolTime = time;
 	}
+	//
+	bool IsDeath() {
+		return m_IsDeath;
+	}
 	/// <summary>
 	/// ダメージを与える。
 	/// </summary>
 	/// <param name="damage">ダメージ量。</param>
 	void Damage(int damage)
 	{
-		if (IsDeath) {
+		if (m_IsDeath) {
 			return;
 		}
 		m_status.HP -= damage;
@@ -231,7 +235,7 @@ protected:
 	ACTResullt m_actRes;								//行動のリザルト。
 	int m_scoringFlag = 0;								//評価のフラグ。
 	int m_stateAI = en_state_Good;						//ステート。
-	bool IsDeath = false;								//死亡フラグ。
+	bool m_IsDeath = false;								//死亡フラグ。
 	float m_activeTime = 0.0f;							//アクティブタイム。
 	float m_coolTime = 30.0f;							//クールタイム。
 	float buffTimeList[en_buff_num] = { 0.0f };			//バフタイム。

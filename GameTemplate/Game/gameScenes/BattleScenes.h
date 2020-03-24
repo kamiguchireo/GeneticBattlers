@@ -36,6 +36,7 @@ private:
 	enum SceneState {
 		enState_FadeIn,
 		enState_Battle,
+		enState_Result,
 		enState_FadeOut
 	};
 	//バトルの処理切り替え
@@ -56,8 +57,11 @@ private:
 	SkinModel m_model;						//!<ステージのモデル。
 	MonsterBase* m_monsterACT = nullptr;	//!<現在行動中のモンスター。
 	std::vector<MonsterBase*>m_monsterACTList;	//!<行動中のリスト。
-	float battleCoolTime = 0.0f;
 	SkillList skillList;					//!<スキルリスト。
 	GameCamera* m_camera = nullptr;			//!<ゲームカメラ。
+	prefab::SpriteRender* m_resultSprite = nullptr;	//!<リザルト用のスプライトレンダー。
+	float battleCoolTime = 0.0f;			//!<クールタイム。
+	bool m_isWin = false;					//!<勝利フラグ。
+	bool m_isSprite = false;				//!<スプライトが表示されたか。
 };
 
