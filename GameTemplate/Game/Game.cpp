@@ -5,20 +5,20 @@
 
 Game::Game()
 {	
-	//メインとなるレンダリングターゲットを作成する。
-	m_mainRenderTarget.Create(
-		FRAME_BUFFER_W,
-		FRAME_BUFFER_H,
-		DXGI_FORMAT_R8G8B8A8_UNORM
-	);
+	////メインとなるレンダリングターゲットを作成する。
+	//m_mainRenderTarget.Create(
+	//	FRAME_BUFFER_W,
+	//	FRAME_BUFFER_H,
+	//	DXGI_FORMAT_R8G8B8A8_UNORM
+	//);
 
-	//メインレンダリングターゲットに描かれた絵を
-	//フレームバッファにコピーするためのスプライトを初期化する
-	m_copyMainRtToFrameBufferSprite.Init(
-		m_mainRenderTarget.GetRenderTargetSRV(),
-		FRAME_BUFFER_W,
-		FRAME_BUFFER_H
-	);
+	////メインレンダリングターゲットに描かれた絵を
+	////フレームバッファにコピーするためのスプライトを初期化する
+	//m_copyMainRtToFrameBufferSprite.Init(
+	//	m_mainRenderTarget.GetRenderTargetSRV(),
+	//	FRAME_BUFFER_W,
+	//	FRAME_BUFFER_H
+	//);
 
 	g_camera3D.SetPosition({ 0.0f, 200.0f, 500.0f });
 	g_camera3D.SetTarget({ 0.0f, 200.0f, 0.0f });
@@ -34,9 +34,9 @@ Game::~Game()
 bool Game::Start()
 {
 	//スプライトを初期化
-	//m_spriteRender = NewGO<prefab::SpriteRender>(0,"sprite");
-	//m_spriteRender->Init(L"Assets/sprite/mikyan.dds", 400, 300);
-	
+	m_spriteRender = NewGOSp<prefab::SpriteRender>(0,"sprite");
+	m_spriteRender->Init(L"Assets/sprite/Good.dds", 400, 300);
+
 	//エフェクトを再生。
 	//effect->Play(L"Assets/effect/test.efk");
 	//CVector3 emitPos = CVector3::Zero();
@@ -152,61 +152,43 @@ void Game::UpdateShadowMap()
 
 }
 
-void Game::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport)
-{
-	ChangeRenderTarget(
-		d3dDeviceContext,
-		renderTarget->GetRenderTargetView(),
-		renderTarget->GetDepthStensilView(),
-		viewport
-	);
-}
-void Game::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport)
-{
-	ID3D11RenderTargetView* rtTbl[] = {
-		renderTarget
-	};
-	//レンダリングターゲットの切り替え。
-	d3dDeviceContext->OMSetRenderTargets(1, rtTbl, depthStensil);
-	if (viewport != nullptr) {
-		//ビューポートが指定されていたら、ビューポートも変更する。
-		d3dDeviceContext->RSSetViewports(1, viewport);
-	}
-}
+//void Game::ForwordRender()
+//{
+//	//レンダリングターゲットをメインに変更する。
+//	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+//	g_graphicsEngine->ChangeRenderTarget(
+//		d3dDeviceContext, 
+//		&m_mainRenderTarget, 
+//		&m_frameBufferViewports
+//	);
+//	//メインレンダリングターゲットをクリアする。
+//	float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+//	m_mainRenderTarget.ClearRenderTarget(clearColor);
+//}
 
-void Game::ForwordRender()
-{
-	//レンダリングターゲットをメインに変更する。
-	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-	ChangeRenderTarget(
-		d3dDeviceContext, 
-		&m_mainRenderTarget, 
-		&m_frameBufferViewports
-	);
-	//メインレンダリングターゲットをクリアする。
-	float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-	m_mainRenderTarget.ClearRenderTarget(clearColor);
-}
-
-void Game::PostRender()
-{
-	//レンダリングターゲットをフレームバッファに戻す
-	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-	ChangeRenderTarget(
-		d3dDeviceContext,
-		oldRenderTargetView,
-		oldDepthStencilView,
-		&m_frameBufferViewports
-	);
-
-	//スプライトにしていたものをドロー
-	m_copyMainRtToFrameBufferSprite.Draw(g_camera2D.GetViewMatrix(),g_camera2D.GetProjectionMatrix());
-
-}
+//void Game::PostRender()
+//{
+//	//レンダリングターゲットをフレームバッファに戻す
+//	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+//	g_graphicsEngine->ChangeRenderTarget(
+//		d3dDeviceContext,
+//		oldRenderTargetView,
+//		oldDepthStencilView,
+//		&m_frameBufferViewports
+//	);
+//
+//	//スプライトにしていたものをドロー
+//	m_copyMainRtToFrameBufferSprite.Update(m_sposition, m_rotation, m_scale, m_pivot);
+//	m_copyMainRtToFrameBufferSprite.Draw
+//	(
+//		g_camera2D.GetViewMatrix(),
+//		g_camera2D.GetProjectionMatrix()
+//	);
+//
+//}
 void Game::Render()
 {
 	//描画開始
-	g_graphicsEngine->BegineRender();
 	//シャドウマップにレンダリング
 	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 	//現在のレンダリングターゲットをバックアップしておく
@@ -240,7 +222,7 @@ void Game::Render()
 	oldRenderTargetView->Release();
 	oldDepthStencilView->Release();
 
-	ForwordRender();
+	//ForwordRender();
 
 	//通常レンダリング
 	//モデルのドロー
@@ -262,8 +244,6 @@ void Game::Render()
 		m_shadowMap->GetLightViewMatrix()
 	);
 
-	PostRender();
+	//PostRender();
 
-	//描画終了
-	g_graphicsEngine->EndRender();
 }

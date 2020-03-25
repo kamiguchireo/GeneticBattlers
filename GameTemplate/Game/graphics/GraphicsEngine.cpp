@@ -164,11 +164,12 @@ void GraphicsEngine::Init(HWND hWnd)
 	m_pd3dDeviceContext->RSSetViewports(1, &viewport);
 	m_pd3dDeviceContext->RSSetState(m_rasterizerState);
 
+
 	//ブレンドステートのInit
 	CD3D11_DEFAULT defaultSettings;
 	//デフォルトセッティングで初期化
 	CD3D11_BLEND_DESC blendDesc(defaultSettings);
-	//αブレンディングを有効にする
+	//ブレンディングを有効にする
 	blendDesc.RenderTarget[0].BlendEnable = true;
 
 	//①
@@ -188,10 +189,27 @@ void GraphicsEngine::Init(HWND hWnd)
 	//① + ②となる
 	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 
+	//α値の操作
+	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
 	//半透明合成を行えるブレンドステートを作成
 	m_pd3dDevice->CreateBlendState(&blendDesc, &m_translucentBlendState);
+	
+	float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	//半透明合成のブレンドステートを設定する。
+	m_pd3dDeviceContext->OMSetBlendState(
+		m_translucentBlendState,	//設定するブレンディングステート
+		blendFactor,				//ブレンディングファクター。気にしなくてよい
+		0xffffffff					//サンプリングマスク。気にしなくてよい。
+	);
 
 	m_shadowmap.ShadowMapRTCreate();
+
+	RtSpInit();
 }
 
 void GraphicsEngine::managerInit()
@@ -214,4 +232,48 @@ void GraphicsEngine::managerInit()
 	//描画用インスタンスからテクスチャの読み込み機能を設定
 	m_manager->SetTextureLoader(m_renderer->CreateTextureLoader());
 	m_manager->SetModelLoader(m_renderer->CreateModelLoader());
+}
+
+void GraphicsEngine::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, RenderTarget* renderTarget, D3D11_VIEWPORT* viewport)
+{
+	ChangeRenderTarget(
+		d3dDeviceContext,
+		renderTarget->GetRenderTargetView(),
+		renderTarget->GetDepthStensilView(),
+		viewport
+	);
+}
+void GraphicsEngine::ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport)
+{
+	ID3D11RenderTargetView* rtTbl[] = {
+		renderTarget
+	};
+	//レンダリングターゲットの切り替え。
+	d3dDeviceContext->OMSetRenderTargets(1, rtTbl, depthStensil);
+	if (viewport != nullptr) {
+		//ビューポートが指定されていたら、ビューポートも変更する。
+		d3dDeviceContext->RSSetViewports(1, viewport);
+	}
+}
+
+void GraphicsEngine::RtSpInit()
+{
+	//メインとなるレンダリングターゲットを作成する。
+	m_mainRenderTarget.Create(
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H,
+		DXGI_FORMAT_R8G8B8A8_UNORM
+	);
+
+	//メインレンダリングターゲットに描かれた絵を
+	//フレームバッファにコピーするためのスプライトを初期化する
+	m_copyMainRtToFrameBufferSprite.Init(
+		m_mainRenderTarget.GetRenderTargetSRV(),
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H
+	);
+}
+
+void GraphicsEngine::InitRender()
+{
 }

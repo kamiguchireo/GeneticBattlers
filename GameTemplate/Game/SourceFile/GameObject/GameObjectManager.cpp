@@ -23,7 +23,7 @@ namespace Engine {
 				obj->UpdateWrapper();
 			}
 		}
-		ExecuteRender();
+		//ExecuteRender();
 		ExecuteDeleteGameObjects();
 	}
 
@@ -73,4 +73,27 @@ namespace Engine {
 		//g_graphicsEngine->Execute2DDraw();
 		PostRender(renderContext);
 	}
+
+	void CGameObjectManager::SpStart()
+	{
+		for (GameObjectList objList : m_SpgameObjectListArray)
+		{
+			for (IGameObject*obj : objList)
+			{
+				obj->StartWrapper();
+			}
+		}
+	}
+	void CGameObjectManager::SpRender()
+	{
+		for (GameObjectList objList : m_SpgameObjectListArray)
+		{
+			for (IGameObject*obj : objList)
+			{
+				obj->UpdateWrapper();
+			}
+		}
+		ExecuteDeleteGameObjects();
+	}
+
 }

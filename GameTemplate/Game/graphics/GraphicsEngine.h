@@ -5,6 +5,7 @@
 #include "EffekseerRendererDX11.h"
 #include "Effekseer.h"
 #include "SourceFile/graphic/ShadowMap.h"
+//#include "SourceFile/graphic/RenderTarget.h"
 
 enum EnRenderMode
 {
@@ -106,6 +107,21 @@ public:
 	{
 		return m_translucentBlendState;
 	}
+
+	void RtSpInit();
+	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, Engine::RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
+	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
+
+	Engine::RenderTarget*GetRT()
+	{
+		return &m_mainRenderTarget;
+	}
+
+	Engine::Sprite*GetSp()
+	{
+		return &m_copyMainRtToFrameBufferSprite;
+	}
+	void InitRender();
 private:
 	Camera m_mainCamera;		//カメラ
 	//Camera m_2DCamera;
@@ -126,6 +142,16 @@ private:
 	EffekseerRenderer::Renderer* m_renderer = nullptr;
 	Engine::ShadowMap m_shadowmap;
 	ID3D11BlendState*m_translucentBlendState = nullptr;
+	Engine::RenderTarget m_mainRenderTarget;		//メインレンダリングターゲット。
+	Engine:: Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
+	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
+	CVector3 m_sposition = { 0.0,0.0,5.0 };			//座標。
+	CQuaternion m_rotation = CQuaternion::Identity();			//!<回転。
+	CVector3 m_scale = CVector3::One();			//拡大率。
+	CVector2 m_pivot = Engine:: Sprite::DEFAULT_PIVOT;	//ピボット。
+	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
+	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。
+
 };
 
 extern GraphicsEngine* g_graphicsEngine;			//グラフィックスエンジン
