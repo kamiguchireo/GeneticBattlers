@@ -110,6 +110,7 @@ void Healer::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::
 	int res = rand() % 100;	//適当な乱数。
 	int sum = 0;
 
+	//行動テーブルをもとに行動させる。
 	int AINum = sizeof(m_AI) / sizeof(*m_AI);
 	for (int i = 0; i < AINum; i++) {
 		sum += (int)(m_AI[i].rate * 100);
