@@ -33,7 +33,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		FRAME_BUFFER_W,
 		FRAME_BUFFER_H
 	);
-
+	*/
 	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
 	CVector3 m_sposition = { 0.0,0.0,5.0 };			//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();			//!<回転。
@@ -41,7 +41,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	CVector2 m_pivot = Sprite::DEFAULT_PIVOT;	//ピボット。
 	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
 	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。
-	*/
+	
 
 	//カメラを初期化。
 	g_camera3D.SetPosition({ 0.0f, 100.0f, 300.0f });
@@ -81,11 +81,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//ゲームパッドの更新。	
 		for (auto& pad : g_pad) {
 			pad.Update();
-		}
+		}	
+
 		//物理エンジンの更新。
 		g_physics.Update();
 
-		/*
 		//フレームバッファののレンダリングターゲットをバックアップしておく。
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 		d3dDeviceContext->OMGetRenderTargets(
@@ -97,17 +97,17 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//ビューポートもバックアップを取っておく。
 		unsigned int numViewport = 1;
 		d3dDeviceContext->RSGetViewports(&numViewport, &m_frameBufferViewports);
-		*/
+		
 
 		//ゲームオブジェクトマネージャーのStart関数
 		GameObjectManager().Start();
 
-		/*
+		
 		{
 			//レンダリングターゲットをメインに変更する。
 			{
 				RenderTarget* RT;
-				RT = &m_mainRenderTarget;
+				RT = g_graphicsEngine->GetRT();
 				ID3D11RenderTargetView* rtTbl[] = {
 					RT->GetRenderTargetView()
 				};
@@ -120,14 +120,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			}
 			//メインレンダリングターゲットをクリアする。
 			float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-			m_mainRenderTarget.ClearRenderTarget(clearColor);
+			g_graphicsEngine->GetRT()->ClearRenderTarget(clearColor);
 		}
-		*/
+		
 
 		//ゲームオブジェクトマネージャーのUpdate関数
 		GameObjectManager().Update();
 
-		/*
+		
 		//レンダリングターゲットをフレームバッファに戻す
 		{
 			ID3D11RenderTargetView* rtTbl[] = {
@@ -140,6 +140,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 				d3dDeviceContext->RSSetViewports(1, &m_frameBufferViewports);
 			}
 		}
+		/*
 		//スプライトにしていたものをドロー
 		m_copyMainRtToFrameBufferSprite.Update(m_sposition, m_rotation, m_scale, m_pivot);
 		m_copyMainRtToFrameBufferSprite.Draw
@@ -147,10 +148,22 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			g_camera2D.GetViewMatrix(),
 			g_camera2D.GetProjectionMatrix()
 		);
-		
+		*/
+		g_graphicsEngine->GetSp()->Update(m_sposition, m_rotation, m_scale, m_pivot);
+		g_graphicsEngine->GetSp()->Draw
+		(
+			g_camera2D.GetViewMatrix(),
+			g_camera2D.GetProjectionMatrix()
+		);
+
 		m_frameBufferRenderTargetView->Release();
 		m_frameBufferDepthStencilView->Release();
-		*/
+
+		//ゲームオブジェクトマネージャーのUpdate関数
+		GameObjectManager().SpStart();
+		//ゲームオブジェクトマネージャーのUpdate関数
+		GameObjectManager().SpRender();
+
 
 		//カメラの更新。
 		g_camera3D.Update();

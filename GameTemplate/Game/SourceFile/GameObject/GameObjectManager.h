@@ -10,6 +10,7 @@ namespace Engine {
 		CGameObjectManager()
 		{
 			m_gameObjectListArray.resize(20);
+			m_SpgameObjectListArray.resize(20);
 			m_deleteObjectArray[0].resize(5);
 			m_deleteObjectArray[1].resize(5);
 		}
@@ -65,7 +66,25 @@ namespace Engine {
 			newObject->m_isNewFromGameObjectManager = true;
 			return newObject;
 		}
-
+		/*
+		ゲームオブジェクトのnew
+		newしたら必ずdeleteする
+		prio 実行優先順位。
+		objectName オブジェクト名
+		*/
+		template<class T>
+		T*NewSpGameObject(GameObjectPrio prio, const char*objectName)
+		{
+			(void*)objectName;
+			T*newObject = new T();
+			m_SpgameObjectListArray[0].push_back(newObject);
+			unsigned int hash = MakeGameObjectNameKey(objectName);
+			newObject->m_isRegist = true;
+			newObject->m_priority = prio;
+			newObject->m_nameKey = hash;
+			newObject->m_isNewFromGameObjectManager = true;
+			return newObject;
+		}
 		/*
 		ゲームオブジェクトの検索
 		objectName　オブジェクト名
@@ -90,7 +109,30 @@ namespace Engine {
 			throw;
 			return nullptr;
 		}
-
+		/*
+		ゲームオブジェクトの検索
+		objectName　オブジェクト名
+		*/
+		template<class T>
+		T*FindSpGameObject(const char*objectName)
+		{
+			unsigned int nameKey = Util::MakeHash(objectName);
+			for (auto goList : m_SpgameObjectListArray)
+			{
+				for (auto go : goList)
+				{
+					if (go->m_nameKey == nameKey)
+					{
+						//見つけた
+						T*p = dynamic_cast<T*>(go);
+						return p;
+					}
+				}
+			}
+			//見つからなかった
+			throw;
+			return nullptr;
+		}
 		//DeleteGOの名前なしバージョン
 		void DeleteGO(IGameObject*go)
 		{
@@ -123,6 +165,8 @@ namespace Engine {
 		void Start();
 		void Update();
 		void PostRender(RenderContext& rc);
+		void SpRender();
+		void SpStart();
 		//描画処理の実行
 		void ExecuteRender();
 	private:
@@ -132,6 +176,7 @@ namespace Engine {
 		typedef std::list<IGameObject*>GameObjectList;
 		std::vector<GameObjectList> m_gameObjectListArray;		//ゲームオブジェクトの優先度付きリスト
 		std::vector<GameObjectList> m_deleteObjectArray[2];		//削除するオブジェクトのリスト削除の途中にDeleteGameObjectが呼ばれる可能性が高いので、ダブルバッファ化
+		std::vector<GameObjectList> m_SpgameObjectListArray;	//画面をスプライト化した後に実行するエフェクトをかけないオブジェクトのリスト
 		int m_currentDeleteObjectBufferNo = 0;					//現在の削除オブジェクトのバッファ番号
 	};
 
@@ -152,6 +197,11 @@ namespace Engine {
 		return GameObjectManager().NewGameObject<T>((GameObjectPrio)priority, objectName);
 	}
 
+	template<class T>
+	static inline T*NewGOSp(int priority, const char*objectName = nullptr, typename T::IGameObject* = nullptr)
+	{
+		return GameObjectManager().NewSpGameObject<T>((GameObjectPrio)priority, objectName);
+	}
 	static inline void DeleteGO(IGameObject*go)
 	{
 		GameObjectManager().DeleteGameObject(go);

@@ -112,6 +112,15 @@ public:
 	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, Engine::RenderTarget* renderTarget, D3D11_VIEWPORT* viewport);
 	void ChangeRenderTarget(ID3D11DeviceContext* d3dDeviceContext, ID3D11RenderTargetView* renderTarget, ID3D11DepthStencilView* depthStensil, D3D11_VIEWPORT* viewport);
 
+	Engine::RenderTarget*GetRT()
+	{
+		return &m_mainRenderTarget;
+	}
+
+	Engine::Sprite*GetSp()
+	{
+		return &m_copyMainRtToFrameBufferSprite;
+	}
 	void InitRender();
 private:
 	Camera m_mainCamera;		//ÉJÉÅÉâ

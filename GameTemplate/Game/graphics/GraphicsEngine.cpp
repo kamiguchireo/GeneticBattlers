@@ -189,23 +189,23 @@ void GraphicsEngine::Init(HWND hWnd)
 	//① + ②となる
 	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 
-	////α値の操作
-	//blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-	//blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-	//blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	//α値の操作
+	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 
-	//blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
 	//半透明合成を行えるブレンドステートを作成
 	m_pd3dDevice->CreateBlendState(&blendDesc, &m_translucentBlendState);
 	
-	//float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	////半透明合成のブレンドステートを設定する。
-	//m_pd3dDeviceContext->OMSetBlendState(
-	//	m_translucentBlendState,	//設定するブレンディングステート
-	//	blendFactor,				//ブレンディングファクター。気にしなくてよい
-	//	0xffffffff					//サンプリングマスク。気にしなくてよい。
-	//);
+	float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	//半透明合成のブレンドステートを設定する。
+	m_pd3dDeviceContext->OMSetBlendState(
+		m_translucentBlendState,	//設定するブレンディングステート
+		blendFactor,				//ブレンディングファクター。気にしなくてよい
+		0xffffffff					//サンプリングマスク。気にしなくてよい。
+	);
 
 	m_shadowmap.ShadowMapRTCreate();
 

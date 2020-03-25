@@ -16,7 +16,7 @@ public:
 	//void ForwordRender();
 	//void PostRender();
 private:
-	//prefab::SpriteRender*m_spriteRender;	//スプライトレンダー
+	prefab::SpriteRender*m_spriteRender;	//スプライトレンダー
 	prefab::CEffect* effect = NewGO<prefab::CEffect>(0);		//エフェクトを作成。
 	//prefab::CSoundSource ss;		//サウンド
 	SkinModel m_model;		//モデル(ユニティちゃん)
