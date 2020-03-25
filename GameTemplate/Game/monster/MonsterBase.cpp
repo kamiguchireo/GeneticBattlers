@@ -67,6 +67,7 @@ bool MonsterBase::AddATB()
 //行動の評価。
 bool MonsterBase::ACTScoring()
 {
+	//評価の選択の処理。
 	if (g_pad[0].IsTrigger(enButtonRight)) {		
 		m_scoringFlag = 1;
 	}
@@ -84,15 +85,17 @@ bool MonsterBase::ACTScoring()
 	default:
 		break;
 	}
-
+	//評価の決定の処理。
 	if (g_pad[0].IsTrigger(enButtonA)) {
 		switch (m_scoringFlag)
 		{
 		case 0:
 			m_actRes.score = true;
+			m_actResList.push_back(m_actRes);	//リストに積み上げる。
 			break;
 		case 1:
 			m_actRes.score = false;
+			m_actResList.push_back(m_actRes);	//リストに積み上げる。
 			break;
 		default:
 			break;
@@ -126,7 +129,7 @@ int MonsterBase::Healing(int healing)
 	return res;
 }
 
-void MonsterBase::Monster_Buff(StatusBuff status, float pow, float time)
+int MonsterBase::Monster_Buff(StatusBuff status, float pow, float time)
 {
 	////バフの効果が続いているなら中断。
 	//if (buffTimeList[status] >= 0.0f) {
@@ -139,28 +142,40 @@ void MonsterBase::Monster_Buff(StatusBuff status, float pow, float time)
 	ef->SetPosition(m_position + CVector3::AxisY()*20.0f);
 	ef->SetScale(CVector3::One()*80.0f);
 
+	int res = 0;
+
 	//バフをかける。
 	switch (status)
 	{
 	case en_buff_ATK:
 		m_status.ATK = m_statusBase.ATK * pow;
+		res = m_status.ATK - m_statusBase.ATK;	//上昇値の計算。
+
 		break;
 	case en_buff_DEF:
 		m_status.DEF = m_statusBase.DEF * pow;
+		res = m_status.DEF - m_statusBase.DEF;	//上昇値の計算。
+
 		break;
 	case en_buff_MAT:
 		m_status.MAT = m_statusBase.MAT * pow;
+		res = m_status.MAT - m_statusBase.MAT;	//上昇値の計算。
+
 		break;
 	case en_buff_MDF:
 		m_status.MDF = m_statusBase.MDF * pow;
+		res = m_status.MDF - m_statusBase.MDF;	//上昇値の計算。
+
 		break;
 	case en_buff_DEX:
 		m_status.DEX = m_statusBase.DEX * pow;
+		res = m_status.DEX - m_statusBase.DEX;	//上昇値の計算。
+
 		break;
-	default:
-		return;
 	}
 	buffTimeList[status] = time;
+
+	return res;
 }
 
 void MonsterBase::ResetBuff(int i)
@@ -232,11 +247,11 @@ void MonsterBase::StateUpdate()
 		m_stateAI = en_state_Good;
 	}
 	else if (1.0f / 3.0f < nowHP
-		&& 2.0f / 3.0f > nowHP) {
+		&& 2.0f / 3.0f >= nowHP) {
 		m_stateAI = en_state_Usually;
 	}
 	else if (0 < m_status.HP
-		&& 1.0f / 3.0f > nowHP) {
+		&& 1.0f / 3.0f >= nowHP) {
 		m_stateAI = en_state_Bad;
 	}
 	else { 

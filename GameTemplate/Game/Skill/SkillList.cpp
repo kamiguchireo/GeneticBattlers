@@ -74,7 +74,9 @@ bool Attack::UseSkill(MonsterBase * attack, MonsterBase * target)
 	else if (!skillEffect->IsPlay()) {
 		//ダメージを与える。
 		int damage = DamageCalcuration(attack, target);
-		target->Damage(damage);
+		int res = target->Damage(damage);
+
+		attack->SetActResult(m_skillNo, res);
 		//クールタイムの設定。
 		attack->SetCoolTime(coolTime);
 
@@ -101,13 +103,16 @@ bool DoubleAttack::UseSkill(MonsterBase * attack, MonsterBase * target)
 		skillEffect->SetScale(CVector3::One() * 20.0f);
 	}
 	else if (!skillEffect->IsPlay()) {
+		int res = 0;
 		//ダメージの計算。
 		int damage = DamageCalcuration(attack, target);
-		target->Damage(damage);
+		res += target->Damage(damage);
 		//２回攻撃。
 		damage = DamageCalcuration(attack, target);
-		target->Damage(damage);
+		res += target->Damage(damage);
 		
+		attack->SetActResult(m_skillNo, res);
+
 		//クールタイムの設定。
 		attack->SetCoolTime(coolTime);
 
@@ -134,7 +139,8 @@ bool Heal::UseSkill(MonsterBase * attack, MonsterBase * target)
 	else if (!skillEffect->IsPlay()) {
 		//回復量の計算。
 		int result = attack->GetStatus().MAT * skillPower;
-		target->Healing(result);
+		int res = target->Healing(result);
+		attack->SetActResult(m_skillNo, res);
 		//クールタイムの設定。
 		attack->SetCoolTime(coolTime);
 
@@ -159,7 +165,8 @@ bool BuffSkill::UseSkill(MonsterBase * attack, MonsterBase * target)
 		//効果時間を計算。
 		int result = attack->GetStatus().MAT * 5.0f;
 		//バフをかける。
-		target->Monster_Buff(m_status, skillPower, result);
+		int res = target->Monster_Buff(m_status, skillPower, result);
+		attack->SetActResult(m_skillNo, res);
 		//クールタイムの設定。
 		attack->SetCoolTime(coolTime);
 
@@ -186,10 +193,13 @@ bool BuffSkillWide::UseSkill(MonsterBase * attack, MonsterBase * target)
 		//チームメンバーを取得。
 		auto list = target->GetTeamMenber();
 
+		int res = 0;
 		for (int i = 0; i < list.size(); i++) {
 			//全体にバフをかける。
-			list[i]->Monster_Buff(m_status, skillPower, result);
+			res += list[i]->Monster_Buff(m_status, skillPower, result);
 		}
+		res /= list.size();		//上昇値の平均をとる。
+		attack->SetActResult(m_skillNo, res);
 		//クールタイムの設定。
 		attack->SetCoolTime(coolTime);
 

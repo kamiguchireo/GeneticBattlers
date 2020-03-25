@@ -17,6 +17,7 @@ BattleScenes::BattleScenes()
 BattleScenes::~BattleScenes()
 {
 	DeleteGO(m_camera);
+	DeleteGO(m_resultSprite);
 	for (int i = 0; i < m_monsterTeam1List.size(); i++)
 	{
 		m_monsterTeam1List[i]->Save("aaa");
@@ -71,6 +72,7 @@ bool BattleScenes::Start()
 			MonsterBase* attacker = NewGO<Attacker>(0);
 			Status hoge;
 			hoge.HP = 130;
+			//hoge.HP = 1;
 			//hoge.MP = 100;			//使わんかも
 			hoge.ATK = 30;
 			hoge.DEF = 10;
@@ -90,6 +92,7 @@ bool BattleScenes::Start()
 			MonsterBase* healer = NewGO<Healer>(0);
 			Status hoge;
 			hoge.HP = 130;
+			//hoge.HP = 1;
 			//hoge.MP = 100;			//使わんかも
 			hoge.ATK = 5;
 			hoge.DEF = 10;
@@ -109,6 +112,7 @@ bool BattleScenes::Start()
 			MonsterBase* support = NewGO<Supporter>(0);
 			Status hoge;
 			hoge.HP = 130;
+			//hoge.HP = 1;
 			//hoge.MP = 100;			//使わんかも
 			hoge.ATK = 5;
 			hoge.DEF = 15;
@@ -154,14 +158,6 @@ void BattleScenes::Update()
 		if (!m_fade->IsFade())	m_state = enState_Battle;
 		break;
 	case enState_Battle:
-
-		/*battleCoolTime -= 1.0f / 72.0f;
-		if (battleCoolTime < 0.0f) {
-			ActiveTimeUpdate();
-			MonsterAction();
-		}*/
-
-
 		switch (m_battleState)
 		{
 		//アクティブタイムを加算。
@@ -184,13 +180,44 @@ void BattleScenes::Update()
 
 		if (g_pad[0].IsTrigger(enButtonStart)) 
 		{
+			//フェードさせる。
 			m_state = enState_FadeOut; 
 			m_fade->StartFadeOut();
 		}
 		break;
+
+	case enState_Result:
+		battleCoolTime -= 1.0f / 72.0f;
+		if (battleCoolTime > 0.0f) {
+			break;
+		}
+		if (m_isWin && !m_isSprite) {
+			//勝利！
+			m_resultSprite = NewGO<prefab::SpriteRender>(0);
+			m_resultSprite->Init(L"Assets/sprite/win.dds",600.0f,400.0f);
+			m_isSprite = true;
+		}
+		else if (!m_isWin && !m_isSprite) {
+			//敗北。
+			m_resultSprite = NewGO<prefab::SpriteRender>(0);
+			m_resultSprite->Init(L"Assets/sprite/lose.dds",600.0f,400.0f);
+			m_isSprite = true;
+		}
+
+		
+		if (g_pad[0].IsTrigger(enButtonA))
+		{
+			//フェードさせる。
+			m_state = enState_FadeOut;
+			m_fade->StartFadeOut();
+		}
+
+		break;
+
 	case enState_FadeOut:
 		if (!m_fade->IsFade())
 		{
+			//フェードが終わるとタイトルに戻る。
 			NewGO<TitleScene>(0);
 			DeleteGO(this);
 		}
@@ -226,16 +253,12 @@ void BattleScenes::InitMonster()
 
 void BattleScenes::MonsterAction()
 {
-	////誰も行動していないなら中断。
-	//if (m_monsterACTList.size() == 0 )return;
-
 	m_monsterACT = m_monsterACTList.front();
 
 	//行動が終わるまで行動をさせる。
 	bool is_playAction = m_monsterACT->BattleAction();
 
 	if (is_playAction) {
-
 		//残りHPに応じてステートを更新。
 		for (int i = 0; i < m_monsterTeam1List.size(); i++) {
 			m_monsterTeam1List[i]->StateUpdate();
@@ -289,6 +312,31 @@ void BattleScenes::MonsterScoring()
 		//行動が終わったらポインタにnullを入れる。
 		m_monsterACTList.erase(m_monsterACTList.begin());
 		m_monsterACT = nullptr;
+
+
+		int myDeath = 0;
+		int eneDeath = 0;
+
+		//デス数をカウントする。
+		for (int i = 0; i < m_monsterTeam1List.size(); i++) {
+			if (m_monsterTeam1List[i]->IsDeath())myDeath++;
+		}
+		for (int i = 0; i < m_monsterTeam2List.size(); i++) {
+			if (m_monsterTeam2List[i]->IsDeath())eneDeath++;
+		}
+		//どちらかが全滅すればリザルトへ
+		if (myDeath == m_monsterTeam1List.size()) {
+			m_isWin = false;
+			m_state = enState_Result;
+			battleCoolTime = 3.0f;
+			return;
+		}	
+		else if (eneDeath == m_monsterTeam2List.size()) {
+			m_isWin = true;
+			m_state = enState_Result;
+			battleCoolTime = 1.0f;
+			return;
+		}
 
 		//誰も行動していないなら
 		if (m_monsterACTList.size() == 0) {

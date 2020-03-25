@@ -57,8 +57,8 @@ void MonsterTeam1::Update()
 	switch (m_stateAI)
 	{
 	case en_state_Death:
-		if (!IsDeath) {
-			IsDeath = true;
+		if (!m_IsDeath) {
+			m_IsDeath = true;
 			m_animation.Play(en_anim_Death, 0.3f);
 		}
 
@@ -66,6 +66,7 @@ void MonsterTeam1::Update()
 	default:
 		//アニメーションされていないなら。
 		if (!m_animation.IsPlaying()) {
+			m_IsDeath = false;
 			m_animation.Play(en_anim_Idle, 0.3f);
 		}
 

@@ -48,8 +48,8 @@ void Attacker::Update()
 	switch (m_stateAI)
 	{
 	case en_state_Death:
-		if (!IsDeath) {
-			IsDeath = true;
+		if (!m_IsDeath) {
+			m_IsDeath = true;
 			m_animation.Play(en_anim_Death, 0.3f);
 		}
 
@@ -57,6 +57,7 @@ void Attacker::Update()
 	default:
 		//アニメーションされていないなら。
 		if (!m_animation.IsPlaying()) {
+			m_IsDeath = false;
 			m_animation.Play(en_anim_Idle, 0.3f);
 		}
 
@@ -106,20 +107,23 @@ void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std
 		}
 	}
 
-	int res = rand() % 100;	//適当な乱数。
-	int sum = 0;
+	while (m_target == nullptr) {
+		int res = rand() % 100;	//適当な乱数。
+		int sum = 0;
 
 
-	int AINum = sizeof(m_AI) / sizeof(*m_AI);
-	for (int i = 0; i < AINum; i++) {
-		sum += (int)(m_AI[i].rate * 100);
-		if (sum > res) {
-			int skillTable = (int)(m_AI[i].skillNo / 100);
-			int skillNo = m_AI[i].skillNo % 100;
-			int targetNo = m_AI[i].target;
-			m_useSkill = skillList->GetSkillData(skillTable, skillNo);
-			m_target = list[targetNo];
-			break;
+		int AINum = sizeof(m_AI) / sizeof(*m_AI);
+		for (int i = 0; i < AINum; i++) {
+			sum += (int)(m_AI[i].rate * 100);
+			if (sum > res) {
+				int skillTable = (int)(m_AI[i].skillNo / 100);
+				int skillNo = m_AI[i].skillNo % 100;
+				int targetNo = m_AI[i].target;
+				m_useSkill = skillList->GetSkillData(skillTable, skillNo);
+				//ターゲットが死亡していなければ。
+				if(!list[targetNo]->IsDeath())m_target = list[targetNo];
+				break;
+			}
 		}
 	}
 }

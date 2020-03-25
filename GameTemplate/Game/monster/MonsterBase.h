@@ -41,6 +41,10 @@ struct AIData {
 };
 
 //行動のリザルト。
+//!<damage		ダメージ値。
+//!<skillNo		スキル番号。
+//!<target		ターゲット値。
+//!<score		評価。
 struct ACTResullt {
 	int damage = 0;
 	int skillNo = 0;
@@ -147,6 +151,8 @@ public:
 	//行動の評価を行う。
 	virtual bool ACTScoring();
 	//行動のリザルトの設定。
+	//!<No			スキル番号。
+	//!<damage		ダメージ値。
 	void SetActResult(int No ,int damage) {
 		m_actRes.skillNo = No;
 		m_actRes.damage = damage;
@@ -156,23 +162,30 @@ public:
 	{
 		m_coolTime = time;
 	}
+	//
+	bool IsDeath() {
+		return m_IsDeath;
+	}
 	/// <summary>
 	/// ダメージを与える。
 	/// </summary>
 	/// <param name="damage">ダメージ量。</param>
-	void Damage(int damage)
+	/// <returns>入ったダメージ量。</returns>
+	int Damage(int damage)
 	{
-		if (IsDeath) {
-			return;
-		}
-		m_status.HP -= damage;
-		m_status.HP = max(0, m_status.HP);
+		//現在HPとダメージ量の比較。
+		int res = min(m_status.HP,damage);
+		m_status.HP -= res;
+		//アニメーション。
 		m_animation.Play(en_anim_Damage, 0.3f);
+
+		return res;
 	}
 	/// <summary>
 	/// HPを回復させる。
 	/// </summary>
 	/// <param name="healing">回復量。</param>
+	/// <returns>回復できた量。</returns>
 	int Healing(int healing);
 
 	/// <summary>
@@ -181,7 +194,8 @@ public:
 	/// <param name="status">バフをかけるステータス。</param>
 	/// <param name="pow">バフの威力。</param>
 	/// <param name="time">バフの効果時間。</param>
-	void Monster_Buff(StatusBuff status,float pow,float time);
+	/// <returns>効果値。</returns>
+	int Monster_Buff(StatusBuff status,float pow,float time);
 	//バフをリセットする。
 	void ResetBuff(int i);
 
@@ -229,9 +243,10 @@ protected:
 	AIData m_AI[6];										//AIデータ。
 	char m_AIPath[64];									//AIデータのファイルパス。
 	ACTResullt m_actRes;								//行動のリザルト。
+	std::vector<ACTResullt> m_actResList;				//行動のリザルトの可変長配列。
 	int m_scoringFlag = 0;								//評価のフラグ。
 	int m_stateAI = en_state_Good;						//ステート。
-	bool IsDeath = false;								//死亡フラグ。
+	bool m_IsDeath = false;								//死亡フラグ。
 	float m_activeTime = 0.0f;							//アクティブタイム。
 	float m_coolTime = 30.0f;							//クールタイム。
 	float buffTimeList[en_buff_num] = { 0.0f };			//バフタイム。
