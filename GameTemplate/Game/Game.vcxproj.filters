@@ -139,24 +139,6 @@
     <ClCompile Include="SourceFile\GameObject\GameObjectManager.cpp">
       <Filter>Source Files\GameObject</Filter>
     </ClCompile>
-    <ClCompile Include="SourceFile\graphic\2D\Sprite.cpp">
-      <Filter>Source Files\graphics\2D</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceFile\graphic\GPUBuffer\IndexBuffer.cpp">
-      <Filter>Source Files\graphics\GPUBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.cpp">
-      <Filter>Source Files\graphics\GPUBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceFile\graphic\GPUBuffer\VertexBuffer.cpp">
-      <Filter>Source Files\graphics\GPUBuffer</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceFile\graphic\Primitive.cpp">
-      <Filter>Source Files\graphics</Filter>
-    </ClCompile>
-    <ClCompile Include="SourceFile\graphic\RenderContext.cpp">
-      <Filter>Source Files\graphics</Filter>
-    </ClCompile>
     <ClCompile Include="SpriteRender.cpp">
       <Filter>Source Files\graphics\2D</Filter>
     </ClCompile>
@@ -182,7 +164,6 @@
     <ClCompile Include="gameScenes\TitleScene.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Network\Listener.cpp" />
-    <ClCompile Include="SourceFile\graphic\Effect\CEffect.cpp" />
     <ClCompile Include="SourceFile\Sound\SoundEngine.cpp" />
     <ClCompile Include="SourceFile\Sound\CWaveFileBank.cpp" />
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
@@ -193,6 +174,25 @@
     <ClCompile Include="monster\Supporter.cpp" />
     <ClCompile Include="SourceFile\Light\DirectionLight.cpp" />
     <ClCompile Include="StatusUI.cpp" />
+    <ClCompile Include="SourceFile\graphic\2D\Sprite.cpp">
+      <Filter>Source Files\graphics\2D</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFile\graphic\Effect\CEffect.cpp" />
+    <ClCompile Include="SourceFile\graphic\GPUBuffer\IndexBuffer.cpp">
+      <Filter>Source Files\graphics\GPUBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.cpp">
+      <Filter>Source Files\graphics\GPUBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFile\graphic\GPUBuffer\VertexBuffer.cpp">
+      <Filter>Source Files\graphics\GPUBuffer</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFile\graphic\Primitive.cpp">
+      <Filter>Source Files\graphics</Filter>
+    </ClCompile>
+    <ClCompile Include="SourceFile\graphic\RenderContext.cpp">
+      <Filter>Source Files\graphics</Filter>
+    </ClCompile>
     <ClCompile Include="SourceFile\graphic\RenderTarget.cpp" />
     <ClCompile Include="SourceFile\graphic\ShadowMap.cpp" />
   </ItemGroup>
@@ -288,24 +288,6 @@
     <ClInclude Include="SourceFile\GameObject\GameObjectManager.h">
       <Filter>Source Files\GameObject</Filter>
     </ClInclude>
-    <ClInclude Include="SourceFile\graphic\2D\Sprite.h">
-      <Filter>Source Files\graphics\2D</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceFile\graphic\GPUBuffer\IndexBuffer.h">
-      <Filter>Source Files\graphics\GPUBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.h">
-      <Filter>Source Files\graphics\GPUBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceFile\graphic\GPUBuffer\VertexBuffer.h">
-      <Filter>Source Files\graphics\GPUBuffer</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceFile\graphic\Primitive.h">
-      <Filter>Source Files\graphics</Filter>
-    </ClInclude>
-    <ClInclude Include="SourceFile\graphic\RenderContext.h">
-      <Filter>Source Files\graphics</Filter>
-    </ClInclude>
     <ClInclude Include="SpriteRender.h">
       <Filter>Source Files\graphics\2D</Filter>
     </ClInclude>
@@ -331,7 +313,6 @@
     <ClInclude Include="Fade.h" />
     <ClInclude Include="Network\Listener.h" />
     <ClInclude Include="Network\SampleNetwork.h" />
-    <ClInclude Include="SourceFile\graphic\Effect\CEffect.h" />
     <ClInclude Include="SourceFile\Sound\SoundEngine.h" />
     <ClInclude Include="SourceFile\Sound\CWaveFileBank.h" />
     <ClInclude Include="SourceFile\Sound\WaveFile.h" />
@@ -343,6 +324,25 @@
     <ClInclude Include="SourceFile\Light\DirectionLight.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="StatusUI.h" />
+    <ClInclude Include="SourceFile\graphic\2D\Sprite.h">
+      <Filter>Source Files\graphics\2D</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceFile\graphic\Effect\CEffect.h" />
+    <ClInclude Include="SourceFile\graphic\GPUBuffer\IndexBuffer.h">
+      <Filter>Source Files\graphics\GPUBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.h">
+      <Filter>Source Files\graphics\GPUBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceFile\graphic\GPUBuffer\VertexBuffer.h">
+      <Filter>Source Files\graphics\GPUBuffer</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceFile\graphic\Primitive.h">
+      <Filter>Source Files\graphics</Filter>
+    </ClInclude>
+    <ClInclude Include="SourceFile\graphic\RenderContext.h">
+      <Filter>Source Files\graphics</Filter>
+    </ClInclude>
     <ClInclude Include="SourceFile\graphic\RenderTarget.h" />
     <ClInclude Include="SourceFile\graphic\ShadowMap.h" />
   </ItemGroup>
