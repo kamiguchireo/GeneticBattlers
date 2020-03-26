@@ -20,7 +20,6 @@ BattleScenes::~BattleScenes()
 	DeleteGO(m_resultSprite);
 	for (int i = 0; i < m_monsterTeam1List.size(); i++)
 	{
-		m_monsterTeam1List[i]->Save("aaa");
 		DeleteGO(m_monsterTeam1List[i]);
 	}
 	for (int i = 0; i < m_monsterTeam2List.size(); i++)
@@ -152,6 +151,7 @@ bool BattleScenes::Start()
 
 void BattleScenes::Update()
 {
+	rand();
 	switch (m_state)
 	{
 	case enState_FadeIn:
@@ -207,6 +207,10 @@ void BattleScenes::Update()
 		
 		if (g_pad[0].IsTrigger(enButtonA))
 		{
+			for (int i = 0; i < m_monsterTeam1List.size(); i++)
+			{
+				m_monsterTeam1List[i]->Save("aaa");
+			}
 			//フェードさせる。
 			m_state = enState_FadeOut;
 			m_fade->StartFadeOut();

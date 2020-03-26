@@ -42,11 +42,11 @@ bool MonsterBase::AddATB()
 	//死亡時は処理を中断する。
 	if (m_stateAI == en_state_Death) return false;
 
-	m_activeTime += (float)m_status.DEX / 144.0f;
+	m_activeTime += (float)m_status.DEX * addTime;
 	for (int i = 0; i < en_buff_num; i++) {
 		if (buffTimeList[i] >= 0.0f) continue;
 
-		buffTimeList[i] -= 1.0f / 144.0f;
+		buffTimeList[i] -= addTime;
 		if (buffTimeList[i] < 0.0f) {
 			ResetBuff(i);
 		}
@@ -253,11 +253,15 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const 
 				//敵か味方のどちらに攻撃するか。
 				if (!m_useSkill->GetIsAttack()) {
 					//ターゲットが死亡していなければ。
-					if (!list[targetNo]->IsDeath())m_target = list[targetNo];
+					if (!list[targetNo]->IsDeath()) {
+						m_target = list[targetNo];
+					}
 				}
 				else if (m_useSkill->GetIsAttack()) {
 					//ターゲットが死亡していなければ。
-					if (!list[targetNo]->IsDeath())m_target = ene_list[targetNo];
+					if (!ene_list[targetNo]->IsDeath()) {
+						m_target = ene_list[targetNo];
+					}
 				}
 
 				break;
@@ -282,7 +286,7 @@ void MonsterBase::StateUpdate()
 		&& 1.0f / 3.0f >= nowHP) {
 		m_stateAI = en_state_Bad;
 	}
-	else { 
+	else if (m_status.HP == 0) {
 		m_stateAI = en_state_Death; 
 		m_activeTime = 0.0f;
 	}
@@ -316,4 +320,40 @@ bool MonsterBase::Action()
 		break;
 	}
 	return flag;
+}
+
+void MonsterBase::GIUpdate()
+{
+	//GIを用いて行動AIの確率の更新。
+	const int listSize = m_actResList.size();
+	const int AISize = sizeof(m_AI) / sizeof(*m_AI);
+	std::vector<float> AIscoreList(AISize, 0.0f);
+	float sum = 0;
+	for (auto res : m_actResList) {
+		//評価されていない。
+		if (!res.score)	continue;
+		//スコアを合計する。
+		for (int i = 0; i < AISize; i++) {
+			if (res.skillNo == m_AI[i].skillNo
+				&&res.target == m_AI[i].target) {
+				AIscoreList[i] += res.damage;
+				sum += res.damage;
+				break;
+			}
+		}
+	}
+	//比率計算。
+	for (auto scr : AIscoreList) {
+		scr /= sum;
+	}
+
+	sum = 0.0f;
+	for (int i = 0; i < AISize; i++) {
+		m_AI[i].rate = m_AI[i].rate * 100.0f + AIscoreList[i];
+		sum += m_AI[i].rate;
+	}
+
+	for (int i = 0; i < AISize; i++) {
+		m_AI[i].rate /= sum;
+	}
 }

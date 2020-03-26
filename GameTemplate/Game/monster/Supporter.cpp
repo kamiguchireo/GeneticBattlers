@@ -171,6 +171,8 @@ void Supporter::Init(const char* filePath)
 
 void Supporter::Save(const char * filePath)
 {
+	GIUpdate();
+
 	FILE* fp = fopen(m_AIPath, "wb");
 
 	if (fp == nullptr) {

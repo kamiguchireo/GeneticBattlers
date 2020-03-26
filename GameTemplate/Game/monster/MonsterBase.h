@@ -2,7 +2,7 @@
 #include "Skill/SkillBase.h"
 #include "../StatusUI.h"
 
-//const int ActionNum = 10;							//AIがとりうる行動の数。
+//const int AI_SIZE = 6;							//AIがとりうる行動の数。
 
 /// <summary>
 /// ステータスの構造体。
@@ -164,7 +164,7 @@ public:
 	}
 	//
 	bool IsDeath() {
-		return m_IsDeath;
+		return m_stateAI == en_state_Death;
 	}
 	/// <summary>
 	/// ダメージを与える。
@@ -221,6 +221,8 @@ public:
 	
 
 protected:
+	//遺伝的アルゴリズムを用いて行動テーブルを更新。
+	void GIUpdate();
 	//	モデル関係
 	SkinModel m_model;									//モデルデータ。
 	//アニメーションの列挙。
@@ -247,6 +249,7 @@ protected:
 	int m_scoringFlag = 0;								//評価のフラグ。
 	int m_stateAI = en_state_Good;						//ステート。
 	bool m_IsDeath = false;								//死亡フラグ。
+	const float addTime = 1.0f / 144.0f * 4.0f;			//加算タイム。
 	float m_activeTime = 0.0f;							//アクティブタイム。
 	float m_coolTime = 30.0f;							//クールタイム。
 	float buffTimeList[en_buff_num] = { 0.0f };			//バフタイム。

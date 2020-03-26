@@ -171,6 +171,8 @@ void Healer::Init(const char* filePath)
 
 void Healer::Save(const char * filePath)
 {
+	GIUpdate();
+
 	FILE* fp = fopen(m_AIPath, "wb");
 
 	if (fp == nullptr) {

@@ -173,6 +173,9 @@ void Attacker::Init(const char* filePath)
 
 void Attacker::Save(const char * filePath)
 {
+	//Ç∆ÇËÇ†Ç¶Ç∏ïœçXÇ≥ÇπÇÈÅB
+	GIUpdate();
+
 	FILE* fp = fopen(m_AIPath, "wb");
 
 	if (fp == nullptr) {
@@ -183,3 +186,4 @@ void Attacker::Save(const char * filePath)
 
 	fclose(fp);
 }
+
