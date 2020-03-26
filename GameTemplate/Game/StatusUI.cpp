@@ -21,8 +21,9 @@ StatusUI::~StatusUI()
 bool StatusUI::Start()
 {
 	m_position.z = 5.0f;
-	
-	//自キャラ用UI
+	/****************/
+	/*自キャラ用UI。*/
+	/****************/
 	if (!m_isEnemy) {
 		//座標を設定。
 		m_para = NewGO<prefab::SpriteRender>(0);
@@ -85,7 +86,9 @@ bool StatusUI::Start()
 		m_Bad->SetPosition(badPos);
 		m_Bad->SetMulColor(m_Gray);
 	}
-	//敵用のUIの設定。
+	/******************/
+	/*敵用のUIの設定。*/
+	/******************/
 	else if (m_isEnemy) {
 		//座標を設定。
 		m_para = NewGO<prefab::SpriteRender>(0);
