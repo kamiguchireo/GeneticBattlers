@@ -199,6 +199,9 @@ void GraphicsEngine::Init(HWND hWnd)
 	//半透明合成を行えるブレンドステートを作成
 	m_pd3dDevice->CreateBlendState(&blendDesc, &m_translucentBlendState);
 	
+	DirectX::CommonStates state(m_pd3dDevice);
+	m_translucentBlendState = state.NonPremultiplied();
+
 	float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
 	//半透明合成のブレンドステートを設定する。
 	m_pd3dDeviceContext->OMSetBlendState(
@@ -206,6 +209,7 @@ void GraphicsEngine::Init(HWND hWnd)
 		blendFactor,				//ブレンディングファクター。気にしなくてよい
 		0xffffffff					//サンプリングマスク。気にしなくてよい。
 	);
+
 
 	m_shadowmap.ShadowMapRTCreate();
 
