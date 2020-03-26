@@ -81,7 +81,7 @@ namespace Engine {
 		SSpriteCB cb;
 		Shader m_ps;			//ピクセルシェーダー
 		Shader m_vs;			//頂点シェーダー
-		CVector3 m_mulColor = CVector3::Zero();		//乗算カラー
+		CVector3 m_mulColor = CVector3::One();		//乗算カラー
 		CVector2 m_size = CVector2::Zero();			//サイズ
 		Primitive m_primitive;			//プリミティブ
 		//ShaderResourceView* m_textureSRV = nullptr;		//テクスチャ

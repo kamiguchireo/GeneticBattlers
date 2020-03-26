@@ -31,7 +31,7 @@ PSInput VSMain(VSInput In)
 float4 PSMain( PSInput In ) : SV_Target0
 {
 	float4 FinalColor = colorTexture.Sample(Sampler, In.uv);
-	FinalColor.xyz += FinalColor.xyz * mulColor;
+	FinalColor.xyz = FinalColor.xyz * mulColor;
 	if (isAlpha != 0)
 	{
 		FinalColor.a = alpha;
