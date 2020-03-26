@@ -26,12 +26,12 @@ public:
 	}
 	//評価ボタンの選択。
 	void SetGood() {
-		m_Good->SetMulColor(CVector4::White());
+		m_Good->SetMulColor(m_White);
 		m_Bad->SetMulColor(m_Gray);
 	}
 	void SetBad() {
 		m_Good->SetMulColor(m_Gray);
-		m_Bad->SetMulColor(CVector4::White());
+		m_Bad->SetMulColor(m_White);
 	}
 	void ScoreReset(){
 		m_Good->SetMulColor(m_Gray);
@@ -54,7 +54,8 @@ private:
 	//0.0, 0.0で画像の左下。
 	//1.0, 1.0で画像の右上。
 	CVector2 m_pivot = CVector2::Zero();
-	CVector4 m_Gray = { 0.6f,0.6f,0.6f,1.0f };
+	CVector3 m_Gray = { 0.6f,0.6f,0.6f};
+	CVector3 m_White = CVector3::One();
 	float m_scaleX = 0.0f;
 	float m_hpX = 1.0f;
 	bool m_isEnemy = false;
