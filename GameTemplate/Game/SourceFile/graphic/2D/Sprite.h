@@ -57,12 +57,17 @@ namespace Engine {
 		//αの値の変更
 		void SetAlpha(float a)
 		{
-			alpha = a;
+			cb.alpha = a;
 		}
 		//引数で渡された整数値を16の倍数に切り上げ
 		int Raundup16(int n)
 		{
 			return (((n - 1) / 16) + 1) * 16;
+		}
+
+		void SetIsAlpha(int a)
+		{
+			cb.isAlpha = a;
 		}
 	private:
 		//定数バッファ(ConstantBuffer)のCreate関数の引数に使用する
@@ -70,10 +75,10 @@ namespace Engine {
 		{
 			CMatrix WVP;		//ワールドビュープロジェクション行列
 			CVector3 mulColor;		//乗算カラー
-			float alpha;		//α値
+			float alpha = 1.0f;		//α値
+			int isAlpha = 0;	//画像自体のαを使うかどうか1の時に画像のαを使わない
 		};
 		SSpriteCB cb;
-		float alpha = 1.0f;		//α値
 		Shader m_ps;			//ピクセルシェーダー
 		Shader m_vs;			//頂点シェーダー
 		CVector3 m_mulColor = CVector3::Zero();		//乗算カラー
