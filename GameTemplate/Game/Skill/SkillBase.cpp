@@ -15,13 +15,14 @@ SkillBase::~SkillBase()
 {
 }
 
-void SkillBase::InitSkill(const char * name, float power, float time, float acc, int no, Elements ele, bool isMagic)
+void SkillBase::InitSkill(const char * name, float power, float time, float acc, int no,bool isAttack, Elements ele, bool isMagic)
 {
 	SetSkillName(name);
 	SetSkillPower(power);
 	SetCoolTime(time);
 	SetAccuracy(acc);
 	SetSkillNo(no);
+	SetIsAttack(isAttack);
 	SetElements(ele);
 	SetMagic(isMagic);
 }

@@ -24,6 +24,7 @@ public:
 	float		time	!<クールタイム。
 	float		acc		!<スキルの命中率。
 	int			no		!<スキル番号。
+	bool		isAttack!<攻撃スキルかどうか。trueは敵に対して使うスキル。
 	Elements	ele		!<スキルの属性。
 	bool		isMagic	!<魔法かどうか。
 	*/
@@ -32,6 +33,7 @@ public:
 		float time,
 		float acc,
 		int no,
+		bool isAttack = true,
 		Elements ele = en_elements_Empty,
 		bool isMagic = false);
 	//スキルの名前を設定。
@@ -69,6 +71,11 @@ public:
 	{
 		m_isMagic = isMagic;
 	}
+	//攻撃スキルかどうかを設定する。
+	void SetIsAttack(bool isAttack)
+	{
+		m_isAttack = isAttack;
+	}
 	//再生するエフェクトのファイルパスを設定する。
 	void SetEffect(const wchar_t* path)
 	{
@@ -83,6 +90,10 @@ public:
 	const bool GetIsMagic()const
 	{
 		return m_isMagic;
+	}
+	const bool GetIsAttack()const 
+	{
+		return m_isAttack;
 	}
 
 	/// <summary>
@@ -119,6 +130,7 @@ protected:
 	int m_skillNo = 0;
 	Elements m_skillElements = en_elements_Empty;
 	bool m_isMagic = false;
+	bool m_isAttack = true;
 
 	//属性相性。[攻撃側][対象側]
 	const float m_elementsComp[en_elements_Num][en_elements_Num]=

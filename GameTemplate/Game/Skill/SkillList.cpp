@@ -25,19 +25,19 @@ SkillList::SkillList()
 
 	//回復魔法。
 	auto heal = NewGO<Heal>(0);		//ヒール。
-	heal->InitSkill("ヒール", 0.7f, 30.0f, 1.0f, 100, en_elements_Empty, true);
+	heal->InitSkill("ヒール", 0.7f, 30.0f, 1.0f, 100, false, en_elements_Empty, true);
 	typeList[1].push_back(heal);
 	auto hiheal = NewGO<Heal>(0);	//ハイヒール。
-	hiheal->InitSkill("ハイヒール", 1.3f, 50.0f, 1.0f, 101, en_elements_Empty, true);
+	hiheal->InitSkill("ハイヒール", 1.3f, 50.0f, 1.0f, 101, false, en_elements_Empty, true);
 	typeList[1].push_back(hiheal);
 
 	//バフ魔法
 	auto sukuruto = NewGO<BuffSkill>(0);	//スクルト。
-	sukuruto->InitSkill("スクルト", 2.0f, 50.0f, 1.0f, 200, en_elements_Empty, true);
+	sukuruto->InitSkill("スクルト", 2.0f, 50.0f, 1.0f, 200, false, en_elements_Empty, true);
 	sukuruto->SetStatusBuff(en_buff_DEF);
 	typeList[2].push_back(sukuruto);
 	auto sukara = NewGO<BuffSkillWide>(0);
-	sukara->InitSkill("スカラ", 1.5f, 60.0f, 1.0f, 201, en_elements_Empty, true);
+	sukara->InitSkill("スカラ", 1.5f, 60.0f, 1.0f, 201, false, en_elements_Empty, true);
 	sukara->SetStatusBuff(en_buff_DEF);
 	typeList[2].push_back(sukara);
 	

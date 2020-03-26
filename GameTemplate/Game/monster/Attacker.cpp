@@ -95,14 +95,25 @@ void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std
 {
 	SkillList* skillList = SkillList::GetInstance();
 
-	auto list = e_team;	//ソートするためにリストをコピー。
+	auto ene_list = e_team;	//ソートするためにリストをコピー。
+	auto list = m_team;
 
+	//現在HPの低い方から順番にソート。
 	for (int i = 0; i < list.size(); i++) {
 		for (int j = i; j < list.size(); j++) {
 			if (list[i]->GetStatus().HP > list[j]->GetStatus().HP) {
 				auto hoge = list[i];
 				list[i] = list[j];
 				list[j] = hoge;
+			}
+		}
+	}
+	for (int i = 0; i < ene_list.size(); i++) {
+		for (int j = i; j < ene_list.size(); j++) {
+			if (ene_list[i]->GetStatus().HP > ene_list[j]->GetStatus().HP) {
+				auto hoge = ene_list[i];
+				ene_list[i] = ene_list[j];
+				ene_list[j] = hoge;
 			}
 		}
 	}
@@ -121,8 +132,17 @@ void Attacker::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std
 				int skillNo = m_AI[i].skillNo % 100;
 				int targetNo = m_AI[i].target;
 				m_useSkill = skillList->GetSkillData(skillTable, skillNo);
-				//ターゲットが死亡していなければ。
-				if(!list[targetNo]->IsDeath())m_target = list[targetNo];
+
+				//敵か味方のどちらに攻撃するか。
+				if (!m_useSkill->GetIsAttack()) {
+					//ターゲットが死亡していなければ。
+					if (!list[targetNo]->IsDeath())m_target = list[targetNo];
+				}
+				else if (m_useSkill->GetIsAttack()) {
+					//ターゲットが死亡していなければ。
+					if (!list[targetNo]->IsDeath())m_target = ene_list[targetNo];
+				}
+
 				break;
 			}
 		}
