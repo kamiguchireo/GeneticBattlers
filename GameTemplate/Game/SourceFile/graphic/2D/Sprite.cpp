@@ -12,7 +12,6 @@ namespace Engine {
 	const CVector2 Sprite::DEFAULT_PIVOT = { 0.5f,0.5f };
 	Sprite::Sprite()
 	{
-		cb.alpha = alpha;
 	}
 	Sprite::~Sprite()
 	{
@@ -155,7 +154,6 @@ namespace Engine {
 		{
 			return;
 		}
-		cb.alpha = alpha;
 		cb.WVP = m_world;		//ワールドビュープロジェクション行列
 		cb.WVP.Mul(cb.WVP, viewMatrix);		//ワールド行列にビュー行列を乗算
 		cb.WVP.Mul(cb.WVP, projMatrix);		//ワールド行列にプロジェクション行列を乗算

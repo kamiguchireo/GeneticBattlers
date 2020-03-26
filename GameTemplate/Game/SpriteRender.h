@@ -41,6 +41,14 @@ namespace Engine {
 			{
 				m_sprite.SetMulColor(mulColor);
 			}
+			void SetAlpha(float a)
+			{
+				m_sprite.SetAlpha(a);
+			}
+			void SetIsAlpha(int i)
+			{
+				m_sprite.SetIsAlpha(i);
+			}
 			//•`‰æ
 			void PostRender(RenderContext&rc)override final;
 		private:

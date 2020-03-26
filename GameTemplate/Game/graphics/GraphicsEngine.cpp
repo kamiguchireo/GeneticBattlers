@@ -190,11 +190,11 @@ void GraphicsEngine::Init(HWND hWnd)
 	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
 
 	//α値の操作
-	blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-	blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-	blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+	//blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	//blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	//blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
 
-	blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+	//blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 
 	//半透明合成を行えるブレンドステートを作成
 	m_pd3dDevice->CreateBlendState(&blendDesc, &m_translucentBlendState);
@@ -272,6 +272,7 @@ void GraphicsEngine::RtSpInit()
 		FRAME_BUFFER_W,
 		FRAME_BUFFER_H
 	);
+	m_copyMainRtToFrameBufferSprite.SetAlpha(1.0f);
 }
 
 void GraphicsEngine::InitRender()
