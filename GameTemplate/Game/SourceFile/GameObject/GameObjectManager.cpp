@@ -74,26 +74,4 @@ namespace Engine {
 		PostRender(renderContext);
 	}
 
-	void CGameObjectManager::SpStart()
-	{
-		for (GameObjectList objList : m_SpgameObjectListArray)
-		{
-			for (IGameObject*obj : objList)
-			{
-				obj->StartWrapper();
-			}
-		}
-	}
-	void CGameObjectManager::SpRender()
-	{
-		for (GameObjectList objList : m_SpgameObjectListArray)
-		{
-			for (IGameObject*obj : objList)
-			{
-				obj->UpdateWrapper();
-			}
-		}
-		ExecuteDeleteGameObjects();
-	}
-
 }

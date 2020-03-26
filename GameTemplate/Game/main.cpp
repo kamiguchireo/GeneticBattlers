@@ -159,12 +159,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		m_frameBufferRenderTargetView->Release();
 		m_frameBufferDepthStencilView->Release();
 
-		//ゲームオブジェクトマネージャーのUpdate関数
-		GameObjectManager().SpStart();
-		//ゲームオブジェクトマネージャーのUpdate関数
-		GameObjectManager().SpRender();
-
-
 		//カメラの更新。
 		g_camera3D.Update();
 

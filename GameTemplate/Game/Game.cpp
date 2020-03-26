@@ -34,7 +34,7 @@ Game::~Game()
 bool Game::Start()
 {
 	//スプライトを初期化
-	m_spriteRender = NewGOSp<prefab::SpriteRender>(0,"sprite");
+	m_spriteRender = NewGO<prefab::SpriteRender>(0,"sprite");
 	m_spriteRender->Init(L"Assets/sprite/Good.dds", 400, 300);
 
 	//エフェクトを再生。
