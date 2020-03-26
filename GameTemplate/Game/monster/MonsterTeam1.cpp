@@ -162,3 +162,32 @@ bool MonsterTeam1::BattleAction()
 
 	return flag;
 }
+
+void MonsterTeam1::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)
+{
+	if (m_useSkill != nullptr) return;
+
+	SkillList* skillList = SkillList::GetInstance();
+
+	//Žc‚èHP‚É‰ž‚¶‚Äs“®‚ðŒˆ‚ß‚éB
+	switch (m_stateAI)
+	{
+	case en_state_Good:
+		m_useSkill = skillList->GetSkillData(0, 0);
+		m_target = e_team[rand() % e_team.size()];
+		break;
+
+	case en_state_Usually:
+		m_useSkill = skillList->GetSkillData(0, 1);
+		m_target = e_team[rand() % e_team.size()];
+		break;
+
+	case en_state_Bad:
+		m_useSkill = skillList->GetSkillData(1, 0);
+		m_target = this;
+		break;
+
+	case en_state_Death:
+		break;
+	}
+}

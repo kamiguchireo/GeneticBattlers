@@ -210,30 +210,59 @@ void MonsterBase::ResetBuff(int i)
 
 void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)
 {
-	if (m_useSkill != nullptr) return;
-
 	SkillList* skillList = SkillList::GetInstance();
 
-	//残りHPに応じて行動を決める。
-	switch (m_stateAI)
-	{
-	case en_state_Good:
-		m_useSkill = skillList->GetSkillData(0, 0);
-		m_target = e_team[rand() % e_team.size()];
-		break;
+	auto ene_list = e_team;	//ソートするためにリストをコピー。
+	auto list = m_team;
 
-	case en_state_Usually:
-		m_useSkill = skillList->GetSkillData(0, 1);
-		m_target = e_team[rand() % e_team.size()];
-		break;
+	//現在HPの低い方から順番にソート。
+	for (int i = 0; i < list.size(); i++) {
+		for (int j = i; j < list.size(); j++) {
+			if (list[i]->GetStatus().HP > list[j]->GetStatus().HP) {
+				auto hoge = list[i];
+				list[i] = list[j];
+				list[j] = hoge;
+			}
+		}
+	}
+	for (int i = 0; i < ene_list.size(); i++) {
+		for (int j = i; j < ene_list.size(); j++) {
+			if (ene_list[i]->GetStatus().HP > ene_list[j]->GetStatus().HP) {
+				auto hoge = ene_list[i];
+				ene_list[i] = ene_list[j];
+				ene_list[j] = hoge;
+			}
+		}
+	}
 
-	case en_state_Bad:
-		m_useSkill = skillList->GetSkillData(1, 0);
-		m_target = this;
-		break;
+	//ターゲットが定まるまで回す。
+	while (m_target == nullptr) {
+		int res = rand() % 100;	//適当な乱数。
+		int sum = 0;
 
-	case en_state_Death:
-		break;
+		//行動テーブルをもとに行動させる。
+		int AINum = sizeof(m_AI) / sizeof(*m_AI);
+		for (int i = 0; i < AINum; i++) {
+			sum += (int)(m_AI[i].rate * 100);
+			if (sum > res) {
+				int skillTable = (int)(m_AI[i].skillNo / 100);
+				int skillNo = m_AI[i].skillNo % 100;
+				int targetNo = m_AI[i].target;
+				m_useSkill = skillList->GetSkillData(skillTable, skillNo);
+
+				//敵か味方のどちらに攻撃するか。
+				if (!m_useSkill->GetIsAttack()) {
+					//ターゲットが死亡していなければ。
+					if (!list[targetNo]->IsDeath())m_target = list[targetNo];
+				}
+				else if (m_useSkill->GetIsAttack()) {
+					//ターゲットが死亡していなければ。
+					if (!list[targetNo]->IsDeath())m_target = ene_list[targetNo];
+				}
+
+				break;
+			}
+		}
 	}
 }
 

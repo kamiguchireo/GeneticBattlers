@@ -13,6 +13,7 @@ public:
 	bool Action_bad();
 	bool BattleAction();
 	bool ACTScoring() { return true; };
+	void SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)override;
 
 	void SetUIPos(const CVector3& pos)
 	{
