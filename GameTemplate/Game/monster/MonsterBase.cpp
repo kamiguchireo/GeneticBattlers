@@ -91,15 +91,14 @@ bool MonsterBase::ACTScoring()
 		{
 		case 0:
 			m_actRes.score = true;
-			m_actResList.push_back(m_actRes);	//リストに積み上げる。
 			break;
 		case 1:
 			m_actRes.score = false;
-			m_actResList.push_back(m_actRes);	//リストに積み上げる。
 			break;
 		default:
 			break;
 		}
+		m_actResList.push_back(m_actRes);	//リストに積み上げる。
 		m_UI->ScoreReset();
 		m_scoringFlag = 0;
 		return true;
