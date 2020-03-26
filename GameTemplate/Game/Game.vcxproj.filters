@@ -282,9 +282,6 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="util\Util.h" />
     <ClInclude Include="Game.h" />
-    <ClInclude Include="SourceFile\GameObject\GameObject.h">
-      <Filter>Source Files\GameObject</Filter>
-    </ClInclude>
     <ClInclude Include="SourceFile\GameObject\GameObjectManager.h">
       <Filter>Source Files\GameObject</Filter>
     </ClInclude>
@@ -345,6 +342,9 @@
     </ClInclude>
     <ClInclude Include="SourceFile\graphic\RenderTarget.h" />
     <ClInclude Include="SourceFile\graphic\ShadowMap.h" />
+    <ClInclude Include="SourceFile\GameObject\GameObject.h">
+      <Filter>Source Files\GameObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

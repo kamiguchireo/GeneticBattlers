@@ -137,13 +137,14 @@ namespace Engine {
 	{
 		ID3D11DeviceContext* DeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 
-		float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-		//半透明合成のブレンドステートを設定する。
-		DeviceContext->OMSetBlendState(
-			g_graphicsEngine->GetBlendState(),	//設定するブレンディングステート
-			blendFactor,				//ブレンディングファクター。気にしなくてよい
-			0xffffffff					//サンプリングマスク。気にしなくてよい。
-		);
+		//float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+		////半透明合成のブレンドステートを設定する。
+		//DeviceContext->OMSetBlendState(
+		//	g_graphicsEngine->GetBlendState(),	//設定するブレンディングステート
+		//	blendFactor,				//ブレンディングファクター。気にしなくてよい
+		//	0xffffffff					//サンプリングマスク。気にしなくてよい。
+		//);
+
 		//if (m_isInited == false)
 		//{
 		//	//初期化されていない
@@ -154,6 +155,7 @@ namespace Engine {
 			return;
 		}
 		SSpriteCB cb;
+		cb.alpha = alpha;
 		cb.WVP = m_world;		//ワールドビュープロジェクション行列
 		cb.WVP.Mul(cb.WVP, viewMatrix);		//ワールド行列にビュー行列を乗算
 		cb.WVP.Mul(cb.WVP, projMatrix);		//ワールド行列にプロジェクション行列を乗算

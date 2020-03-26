@@ -54,13 +54,20 @@ namespace Engine {
 		projMatrix		プロジェクション行列
 		*/
 		void Draw(const CMatrix&viewMatrix, const CMatrix& projMatrix);
+		//αの値の変更
+		void SetAlpha(float a)
+		{
+			alpha = a;
+		}
 	private:
 		//定数バッファ(ConstantBuffer)のCreate関数の引数に使用する
 		struct SSpriteCB
 		{
 			CMatrix WVP;		//ワールドビュープロジェクション行列
 			CVector4 mulColor;		//乗算カラー
+			float alpha;		//α値
 		};
+		float alpha = 1.0f;		//α値
 		Shader m_ps;			//ピクセルシェーダー
 		Shader m_vs;			//頂点シェーダー
 		CVector4 m_mulColor = CVector4::White();		//乗算カラー

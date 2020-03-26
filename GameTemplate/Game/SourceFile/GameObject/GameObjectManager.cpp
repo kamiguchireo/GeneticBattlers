@@ -23,7 +23,7 @@ namespace Engine {
 				obj->UpdateWrapper();
 			}
 		}
-		//ExecuteRender();
+		ExecuteRender();
 		ExecuteDeleteGameObjects();
 	}
 

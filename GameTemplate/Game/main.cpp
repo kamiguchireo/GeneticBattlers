@@ -34,6 +34,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		FRAME_BUFFER_H
 	);
 	*/
+	
 	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
 	CVector3 m_sposition = { 0.0,0.0,5.0 };			//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();			//!<回転。
@@ -86,6 +87,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//物理エンジンの更新。
 		g_physics.Update();
 
+		
 		//フレームバッファののレンダリングターゲットをバックアップしておく。
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 		d3dDeviceContext->OMGetRenderTargets(
@@ -140,6 +142,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 				d3dDeviceContext->RSSetViewports(1, &m_frameBufferViewports);
 			}
 		}
+		
 		/*
 		//スプライトにしていたものをドロー
 		m_copyMainRtToFrameBufferSprite.Update(m_sposition, m_rotation, m_scale, m_pivot);
@@ -149,6 +152,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			g_camera2D.GetProjectionMatrix()
 		);
 		*/
+
 		g_graphicsEngine->GetSp()->Update(m_sposition, m_rotation, m_scale, m_pivot);
 		g_graphicsEngine->GetSp()->Draw
 		(
@@ -158,6 +162,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		m_frameBufferRenderTargetView->Release();
 		m_frameBufferDepthStencilView->Release();
+		
 
 		//カメラの更新。
 		g_camera3D.Update();
