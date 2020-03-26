@@ -37,7 +37,7 @@ namespace Engine {
 			{
 				m_pivot = pivot;
 			}
-			void SetMulColor(const CVector4& mulColor)
+			void SetMulColor(const CVector3& mulColor)
 			{
 				m_sprite.SetMulColor(mulColor);
 			}

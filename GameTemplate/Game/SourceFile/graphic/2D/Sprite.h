@@ -26,7 +26,7 @@ namespace Engine {
 		乗算カラーを設定
 		mulColor	乗算カラー
 		*/
-		void SetMulColor(const CVector4& mulColor)
+		void SetMulColor(const CVector3& mulColor)
 		{
 			m_mulColor = mulColor;
 		}
@@ -59,18 +59,24 @@ namespace Engine {
 		{
 			alpha = a;
 		}
+		//引数で渡された整数値を16の倍数に切り上げ
+		int Raundup16(int n)
+		{
+			return (((n - 1) / 16) + 1) * 16;
+		}
 	private:
 		//定数バッファ(ConstantBuffer)のCreate関数の引数に使用する
 		struct SSpriteCB
 		{
 			CMatrix WVP;		//ワールドビュープロジェクション行列
-			CVector4 mulColor;		//乗算カラー
+			CVector3 mulColor;		//乗算カラー
 			float alpha;		//α値
 		};
+		SSpriteCB cb;
 		float alpha = 1.0f;		//α値
 		Shader m_ps;			//ピクセルシェーダー
 		Shader m_vs;			//頂点シェーダー
-		CVector4 m_mulColor = CVector4::White();		//乗算カラー
+		CVector3 m_mulColor = CVector3::Zero();		//乗算カラー
 		CVector2 m_size = CVector2::Zero();			//サイズ
 		Primitive m_primitive;			//プリミティブ
 		//ShaderResourceView* m_textureSRV = nullptr;		//テクスチャ
