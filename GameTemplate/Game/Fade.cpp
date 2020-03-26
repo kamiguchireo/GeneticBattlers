@@ -54,6 +54,7 @@ void Fade::PostRender(RenderContext & renderContext)
 	if (m_currentAlpha > 0.0f) {
 		//m_sprite.SetMulColor({ 1.0,1.0,1.0,m_currentAlpha });
 		m_sprite.SetAlpha(m_currentAlpha);
+		m_sprite.SetIsAlpha(1);
 		m_sprite.Draw(
 			g_camera2D.GetViewMatrix(),
 			g_camera2D.GetProjectionMatrix()

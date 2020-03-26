@@ -1,5 +1,6 @@
 #pragma once
 #include "monster/MonsterBase.h"
+#include "Skill/SkillList.h"
 
 class MonsterTeam1 : public MonsterBase
 {
