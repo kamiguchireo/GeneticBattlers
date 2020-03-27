@@ -121,7 +121,7 @@ int MonsterBase::Healing(int healing)
 
 	//エフェクトの再生。
 	auto ef = NewGO<prefab::CEffect>(0);
-	ef->Play(L"Assets/effect/heal.efk");
+	ef->Play(L"Assets/effect/healS.efk");
 	ef->SetPosition(m_position + CVector3::AxisY()*20.0f);
 	ef->SetScale(CVector3::One()*80.0f);
 
