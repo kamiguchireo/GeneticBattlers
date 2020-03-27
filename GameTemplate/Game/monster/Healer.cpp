@@ -49,6 +49,7 @@ void Healer::Update()
 	{
 	case en_state_Death:
 		if (!m_IsDeath) {
+			//死亡エフェクトを流す。
 			m_IsDeath = true;
 			m_animation.Play(en_anim_Death, 0.3f);
 		}

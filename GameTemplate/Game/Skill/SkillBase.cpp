@@ -62,6 +62,8 @@ int SkillBase::DamageCalcuration(MonsterBase * attack, MonsterBase * target)
 
 	//ダメージ計算式。
 	damage = (int)((float)(Attack - Defence / 2) * skillPower * comp);
+	//0を下回らないようにする。
+	damage = max(damage, 0);
 
 	if (accuracy * 100 < rand() % 101){
 		damage = 0;

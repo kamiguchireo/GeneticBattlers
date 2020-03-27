@@ -328,7 +328,7 @@ void MonsterBase::GIUpdate()
 	const int listSize = m_actResList.size();
 	const int AISize = sizeof(m_AI) / sizeof(*m_AI);
 	std::vector<float> AIscoreList(AISize, 0.0f);
-	float sum = 0;
+	float sum = 0.0f;
 	for (auto res : m_actResList) {
 		//評価されていない。
 		if (!res.score)	continue;
@@ -342,14 +342,16 @@ void MonsterBase::GIUpdate()
 			}
 		}
 	}
+	//0割り回避。
+	sum = max(sum, 1.0f);
 	//比率計算。
-	for (auto scr : AIscoreList) {
-		scr /= sum;
+	for (int i = 0; i < AISize; i++) {
+		AIscoreList[i] /= sum;
 	}
 
 	sum = 0.0f;
 	for (int i = 0; i < AISize; i++) {
-		m_AI[i].rate = m_AI[i].rate * 100.0f + AIscoreList[i];
+		m_AI[i].rate = m_AI[i].rate * 10.0f + AIscoreList[i];
 		sum += m_AI[i].rate;
 	}
 

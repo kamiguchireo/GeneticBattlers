@@ -86,11 +86,12 @@ public:
 	{
 		return m_skillNo;
 	}
-	//
+	//魔法かどうか。
 	const bool GetIsMagic()const
 	{
 		return m_isMagic;
 	}
+	//攻撃スキルかどうか。
 	const bool GetIsAttack()const 
 	{
 		return m_isAttack;
