@@ -103,56 +103,33 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		//ゲームオブジェクトマネージャーのStart関数
 		GameObjectManager().Start();
-
 		
-		{
-			//レンダリングターゲットをメインに変更する。
-			{
-				RenderTarget* RT;
-				RT = g_graphicsEngine->GetRT();
-				ID3D11RenderTargetView* rtTbl[] = {
-					RT->GetRenderTargetView()
-				};
-				//レンダリングターゲットの切り替え。
-				d3dDeviceContext->OMSetRenderTargets(1, rtTbl, RT->GetDepthStensilView());
-				if (&m_frameBufferViewports != nullptr) {
-					//ビューポートが指定されていたら、ビューポートも変更する。
-					d3dDeviceContext->RSSetViewports(1, &m_frameBufferViewports);
-				}
-			}
-			//メインレンダリングターゲットをクリアする。
-			float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-			g_graphicsEngine->GetRT()->ClearRenderTarget(clearColor);
-		}
-		
+		//レンダーターゲットの変更
+		g_graphicsEngine->ChangeRenderTarget
+		(
+			d3dDeviceContext,
+			g_graphicsEngine->GetRT()->GetRenderTargetView(),
+			g_graphicsEngine->GetRT()->GetDepthStensilView(),
+			&m_frameBufferViewports
+		);
+	
+		//メインレンダリングターゲットをクリアする。
+		float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
+		g_graphicsEngine->GetRT()->ClearRenderTarget(clearColor);		
 
 		//ゲームオブジェクトマネージャーのUpdate関数
 		GameObjectManager().Update();
 
-		
-		//レンダリングターゲットをフレームバッファに戻す
-		{
-			ID3D11RenderTargetView* rtTbl[] = {
-			m_frameBufferRenderTargetView
-			};
-			//レンダリングターゲットの切り替え。
-			d3dDeviceContext->OMSetRenderTargets(1, rtTbl, m_frameBufferDepthStencilView);
-			if (&m_frameBufferViewports != nullptr) {
-				//ビューポートが指定されていたら、ビューポートも変更する。
-				d3dDeviceContext->RSSetViewports(1, &m_frameBufferViewports);
-			}
-		}
-		
-		/*
-		//スプライトにしていたものをドロー
-		m_copyMainRtToFrameBufferSprite.Update(m_sposition, m_rotation, m_scale, m_pivot);
-		m_copyMainRtToFrameBufferSprite.Draw
+		//レンダーターゲットをもとに戻す
+		g_graphicsEngine->ChangeRenderTarget
 		(
-			g_camera2D.GetViewMatrix(),
-			g_camera2D.GetProjectionMatrix()
+			d3dDeviceContext,
+			m_frameBufferRenderTargetView,
+			m_frameBufferDepthStencilView,
+			&m_frameBufferViewports
 		);
-		*/
 
+		//作成したスプライトを表示する
 		g_graphicsEngine->GetSp()->Update(m_sposition, m_rotation, m_scale, m_pivot);
 		g_graphicsEngine->GetSp()->Draw
 		(
@@ -160,6 +137,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			g_camera2D.GetProjectionMatrix()
 		);
 
+		//レンダーターゲットとデプスステンシルの解放
 		m_frameBufferRenderTargetView->Release();
 		m_frameBufferDepthStencilView->Release();
 		

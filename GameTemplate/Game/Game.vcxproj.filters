@@ -195,6 +195,7 @@
     </ClCompile>
     <ClCompile Include="SourceFile\graphic\RenderTarget.cpp" />
     <ClCompile Include="SourceFile\graphic\ShadowMap.cpp" />
+    <ClCompile Include="SourceFile\graphic\Bloom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -345,6 +346,7 @@
     <ClInclude Include="SourceFile\GameObject\GameObject.h">
       <Filter>Source Files\GameObject</Filter>
     </ClInclude>
+    <ClInclude Include="SourceFile\graphic\Bloom.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
