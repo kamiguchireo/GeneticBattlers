@@ -121,7 +121,7 @@ int MonsterBase::Healing(int healing)
 
 	//エフェクトの再生。
 	auto ef = NewGO<prefab::CEffect>(0);
-	ef->Play(L"Assets/effect/heal.efk");
+	ef->Play(L"Assets/effect/healS.efk");
 	ef->SetPosition(m_position + CVector3::AxisY()*20.0f);
 	ef->SetScale(CVector3::One()*80.0f);
 
@@ -235,13 +235,46 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const 
 		}
 	}
 
+	//選ばれる行動の数。
+	int AINum = sizeof(m_AI) / sizeof(*m_AI);
+
+	//突然変異的な
+	int pMutation = rand() % 100;
+	//100分の１の確率。
+	if (pMutation == 0) {
+		while (m_target == nullptr)
+		{
+			//ランダムに数字を入れる。
+			int actNum = rand() % AINum;
+			int skillTable = (int)(m_AI[actNum].skillNo / 100);
+			int skillNo = m_AI[actNum].skillNo % 100;
+			int targetNo = m_AI[actNum].target;
+			m_useSkill = skillList->GetSkillData(skillTable, skillNo);
+
+			//敵か味方のどちらに攻撃するか。
+			if (!m_useSkill->GetIsAttack()) {
+				//ターゲットが死亡していなければ。
+				if (!list[targetNo]->IsDeath()) {
+					m_target = list[targetNo];
+				}
+			}
+			else if (m_useSkill->GetIsAttack()) {
+				//ターゲットが死亡していなければ。
+				if (!ene_list[targetNo]->IsDeath()) {
+					m_target = ene_list[targetNo];
+				}
+			}
+		}
+		//関数を抜ける。
+		return;
+	}
+
 	//ターゲットが定まるまで回す。
 	while (m_target == nullptr) {
 		int res = rand() % 100;	//適当な乱数。
 		int sum = 0;
 
 		//行動テーブルをもとに行動させる。
-		int AINum = sizeof(m_AI) / sizeof(*m_AI);
 		for (int i = 0; i < AINum; i++) {
 			sum += (int)(m_AI[i].rate * 100);
 			if (sum > res) {
