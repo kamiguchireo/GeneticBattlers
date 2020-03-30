@@ -7,6 +7,7 @@
 #include "gameScenes/TitleScene.h"
 #include "SourceFile/Sound/SoundEngine.h"
 #include "SourceFile/Light/DirectionLight.h"
+#include "SourceFile/graphic/PostEffect.h"
 
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
@@ -72,10 +73,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	g_camera2D.Update2D();
 	
+	PostEffect m_postEffect;		//ポストエフェクト
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
-
 		//描画開始。
 		g_graphicsEngine->BegineRender();
 
@@ -83,6 +84,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		for (auto& pad : g_pad) {
 			pad.Update();
 		}	
+
+		//ポストエフェクトの更新
+		m_postEffect.Update();
 
 		//物理エンジンの更新。
 		g_physics.Update();
@@ -119,6 +123,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 		//ゲームオブジェクトマネージャーのUpdate関数
 		GameObjectManager().Update();
+
+		//ポストエフェクトの描画
+		m_postEffect.Draw();
 
 		//レンダーターゲットをもとに戻す
 		g_graphicsEngine->ChangeRenderTarget

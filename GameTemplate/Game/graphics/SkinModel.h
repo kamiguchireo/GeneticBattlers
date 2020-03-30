@@ -69,11 +69,11 @@ public:
 	//	DL.SetDirection(dir);
 	//}
 
-	////ディレクションライトの色
-	//void SetLightColor(CVector4 col)
-	//{
-	//	DL.SetColor(col);
-	//}
+	//ディレクションライトの色
+	void SetLightColor(float col)
+	{
+		DL.SetColor(col);
+	}
 
 	//ディレクションライトのアクティブフラグの変更
 	void SetActiveDLFlag(int i)

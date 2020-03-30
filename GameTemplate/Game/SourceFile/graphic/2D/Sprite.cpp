@@ -142,6 +142,9 @@ namespace Engine {
 		//	//‰Šú‰»‚³‚ê‚Ä‚¢‚È‚¢
 		//	return;
 		//}
+
+		g_graphicsEngine->InitBlendState();
+
 		if (m_textureSRV == nullptr)
 		{
 			return;

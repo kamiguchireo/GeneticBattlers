@@ -34,8 +34,8 @@ Game::~Game()
 bool Game::Start()
 {
 	//スプライトを初期化
-	m_spriteRender = NewGO<prefab::SpriteRender>(0,"sprite");
-	m_spriteRender->Init(L"Assets/sprite/Good.dds", 400, 300);
+	//m_spriteRender = NewGO<prefab::SpriteRender>(0,"sprite");
+	//m_spriteRender->Init(L"Assets/sprite/Good.dds", 400, 300);
 
 	//エフェクトを再生。
 	//effect->Play(L"Assets/effect/test.efk");
@@ -51,7 +51,7 @@ bool Game::Start()
 	m_model.Init(L"Assets/modelData/unityChan.cmo");
 	CVector3 m_pos = { 0.0f,0.0f,0.0f };
 	m_model.UpdateWorldMatrix(m_pos, CQuaternion::Identity(), CVector3::One());
-	CQuaternion m_ligdir2 = { 1.0f,.0f,0.0f,0.0f };
+	//CQuaternion m_ligdir2 = { 1.0f,.0f,0.0f,0.0f };
 	//m_model.SetLightDir(m_ligdir2);
 	m_model.SetActiveDLFlag(0);
 	m_model.SetActiveRLFlag(1);
@@ -70,16 +70,17 @@ bool Game::Start()
 	m_model3.Init(L"Assets/modelData/EngineGround.cmo");
 	CVector3 m_pos3 = { 0.0f,0.0f,0.0f };
 	m_model3.UpdateWorldMatrix(m_pos3, CQuaternion::Identity(), CVector3::One());
-	CQuaternion m_ligdir3 = { 0.0f,-1.0f,0.0f,0.0f };
+	//CQuaternion m_ligdir3 = { 0.0f,-1.0f,0.0f,0.0f };
 	//m_model3.SetLightDir(m_ligdir3);
 	m_model3.SetActiveDLFlag(0);
 	m_model3.SetShadowReciever(true);
-	
+	m_position.y = 100.0f;
 	return true;
 }
 
 void Game::Update()
 {	
+	static float f = 0.5f;
 	if (GetAsyncKeyState(VK_UP))
 	{
 		m_position.z--;
@@ -95,6 +96,11 @@ void Game::Update()
 	if (GetAsyncKeyState(VK_LEFT))
 	{
 		m_position.x++;
+	}
+	if (GetAsyncKeyState('A'))
+	{
+		f += 0.01f;
+		m_model.SetLightColor(f);
 	}
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
@@ -224,25 +230,25 @@ void Game::Render()
 
 	//ForwordRender();
 
-	////通常レンダリング
-	////モデルのドロー
-	//m_model.Draw
-	//(
-	//	g_camera3D.GetViewMatrix(),
-	//	g_camera3D.GetProjectionMatrix(),
-	//	enRenderMode_Normal,
-	//	m_shadowMap->GetLigthProjMatrix(),
-	//	m_shadowMap->GetLightViewMatrix()
-	//);
-	////モデル3のドロー
-	//m_model3.Draw
-	//(
-	//	g_camera3D.GetViewMatrix(),
-	//	g_camera3D.GetProjectionMatrix(),
-	//	enRenderMode_Normal,
-	//	m_shadowMap->GetLigthProjMatrix(),
-	//	m_shadowMap->GetLightViewMatrix()
-	//);
+	//通常レンダリング
+	//モデルのドロー
+	m_model.Draw
+	(
+		g_camera3D.GetViewMatrix(),
+		g_camera3D.GetProjectionMatrix(),
+		enRenderMode_Normal,
+		m_shadowMap->GetLigthProjMatrix(),
+		m_shadowMap->GetLightViewMatrix()
+	);
+	//モデル3のドロー
+	m_model3.Draw
+	(
+		g_camera3D.GetViewMatrix(),
+		g_camera3D.GetProjectionMatrix(),
+		enRenderMode_Normal,
+		m_shadowMap->GetLigthProjMatrix(),
+		m_shadowMap->GetLightViewMatrix()
+	);
 
 	//PostRender();
 
