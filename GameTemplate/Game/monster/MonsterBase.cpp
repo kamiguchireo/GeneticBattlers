@@ -119,12 +119,6 @@ int MonsterBase::Healing(int healing)
 		m_status.HP = min(m_status.HP, m_statusBase.HP);
 	}
 
-	//エフェクトの再生。
-	auto ef = NewGO<prefab::CEffect>(0);
-	ef->Play(L"Assets/effect/healS.efk");
-	ef->SetPosition(m_position + CVector3::AxisY()*20.0f);
-	ef->SetScale(CVector3::One()*80.0f);
-
 	return res;
 }
 
@@ -228,6 +222,25 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const 
 	for (int i = 0; i < ene_list.size(); i++) {
 		for (int j = i; j < ene_list.size(); j++) {
 			if (ene_list[i]->GetStatus().HP > ene_list[j]->GetStatus().HP) {
+				auto hoge = ene_list[i];
+				ene_list[i] = ene_list[j];
+				ene_list[j] = hoge;
+			}
+		}
+	}
+	//HPが0のやつは後ろに回す。
+	for (int i = list.size() - 1; i >= 0; i--) {
+		for (int j = i; j < list.size(); j++) {
+			if (list[i]->GetStatus().HP <= 0) {
+				auto hoge = list[i];
+				list[i] = list[j];
+				list[j] = hoge;
+			}
+		}
+	}
+	for (int i = ene_list.size() - 1; i >= 0; i--) {
+		for (int j = i; j < ene_list.size(); j++) {
+			if (ene_list[i]->GetStatus().HP <= 0) {
 				auto hoge = ene_list[i];
 				ene_list[i] = ene_list[j];
 				ene_list[j] = hoge;

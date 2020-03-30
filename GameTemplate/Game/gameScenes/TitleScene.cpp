@@ -27,6 +27,7 @@ bool TitleScene::Start()
 
 void TitleScene::Update()
 {
+	rand();
 	switch (m_state)
 	{
 	case enState_inTitle:

@@ -26,9 +26,11 @@ SkillList::SkillList()
 	//回復魔法。
 	auto heal = NewGO<Heal>(0);		//ヒール。
 	heal->InitSkill("ヒール", 0.7f, 30.0f, 1.0f, 100, false, en_elements_Empty, true);
+	heal->SetEffect(L"Assets/effect/heal.efk");
 	typeList[1].push_back(heal);
 	auto hiheal = NewGO<Heal>(0);	//ハイヒール。
 	hiheal->InitSkill("ハイヒール", 1.3f, 50.0f, 1.0f, 101, false, en_elements_Empty, true);
+	hiheal->SetEffect(L"Assets/effect/healS.efk");
 	typeList[1].push_back(hiheal);
 
 	//バフ魔法
@@ -137,6 +139,11 @@ bool Heal::UseSkill(MonsterBase * attack, MonsterBase * target)
 		skillEffect->SetScale(CVector3::One() * 50.0f);
 	}
 	else if (!skillEffect->IsPlay()) {
+		//エフェクトの再生。
+		auto ef = NewGO<prefab::CEffect>(0);
+		ef->Play(effectPath);
+		ef->SetPosition(target->GetPosition() + CVector3::AxisY()*20.0f);
+		ef->SetScale(CVector3::One()*80.0f);
 		//回復量の計算。
 		int result = attack->GetStatus().MAT * skillPower;
 		int res = target->Healing(result);

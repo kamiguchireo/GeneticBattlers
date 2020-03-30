@@ -173,6 +173,8 @@ public:
 	/// <returns>入ったダメージ量。</returns>
 	int Damage(int damage)
 	{
+		if (m_IsDeath) return 0;
+
 		//現在HPとダメージ量の比較。
 		int res = min(m_status.HP,damage);
 		m_status.HP -= res;
@@ -248,7 +250,7 @@ protected:
 	std::vector<ACTResullt> m_actResList;				//行動のリザルトの可変長配列。
 	int m_scoringFlag = 0;								//評価のフラグ。
 	int m_stateAI = en_state_Good;						//ステート。
-	bool m_IsDeath = false;								//死亡フラグ。
+	bool m_IsDeath = false;								//キャラクター死亡フラグ。
 	const float addTime = 1.0f / 144.0f * 4.0f;			//加算タイム。
 	float m_activeTime = 0.0f;							//アクティブタイム。
 	float m_coolTime = 30.0f;							//クールタイム。
