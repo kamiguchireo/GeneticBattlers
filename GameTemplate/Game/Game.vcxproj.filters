@@ -196,6 +196,9 @@
     <ClCompile Include="SourceFile\graphic\RenderTarget.cpp" />
     <ClCompile Include="SourceFile\graphic\ShadowMap.cpp" />
     <ClCompile Include="SourceFile\graphic\Bloom.cpp" />
+    <ClCompile Include="SourceFile\graphic\GaussianBlur.cpp" />
+    <ClCompile Include="SourceFile\graphic\PostEffect.cpp" />
+    <ClCompile Include="SourceFile\graphic\GPUBuffer\ConstantBufferGPU.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -347,6 +350,9 @@
       <Filter>Source Files\GameObject</Filter>
     </ClInclude>
     <ClInclude Include="SourceFile\graphic\Bloom.h" />
+    <ClInclude Include="SourceFile\graphic\GaussianBlur.h" />
+    <ClInclude Include="SourceFile\graphic\PostEffect.h" />
+    <ClInclude Include="SourceFile\graphic\GPUBuffer\ConstantBufferGPU.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

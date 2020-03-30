@@ -122,6 +122,7 @@ public:
 		return &m_copyMainRtToFrameBufferSprite;
 	}
 	void InitRender();
+	void InitBlendState();
 private:
 	Camera m_mainCamera;		//ƒJƒƒ‰
 	//Camera m_2DCamera;

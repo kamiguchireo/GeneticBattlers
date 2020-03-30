@@ -24,11 +24,16 @@ namespace Engine {
 			//	m_dirLight.direction = dir;
 			//}
 
-			////ディレクションライトの色
-			//void SetColor(CVector4 color)
-			//{
-			//	m_dirLight.color = color;
-			//}
+			//ディレクションライトの色
+			void SetColor(float color)
+			{
+				for (int i = 0; i < 4; i++)
+				{
+					m_dirLight.color[i].x = color;
+					m_dirLight.color[i].y = color;
+					m_dirLight.color[i].z = color;
+				}
+			}
 
 			//アクティブフラグの変更
 			//ディレクションライトを有効にするかどうか

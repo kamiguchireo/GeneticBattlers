@@ -164,52 +164,7 @@ void GraphicsEngine::Init(HWND hWnd)
 	m_pd3dDeviceContext->RSSetViewports(1, &viewport);
 	m_pd3dDeviceContext->RSSetState(m_rasterizerState);
 
-
-	//ブレンドステートのInit
-	CD3D11_DEFAULT defaultSettings;
-	//デフォルトセッティングで初期化
-	CD3D11_BLEND_DESC blendDesc(defaultSettings);
-	//ブレンディングを有効にする
-	blendDesc.RenderTarget[0].BlendEnable = true;
-
-	//①
-	//ソースカラーのブレンディング方法を指定している
-	//ソースカラーはこれから描き込むカラーのこと
-	//最終的なソースカラー = SRC.rgb * SRC.a
-	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
-
-	//②
-	//ディスティネーションカラーのブレンディング方法を指定
-	//ディスティネーションカラーはすでに書き込まれているレンダリングターゲットのカラーのこと
-	//最終的なディスティネーションカラー = DEST.rgb * (1.0f - SRVC.a)
-	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
-
-	//最終的にレンダリングターゲットに書き込まれるカラーの計算方法の指定
-	//最終的にレンダリングターゲットに書き込まれるカラーは
-	//① + ②となる
-	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
-
-	//α値の操作
-	//blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
-	//blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
-	//blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
-
-	//blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
-
-	//半透明合成を行えるブレンドステートを作成
-	m_pd3dDevice->CreateBlendState(&blendDesc, &m_translucentBlendState);
-	
-	DirectX::CommonStates state(m_pd3dDevice);
-	m_translucentBlendState = state.NonPremultiplied();
-
-	float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
-	//半透明合成のブレンドステートを設定する。
-	m_pd3dDeviceContext->OMSetBlendState(
-		m_translucentBlendState,	//設定するブレンディングステート
-		blendFactor,				//ブレンディングファクター。気にしなくてよい
-		0xffffffff					//サンプリングマスク。気にしなくてよい。
-	);
-
+	InitBlendState();
 
 	m_shadowmap.ShadowMapRTCreate();
 
@@ -266,7 +221,7 @@ void GraphicsEngine::RtSpInit()
 	m_mainRenderTarget.Create(
 		FRAME_BUFFER_W,
 		FRAME_BUFFER_H,
-		DXGI_FORMAT_R8G8B8A8_UNORM
+		DXGI_FORMAT_R16G16B16A16_FLOAT
 	);
 
 	//メインレンダリングターゲットに描かれた絵を
@@ -281,4 +236,53 @@ void GraphicsEngine::RtSpInit()
 
 void GraphicsEngine::InitRender()
 {
+}
+
+void GraphicsEngine::InitBlendState()
+{
+	//ブレンドステートのInit
+	CD3D11_DEFAULT defaultSettings;
+	//デフォルトセッティングで初期化
+	CD3D11_BLEND_DESC blendDesc(defaultSettings);
+	//ブレンディングを有効にする
+	blendDesc.RenderTarget[0].BlendEnable = true;
+
+	//①
+	//ソースカラーのブレンディング方法を指定している
+	//ソースカラーはこれから描き込むカラーのこと
+	//最終的なソースカラー = SRC.rgb * SRC.a
+	blendDesc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+
+	//②
+	//ディスティネーションカラーのブレンディング方法を指定
+	//ディスティネーションカラーはすでに書き込まれているレンダリングターゲットのカラーのこと
+	//最終的なディスティネーションカラー = DEST.rgb * (1.0f - SRVC.a)
+	blendDesc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+
+	//最終的にレンダリングターゲットに書き込まれるカラーの計算方法の指定
+	//最終的にレンダリングターゲットに書き込まれるカラーは
+	//① + ②となる
+	blendDesc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+
+	//α値の操作
+	//blendDesc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+	//blendDesc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ZERO;
+	//blendDesc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+
+	//blendDesc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
+
+	//半透明合成を行えるブレンドステートを作成
+	m_pd3dDevice->CreateBlendState(&blendDesc, &m_translucentBlendState);
+
+	DirectX::CommonStates state(m_pd3dDevice);
+	m_translucentBlendState = state.NonPremultiplied();
+
+	float blendFactor[] = { 0.0f, 0.0f, 0.0f, 0.0f };
+	//半透明合成のブレンドステートを設定する。
+	m_pd3dDeviceContext->OMSetBlendState(
+		m_translucentBlendState,	//設定するブレンディングステート
+		blendFactor,				//ブレンディングファクター。気にしなくてよい
+		0xffffffff					//サンプリングマスク。気にしなくてよい。
+	);
+
 }
