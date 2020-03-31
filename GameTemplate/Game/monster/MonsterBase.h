@@ -66,6 +66,9 @@ enum MonsterState {
 	en_state_Num		//ステートの数。
 };
 
+/************************/
+/*		基底クラス		*/
+/************************/
 class MonsterBase:public IGameObject
 {
 public:
@@ -77,17 +80,6 @@ public:
 	/// デストラクタ。
 	/// </summary>
 	~MonsterBase();
-
-	/// <summary>
-	/// binファイルからデータを読み込む。
-	/// </summary>
-	/// <param name="filePath">ファイルパス。</param>
-	virtual void Init(const char* filePath) {};
-	/// <summary>
-	/// binファイルにデータを書き込む。
-	/// </summary>
-	/// <param name="filePath">ファイルパス。</param>
-	virtual void Save(const char* filePath) {};
 
 	//座標を取得。
 	const CVector3& GetPosition() const
@@ -144,12 +136,23 @@ public:
 	{
 		m_teamMenber = list;
 	}
-	//描画処理とかをまとめたもの。
-	void Draw();
-	//アクティブタイムを加算する。
-	bool AddATB();
+
+	void Draw();			//描画処理とかをまとめたもの。
+	bool AddATB();			//アクティブタイムを加算する。
+
+	//クールタイムを設定する。
+	void SetCoolTime(float time)
+	{
+		m_coolTime = time;
+	}
+	//HPが0になっているかどうか。
+	bool IsDeath() {
+		return m_stateAI == en_state_Death;
+	}
+
 	//行動の評価を行う。
 	virtual bool ACTScoring();
+
 	//行動のリザルトの設定。
 	//!<No			スキル番号。
 	//!<damage		ダメージ値。
@@ -157,15 +160,7 @@ public:
 		m_actRes.skillNo = No;
 		m_actRes.damage = damage;
 	}
-	//クールタイムを設定する。
-	void SetCoolTime(float time)
-	{
-		m_coolTime = time;
-	}
-	//
-	bool IsDeath() {
-		return m_stateAI == en_state_Death;
-	}
+
 	/// <summary>
 	/// ダメージを与える。
 	/// </summary>
@@ -183,6 +178,7 @@ public:
 
 		return res;
 	}
+
 	/// <summary>
 	/// HPを回復させる。
 	/// </summary>
@@ -198,6 +194,7 @@ public:
 	/// <param name="time">バフの効果時間。</param>
 	/// <returns>効果値。</returns>
 	int Monster_Buff(StatusBuff status,float pow,float time);
+
 	//バフをリセットする。
 	void ResetBuff(int i);
 
@@ -207,24 +204,34 @@ public:
 	/// <param name="e_team">敵のチーム。</param>
 	/// <param name="m_team">味方のチーム。</param>
 	virtual void SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team);
+
 	/// <summary>
 	///ステートの更新処理。 
 	/// </summary>
 	void StateUpdate();
-	/// <summary>
-	/// ステートに応じて行動を決める。
-	/// </summary>
-	bool Action();
 
-	virtual bool Action_good() { return false; }
-	virtual bool Action_usually() { return false; }
-	virtual bool Action_bad() { return false; }
+	//行動をさせる。
 	virtual bool BattleAction() = 0;
-	
+
+	/// <summary>
+	/// binファイルからデータを読み込む。
+	/// </summary>
+	/// <param name="filePath">ファイルパス。</param>
+	virtual void Init(const char* filePath);
+	/// <summary>
+	/// binファイルにデータを書き込む。
+	/// </summary>
+	/// <param name="filePath">ファイルパス。</param>
+	virtual void Save(const char* filePath);
 
 protected:
+	/// <summary>
+	/// デフォルトの行動を作り出す。
+	/// </summary>
+	virtual void MakeData() {};
 	//遺伝的アルゴリズムを用いて行動テーブルを更新。
 	void GIUpdate();
+
 	//	モデル関係
 	SkinModel m_model;									//モデルデータ。
 	//アニメーションの列挙。
@@ -244,18 +251,20 @@ protected:
 	//	ステータス
 	Status m_statusBase;								//基礎ステータス。
 	Status m_status;									//ステータス。
-	AIData m_AI[6];										//AIデータ。
-	char m_AIPath[64];									//AIデータのファイルパス。
-	ACTResullt m_actRes;								//行動のリザルト。
-	std::vector<ACTResullt> m_actResList;				//行動のリザルトの可変長配列。
-	int m_scoringFlag = 0;								//評価のフラグ。
 	int m_stateAI = en_state_Good;						//ステート。
 	bool m_IsDeath = false;								//キャラクター死亡フラグ。
 	const float addTime = 1.0f / 144.0f * 4.0f;			//加算タイム。
 	float m_activeTime = 0.0f;							//アクティブタイム。
 	float m_coolTime = 30.0f;							//クールタイム。
 	float buffTimeList[en_buff_num] = { 0.0f };			//バフタイム。
-	Elements m_elemnts = en_elements_Empty;				//属性。
+	Elements m_elemnts = en_elements_Empty;				//属性。使ってないわ～...
+
+	//	AIデータ。
+	std::vector<AIData> m_AI;							//AIデータ。
+	char m_AIPath[64];									//AIデータのファイルパス。
+	ACTResullt m_actRes;								//行動のリザルト。
+	std::vector<ACTResullt> m_actResList;				//行動のリザルトの可変長配列。
+	int m_scoringFlag = 0;								//評価のフラグ。
 
 	//	ポインタとか。
 	std::vector<MonsterBase*> m_teamMenber;				//自分のチーム。

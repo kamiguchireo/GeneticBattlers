@@ -156,6 +156,31 @@ bool MonsterTeam1::Action_bad()
 	return false;
 }
 
+bool MonsterTeam1::Action()
+{
+	bool flag = false;
+	//c‚èHP‚É‰‚¶‚Äs“®‚ğŒˆ‚ß‚éB
+	switch (m_stateAI)
+	{
+	case en_state_Good:
+		flag = Action_good();
+		break;
+
+	case en_state_Usually:
+		flag = Action_usually();
+		break;
+
+	case en_state_Bad:
+		flag = Action_bad();
+		break;
+
+	case en_state_Death:
+		return true;
+		break;
+	}
+	return flag;
+}
+
 bool MonsterTeam1::BattleAction()
 {
 	bool flag = Action();
