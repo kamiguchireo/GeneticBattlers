@@ -73,7 +73,7 @@ bool BattleScenes::Start()
 			hoge.HP = 130;
 			//hoge.HP = 1;
 			//hoge.MP = 100;			//Žg‚í‚ñ‚©‚à
-			hoge.ATK = 30;
+			hoge.ATK = 300;
 			hoge.DEF = 10;
 			hoge.MAT = 5;
 			hoge.MDF = 10;

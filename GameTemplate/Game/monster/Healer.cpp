@@ -92,95 +92,19 @@ bool Healer::BattleAction()
 	return flag;
 }
 
-//void Healer::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)
-//{
-//	SkillList* skillList = SkillList::GetInstance();
-//
-//	auto ene_list = e_team;	//ソートするためにリストをコピー。
-//	auto list = m_team;
-//
-//	//現在HPの低い方から順番にソート。
-//	for (int i = 0; i < list.size(); i++) {
-//		for (int j = i; j < list.size(); j++) {
-//			if (list[i]->GetStatus().HP > list[j]->GetStatus().HP) {
-//				auto hoge = list[i];
-//				list[i] = list[j];
-//				list[j] = hoge;
-//			}
-//		}
-//	}
-//	for (int i = 0; i < ene_list.size(); i++) {
-//		for (int j = i; j < ene_list.size(); j++) {
-//			if (ene_list[i]->GetStatus().HP > ene_list[j]->GetStatus().HP) {
-//				auto hoge = ene_list[i];
-//				ene_list[i] = ene_list[j];
-//				ene_list[j] = hoge;
-//			}
-//		}
-//	}
-//
-//	//ターゲットが定まるまで回す。
-//	while (m_target == nullptr) {
-//		int res = rand() % 100;	//適当な乱数。
-//		int sum = 0;
-//
-//		//行動テーブルをもとに行動させる。
-//		int AINum = sizeof(m_AI) / sizeof(*m_AI);
-//		for (int i = 0; i < AINum; i++) {
-//			sum += (int)(m_AI[i].rate * 100);
-//			if (sum > res) {
-//				int skillTable = (int)(m_AI[i].skillNo / 100);
-//				int skillNo = m_AI[i].skillNo % 100;
-//				int targetNo = m_AI[i].target;
-//				m_useSkill = skillList->GetSkillData(skillTable, skillNo);
-//
-//				//敵か味方のどちらに攻撃するか。
-//				if (!m_useSkill->GetIsAttack()) {
-//					//ターゲットが死亡していなければ。
-//					if (!list[targetNo]->IsDeath())m_target = list[targetNo];
-//				}
-//				else if (m_useSkill->GetIsAttack()) {
-//					//ターゲットが死亡していなければ。
-//					if (!list[targetNo]->IsDeath())m_target = ene_list[targetNo];
-//				}
-//
-//				break;
-//			}
-//		}
-//	}
-//}
-
-void Healer::Init(const char* filePath)
+void Healer::MakeData()
 {
-	strcpy(m_AIPath, filePath);
-	FILE* fp = fopen(filePath, "rb");
-	if (fp == nullptr) {
-		//ファイルが存在しないならデフォルト。
-		m_AI[0] = { 100,0,0.25f };
-		m_AI[1] = { 100,1,0.1f };
-		m_AI[2] = { 100,2,0.15f };
-		m_AI[3] = { 101,0,0.25f };
-		m_AI[4] = { 101,1,0.1f };
-		m_AI[5] = { 101,2,0.15f };
+	//ファイルが存在しないならデフォルト。
+	AIData healerAI[6];
+	healerAI[0] = { 100,0,0.25f };
+	healerAI[1] = { 100,1,0.1f };
+	healerAI[2] = { 100,2,0.15f };
+	healerAI[3] = { 101,0,0.25f };
+	healerAI[4] = { 101,1,0.1f };
+	healerAI[5] = { 101,2,0.15f };
 
-		return;
+	for (int i = 0; i < 6; i++) {
+		m_AI.push_back(healerAI[i]);
 	}
-	fread(m_AI, sizeof(m_AI), 1, fp);
-
-	fclose(fp);
 }
 
-void Healer::Save(const char * filePath)
-{
-	GIUpdate();
-
-	FILE* fp = fopen(m_AIPath, "wb");
-
-	if (fp == nullptr) {
-		return;
-	}
-
-	fwrite(m_AI, sizeof(m_AI), 1, fp);
-
-	fclose(fp);
-}

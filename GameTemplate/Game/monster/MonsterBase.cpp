@@ -249,7 +249,7 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const 
 	}
 
 	//選ばれる行動の数。
-	int AINum = sizeof(m_AI) / sizeof(*m_AI);
+	int AINum = m_AI.size();
 
 	//突然変異的な
 	int pMutation = rand() % 100;
@@ -343,49 +343,79 @@ void MonsterBase::StateUpdate()
 	m_UI->SetHPScaling(nowHP);
 }
 
-bool MonsterBase::Action()
+void MonsterBase::Init(const char * filePath)
 {
-	bool flag = false;
-	//残りHPに応じて行動を決める。
-	switch (m_stateAI)
-	{
-	case en_state_Good:
-		flag = Action_good();
-		break;
-	
-	case en_state_Usually:
-		flag = Action_usually();
-		break;
-	
-	case en_state_Bad:
-		flag = Action_bad();
-		break;
-	
-	case en_state_Death:
-		return true;
-		break;
+	strcpy(m_AIPath, filePath);
+	FILE* fp = fopen(filePath, "rb");
+	if (fp == nullptr) {
+		//ファイルが存在しないならデフォルト。
+		MakeData();
+
+		return;
 	}
-	return flag;
+
+	//読み込んでいく。
+	AIData hoge;
+	while (fread(&hoge, sizeof(AIData), 1, fp) == 1) {
+		m_AI.push_back(hoge);
+	}
+
+	fclose(fp);
+}
+
+void MonsterBase::Save(const char * filePath)
+{
+	GIUpdate();
+
+	FILE* fp = fopen(m_AIPath, "wb");
+
+	if (fp == nullptr) {
+		return;
+	}
+
+	//データを書き込んでいく。
+	while (m_AI.size() != 0) {
+		AIData hoge = m_AI.front();
+		m_AI.erase(m_AI.begin());
+		fwrite(&hoge, sizeof(AIData), 1, fp);
+	}
+
+	fclose(fp);
 }
 
 void MonsterBase::GIUpdate()
 {
-	//GIを用いて行動AIの確率の更新。
+	//GIを用いて行動AIの確率の更新。?
 	const int listSize = m_actResList.size();
-	const int AISize = sizeof(m_AI) / sizeof(*m_AI);
-	std::vector<float> AIscoreList(AISize, 0.0f);
+	int AISize = m_AI.size();
+	std::vector<float> AIscoreList(AISize, 0.0f);		//行動ごとのスコア。
 	float sum = 0.0f;
+	//スコアを合計する。
 	for (auto res : m_actResList) {
 		//評価されていない。
 		if (!res.score)	continue;
 		//スコアを合計する。
-		for (int i = 0; i < AISize; i++) {
+		int i = 0;
+		for (i = 0; i < AISize; i++) {
+			//既存の行動テーブルに存在する。
 			if (res.skillNo == m_AI[i].skillNo
 				&&res.target == m_AI[i].target) {
 				AIscoreList[i] += res.damage;
 				sum += res.damage;
 				break;
 			}
+		}
+		//存在しない。
+		if (i == AISize) {
+			//行動に追加。
+			AIData hoge;
+			hoge.skillNo = res.skillNo;
+			hoge.target = res.target;
+			hoge.rate = 3.0f;		//最初からある程度の確率を持たせておく。
+			//配列に積む。
+			m_AI.push_back(hoge);
+			AIscoreList.push_back(res.damage);
+			AISize++;		//サイズが増えた。
 		}
 	}
 	//0割り回避。
