@@ -7,16 +7,25 @@
 class Listener:public ExitGames::LoadBalancing::Listener
 {
 public:
-	virtual void debugReturn(int debugLevel, const ExitGames::Common::JString& string){}
-	virtual void connectionErrorReturn(int errorCode) {}
-	virtual void clientErrorReturn(int errorCode) {}
-	virtual void warningReturn(int warningCode) {}
-	virtual void serverErrorReturn(int errorCode) {}
-	virtual void joinRoomEventAction(int playerNr, const ExitGames::Common::JVector<int>& playernrs, const ExitGames::LoadBalancing::Player& player) {}
-	virtual void leaveRoomEventAction(int playerNr, bool isInactive) {}
-	virtual void customEventAction(int playerNr, nByte eventCode, const ExitGames::Common::Object& eventContent) {}
-	virtual void connectReturn(int errorCode, const ExitGames::Common::JString& errorString, const ExitGames::Common::JString& region, const ExitGames::Common::JString& cluster) {}
-	virtual void disconnectReturn(void) {}
-	virtual void leaveRoomReturn(int errorCode, const ExitGames::Common::JString& errorString) {}
+	void debugReturn(int debugLevel, const ExitGames::Common::JString& string){}
+	void connectionErrorReturn(int errorCode) {}
+	void clientErrorReturn(int errorCode) {}
+	void warningReturn(int warningCode) {}
+	void serverErrorReturn(int errorCode) {}
+	void joinRoomEventAction(int playerNr, const ExitGames::Common::JVector<int>& playernrs, const ExitGames::LoadBalancing::Player& player) {}
+	void leaveRoomEventAction(int playerNr, bool isInactive) {}
+	void customEventAction(int playerNr, nByte eventCode, const ExitGames::Common::Object& eventContent) {}
+	void disconnectReturn(void) {}
+	void leaveRoomReturn(int errorCode, const ExitGames::Common::JString& errorString) {}
+	
+	void connectReturn(int errorCode,
+		const ExitGames::Common::JString& errorString,
+		const ExitGames::Common::JString& region,
+		const ExitGames::Common::JString& cluster)
+	{
+		//ÉGÉâÅ[ÇíeÇ≠
+		if (errorCode) { std::cout << "connect error\n"; return; }
+		std::cout << "connected\n";
+	}
 
 };

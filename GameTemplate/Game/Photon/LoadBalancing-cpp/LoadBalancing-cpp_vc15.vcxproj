@@ -134,6 +134,7 @@
     <ProjectGuid>{EA5D8C8B-8D27-46E4-BDD9-DBD6A3C685E8}</ProjectGuid>
     <RootNamespace>Win32LoadBalancing</RootNamespace>
     <Keyword>Win32Proj</Keyword>
+    <WindowsTargetPlatformVersion>10.0.18362.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release_windows_mt|x64'" Label="Configuration">
@@ -390,6 +391,9 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='release_windows_md|Emscripten'">$(ProjectName)_$(Configuration)_$(Platform)</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='release_emscripten|Emscripten'">$(ProjectName)_$(Configuration)_$(Platform)</TargetName>
     <TargetName Condition="'$(Configuration)|$(Platform)'=='release_windows_mt|Emscripten'">$(ProjectName)_$(Configuration)_$(Platform)</TargetName>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='debug_ps3|Win32'">
+    <IncludePath>$(ProjectDir)Photon/;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='debug_windows_mt|x64'">
     <ClCompile>
