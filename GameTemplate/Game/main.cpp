@@ -28,11 +28,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	SampleNetwork networkLogic(appID, appVersion);
 	networkLogic.connect();
 
-	//networkLogic.createRoom("a", 2);
+	networkLogic.createRoom("a", 2);
+	networkLogic.JoinCostomRoom("a");
 
 	//ネットワークの接続をやめるかどうか
 	bool shouldExit = false;
-
+	networkLogic.SendEvent(1.0f);
 	/*
 	RenderTarget m_mainRenderTarget;		//メインレンダリングターゲット。
 	//メインとなるレンダリングターゲットを作成する。
@@ -75,8 +76,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//NewGO<Game>(0, nullptr);
 
 	//ここに必要なものはNewGOしていってください
-	//NewGO<TitleScene>(0, nullptr);
-	//NewGO<Fade>(1, "Fade");
+	NewGO<TitleScene>(0, nullptr);
+	NewGO<Fade>(1, "Fade");
 
 	//エフェクサーマネージャーの初期化
 	//コメントアウトしないで
@@ -96,7 +97,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		if (!shouldExit)
 		{
 			networkLogic.run();
-			Sleep(100);
+			//Sleep(100);
 		}
 		//描画開始。
 		g_graphicsEngine->BegineRender();
