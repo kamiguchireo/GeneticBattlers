@@ -126,7 +126,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		{
 			if (a == true)
 			{
-				networkLogic.SendEvent();
+				networkLogic.SendEvent(1.0f);
 			}
 		}
 		//ï`âÊäJénÅB
