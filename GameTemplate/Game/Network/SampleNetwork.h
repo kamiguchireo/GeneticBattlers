@@ -46,6 +46,14 @@ public:
 	}
 
 	//イベントの送信
+	void SendEvent()
+	{
+		nByte eventCode = 1; // use distinct event codes to distinguish between different types of events (for example 'move', 'shoot', etc.)
+		ExitGames::Common::Hashtable evData; // organize your payload data in any way you like as long as it is supported by Photons serialization
+		bool sendReliable = false; // send something reliable if it has to arrive everywhere
+		mLoadBalancingClient.opRaiseEvent(sendReliable, evData, eventCode);
+	}
+
 	void SendEvent(int evData)
 	{
 		nByte eventCode = 2;
@@ -61,8 +69,6 @@ public:
 		mLoadBalancingClient.opRaiseEvent(sendReliable, a, eventCode);
 	}
 
-	//イベントの受信
-	void customEventAction(int playerNr, nByte eventCode, const ExitGames::Common::Object& eventContent);
 
 private:
 	ExitGames::LoadBalancing::Client mLoadBalancingClient;

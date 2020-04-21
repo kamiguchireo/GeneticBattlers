@@ -74,8 +74,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//NewGO<Game>(0, nullptr);
 
 	//ここに必要なものはNewGOしていってください
-	NewGO<TitleScene>(0, nullptr);
-	NewGO<Fade>(1, "Fade");
+	//NewGO<TitleScene>(0, nullptr);
+	//NewGO<Fade>(1, "Fade");
 
 	//エフェクサーマネージャーの初期化
 	//コメントアウトしないで
@@ -98,24 +98,36 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		i++;
 		if (!shouldExit)
 		{
-			//networkLogic.createRoom("a", 2);
-
 			networkLogic.run();
 		}
-		//if (i > 100 && a == false)
-		//{
-		//	networkLogic.createRoom(L"abc", 2);
 
-		//	networkLogic.JoinRoom();
+		//ルーム作成
+		if (GetAsyncKeyState('A'))
+		{
+			if (a == false)
+			{
+				networkLogic.createRoom(L"abc", 2);
 
-		//	a = true;
-		//}
+				a = true;
+			}
+		}
 
-		//if (a == true && i > 300 && s == false)
-		//{
-		//	networkLogic.SendEvent(1.5f);
-		//	s = true;
-		//}
+		//ルーム参加
+		if (GetAsyncKeyState('S'))
+		{
+			if (s == false)
+			{
+				networkLogic.JoinRoom();
+			}
+		}
+
+		if (GetAsyncKeyState('C'))
+		{
+			if (a == true)
+			{
+				networkLogic.SendEvent();
+			}
+		}
 		//描画開始。
 		g_graphicsEngine->BegineRender();
 
