@@ -121,6 +121,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			}
 		}
 
+
 		if (GetAsyncKeyState('C'))
 		{
 			if (a == true)

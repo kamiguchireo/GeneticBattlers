@@ -33,6 +33,7 @@ public:
 	void JoinRoom()
 	{
 		expectedCustomRoomProperties;
+		mLoadBalancingClient.opJoinRandomRoom();
 	}
 	//任意の部屋を検索して入る
 	void JoinCostomRoom(const ExitGames::Common::JString& roomName)
@@ -45,6 +46,17 @@ public:
 		mLoadBalancingClient.opJoinRandomRoom(expectedCustomRoomProperties);
 	}
 
+	void joina()
+	{
+		// join random rooms easily, filtering for specific room properties, if needed
+		ExitGames::Common::Hashtable expectedCustomRoomProperties;
+
+		// custom props can have any name but the key must be string
+		expectedCustomRoomProperties.put(L"map", 1);
+
+		// joining a random room with the map we selected before
+		mLoadBalancingClient.opJoinRandomRoom(expectedCustomRoomProperties);
+	}
 	//イベントの送信
 	void SendEvent()
 	{
