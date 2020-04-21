@@ -48,16 +48,17 @@ public:
 	//イベントの送信
 	void SendEvent(int evData)
 	{
-		nByte eventCode = 1;
+		nByte eventCode = 2;
 		bool sendReliable = false;
 		mLoadBalancingClient.opRaiseEvent(sendReliable, evData, eventCode);
 	}
 	//イベントの送信
 	void SendEvent(float evData)
 	{
-		nByte eventCode = 1;
+		nByte eventCode = 3;
 		bool sendReliable = false;
-		mLoadBalancingClient.opRaiseEvent(sendReliable, evData, eventCode);
+		float a = evData;
+		mLoadBalancingClient.opRaiseEvent(sendReliable, a, eventCode);
 	}
 
 	//イベントの受信

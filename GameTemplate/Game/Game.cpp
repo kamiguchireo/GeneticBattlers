@@ -74,7 +74,7 @@ bool Game::Start()
 	//m_model3.SetLightDir(m_ligdir3);
 	m_model3.SetActiveDLFlag(0);
 	m_model3.SetShadowReciever(true);
-	m_position.y = 100.0f;
+	//m_position.y = 100.0f;
 	return true;
 }
 

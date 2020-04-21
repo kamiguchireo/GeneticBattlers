@@ -24,6 +24,7 @@ public:
 		const ExitGames::Common::JString& cluster)
 	{
 		//エラーを弾く
+		//errorCodeが0以外ならエラーがある
 		if (errorCode) { std::cout << "connect error\n"; return; }
 		std::cout << "connected\n";
 	}
