@@ -10,8 +10,8 @@ namespace Engine {
 		CGameObjectManager()
 		{
 			m_gameObjectListArray.resize(20);
-			m_deleteObjectArray[0].resize(5);
-			m_deleteObjectArray[1].resize(5);
+			m_deleteObjectArray[0].resize(20);
+			m_deleteObjectArray[1].resize(20);
 		}
 		~CGameObjectManager()
 		{
