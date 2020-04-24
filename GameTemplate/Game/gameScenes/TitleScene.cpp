@@ -35,6 +35,8 @@ void TitleScene::Update()
 			m_state = enState_idle;		//フェードインが終わればステートを切り替える。
 		break;
 	case enState_idle:
+		SelectMenu();	//メニュー選択。
+
 		//Aボタンでシーン切り替え。
 		if (g_pad[0].IsTrigger(enButtonA))
 		{
@@ -48,5 +50,23 @@ void TitleScene::Update()
 			NewGO<BattleScenes>(0);
 			DeleteGO(this);
 		}
+	}
+}
+
+void TitleScene::SelectMenu()
+{
+	//メニューの選択。
+	if (g_pad[0].IsTrigger(enButtonDown))
+	{
+		m_menu++;
+		//最大まで行ったら元に戻る。
+		m_menu %= enMenu_Num;
+	}
+	else if (g_pad[0].IsTrigger(enButtonUp))
+	{
+		m_menu--;
+		//最小まで行ったら最大に
+		m_menu += enMenu_Num;
+		m_menu %= enMenu_Num;
 	}
 }

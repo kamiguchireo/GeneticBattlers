@@ -99,6 +99,7 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gameScenes\NetScenes.cpp" />
     <ClCompile Include="SourceFile\graphic\GPUBuffer\ConstantBufferGPU.cpp" />
     <ClCompile Include="SourceFile\graphic\PostEffect.cpp" />
     <ClCompile Include="SourceFile\graphic\GaussianBlur.cpp" />
@@ -170,6 +171,7 @@
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gameScenes\NetScenes.h" />
     <ClInclude Include="SourceFile\graphic\GPUBuffer\ConstantBufferGPU.h" />
     <ClInclude Include="SourceFile\graphic\PostEffect.h" />
     <ClInclude Include="SourceFile\graphic\GaussianBlur.h" />
