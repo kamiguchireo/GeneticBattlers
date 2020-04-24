@@ -64,8 +64,14 @@ public:
 	{
 		//エラーを弾く
 		//errorCodeが0以外ならエラーがある
-		if (errorCode) { std::cout << "connect error\n"; return; }
-		std::cout << "connected\n";
+		if (errorCode) 
+		{
+			//ここに入れば接続できていません
+			return;
+		}
+		
+		//ここに入れば接続できています
+
 	}
 
 };

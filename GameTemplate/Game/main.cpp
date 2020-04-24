@@ -29,8 +29,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	networkLogic.connect();
 
 
-	//ネットワークの接続をやめるかどうか
-	bool shouldExit = false;
 	//networkLogic.SendEvent(1.0f);
 	/*
 	RenderTarget m_mainRenderTarget;		//メインレンダリングターゲット。
@@ -96,10 +94,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	while (DispatchWindowMessage() == true)
 	{
 		//i++;
-		if (!shouldExit)
-		{
-			networkLogic.run();
-		}
+		networkLogic.run();
 
 		////ルーム作成
 		//if (GetAsyncKeyState('A'))

@@ -11,7 +11,7 @@ void SampleNetwork::connect(void)
 
 	if (!mLoadBalancingClient.connect())
 	{
-		EGLOG(ExitGames::Common::DebugLevel::ERRORS, L"接続できませんでしたぁぁ！！");
+		EGLOG(ExitGames::Common::DebugLevel::ERRORS, L"connect");
 
 	}
 }
@@ -19,8 +19,11 @@ void SampleNetwork::connect(void)
 //1秒に10～20回読んでください
 void SampleNetwork::run(void)
 {
-	//これを呼ばない限り、ネットワークは全く処理されません
-	mLoadBalancingClient.service();
+	if (!shouldExit)
+	{
+		//これを呼ばない限り、ネットワークは全く処理されません
+		mLoadBalancingClient.service();
+	}
 }
 
 //アプリケーションを終了するときや
