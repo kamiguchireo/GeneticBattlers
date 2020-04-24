@@ -4,7 +4,6 @@
 SampleNetwork::SampleNetwork(const ExitGames::Common::JString& appID, const ExitGames::Common::JString& appVersion)
 	:mLoadBalancingClient(mListener, appID, appVersion)
 {
-
 }
 
 void SampleNetwork::connect(void)
