@@ -57,7 +57,7 @@ namespace Engine {
 		{
 			(void*)objectName;
 			T*newObject = new T();
-			m_gameObjectListArray[0].push_back(newObject);
+			m_gameObjectListArray[prio].push_back(newObject);
 			unsigned int hash = MakeGameObjectNameKey(objectName);
 			newObject->m_isRegist = true;
 			newObject->m_priority = prio;
