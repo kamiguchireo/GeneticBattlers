@@ -24,6 +24,8 @@ namespace Engine {
 			DXGI_FORMAT_R32_FLOAT
 		);
 	}
+	CVector3 m_pos = { 100.0f,0.0f,0.0f };
+
 	void ShadowMap::Update(CVector3 lightCameraPos, CVector3 lightCameraTarget)
 	{
 		//ライトの方向を計算する
@@ -63,8 +65,8 @@ namespace Engine {
 		//太陽光からの影を落としたいなら、平行投影行列を作成する
 		m_lightProMatrix.MakeOrthoProjectionMatrix
 		(
-			3000,
-			3000,
+			100,
+			100,
 			0.1f,
 			5000.0f
 		);

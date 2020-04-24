@@ -81,8 +81,15 @@ public:
 		mLoadBalancingClient.opRaiseEvent(sendReliable, a, eventCode);
 	}
 
-
+	void boolExit(bool a)
+	{
+		shouldExit = a;
+	}
 private:
+	//ネットワークの接続をやめるかどうか
+	//trueにしたらネットワークの処理はされません
+	bool shouldExit = false;
+
 	ExitGames::LoadBalancing::Client mLoadBalancingClient;
 	Listener mListener;
 	ExitGames::Common::Logger mLogger;

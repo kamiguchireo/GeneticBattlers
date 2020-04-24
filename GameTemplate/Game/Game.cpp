@@ -104,8 +104,8 @@ void Game::Update()
 	}
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
-	m_shadowMap->Update({ 1000.0f, 1000.0f, 1000.0f },
-		{ 0.0f, 0.0f, 0.0f });
+	m_shadowMap->Update({ 0.0f, 1000.0f, 0.0f },
+		{ 0.0f, 0.0f, 150.0f });
 	m_shadowMap->RegistShadowCaster(&m_model);
 	Render();
 	////ƒ‚ƒfƒ‹‚Ìƒhƒ[
