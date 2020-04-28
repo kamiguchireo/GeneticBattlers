@@ -3,6 +3,7 @@
 #include "SourceFile/graphic/Effect/CEffect.h"
 #include "SourceFile/Sound/CSoundSource.h"
 #include "SourceFile/graphic/RenderTarget.h"
+#include "SourceFile/graphic/font/FontRender.h"
 
 class Game:public IGameObject
 {
@@ -35,6 +36,6 @@ private:
 	//CQuaternion m_rotation = CQuaternion::Identity();			//!<回転。
 	//CVector3 m_scale = CVector3::One();			//拡大率。
 	//CVector2 m_pivot = Sprite::DEFAULT_PIVOT;	//ピボット。
-
+	prefab::FontRender* fr;
 };
 

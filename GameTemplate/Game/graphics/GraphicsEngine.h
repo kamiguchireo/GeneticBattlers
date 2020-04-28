@@ -123,6 +123,19 @@ public:
 	}
 	void InitRender();
 	void InitBlendState();
+
+	//スプライトバッチの取得
+	//エンジン内部で使用するので、ゲームでは使用しないでください
+	DirectX::SpriteBatch* GetSpriteBatch()
+	{
+		return m_spriteBatch.get();
+	}
+	//スプライトフォントの取得
+	//エンジン内部で使用するので、ゲームでは 使用しないでください
+	DirectX::SpriteFont* GetSpriteFont()
+	{
+		return m_spriteFont.get();
+	}
 private:
 	Camera m_mainCamera;		//カメラ
 	//Camera m_2DCamera;
@@ -152,7 +165,8 @@ private:
 	CVector2 m_pivot = Engine:: Sprite::DEFAULT_PIVOT;	//ピボット。
 	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
 	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。
-
+	std::unique_ptr<DirectX::SpriteBatch> m_spriteBatch;				//スプライトバッチ
+	std::unique_ptr<DirectX::SpriteFont> m_spriteFont;				//スプライトフォント
 };
 
 extern GraphicsEngine* g_graphicsEngine;			//グラフィックスエンジン

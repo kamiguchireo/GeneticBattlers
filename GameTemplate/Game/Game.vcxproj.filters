@@ -200,6 +200,8 @@
     <ClCompile Include="SourceFile\graphic\PostEffect.cpp" />
     <ClCompile Include="SourceFile\graphic\GPUBuffer\ConstantBufferGPU.cpp" />
     <ClCompile Include="gameScenes\NetScenes.cpp" />
+    <ClCompile Include="SourceFile\graphic\font\Font.cpp" />
+    <ClCompile Include="SourceFile\graphic\font\FontRender.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -355,6 +357,8 @@
     <ClInclude Include="SourceFile\graphic\PostEffect.h" />
     <ClInclude Include="SourceFile\graphic\GPUBuffer\ConstantBufferGPU.h" />
     <ClInclude Include="gameScenes\NetScenes.h" />
+    <ClInclude Include="SourceFile\graphic\font\Font.h" />
+    <ClInclude Include="SourceFile\graphic\font\FontRender.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

@@ -69,11 +69,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//Gameの生成。
 	//エンジンの実験してるので中身は触らないで
-	NewGO<Game>(0, nullptr);
+	//NewGO<Game>(0, nullptr);
 
 	//ここに必要なものはNewGOしていってください
-	//NewGO<TitleScene>(0, nullptr);
-	//NewGO<Fade>(1, "Fade");
+	NewGO<TitleScene>(0, nullptr);
+	NewGO<Fade>(1, "Fade");
 
 	//エフェクサーマネージャーの初期化
 	//コメントアウトしないで
@@ -195,7 +195,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		m_frameBufferRenderTargetView->Release();
 		m_frameBufferDepthStencilView->Release();
 
-
+		
 		//カメラの更新。
 		g_camera3D.Update();
 
