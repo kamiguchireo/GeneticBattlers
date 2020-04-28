@@ -68,7 +68,7 @@ bool StatusUI::Start()
 		//評価ボタンの位置を設定。
 		const float yPos = 25.0f;
 		const float xPos = 50.0f;
-		//HPゲージ。
+		//高評価。
 		CVector3 goodPos = m_position;
 		goodPos.y -= yPos;
 		goodPos.x -= xPos;
@@ -77,7 +77,7 @@ bool StatusUI::Start()
 		m_Good->SetPosition(goodPos);
 		m_Good->SetMulColor(m_Gray);
 
-		//HPバー。
+		//低評価。
 		CVector3 badPos = m_position;
 		badPos.y -= yPos;
 		badPos.x += xPos;

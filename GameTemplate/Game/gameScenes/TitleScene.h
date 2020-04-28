@@ -12,22 +12,26 @@ public:
 
 private:
 	void SelectMenu();
+	void DrawMenu();
 private:
+	//フェード切り替え。
 	enum State {
 		enState_inTitle,	//!<タイトルシーン。
 		enState_idle,		//!<入力受付状態。
 		enState_inGame,		//!<インゲーム。
 	};
+	//メニュー切り替え。
 	enum MenuList {
-		enMenu_Single,
-		enMenu_Net,
-		enMenu_Num
+		enMenu_Single,		//!<一人プレイ。
+		enMenu_Net,			//!<通信プレイ。
+		enMenu_Num			//!<メニューの数。
 	};
 
 	State m_state = enState_inTitle;		//状態。
-	int m_menu = enMenu_Single;		//メニュー選択。
+	int m_menuNum = enMenu_Single;			//メニュー選択番号。
 	Fade* m_fade = nullptr;					//フェードのポインタ。
 	prefab::SpriteRender* m_sprite = nullptr;	//スプライトレンダー。
-	//CVector4 m_color = CVector4::White();		//これもいらなくなったか？
+
+	prefab::SpriteRender* m_menuSprite[enMenu_Num] = { nullptr };	//選択肢用のスプライト。
 };
 
