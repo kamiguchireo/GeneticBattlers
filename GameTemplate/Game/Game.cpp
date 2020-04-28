@@ -33,6 +33,7 @@ Game::~Game()
 
 bool Game::Start()
 {
+
 	//スプライトを初期化
 	//m_spriteRender = NewGO<prefab::SpriteRender>(0,"sprite");
 	//m_spriteRender->Init(L"Assets/sprite/Good.dds", 400, 300);
@@ -75,6 +76,10 @@ bool Game::Start()
 	m_model3.SetActiveDLFlag(0);
 	m_model3.SetShadowReciever(true);
 	//m_position.y = 100.0f;
+	
+	fr = NewGO<prefab::FontRender>(0);
+	fr->SetText(L"こんにちは世界");
+
 	return true;
 }
 
