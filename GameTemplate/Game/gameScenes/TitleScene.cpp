@@ -21,17 +21,17 @@ TitleScene::~TitleScene()
 bool TitleScene::Start()
 {
 	//タイトルのスプライト。
-	m_sprite = NewGO<prefab::SpriteRender>(0);
+	m_sprite = NewGO<prefab::SpriteRender>(1);
 	m_sprite->Init(L"Assets/sprite/PreTitle.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
 
 	//メニューのスプライト。
-	m_menuSprite[enMenu_Single] = NewGO<prefab::SpriteRender>(1);	//一人プレイ。
+	m_menuSprite[enMenu_Single] = NewGO<prefab::SpriteRender>(2);	//一人プレイ。
 	m_menuSprite[enMenu_Single]->Init(L"Assets/sprite/Select.dds", 400, 100);
-	m_menuSprite[enMenu_Single]->SetPosition({ 0.0f,-100.0f,5.0f });
+	m_menuSprite[enMenu_Single]->SetPosition({ 0.0f,-100.0f,4.0f });
 
-	m_menuSprite[enMenu_Net] = NewGO<prefab::SpriteRender>(1);		//通信プレイ。
+	m_menuSprite[enMenu_Net] = NewGO<prefab::SpriteRender>(2);		//通信プレイ。
 	m_menuSprite[enMenu_Net]->Init(L"Assets/sprite/Select.dds", 400, 100);
-	m_menuSprite[enMenu_Net]->SetPosition({ 0.0f,-200.0f,5.0f });
+	m_menuSprite[enMenu_Net]->SetPosition({ 0.0f,-200.0f,4.0f });
 
 	//メニューの乗算カラー初期化。
 	for (int i = 0; i < enMenu_Num; i++)
