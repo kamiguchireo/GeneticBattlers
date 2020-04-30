@@ -33,5 +33,6 @@ private:
 	prefab::SpriteRender* m_sprite = nullptr;	//スプライトレンダー。
 
 	prefab::SpriteRender* m_menuSprite[enMenu_Num] = { nullptr };	//選択肢用のスプライト。
+	const static CVector3 m_colorGray;					//グレー色。
 };
 

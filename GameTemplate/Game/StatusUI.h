@@ -54,8 +54,8 @@ private:
 	//0.0, 0.0で画像の左下。
 	//1.0, 1.0で画像の右上。
 	CVector2 m_pivot = CVector2::Zero();
-	CVector3 m_Gray = { 0.6f,0.6f,0.6f};
-	CVector3 m_White = CVector3::One();
+	const static CVector3 m_Gray;			//グレー。
+	const static CVector3 m_White;			//ホワイト。
 	float m_scaleX = 0.0f;
 	float m_hpX = 1.0f;
 	bool m_isEnemy = false;

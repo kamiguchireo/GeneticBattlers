@@ -3,6 +3,8 @@
 #include "Fade.h"
 #include "BattleScenes.h"
 
+const CVector3 TitleScene::m_colorGray = { 0.4f ,0.4f ,0.4f };		//ƒOƒŒ[‚ÌÝ’èB
+
 TitleScene::TitleScene()
 {
 }
@@ -40,7 +42,7 @@ bool TitleScene::Start()
 			m_menuSprite[i]->SetMulColor(CVector3::One());
 		}
 		else {
-			m_menuSprite[i]->SetMulColor({ 0.6f,0.6f,0.6f, });
+			m_menuSprite[i]->SetMulColor(m_colorGray);
 		}
 	}
 
@@ -106,7 +108,7 @@ void TitleScene::DrawMenu()
 			m_menuSprite[i]->SetMulColor(CVector3::One());
 		}
 		else {
-			m_menuSprite[i]->SetMulColor({ 0.6f,0.6f,0.6f, });
+			m_menuSprite[i]->SetMulColor(m_colorGray);
 		}
 	}
 }

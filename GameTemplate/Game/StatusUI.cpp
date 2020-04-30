@@ -1,6 +1,9 @@
 #include "stdafx.h"
 #include "StatusUI.h"
 
+const CVector3 StatusUI::m_Gray = { 0.6f,0.6f,0.6f };		//グレー。
+const CVector3 StatusUI::m_White = { 1.0f,1.0f,1.0f };		//ホワイト。
+
 StatusUI::StatusUI()
 {
 }
