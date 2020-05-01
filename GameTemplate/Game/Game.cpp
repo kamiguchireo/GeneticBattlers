@@ -107,6 +107,7 @@ void Game::Update()
 		f += 0.01f;
 		m_model.SetLightColor(f);
 	}
+
 	fr->SetScale(f);
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();

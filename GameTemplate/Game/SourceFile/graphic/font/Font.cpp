@@ -70,7 +70,7 @@ namespace Engine
 			pos.vec,
 			color,
 			rotation,
-			DirectX::XMFLOAT2(pos.x/2*pivot.x, pos.y/2*pivot.y),
+			DirectX::XMFLOAT2(pos.x/2*pivot.x, pos.y/2* pivot.y),
 			scale
 		);
 	}

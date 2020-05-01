@@ -34,7 +34,7 @@ public:
 	void JoinRoom()
 	{
 		expectedCustomRoomProperties;
-		mLoadBalancingClient.opJoinRandomRoom();
+		mLoadBalancingClient.opJoinRandomOrCreateRoom();
 	}
 	//”CˆÓ‚Ì•”‰®‚ğŒŸõ‚µ‚Ä“ü‚é
 	void JoinCostomRoom(const ExitGames::Common::JString& roomName)

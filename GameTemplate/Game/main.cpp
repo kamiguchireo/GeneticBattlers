@@ -69,11 +69,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//Gameの生成。
 	//エンジンの実験してるので中身は触らないで
-	//NewGO<Game>(0, nullptr);
+	NewGO<Game>(0, nullptr);
 
 	//ここに必要なものはNewGOしていってください
-	NewGO<TitleScene>(0, nullptr);
-	NewGO<Fade>(1, "Fade");
+	//NewGO<TitleScene>(0, nullptr);
+	//NewGO<Fade>(1, "Fade");
 
 	//エフェクサーマネージャーの初期化
 	//コメントアウトしないで
@@ -89,7 +89,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//int i = 0;
 	//bool a = false;
-	//bool s = false;
+	bool s = false;
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
@@ -107,14 +107,14 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//	}
 		//}
 
-		////ルーム参加
-		//if (GetAsyncKeyState('S'))
-		//{
-		//	if (s == false)
-		//	{
-		//		networkLogic.JoinRoom();
-		//	}
-		//}
+		//ルーム参加
+		if (GetAsyncKeyState('S'))
+		{
+			if (s == false)
+			{
+				networkLogic.JoinRoom();
+			}
+		}
 
 
 		//if (GetAsyncKeyState('C'))
