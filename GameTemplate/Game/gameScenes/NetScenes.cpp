@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "NetScenes.h"
+#include "../Network/SampleNetwork.h"
 #include "Fade.h"
 
 NetScenes::NetScenes()
@@ -46,11 +47,11 @@ void NetScenes::Update()
 		m_fontRender->SetColor(m_color);
 	}
 	else if (g_pad[0].IsTrigger(enButtonX)) {
-		m_fontRender->SetColor({ 1.0f,0.0f,0.0f });
+		//m_fontRender->SetColor({ 1.0f,0.0f,0.0f });
 		m_fontRender->SetPivot({ 1.0f,1.0f });
 	}
 	else if (g_pad[0].IsTrigger(enButtonY)) {
-		m_fontRender->SetColor({ 0.0f,1.0f,0.0f });
+		//m_fontRender->SetColor({ 0.0f,1.0f,0.0f });
 		m_fontRender->SetPivot({ 0.0f,0.0f });
 	}
 }

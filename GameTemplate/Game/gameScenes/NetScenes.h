@@ -2,6 +2,7 @@
 #include "../SourceFile/graphic/font/FontRender.h"
 
 class Fade;
+class SampleNetwork;
 
 class NetScenes:public IGameObject
 {
@@ -19,6 +20,7 @@ private:
 		enState_Exit
 	};
 	NetState m_state = enState_Idle;	//ステート。
+	SampleNetwork* m_net = nullptr;			//ネットワーク。
 	Fade* m_fade = nullptr;					//フェードのポインタ。
 
 	prefab::FontRender* m_fontRender = nullptr;			//フォントレンダー。

@@ -1,9 +1,20 @@
 #include "stdafx.h"
 #include "SampleNetwork.h"
 
+SampleNetwork* SampleNetwork::m_instance = nullptr;
+
 SampleNetwork::SampleNetwork(const ExitGames::Common::JString& appID, const ExitGames::Common::JString& appVersion)
 	:mLoadBalancingClient(mListener, appID, appVersion)
 {
+	if (m_instance != nullptr) {
+		std::abort();
+	}
+	m_instance = this;
+}
+
+SampleNetwork::~SampleNetwork()
+{
+	m_instance = nullptr;
 }
 
 void SampleNetwork::connect(void)

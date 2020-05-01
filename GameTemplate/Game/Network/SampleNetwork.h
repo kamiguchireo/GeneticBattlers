@@ -8,6 +8,7 @@ class SampleNetwork
 {
 public:
 	SampleNetwork(const ExitGames::Common::JString& appID, const ExitGames::Common::JString& appVersion);
+	~SampleNetwork();
 	
 	//ゲームへの接続
 	void connect(void);
@@ -85,7 +86,15 @@ public:
 	{
 		shouldExit = a;
 	}
+
+	//シングルトンパターン。
+	SampleNetwork* GetInstance()
+	{
+		return m_instance;
+	}
 private:
+	static SampleNetwork* m_instance;	//インスタンス。
+
 	//ネットワークの接続をやめるかどうか
 	//trueにしたらネットワークの処理はされません
 	bool shouldExit = false;
