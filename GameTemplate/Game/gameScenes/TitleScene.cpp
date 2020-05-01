@@ -2,6 +2,7 @@
 #include "TitleScene.h"
 #include "Fade.h"
 #include "BattleScenes.h"
+#include "NetScenes.h"
 
 const CVector3 TitleScene::m_colorGray = { 0.4f ,0.4f ,0.4f };		//グレーの設定。
 
@@ -76,7 +77,16 @@ void TitleScene::Update()
 	case enState_inGame:
 		if (!m_fade->IsFade())
 		{
-			NewGO<BattleScenes>(0);
+			//ゲーム遷移。
+			switch (m_menuNum)
+			{
+			case enMenu_Single:
+				NewGO<BattleScenes>(0);
+				break;
+			case enMenu_Net:
+				NewGO<NetScenes>(0);
+				break;
+			}
 			DeleteGO(this);
 		}
 	}
