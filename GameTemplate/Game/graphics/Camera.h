@@ -90,6 +90,11 @@ public:
 		m_viewAngle = angle;
 	}
 
+	//画角を取得
+	float GetViewAngle()
+	{
+		return m_viewAngle;
+	}
 private:
 
 	CMatrix	m_viewMatrix = CMatrix::Identity();		//ビュー行列。

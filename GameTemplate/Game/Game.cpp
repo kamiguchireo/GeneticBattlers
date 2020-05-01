@@ -79,7 +79,7 @@ bool Game::Start()
 	
 	fr = NewGO<prefab::FontRender>(0);
 	fr->SetText(L"‚±‚ñ‚É‚¿‚Í¢ŠE");
-
+	fr->SetPivot({0.5f, 0.5f });
 	return true;
 }
 
@@ -107,6 +107,7 @@ void Game::Update()
 		f += 0.01f;
 		m_model.SetLightColor(f);
 	}
+	fr->SetScale(f);
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
 	m_shadowMap->Update({ 0.0f, 1000.0f, 0.0f },
@@ -242,8 +243,8 @@ void Game::Render()
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
 		enRenderMode_Normal,
-		m_shadowMap->GetLigthProjMatrix(),
-		m_shadowMap->GetLightViewMatrix()
+		m_shadowMap->GetLigthProjMatrix(1),
+		m_shadowMap->GetLightViewMatrix(1)
 	);
 	//ƒ‚ƒfƒ‹3‚Ìƒhƒ[
 	m_model3.Draw
@@ -251,8 +252,8 @@ void Game::Render()
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
 		enRenderMode_Normal,
-		m_shadowMap->GetLigthProjMatrix(),
-		m_shadowMap->GetLightViewMatrix()
+		m_shadowMap->GetLigthProjMatrix(1),
+		m_shadowMap->GetLightViewMatrix(1)
 	);
 
 	//PostRender();
