@@ -88,7 +88,7 @@ public:
 	}
 
 	//シングルトンパターン。
-	SampleNetwork* GetInstance()
+	static SampleNetwork* GetInstance()
 	{
 		return m_instance;
 	}

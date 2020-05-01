@@ -26,6 +26,10 @@ bool NetScenes::Start()
 	m_fontRender->SetPivot({ 0.0f,0.0f });
 	m_fontRender->SetText(L"テストTest1234");
 
+	//ネットの処理。
+	m_net = SampleNetwork::GetInstance();
+	m_net->JoinRoom();
+
 	//フェードの処理。
 	m_fade = Fade::GetInstance();
 	m_fade->StartFadeIn();
