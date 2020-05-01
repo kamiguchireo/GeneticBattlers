@@ -173,6 +173,7 @@ void GraphicsEngine::Init(HWND hWnd)
 	//フォント用のデータの初期化
 	m_spriteBatch = std::make_unique<DirectX::SpriteBatch>(m_pd3dDeviceContext);
 	m_spriteFont = std::make_unique<DirectX::SpriteFont>(m_pd3dDevice, L"Assets/font/myfile.spritefont");
+
 }
 
 void GraphicsEngine::managerInit()
