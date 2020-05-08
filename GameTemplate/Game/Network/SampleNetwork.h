@@ -82,6 +82,25 @@ public:
 		mLoadBalancingClient.opRaiseEvent(sendReliable, a, eventCode);
 	}
 
+	//HashTableへのイベントの追加
+	//列挙型みたいな感じ
+	//i		キー
+	//a		値
+	void putEvent(int i, int a)
+	{
+		hash.put((nByte)i, (int)a);
+	}
+	void putEvent(int i,float a)
+	{
+		hash.put((nByte)i, (float)a);
+	}
+
+	//イベントの送信
+	void SendEventHash()
+	{
+		mLoadBalancingClient.opRaiseEvent(false, hash, 4);
+	}
+
 	void boolExit(bool a)
 	{
 		shouldExit = a;
@@ -102,6 +121,7 @@ private:
 	ExitGames::LoadBalancing::Client mLoadBalancingClient;
 	Listener mListener;
 	ExitGames::Common::Logger mLogger;
+	ExitGames::Common::Hashtable hash;
 	ExitGames::Common::Hashtable expectedCustomRoomProperties;
 };
 

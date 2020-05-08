@@ -19,7 +19,7 @@ namespace Engine {
 			//シャドウマップ生成用のレンダリングターゲットを作る
 			//解像度は2048*2048
 			//テクスチャのフォーマットはR成分のみの32ビットのFloat型
-			m_shadowMapRT.Create
+			m_shadowMapRT[i].Create
 			(
 				2048,
 				2048,
@@ -34,9 +34,13 @@ namespace Engine {
 		m_cameraPos = g_camera3D.GetPosition();
 		//カメラの注視点を取得
 		m_cameraTarget = g_camera3D.GetTarget();
+
 		//カメラの画角を取得
 		//ラジアンで返ってくる
 		ViewAngle = g_camera3D.GetViewAngle();
+		float a = 1.0*tan(ViewAngle / 2);
+		float a2 = 3000 * tan(ViewAngle / 2);
+
 		//カメラの視点と注視点の距離を計算
 		CVector3 m_cameraLength = m_cameraPos - m_cameraTarget;
 		m_cameraDist = m_cameraLength.Length();
@@ -79,7 +83,6 @@ namespace Engine {
 				lightCameraUpAxis
 			);
 
-
 			//ライトプロジェクション行列を作成する
 			//太陽光からの影を落としたいなら、平行投影行列を作成する
 			m_lightProMatrix[1].MakeOrthoProjectionMatrix
@@ -96,40 +99,43 @@ namespace Engine {
 	{
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 		
+		for (int i = 0; i < 4; i++)
+		{
+			ShadowTextureNum = i;
 			//レンダリングターゲットを切り替える
 			ID3D11RenderTargetView* rts[] =
 			{
-				m_shadowMapRT.GetRenderTargetView()
+				m_shadowMapRT[i].GetRenderTargetView()
 			};
 			d3dDeviceContext->OMSetRenderTargets
 			(
 				1,
 				rts,
-				m_shadowMapRT.GetDepthStensilView()
+				m_shadowMapRT[i].GetDepthStensilView()
 			);
 			//ビューポートを設定
 			d3dDeviceContext->RSSetViewports
 			(
 				1,
-				m_shadowMapRT.GetViewport()
+				m_shadowMapRT[i].GetViewport()
 			);
 
 			//シャドウマップをクリア
 			//一番奥のZは1.0なので、1.0で塗りつぶす
 			float clearColor[4] = { 1.0f,1.0f,1.0f,1.0f };
-			m_shadowMapRT.ClearRenderTarget(clearColor);
+			m_shadowMapRT[i].ClearRenderTarget(clearColor);
 
-			//for (int i = 0; i < CascadeShadow; i++)
-			//{
 				//シャドウキャスターをシャドウマップにレンダリング。
-				for (auto& caster : m_shadowCasters) {
-					caster->Draw(
-						m_lightViewMatrix[1],
-						m_lightProMatrix[1],
-						enRenderMode_CreateShadowMap
-					);
-			//	}
-			}
+			for (auto& caster : m_shadowCasters) {
+				caster->Draw(
+					m_lightViewMatrix[1],
+					m_lightProMatrix[1],
+					enRenderMode_CreateShadowMap
+				);
+
+			}		
+
+		}
 		m_shadowCasters.clear();
 	}
 }
