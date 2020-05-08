@@ -1,5 +1,5 @@
 #pragma once
-#include "../SourceFile/graphic/font/FontRender.h"
+#include "SourceFile/graphic/font/FontRender.h"
 
 class Fade;
 class SampleNetwork;
@@ -13,6 +13,8 @@ public:
 	void Update();
 
 private:
+	void SendData(const char* filePath);
+
 	//èÛë‘ÅB
 	enum NetState {
 		enState_Init,
