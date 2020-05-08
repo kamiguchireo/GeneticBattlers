@@ -16,9 +16,9 @@ namespace Engine {
 		void Update(CVector3 lightCameraPos, CVector3 lightCameraTarget);
 		
 		void RenderToShadowMap();
-		ID3D11ShaderResourceView*GetSRV()
+		ID3D11ShaderResourceView*GetSRV(int i)
 		{
-			return m_shadowMapRT.GetSRV();
+			return m_shadowMapRT[i].GetSRV();
 		}
 		
 		//シャドウキャスターを登録
@@ -37,10 +37,15 @@ namespace Engine {
 		{
 			return m_lightProMatrix[i];
 		}
+
+		int GetShadowTextureNum()
+		{
+			return ShadowTextureNum;
+		}
 	private:
 		int CascadeShadow = 4;		//シャドウマップの枚数
-
-		RenderTarget m_shadowMapRT;
+		int ShadowTextureNum = 0;		//シャドウマップに使うテクスチャの番号
+		RenderTarget m_shadowMapRT[4];
 		CVector3 m_lightCameraPos = CVector3::Zero();
 		CVector3 m_lightCameraTarget = CVector3::Zero();
 		CMatrix m_lightViewMatrix[4];

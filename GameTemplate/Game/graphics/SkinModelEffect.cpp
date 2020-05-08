@@ -11,7 +11,7 @@ void __cdecl ModelEffect::Apply(ID3D11DeviceContext* deviceContext)
 		//通常描画。
 		deviceContext->PSSetShader((ID3D11PixelShader*)m_pPSShader->GetBody(), NULL, 0);
 		deviceContext->PSSetShaderResources(enSkinModelSRVReg_AlbedoTexture, 1, &m_albedoTex);
-		m_shadow = g_graphicsEngine->GetShadowMap()->GetSRV();
+		m_shadow = g_graphicsEngine->GetShadowMap()->GetSRV(g_graphicsEngine->GetShadowMap()->GetShadowTextureNum());
 		deviceContext->PSSetShaderResources(enSkinModelSRVReg_ShadowTexture, 1, &m_shadow);
 		//ID3D11ShaderResourceView* srvArray[] = {
 		//	m_albedoTex,		//アルベドテクスチャ。
