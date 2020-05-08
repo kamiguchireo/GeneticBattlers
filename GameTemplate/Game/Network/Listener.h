@@ -42,11 +42,12 @@ public:
 		case 3:
 		{
 			// or an array of floats?
+			float Content = ExitGames::Common::ValueObject<float>(eventContent).getDataCopy();
 			float* pContent = ExitGames::Common::ValueObject<float*>(eventContent).getDataCopy();
 			float** ppContent = ExitGames::Common::ValueObject<float*>(eventContent).getDataAddress();
 			short contentElementCount = *ExitGames::Common::ValueObject<float*>(eventContent).getSizes();
 			//ÉèÉìÇøÇ·ÇÒÇ±ÇÍÇ≈Ç¢ÇØÇÈÅHÅH
-			float f = *pContent;
+			float f = Content;
 			// when calling getDataCopy() on Objects that hold an array as payload, then you must deallocate the copy of the array yourself using deallocateArray()!
 			ExitGames::Common::MemoryManagement::deallocateArray(pContent);
 		}
