@@ -13,6 +13,8 @@ struct AIData {
 	float rate = 0.0f;
 };
 
+NetScenes* NetScenes::m_instance = nullptr;
+
 NetScenes::NetScenes()
 {
 	if (m_instance != nullptr) {
