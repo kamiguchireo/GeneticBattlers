@@ -4,6 +4,8 @@
 #include "Photon/Common-cpp/inc/Object.h"
 #include "Photon/LoadBalancing-cpp/inc/listener.h"
 
+class NetScenes;
+
 class Listener:public ExitGames::LoadBalancing::Listener
 {
 public:
@@ -36,8 +38,7 @@ public:
 			// of course the payload does not need to be a Hashtable - how about just sending around for example a plain 64bit integer?
 			int content = ExitGames::Common::ValueObject<int>(eventContent).getDataCopy();
 			//ª‚Åcontent‚É’l‚ª“ü‚Á‚Ä‚Ü‚·
-			static std::vector<int> dataList;
-			dataList.push_back(content);
+			NetScenes::GetInstance()->PushBackData(content);
 		}
 		break;
 		case 3:
@@ -50,8 +51,7 @@ public:
 			short contentElementCount = *ExitGames::Common::ValueObject<float*>(eventContent).getSizes();
 			// when calling getDataCopy() on Objects that hold an array as payload, then you must deallocate the copy of the array yourself using deallocateArray()!
 			ExitGames::Common::MemoryManagement::deallocateArray(pContent);
-			static std::vector<float> rateList;
-			rateList.push_back(Content);
+			NetScenes::GetInstance()->PushBackData(Content);
 		}
 		break;
 		default:

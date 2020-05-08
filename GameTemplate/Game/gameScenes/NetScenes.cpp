@@ -15,10 +15,15 @@ struct AIData {
 
 NetScenes::NetScenes()
 {
+	if (m_instance != nullptr) {
+		std::abort();
+	}
+	m_instance = this;
 }
 
 NetScenes::~NetScenes()
 {
+	m_instance = nullptr;
 	DeleteGO(m_fontRender);
 }
 
@@ -69,6 +74,8 @@ void NetScenes::Update()
 	else if (g_pad[0].IsTrigger(enButtonY)) {
 		//m_fontRender->SetColor({ 0.0f,1.0f,0.0f });
 		m_fontRender->SetPivot({ 0.0f,0.0f });
+		intData.begin();
+		floatData.begin();
 	}
 }
 
