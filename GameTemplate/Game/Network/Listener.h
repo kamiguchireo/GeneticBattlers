@@ -35,6 +35,8 @@ public:
 		{
 			// of course the payload does not need to be a Hashtable - how about just sending around for example a plain 64bit integer?
 			long long content = ExitGames::Common::ValueObject<long long>(eventContent).getDataCopy();
+			//ワンちゃんこれでいける？？
+			long long i = content;
 		}
 		break;
 		case 3:
@@ -43,6 +45,8 @@ public:
 			float* pContent = ExitGames::Common::ValueObject<float*>(eventContent).getDataCopy();
 			float** ppContent = ExitGames::Common::ValueObject<float*>(eventContent).getDataAddress();
 			short contentElementCount = *ExitGames::Common::ValueObject<float*>(eventContent).getSizes();
+			//ワンちゃんこれでいける？？
+			float f = *pContent;
 			// when calling getDataCopy() on Objects that hold an array as payload, then you must deallocate the copy of the array yourself using deallocateArray()!
 			ExitGames::Common::MemoryManagement::deallocateArray(pContent);
 		}
