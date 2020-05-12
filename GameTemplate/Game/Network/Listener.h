@@ -53,6 +53,17 @@ public:
 			NetScenes::GetInstance()->PushBackData(Content);
 		}
 		break;
+		case 4:
+		{
+			//HashTableが送られてきます
+			//HashTableは列挙型みたいなやつです
+			//指定したキーを入れると値が取得できます
+			//HashTableをコピー
+			ExitGames::Common::Hashtable hash = ExitGames::Common::ValueObject <ExitGames::Common::Hashtable>(eventContent).getDataCopy();
+			auto a = hash.getValue(1);
+			auto b = hash.getValue(2);
+		}
+		break;
 		default:
 		{
 			// have a look at demo_typeSupport inside the C++ client SDKs for example code on how to send and receive more fancy data types
