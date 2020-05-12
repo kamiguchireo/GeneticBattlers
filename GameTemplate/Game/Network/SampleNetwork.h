@@ -98,7 +98,8 @@ public:
 	//イベントの送信
 	void SendEventHash()
 	{
-		mLoadBalancingClient.opRaiseEvent(false, hash, 4);
+		nByte eventCode = 4;
+		mLoadBalancingClient.opRaiseEvent(false, hash, eventCode);
 	}
 
 	void boolExit(bool a)
