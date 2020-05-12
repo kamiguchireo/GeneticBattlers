@@ -56,6 +56,10 @@ public:
 		m_statusBase = status;
 		m_status = m_statusBase;
 	}
+	void SetUI(StatusUI* UI)
+	{
+		m_UI = UI;
+	}
 	//ステータスを取得。
 	const Status& GetStatus() const
 	{
@@ -120,12 +124,12 @@ public:
 	//バフをリセットする。
 	void ResetBuff(int i);
 
-	bool AddATB(StatusUI* ui);			//アクティブタイムを加算する。
+	bool AddATB();			//アクティブタイムを加算する。
 
 	/// <summary>
 	///ステートの更新処理。 
 	/// </summary>
-	void StateUpdate(StatusUI* ui);
+	void StateUpdate();
 
 private:
 	//	ステータス
@@ -137,6 +141,7 @@ private:
 	float m_activeTime = 0.0f;							//アクティブタイム。
 	float m_coolTime = 30.0f;							//クールタイム。
 	float buffTimeList[en_buff_num] = { 0.0f };			//バフタイム。
-	//Elements m_elemnts = en_elements_Empty;				//属性。使ってないわ～...
+
+	StatusUI* m_UI = nullptr;
 };
 

@@ -45,6 +45,7 @@ bool MonsterTeam1::Start()
 	m_UI = NewGO<StatusUI>(0);
 	m_UI->SetPosition(m_UIpos);
 	m_UI->EnableEnemy();
+	m_status.SetUI(m_UI);
 
 	return true;
 }

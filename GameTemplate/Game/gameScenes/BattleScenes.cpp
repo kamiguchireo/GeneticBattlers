@@ -265,10 +265,10 @@ void BattleScenes::MonsterAction()
 	if (is_playAction) {
 		//残りHPに応じてステートを更新。
 		for (int i = 0; i < m_monsterTeam1List.size(); i++) {
-			m_monsterTeam1List[i]->StateUpdate();
+			m_monsterTeam1List[i]->GetStatusManager().StateUpdate();
 		}
 		for (int i = 0; i < m_monsterTeam2List.size(); i++) {
-			m_monsterTeam2List[i]->StateUpdate();
+			m_monsterTeam2List[i]->GetStatusManager().StateUpdate();
 		}
 
 		m_battleState = enState_Scoring;
@@ -284,7 +284,7 @@ void BattleScenes::ActiveTimeUpdate()
 	//全員のタイムゲージを加算していく。
 	for (int i = 0; i < m_monsterTeam1List.size(); i++)
 	{
-		bool is_action = m_monsterTeam1List[i]->AddATB();
+		bool is_action = m_monsterTeam1List[i]->GetStatusManager().AddATB();
 
 		//ゲージが溜まり切ったらポインタを取得する。　
 		if (is_action) {
@@ -296,7 +296,7 @@ void BattleScenes::ActiveTimeUpdate()
 	}	
 	for (int i = 0; i < m_monsterTeam2List.size(); i++)
 	{
-		bool is_action = m_monsterTeam2List[i]->AddATB();
+		bool is_action = m_monsterTeam2List[i]->GetStatusManager().AddATB();
 
 		//ゲージが溜まり切ったらポインタを取得する。　
 		if (is_action) {

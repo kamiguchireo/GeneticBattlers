@@ -86,7 +86,7 @@ void StatusManager::ResetBuff(int i)
 	buffTimeList[i] = 0.0f;
 }
 
-bool StatusManager::AddATB(StatusUI* ui)
+bool StatusManager::AddATB()
 {
 	//死亡時は処理を中断する。
 	if (m_stateAI == en_state_Death) return false;
@@ -104,7 +104,7 @@ bool StatusManager::AddATB(StatusUI* ui)
 	//アクティブタイムゲージ。
 	float res = m_activeTime / m_coolTime;
 	res = min(1.0f, res);
-	ui->SetScaling(res);
+	m_UI->SetScaling(res);
 
 	if (m_activeTime > m_coolTime) {
 		m_activeTime = 0.0f;
@@ -113,7 +113,7 @@ bool StatusManager::AddATB(StatusUI* ui)
 	return false;
 }
 
-void StatusManager::StateUpdate(StatusUI* ui)
+void StatusManager::StateUpdate()
 {
 	//現在HP/最大HPの割合からステートを変化させる。
 	float nowHP = (float)m_status.HP / (float)m_statusBase.HP;
@@ -134,8 +134,9 @@ void StatusManager::StateUpdate(StatusUI* ui)
 		m_activeTime = 0.0f;
 	}
 	//UIに反映。
+	if (m_UI == nullptr) { return; }	//nullだったら処理をしない。
 	float res = m_activeTime / m_coolTime;
 	res = min(1.0f, res);
-	ui->SetScaling(res);
-	ui->SetHPScaling(nowHP);
+	m_UI->SetScaling(res);
+	m_UI->SetHPScaling(nowHP);
 }

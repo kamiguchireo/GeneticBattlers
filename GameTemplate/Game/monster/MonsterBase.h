@@ -55,7 +55,7 @@ public:
 		return m_rotation;
 	}
 	//ステータスを取得。
-	const StatusManager& GetStatusManager() const
+	StatusManager& GetStatusManager()
 	{
 		return m_status;
 	}
@@ -91,11 +91,6 @@ public:
 	}
 
 	void Draw();			//描画処理とかをまとめたもの。
-	//アクティブタイムを加算する。
-	bool AddATB()
-	{
-		return m_status.AddATB(m_UI);
-	};
 
 	//クールタイムを設定する。
 	void SetCoolTime(float time)
@@ -162,14 +157,6 @@ public:
 	/// <param name="e_team">敵のチーム。</param>
 	/// <param name="m_team">味方のチーム。</param>
 	virtual void SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team);
-
-	/// <summary>
-	///ステートの更新処理。 
-	/// </summary>
-	void StateUpdate()
-	{
-		m_status.StateUpdate(m_UI);
-	};
 
 	//行動をさせる。
 	virtual bool BattleAction() = 0;

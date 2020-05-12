@@ -39,7 +39,8 @@ bool Supporter::Start()
 	//UI‚ğì‚éB
 	m_UI = NewGO<StatusUI>(0);
 	m_UI->SetPosition({ -450.0f,-250.0f,0.0f });
-	
+	m_status.SetUI(m_UI);
+
 	return true;
 }
 
