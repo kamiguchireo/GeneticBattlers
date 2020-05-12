@@ -33,7 +33,6 @@ public:
 	//ƒ‰ƒ“ƒ_ƒ€‚È•”‰®‚ğŒŸõ‚µ‚Ä“ü‚é
 	void JoinRoom()
 	{
-		expectedCustomRoomProperties;
 		mLoadBalancingClient.opJoinRandomOrCreateRoom();
 	}
 	//”CˆÓ‚Ì•”‰®‚ğŒŸõ‚µ‚Ä“ü‚é

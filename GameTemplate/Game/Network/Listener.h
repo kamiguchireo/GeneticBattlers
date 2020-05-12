@@ -61,7 +61,7 @@ public:
 			//HashTableÇÉRÉsÅ[
 			ExitGames::Common::Hashtable hash = ExitGames::Common::ValueObject <ExitGames::Common::Hashtable>(eventContent).getDataCopy();
 			auto i = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)1))).getDataCopy();
-			float i = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)2))).getDataCopy();
+			float f = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)2))).getDataCopy();
 
 		}
 		break;
