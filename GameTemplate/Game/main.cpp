@@ -72,8 +72,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//NewGO<Game>(0, nullptr);
 
 	//ここに必要なものはNewGOしていってください
-	//NewGO<TitleScene>(0, nullptr);
-	//NewGO<Fade>(1, "Fade");
+	NewGO<TitleScene>(0, nullptr);
+	NewGO<Fade>(1, "Fade");
 
 	//エフェクサーマネージャーの初期化
 	//コメントアウトしないで
@@ -87,47 +87,47 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera2D.Update2D();
 	PostEffect m_postEffect;		//ポストエフェクト
 
-	networkLogic.putEvent((nByte)1, 1);
-	networkLogic.putEvent((nByte)2, 10.0f);
+	//networkLogic.putEvent((nByte)1, 1);
+	//networkLogic.putEvent((nByte)2, 10.0f);
 	//networkLogic.GetEvent((nByte)1);
 	//networkLogic.GetEvent((nByte)2);
-	int i = 0;
-	bool a = false;
-	bool s = false;
+	//int i = 0;
+	//bool a = false;
+	//bool s = false;
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
 		//i++;
 		networkLogic.run();
 
-		//ルーム作成
-		if (GetAsyncKeyState('A'))
-		{
-			if (a == false)
-			{
-				networkLogic.createRoom(L"abc", 2);
+		////ルーム作成
+		//if (GetAsyncKeyState('A'))
+		//{
+		//	if (a == false)
+		//	{
+		//		networkLogic.createRoom(L"abc", 2);
 
-				a = true;
-			}
-		}
+		//		a = true;
+		//	}
+		//}
 
-		//ルーム参加
-		if (GetAsyncKeyState('S'))
-		{
-			if (s == false)
-			{
-				networkLogic.JoinRoom();
-			}
-		}
+		////ルーム参加
+		//if (GetAsyncKeyState('S'))
+		//{
+		//	if (s == false)
+		//	{
+		//		networkLogic.JoinRoom();
+		//	}
+		//}
 
 
-		if (GetAsyncKeyState('C'))
-		{
-			if (a == true)
-			{
-				networkLogic.SendEventHash();
-			}
-		}
+		//if (GetAsyncKeyState('C'))
+		//{
+		//	if (a == true)
+		//	{
+		//		networkLogic.SendEventHash();
+		//	}
+		//}
 		//描画開始。
 		g_graphicsEngine->BegineRender();
 

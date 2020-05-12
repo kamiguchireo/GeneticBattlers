@@ -60,10 +60,10 @@ public:
 			//指定したキーを入れると値が取得できます
 			//HashTableをコピー
 			ExitGames::Common::Hashtable hashData = ExitGames::Common::ValueObject<ExitGames::Common::Hashtable>(eventContent).getDataCopy();
-			nByte Key = 1;
-			//nByte Key2 = 2;
 			int i;
-			float f;			
+			float f;
+			//HashTableに列挙型がまるまる入っていると考えてください
+			//↓のようにして値を取り出せます
 			if (hashData.getValue((nByte)1))
 			{
 				i = (ExitGames::Common::ValueObject<int>(hashData.getValue((nByte)1))).getDataCopy();
