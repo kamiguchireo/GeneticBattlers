@@ -54,11 +54,11 @@ void MonsterTeam1::Update()
 	//if (m_stateAI == en_state_Death) return;	//死亡時は更新しない。
 
 	//m_position.y = m_activeTime;
-	switch (m_stateAI)
+	switch (m_status.GetState())
 	{
 	case en_state_Death:
-		if (!m_IsDeath) {
-			m_IsDeath = true;
+		if (!m_status.IsDeath()) {
+			m_status.SetDeath(true);
 			m_animation.Play(en_anim_Death, 0.3f);
 		}
 
@@ -66,7 +66,7 @@ void MonsterTeam1::Update()
 	default:
 		//アニメーションされていないなら。
 		if (!m_animation.IsPlaying()) {
-			m_IsDeath = false;
+			m_status.SetDeath(false);
 			m_animation.Play(en_anim_Idle, 0.3f);
 		}
 
@@ -160,7 +160,7 @@ bool MonsterTeam1::Action()
 {
 	bool flag = false;
 	//残りHPに応じて行動を決める。
-	switch (m_stateAI)
+	switch (m_status.GetState())
 	{
 	case en_state_Good:
 		flag = Action_good();
@@ -195,7 +195,7 @@ void MonsterTeam1::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const
 	SkillList* skillList = SkillList::GetInstance();
 
 	//残りHPに応じて行動を決める。
-	switch (m_stateAI)
+	switch (m_status.GetState())
 	{
 	case en_state_Good:
 		m_useSkill = skillList->GetSkillData(0, 0);

@@ -48,17 +48,18 @@ int SkillBase::DamageCalcuration(MonsterBase * attack, MonsterBase * target)
 
 	//魔法攻撃かどうか。
 	if (!m_isMagic) {
-		Attack = attack->GetStatus().ATK;
-		Defence = target->GetStatus().DEF;
+		Attack = attack->GetStatusManager().GetStatus().ATK;
+		Defence = target->GetStatusManager().GetStatus().DEF;
 	}
 	else {
-		Attack = attack->GetStatus().MAT;
-		Defence = target->GetStatus().MDF;
+		Attack = attack->GetStatusManager().GetStatus().MAT;
+		Defence = target->GetStatusManager().GetStatus().MDF;
 	}
 	
 
 	//属性相性。
-	float comp = GetCompatibility(m_skillElements, target->GetElements());
+	//float comp = GetCompatibility(m_skillElements, target->GetStatusManager().GetElements());
+	float comp = 1.0f;
 
 	//ダメージ計算式。
 	damage = (int)((float)(Attack - Defence / 2) * skillPower * comp);

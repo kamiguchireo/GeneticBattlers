@@ -145,7 +145,7 @@ bool Heal::UseSkill(MonsterBase * attack, MonsterBase * target)
 		ef->SetPosition(target->GetPosition() + CVector3::AxisY()*20.0f);
 		ef->SetScale(CVector3::One()*80.0f);
 		//回復量の計算。
-		int result = attack->GetStatus().MAT * skillPower;
+		int result = attack->GetStatusManager().GetStatus().MAT * skillPower;
 		int res = target->Healing(result);
 		attack->SetActResult(m_skillNo, res);
 		//クールタイムの設定。
@@ -170,7 +170,7 @@ bool BuffSkill::UseSkill(MonsterBase * attack, MonsterBase * target)
 	}
 	else if (!skillEffect->IsPlay()) {
 		//効果時間を計算。
-		int result = attack->GetStatus().MAT * 5.0f;
+		int result = attack->GetStatusManager().GetStatus().MAT * 5.0f;
 		//バフをかける。
 		int res = target->Monster_Buff(m_status, skillPower, result);
 		attack->SetActResult(m_skillNo, res);
@@ -196,7 +196,7 @@ bool BuffSkillWide::UseSkill(MonsterBase * attack, MonsterBase * target)
 	}
 	else if (!skillEffect->IsPlay()) {
 		//効果時間の計算。
-		int result = attack->GetStatus().MAT * 5.0f;
+		int result = attack->GetStatusManager().GetStatus().MAT * 5.0f;
 		//チームメンバーを取得。
 		auto list = target->GetTeamMenber();
 

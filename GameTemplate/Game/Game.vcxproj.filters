@@ -173,7 +173,6 @@
     <ClCompile Include="monster\Healer.cpp" />
     <ClCompile Include="monster\Supporter.cpp" />
     <ClCompile Include="SourceFile\Light\DirectionLight.cpp" />
-    <ClCompile Include="StatusUI.cpp" />
     <ClCompile Include="SourceFile\graphic\2D\Sprite.cpp">
       <Filter>Source Files\graphics\2D</Filter>
     </ClCompile>
@@ -202,6 +201,8 @@
     <ClCompile Include="gameScenes\NetScenes.cpp" />
     <ClCompile Include="SourceFile\graphic\font\Font.cpp" />
     <ClCompile Include="SourceFile\graphic\font\FontRender.cpp" />
+    <ClCompile Include="monster\parameter\StatusUI.cpp" />
+    <ClCompile Include="monster\parameter\StatusManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -327,7 +328,6 @@
     <ClInclude Include="monster\Supporter.h" />
     <ClInclude Include="SourceFile\Light\DirectionLight.h" />
     <ClInclude Include="resource.h" />
-    <ClInclude Include="StatusUI.h" />
     <ClInclude Include="SourceFile\graphic\2D\Sprite.h">
       <Filter>Source Files\graphics\2D</Filter>
     </ClInclude>
@@ -359,6 +359,8 @@
     <ClInclude Include="gameScenes\NetScenes.h" />
     <ClInclude Include="SourceFile\graphic\font\Font.h" />
     <ClInclude Include="SourceFile\graphic\font\FontRender.h" />
+    <ClInclude Include="monster\parameter\StatusUI.h" />
+    <ClInclude Include="monster\parameter\StatusManager.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

@@ -1,34 +1,12 @@
 #pragma once
 #include "Skill/SkillBase.h"
-#include "../StatusUI.h"
+#include "parameter/StatusManager.h"
+#include "parameter/StatusUI.h"
 
 //const int AI_SIZE = 6;							//AIがとりうる行動の数。
+//const int AI_SIZE = 6;							//AIがとりうる行動の数。
 
-/// <summary>
-/// ステータスの構造体。
-/// </summary>
-/// <remarks>
-/// 魔法攻撃力はINTだとint型と間違えそうだからMATとした。
-/// </remarks>
-struct Status {
-	int HP		= 0,
-		//MP		= 0,
-		ATK		= 0,
-		DEF		= 0,
-		MAT		= 0,
-		MDF		= 0,
-		DEX		= 0;
-};
-
-//バフの列挙。
-enum StatusBuff {
-	en_buff_ATK,
-	en_buff_DEF,
-	en_buff_MAT,
-	en_buff_MDF,
-	en_buff_DEX,
-	en_buff_num
-};
+struct Status;
 
 //行動テーブルのデータ。
 //!<skillNo		スキル番号。
@@ -50,20 +28,6 @@ struct ACTResullt {
 	int skillNo = 0;
 	int target = 0;
 	bool score = false;
-};
-
-/// <summary>
-/// モンスターステート。
-/// </summary>
-/// <remarks>
-/// 最大HPの3分の1刻みでステートは変わる予定。
-/// </remarks>
-enum MonsterState {
-	en_state_Good,		//残りHPが高い。
-	en_state_Usually,	//残りHPが半分前後。
-	en_state_Bad,		//残りHPが低い。
-	en_state_Death,		//残りHPが0。
-	en_state_Num		//ステートの数。
 };
 
 /************************/
@@ -91,19 +55,9 @@ public:
 		return m_rotation;
 	}
 	//ステータスを取得。
-	const Status& GetStatus() const
+	const StatusManager& GetStatusManager() const
 	{
 		return m_status;
-	}
-	//基礎ステータスを取得。
-	const Status& GetStatusBase() const
-	{
-		return m_statusBase;
-	}
-	//モンスターの属性を取得。
-	const Elements& GetElements() const
-	{
-		return m_elemnts;
 	}
 	//チームメンバーリストを取得。
 	const std::vector<MonsterBase*> GetTeamMenber()const
@@ -116,8 +70,7 @@ public:
 	//ステータスの設定。(ステータス構造体ver)。
 	void SetStatus(const Status& status)
 	{
-		m_statusBase = status;
-		m_status = m_statusBase;
+		m_status.SetStatus(status);
 	}
 	//座標の設定。
 	void SetPosition(const CVector3& pos)
@@ -138,16 +91,20 @@ public:
 	}
 
 	void Draw();			//描画処理とかをまとめたもの。
-	bool AddATB();			//アクティブタイムを加算する。
+	//アクティブタイムを加算する。
+	bool AddATB()
+	{
+		return m_status.AddATB(m_UI);
+	};
 
 	//クールタイムを設定する。
 	void SetCoolTime(float time)
 	{
-		m_coolTime = time;
+		m_status.SetCoolTime(time);
 	}
 	//HPが0になっているかどうか。
 	bool IsDeath() {
-		return m_stateAI == en_state_Death;
+		return m_status.IsDeath();
 	}
 
 	//行動の評価を行う。
@@ -168,15 +125,11 @@ public:
 	/// <returns>入ったダメージ量。</returns>
 	int Damage(int damage)
 	{
-		if (m_IsDeath) return 0;
-
-		//現在HPとダメージ量の比較。
-		int res = min(m_status.HP,damage);
-		m_status.HP -= res;
+		if (m_status.IsDeath()) return 0;
 		//アニメーション。
 		m_animation.Play(en_anim_Damage, 0.3f);
 
-		return res;
+		return m_status.Damage(damage);
 	}
 
 	/// <summary>
@@ -184,7 +137,9 @@ public:
 	/// </summary>
 	/// <param name="healing">回復量。</param>
 	/// <returns>回復できた量。</returns>
-	int Healing(int healing);
+	int Healing(int healing) {
+		return m_status.Healing(healing);
+	};
 
 	/// <summary>
 	/// バフをかける。
@@ -196,7 +151,10 @@ public:
 	int Monster_Buff(StatusBuff status,float pow,float time);
 
 	//バフをリセットする。
-	void ResetBuff(int i);
+	void ResetBuff(int i) 
+	{
+		m_status.ResetBuff(i);
+	};
 
 	/// <summary>
 	/// スキルのターゲットを定める。
@@ -208,7 +166,10 @@ public:
 	/// <summary>
 	///ステートの更新処理。 
 	/// </summary>
-	void StateUpdate();
+	void StateUpdate()
+	{
+		m_status.StateUpdate(m_UI);
+	};
 
 	//行動をさせる。
 	virtual bool BattleAction() = 0;
@@ -248,16 +209,7 @@ protected:
 	CVector3 m_position = CVector3::Zero();				//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転。
 
-	//	ステータス
-	Status m_statusBase;								//基礎ステータス。
-	Status m_status;									//ステータス。
-	int m_stateAI = en_state_Good;						//ステート。
-	bool m_IsDeath = false;								//キャラクター死亡フラグ。
-	const float addTime = 1.0f / 144.0f * 4.0f;			//加算タイム。
-	float m_activeTime = 0.0f;							//アクティブタイム。
-	float m_coolTime = 30.0f;							//クールタイム。
-	float buffTimeList[en_buff_num] = { 0.0f };			//バフタイム。
-	Elements m_elemnts = en_elements_Empty;				//属性。使ってないわ～...
+	StatusManager m_status;								//ステータス。
 
 	//	AIデータ。
 	std::vector<AIData> m_AI;							//AIデータ。

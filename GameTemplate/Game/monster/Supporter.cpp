@@ -45,11 +45,11 @@ bool Supporter::Start()
 
 void Supporter::Update()
 {
-	switch (m_stateAI)
+	switch (m_status.GetState())
 	{
 	case en_state_Death:
-		if (!m_IsDeath) {
-			m_IsDeath = true;
+		if (!m_status.IsDeath()) {
+			m_status.SetDeath(true);
 			m_animation.Play(en_anim_Death, 0.3f);
 		}
 
@@ -57,7 +57,7 @@ void Supporter::Update()
 	default:
 		//アニメーションされていないなら。
 		if (!m_animation.IsPlaying()) {
-			m_IsDeath = false;
+			m_status.SetDeath(false);
 			m_animation.Play(en_anim_Idle, 0.3f);
 		}
 

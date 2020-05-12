@@ -45,12 +45,12 @@ bool Healer::Start()
 
 void Healer::Update()
 {
-	switch (m_stateAI)
+	switch (m_status.GetState())
 	{
 	case en_state_Death:
-		if (!m_IsDeath) {
+		if (!m_status.IsDeath()) {
 			//死亡エフェクトを流す。
-			m_IsDeath = true;
+			m_status.SetDeath(true);
 			m_animation.Play(en_anim_Death, 0.3f);
 		}
 
@@ -58,7 +58,7 @@ void Healer::Update()
 	default:
 		//アニメーションされていないなら。
 		if (!m_animation.IsPlaying()) {
-			m_IsDeath = false;
+			m_status.SetDeath(false);
 			m_animation.Play(en_anim_Idle, 0.3f);
 		}
 
