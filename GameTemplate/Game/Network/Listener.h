@@ -59,9 +59,24 @@ public:
 			//HashTableは列挙型みたいなやつです
 			//指定したキーを入れると値が取得できます
 			//HashTableをコピー
-			ExitGames::Common::Hashtable hash = ExitGames::Common::ValueObject <ExitGames::Common::Hashtable>(eventContent).getDataCopy();
-			auto i = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)1))).getDataCopy();
-			float f = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)2))).getDataCopy();
+			ExitGames::Common::Hashtable eventContent2 = ExitGames::Common::ValueObject<ExitGames::Common::Hashtable>(eventContent).getDataCopy();
+			nByte Key = 1;
+			nByte Key2 = 2;
+			int i;
+			float f;
+			ExitGames::Common::Hashtable hashData;
+			hashData = (ExitGames::Common::ValueObject<ExitGames::Common::Hashtable>(eventContent2.getValue(Key))).getDataCopy();	
+			if (hashData.getValue((nByte)1))
+			{
+				i = (ExitGames::Common::ValueObject<nByte>(hashData.getValue((nByte)1))).getDataCopy();
+			}
+			if (hashData.getValue((nByte)2))
+			{
+				f = (ExitGames::Common::ValueObject<nByte>(hashData.getValue((nByte)2))).getDataCopy();
+			}
+			//ExitGames::Common::Hashtable hash = ExitGames::Common::ValueObject <ExitGames::Common::Hashtable>(eventContent).getDataCopy();
+			//auto i = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)1))).getDataCopy();
+			//float f = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)2))).getDataCopy();
 
 		}
 		break;

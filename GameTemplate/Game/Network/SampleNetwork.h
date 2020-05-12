@@ -101,8 +101,10 @@ public:
 	//イベントの送信
 	void SendEventHash()
 	{
+		ExitGames::Common::Hashtable ev;
 		nByte eventCode = 4;
-		mLoadBalancingClient.opRaiseEvent(false, hash, eventCode);
+		ev.put((nByte)1, hash);
+		mLoadBalancingClient.opRaiseEvent(false, ev, eventCode);
 	}
 
 	void boolExit(bool a)
