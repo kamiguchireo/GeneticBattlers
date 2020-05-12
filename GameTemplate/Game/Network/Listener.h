@@ -60,18 +60,18 @@ public:
 			//指定したキーを入れると値が取得できます
 			//HashTableをコピー
 			ExitGames::Common::Hashtable hashData = ExitGames::Common::ValueObject<ExitGames::Common::Hashtable>(eventContent).getDataCopy();
-			int i;
-			float f;
+			//int i;
+			//float f;
 			//HashTableに列挙型がまるまる入っていると考えてください
 			//↓のようにして値を取り出せます
-			if (hashData.getValue((nByte)1))
-			{
-				i = (ExitGames::Common::ValueObject<int>(hashData.getValue((nByte)1))).getDataCopy();
-			}
-			if (hashData.getValue((nByte)2))
-			{
-				f = (ExitGames::Common::ValueObject<float>(hashData.getValue((nByte)2))).getDataCopy();
-			}
+			//if (hashData.getValue((nByte)1))
+			//{
+			//	i = (ExitGames::Common::ValueObject<int>(hashData.getValue((nByte)1))).getDataCopy();
+			//}
+			//if (hashData.getValue((nByte)2))
+			//{
+			//	f = (ExitGames::Common::ValueObject<float>(hashData.getValue((nByte)2))).getDataCopy();
+			//}
 			//ExitGames::Common::Hashtable hash = ExitGames::Common::ValueObject <ExitGames::Common::Hashtable>(eventContent).getDataCopy();
 			//auto i = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)1))).getDataCopy();
 			//float f = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)2))).getDataCopy();
