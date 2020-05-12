@@ -60,8 +60,9 @@ public:
 			//指定したキーを入れると値が取得できます
 			//HashTableをコピー
 			ExitGames::Common::Hashtable hash = ExitGames::Common::ValueObject <ExitGames::Common::Hashtable>(eventContent).getDataCopy();
-			auto a = hash.getValue(1);
-			auto b = hash.getValue(2);
+			auto i = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)1))).getDataCopy();
+			float i = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)2))).getDataCopy();
+
 		}
 		break;
 		default:

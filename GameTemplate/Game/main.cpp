@@ -89,7 +89,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	networkLogic.putEvent(1, 1);
 	networkLogic.putEvent(2, 10.0f);
-
+	networkLogic.GetEvent((nByte)1);
+	networkLogic.GetEvent((nByte)2);
 	int i = 0;
 	bool a = false;
 	bool s = false;

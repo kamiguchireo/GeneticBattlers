@@ -94,7 +94,11 @@ public:
 	{
 		hash.put((nByte)i, (float)a);
 	}
-
+	void GetEvent(nByte i)
+	{
+		//auto a = hash.getValue(i);
+		int ii = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)1))).getDataCopy();
+	}
 	//イベントの送信
 	void SendEventHash()
 	{
