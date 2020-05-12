@@ -87,10 +87,10 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera2D.Update2D();
 	PostEffect m_postEffect;		//ポストエフェクト
 
-	networkLogic.putEvent(1, 1);
-	networkLogic.putEvent(2, 10.0f);
-	networkLogic.GetEvent((nByte)1);
-	networkLogic.GetEvent((nByte)2);
+	networkLogic.putEvent((nByte)1, 1);
+	networkLogic.putEvent((nByte)2, 10.0f);
+	//networkLogic.GetEvent((nByte)1);
+	//networkLogic.GetEvent((nByte)2);
 	int i = 0;
 	bool a = false;
 	bool s = false;

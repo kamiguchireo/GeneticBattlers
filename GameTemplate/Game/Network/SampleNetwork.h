@@ -85,18 +85,18 @@ public:
 	//列挙型みたいな感じ
 	//i		キー
 	//a		値
-	void putEvent(int i, int a)
+	void putEvent(nByte i, int a)
 	{
-		hash.put((nByte)i, (int)a);
+		hash.put(i, a);
 	}
-	void putEvent(int i,float a)
+	void putEvent(nByte i,float a)
 	{
-		hash.put((nByte)i, (float)a);
+		hash.put(i, a);
 	}
 	void GetEvent(nByte i)
 	{
-		//auto a = hash.getValue(i);
-		int ii = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)1))).getDataCopy();
+		auto a = hash.getValue(i);
+		//int ii = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)1))).getDataCopy();
 	}
 	//イベントの送信
 	void SendEventHash()
