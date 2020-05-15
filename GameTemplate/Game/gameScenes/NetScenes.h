@@ -29,7 +29,20 @@ public:
 	void PushBackData(int ListNum, int skill, int target, float rate);
 
 private:
-	void SendData(const char* filePath);
+	/// <summary>
+	/// AIデータを送る。
+	/// </summary>
+	/// <param name="filePath">送るデータのファイルパス。</param>
+	void SendAIData(const char* filePath);
+	//送るデータの種類の判別。
+	enum EnSendData {
+		enAI_Attaker,
+		enAI_Healer,
+		enAI_Supporter,
+		enSta_Attaker,
+		enSta_Healer,
+		enSta_Supporter
+	};
 
 	static NetScenes* m_instance;	//インスタンス。
 

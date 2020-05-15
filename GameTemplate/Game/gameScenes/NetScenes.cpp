@@ -74,7 +74,13 @@ void NetScenes::Update()
 		//m_fontRender->SetColor({ 1.0f,0.0f,0.0f });
 		m_fontRender->SetPivot({ 1.0f,1.0f });
 
-		SendData("Assets/AIData/Healer.bin");
+		m_net->putEvent(1, enAI_Attaker);
+		SendAIData("Assets/AIData/Attaker.bin");	
+		m_net->putEvent(1, enAI_Healer);
+		SendAIData("Assets/AIData/Healer.bin");	
+		m_net->putEvent(1, enAI_Supporter);
+		SendAIData("Assets/AIData/Supporter.bin");
+
 	}
 	else if (g_pad[0].IsTrigger(enButtonY)) {
 		//m_fontRender->SetColor({ 0.0f,1.0f,0.0f });
@@ -91,7 +97,7 @@ void NetScenes::PushBackData(int ListNum, int skill, int target, float rate)
 	m_Tabelelist[ListNum].push_back(hoge);
 }
 
-void NetScenes::SendData(const char* filePath)
+void NetScenes::SendAIData(const char* filePath)
 {
 	FILE* fp;
 	fp = fopen(filePath, "rb");
@@ -109,7 +115,7 @@ void NetScenes::SendData(const char* filePath)
 
 	//‚±‚ê‚Å‘—‚ê‚é‚Ì‚©H
 	for (auto& data : dataList) {
-		m_net->putEvent(1, 0);
+		//m_net->putEvent(1, 0);
 		m_net->putEvent(2, data.skillNo);
 		m_net->putEvent(3, data.target);
 		m_net->putEvent(4, data.rate);
