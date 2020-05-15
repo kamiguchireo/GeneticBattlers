@@ -86,7 +86,8 @@ public:
 	}
 	//HPが0になっているかどうか。
 	bool IsDeath() {
-		return m_stateAI == en_state_Death;
+		//return m_stateAI == en_state_Death;
+		return m_IsDeath;
 	}
 	//死亡フラグを設定する。
 	void SetDeath(bool flag) {
@@ -124,12 +125,17 @@ public:
 	//バフをリセットする。
 	void ResetBuff(int i);
 
-	bool AddATB();			//アクティブタイムを加算する。
-
 	/// <summary>
-	///ステートの更新処理。 
+	/// アクティブタイムの加算。
 	/// </summary>
-	void StateUpdate();
+	/// <param name="ui">描画しているUIのポインタ。</param>
+	/// <returns>溜まり切ったかの判定。</returns>
+	bool AddATB(StatusUI* ui);
+	/// <summary>
+	/// ステートの更新処理。
+	/// </summary>
+	/// <param name="ui"></param>
+	void StateUpdate(StatusUI* ui);
 
 private:
 	//	ステータス

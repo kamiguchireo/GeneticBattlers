@@ -37,7 +37,7 @@ public:
 			// of course the payload does not need to be a Hashtable - how about just sending around for example a plain 64bit integer?
 			int content = ExitGames::Common::ValueObject<int>(eventContent).getDataCopy();
 			//ª‚Åcontent‚É’l‚ª“ü‚Á‚Ä‚Ü‚·
-			NetScenes::GetInstance()->PushBackData(content);
+			//NetScenes::GetInstance()->PushBackData(content);
 		}
 		break;
 		case 3:
@@ -50,7 +50,7 @@ public:
 			short contentElementCount = *ExitGames::Common::ValueObject<float*>(eventContent).getSizes();
 			// when calling getDataCopy() on Objects that hold an array as payload, then you must deallocate the copy of the array yourself using deallocateArray()!
 			ExitGames::Common::MemoryManagement::deallocateArray(pContent);
-			NetScenes::GetInstance()->PushBackData(Content);
+			//NetScenes::GetInstance()->PushBackData(Content);
 		}
 		break;
 		case 4:
@@ -76,6 +76,11 @@ public:
 			//auto i = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)1))).getDataCopy();
 			//float f = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)2))).getDataCopy();
 
+			int list = (ExitGames::Common::ValueObject<int>(hashData.getValue((nByte)1))).getDataCopy();
+			int skill = (ExitGames::Common::ValueObject<int>(hashData.getValue((nByte)2))).getDataCopy();
+			int target = (ExitGames::Common::ValueObject<int>(hashData.getValue((nByte)3))).getDataCopy();
+			float rate = (ExitGames::Common::ValueObject<float>(hashData.getValue((nByte)4))).getDataCopy();
+			NetScenes::GetInstance()->PushBackData(list,skill,target,rate);
 		}
 		break;
 		default:

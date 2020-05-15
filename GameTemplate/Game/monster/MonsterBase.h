@@ -55,7 +55,7 @@ public:
 		return m_rotation;
 	}
 	//ステータスを取得。
-	StatusManager& GetStatusManager()
+	const StatusManager& GetStatusManager() const
 	{
 		return m_status;
 	}
@@ -125,6 +125,16 @@ public:
 		m_animation.Play(en_anim_Damage, 0.3f);
 
 		return m_status.Damage(damage);
+	}
+	//アクティブタイム加算。
+	bool AddATB()
+	{
+		return m_status.AddATB(m_UI);
+	}
+	//ステートのアップデート。
+	void StateUpdate()
+	{
+		m_status.StateUpdate(m_UI);
 	}
 
 	/// <summary>

@@ -21,6 +21,9 @@ NetScenes::NetScenes()
 		std::abort();
 	}
 	m_instance = this;
+
+	//ひとまずリストのサイズを3にする。
+	m_Tabelelist.resize(3);
 }
 
 NetScenes::~NetScenes()
@@ -76,9 +79,16 @@ void NetScenes::Update()
 	else if (g_pad[0].IsTrigger(enButtonY)) {
 		//m_fontRender->SetColor({ 0.0f,1.0f,0.0f });
 		m_fontRender->SetPivot({ 0.0f,0.0f });
-		intData.begin();
-		floatData.begin();
+		AIDataTable hoge = *m_Tabelelist.begin();
 	}
+}
+
+void NetScenes::PushBackData(int ListNum, int skill, int target, float rate)
+{
+	if (m_instance == nullptr) { return; }
+
+	AIData hoge = { skill,target,rate };
+	m_Tabelelist[ListNum].push_back(hoge);
 }
 
 void NetScenes::SendData(const char* filePath)
@@ -99,9 +109,12 @@ void NetScenes::SendData(const char* filePath)
 
 	//これで送れるのか？
 	for (auto& data : dataList) {
-		m_net->SendEvent(data.skillNo);
-		m_net->SendEvent(data.target);
-		m_net->SendEvent(data.rate);
+		m_net->putEvent(1, 0);
+		m_net->putEvent(2, data.skillNo);
+		m_net->putEvent(3, data.target);
+		m_net->putEvent(4, data.rate);
+
+		m_net->SendEventHash();
 	}
 
 }

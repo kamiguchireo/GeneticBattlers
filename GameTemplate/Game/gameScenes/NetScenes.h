@@ -4,6 +4,8 @@
 class Fade;
 class SampleNetwork;
 
+struct AIData;
+
 class NetScenes:public IGameObject
 {
 public:
@@ -17,14 +19,14 @@ public:
 		return m_instance;
 	}
 
-	void PushBackData(int data)
-	{
-		intData.push_back(data);
-	}
-	void PushBackData(float data)
-	{
-		floatData.push_back(data);
-	}
+	/// <summary>
+	/// 行動テーブルをプッシュバックする。
+	/// </summary>
+	/// <param name="ListNum">誰の行動リストかの区別。</param>
+	/// <param name="skill">スキル</param>
+	/// <param name="target">ターゲット</param>
+	/// <param name="rate">確率</param>
+	void PushBackData(int ListNum, int skill, int target, float rate);
 
 private:
 	void SendData(const char* filePath);
@@ -45,7 +47,7 @@ private:
 	std::unique_ptr<DirectX::SpriteFont> m_spFont;		//スプライトフォントデータ。
 	CVector3 m_color = CVector3::One();					//フォントの色。
 
-	std::vector<int> intData;
-	std::vector<float> floatData;
+	typedef std::vector<AIData> AIDataTable;			//行動テーブル。
+	std::vector<AIDataTable> m_Tabelelist;				//行動テーブルのリスト。
 };
 
