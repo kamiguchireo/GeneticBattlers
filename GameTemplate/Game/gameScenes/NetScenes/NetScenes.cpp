@@ -81,7 +81,7 @@ void NetScenes::PushBackData(int ListNum, int skill, int target, float rate)
 void NetScenes::SendData()
 {
 	m_net->putEvent(1, enAI_Attaker);
-	SendAIData("Assets/AIData/Attaker.bin");
+	SendAIData("Assets/AIData/Attacker.bin");
 	m_net->putEvent(1, enAI_Healer);
 	SendAIData("Assets/AIData/Healer.bin");
 	m_net->putEvent(1, enAI_Supporter);
