@@ -1,6 +1,8 @@
 #pragma once
 #include "SourceFile/graphic/font/FontRender.h"
 
+enum NetState;
+
 class NetSceneText : public IGameObject
 {
 public:
@@ -9,7 +11,12 @@ public:
 	bool Start();
 	void Update();
 
+	void SetText(const wchar_t* text);
+	void SetState(NetState state);
+
 private:
+	NetState m_state;	//ステート。
+
 	prefab::FontRender* m_font = nullptr;
 
 	prefab::FontRender* m_fontRender = nullptr;			//フォントレンダー。

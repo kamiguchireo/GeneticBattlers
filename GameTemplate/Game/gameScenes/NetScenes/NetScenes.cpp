@@ -25,6 +25,8 @@ NetScenes::NetScenes()
 
 	//ひとまずリストのサイズを3にする。
 	m_Tabelelist.resize(3);
+	//テキストのインスタンス化
+	m_text = NewGO<NetSceneText>(0);
 }
 
 NetScenes::~NetScenes()
@@ -43,24 +45,28 @@ bool NetScenes::Start()
 	m_fade = Fade::GetInstance();
 	m_fade->StartFadeIn();
 
-	//テキストのインスタンス化
-	m_text = NewGO<NetSceneText>(0);
+
+	SetStateIdle();
 
 	return true;
 }
 
 void NetScenes::Update()
 {
-	if (g_pad[0].IsTrigger(enButtonA)) {
-		m_net->putEvent(1, enAI_Attaker);
-		SendAIData("Assets/AIData/Attaker.bin");
-		m_net->putEvent(1, enAI_Healer);
-		SendAIData("Assets/AIData/Healer.bin");
-		m_net->putEvent(1, enAI_Supporter);
-		SendAIData("Assets/AIData/Supporter.bin");
-	}
-	else if (g_pad[0].IsTrigger(enButtonB)) {
-		AIDataTable hoge = *m_Tabelelist.begin();
+	switch (m_state)
+	{
+	case enState_Idle:
+		break;
+	case enState_Send:
+		if (g_pad[0].IsTrigger(enButtonA)) {
+			SendData();
+		}
+		else if (g_pad[0].IsTrigger(enButtonB)) {
+			AIDataTable hoge = *m_Tabelelist.begin();
+		}
+		break;
+	default:
+		break;
 	}
 }
 
@@ -70,6 +76,28 @@ void NetScenes::PushBackData(int ListNum, int skill, int target, float rate)
 
 	AIData hoge = { skill,target,rate };
 	m_Tabelelist[ListNum].push_back(hoge);
+}
+
+void NetScenes::SendData()
+{
+	m_net->putEvent(1, enAI_Attaker);
+	SendAIData("Assets/AIData/Attaker.bin");
+	m_net->putEvent(1, enAI_Healer);
+	SendAIData("Assets/AIData/Healer.bin");
+	m_net->putEvent(1, enAI_Supporter);
+	SendAIData("Assets/AIData/Supporter.bin");
+}
+
+void NetScenes::SetStateIdle()
+{
+	m_state = enState_Idle;
+	m_text->SetState(m_state);
+}
+
+void NetScenes::SetStateSend()
+{
+	m_state = enState_Send;
+	m_text->SetState(m_state);
 }
 
 void NetScenes::SendAIData(const char* filePath)

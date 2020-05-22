@@ -6,6 +6,14 @@ class NetSceneText;
 
 struct AIData;
 
+//状態。
+enum NetState {
+	enState_Init,
+	enState_Idle,
+	enState_Send,
+	enState_Exit
+};
+
 class NetScenes:public IGameObject
 {
 public:
@@ -27,6 +35,13 @@ public:
 	/// <param name="target">ターゲット</param>
 	/// <param name="rate">確率</param>
 	void PushBackData(int ListNum, int skill, int target, float rate);
+	/// <summary>
+	/// データを送る。
+	/// </summary>
+	void SendData();
+	//ステートの変更。
+	void SetStateIdle();
+	void SetStateSend();
 
 private:
 	/// <summary>
@@ -46,18 +61,13 @@ private:
 
 	static NetScenes* m_instance;	//インスタンス。
 
-	//状態。
-	enum NetState {
-		enState_Init,
-		enState_Idle,
-		enState_Exit
-	};
 	NetState m_state = enState_Idle;	//ステート。
+
 	SampleNetwork* m_net = nullptr;			//ネットワーク。
 	Fade* m_fade = nullptr;					//フェードのポインタ。
 
 	typedef std::vector<AIData> AIDataTable;			//行動テーブル。
 	std::vector<AIDataTable> m_Tabelelist;				//行動テーブルのリスト。
-	NetSceneText* m_text = nullptr;
+	NetSceneText* m_text = nullptr;						//テキスト管理用クラス。
 };
 
