@@ -46,8 +46,7 @@ bool BattleScenes::Start()
 		}
 		if (wcscmp(objData.name, L"testModel") == 0)
 		{
-			MonsterBase* monster = NewGO<MonsterTeam1>(0);		//優先度0じゃないとなんか消すときにバグる？
-																//死んだあとにUpdate呼ばれてない？
+			MonsterBase* monster = NewGO<MonsterTeam1>(0);
 			Status hoge;
 			hoge.HP = rand() % 50 + 100;
 			//hoge.MP = rand() % 50 + 100;
@@ -176,7 +175,6 @@ void BattleScenes::Update()
 		default:
 			break;
 		}
-		
 
 		if (g_pad[0].IsTrigger(enButtonStart)) 
 		{

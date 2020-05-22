@@ -2,7 +2,7 @@
 #include "TitleScene.h"
 #include "Fade.h"
 #include "BattleScenes.h"
-#include "NetScenes.h"
+#include "NetScenes/NetScenes.h"
 
 const CVector3 TitleScene::m_colorGray = { 0.4f ,0.4f ,0.4f };		//ƒOƒŒ[‚Ìİ’èB
 

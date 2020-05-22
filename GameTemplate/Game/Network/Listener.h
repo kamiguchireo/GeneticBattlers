@@ -3,7 +3,7 @@
 #include "Photon/Common-cpp/inc/JVector.h"
 #include "Photon/Common-cpp/inc/Object.h"
 #include "Photon/LoadBalancing-cpp/inc/listener.h"
-#include "../gameScenes/NetScenes.h"
+#include "../gameScenes/NetScenes/NetScenes.h"
 
 class Listener:public ExitGames::LoadBalancing::Listener
 {
@@ -14,7 +14,13 @@ public:
 	void warningReturn(int warningCode) {}
 	void serverErrorReturn(int errorCode) {}
 	//ルームに誰かが参加したらjoinRoomEventActionが呼ばれます
-	void joinRoomEventAction(int playerNr, const ExitGames::Common::JVector<int>& playernrs, const ExitGames::LoadBalancing::Player& player) {}
+	void joinRoomEventAction(int playerNr, const ExitGames::Common::JVector<int>& playernrs, const ExitGames::LoadBalancing::Player& player)
+	{
+		if (playernrs.getSize() == 2)
+		{
+			NetScenes::GetInstance()->SetStateSend();
+		}
+	}
 	void leaveRoomEventAction(int playerNr, bool isInactive) {}
 	//ルームでイベントの送信があればcunstomEventActionが呼ばれます
 	void customEventAction(int playerNr, nByte eventCode, const ExitGames::Common::Object& eventContent) 
