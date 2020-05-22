@@ -102,6 +102,7 @@ public:
 	{
 		nByte eventCode = 4;
 		mLoadBalancingClient.opRaiseEvent(false, hash, eventCode);
+		//hash.removeAllElements();
 	}
 
 	void boolExit(bool a)

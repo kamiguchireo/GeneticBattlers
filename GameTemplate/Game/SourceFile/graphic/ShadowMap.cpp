@@ -12,6 +12,14 @@ namespace Engine {
 
 	}
 
+
+	CVector3 ShadowMap::CalcLightPosition(float lightHeight, CVector3 viewFrustomCenterPosition)
+	{
+		auto alpha = (lightHeight - viewFrustomCenterPosition.y) / lightDir.y;
+		auto lightPos = viewFrustomCenterPosition + lightDir * alpha;
+		return lightPos;
+	}
+
 	void ShadowMap::ShadowMapRTCreate()
 	{
 		for (int i = 0; i < CascadeShadow; i++)
@@ -30,23 +38,6 @@ namespace Engine {
 
 	void ShadowMap::Update(CVector3 lightCameraPos, CVector3 lightCameraTarget)
 	{
-		//カメラの位置を取得
-		m_cameraPos = g_camera3D.GetPosition();
-		//カメラの注視点を取得
-		m_cameraTarget = g_camera3D.GetTarget();
-
-		//カメラの画角を取得
-		//ラジアンで返ってくる
-		ViewAngle = g_camera3D.GetViewAngle();
-		float a = 1.0*tan(ViewAngle / 2);
-		float a2 = 3000 * tan(ViewAngle / 2);
-
-		//カメラの視点と注視点の距離を計算
-		CVector3 m_cameraLength = m_cameraPos - m_cameraTarget;
-		m_cameraDist = m_cameraLength.Length();
-		//m_cameraDistをCascadeShadowで割る
-		m_cameraDist = m_cameraDist / CascadeShadow;
-
 		//ライトの方向を計算する
 		auto lightDir = lightCameraTarget - lightCameraPos;
 		if (lightDir.Length() < 0.0001f)
@@ -64,42 +55,170 @@ namespace Engine {
 		if (fabsf(lightDir.y) > 0.99998f)
 		{
 			//ほぼ真上or真下を向いているので、1,0,0を上方向とする
-			lightCameraUpAxis = CVector3::AxisX();
+			//lightCameraUpAxis = CVector3::AxisX();
+			//lightCameraUpAxis.Cross(lightDir, CVector3::Right());
+			lightCameraUpAxis = CVector3::Right();
 		}
 		else
 		{
 			//真上を向いていないときは、0,1,0を上方向とする
-			lightCameraUpAxis = CVector3::AxisY();
+			//lightCameraUpAxis = CVector3::AxisY();
+			//lightCameraUpAxis.Cross(lightDir, CVector3::Up());
+			lightCameraUpAxis = CVector3::Up();
+
 		}
+		//ライトの右方向
+		CVector3 lightViewRight;
+		lightViewRight.Cross(lightCameraUpAxis, lightDir);
+		//正規化
+		lightViewRight.Normalize();
+		
+		CMatrix lightViewRot;
+		//ライトビューの横を設定する
+		lightViewRot.m[0][0] = lightViewRight.x;
+		lightViewRot.m[0][1] = lightViewRight.y;
+		lightViewRot.m[0][2] = lightViewRight.z;
+		lightViewRot.m[0][3] = 0.0f;
+		//ライトビューの上を設定する。
+		lightViewRot.m[1][0] = lightCameraUpAxis.x;
+		lightViewRot.m[1][1] = lightCameraUpAxis.y;
+		lightViewRot.m[1][2] = lightCameraUpAxis.z;
+		lightViewRot.m[1][3] = 0.0f;
+		//ライトビューの前を設定する。
+		lightViewRot.m[2][0] = lightDir.x;
+		lightViewRot.m[2][1] = lightDir.y;
+		lightViewRot.m[2][2] = lightDir.z;
+		lightViewRot.m[2][3] = 0.0f;
+		float shadowAreaTbl[] = {
+			m_lightHeight * 0.8f,
+			m_lightHeight * 1.6f,
+			m_lightHeight * 3.6f
+		};
 
+		//ライトビューの高さを計算
+		float lightHeight = g_camera3D.GetTarget().y + m_lightHeight;
+
+		//近平面の距離
+		float nearPlaneZ = 0.0f;
+		//遠平面の距離
+		float farPlaneZ;
+		CVector3 cameraUp;
+		cameraUp.Cross(g_camera3D.GetRight(), g_camera3D.GetForward());
 		//カスケードシャドウの枚数分回す
-	//	for(int i = 0;i < CascadeShadow;i++)
-	//	{
-			//カメラの上方向が決まったので、ライトビュー行列を計算する
-			m_lightViewMatrix[1].MakeLookAt
-			(
-				lightCameraPos,
-				lightCameraTarget,
-				lightCameraUpAxis
-			);
+		for(int i = 0;i < CascadeShadow;i++)
+		{
+			farPlaneZ = nearPlaneZ + shadowAreaTbl[i];
+			
+			//ライトビュー行列
+			m_lightViewMatrix = CMatrix::Identity();
+			//画角の半分を取得
+			float halfViewAngle = g_camera3D.GetViewAngle()*0.5f;
+			//視推台の8頂点をライト空間に変換して、正射影の幅と高さを求める
+			float w, h;
+			float far_z = -1.0f;
+			CVector3 v[8];
+			{
+				//画角から距離に対する高さの割合を計算
+				float t = tan(halfViewAngle);
 
-			//ライトプロジェクション行列を作成する
-			//太陽光からの影を落としたいなら、平行投影行列を作成する
-			m_lightProMatrix[1].MakeOrthoProjectionMatrix
-			(
-				100,
-				100,
-				0.1f,
-				5000.0f
+				CVector3 toUpperNear, toUpperFar;
+				toUpperNear = cameraUp * t * nearPlaneZ;
+				toUpperFar = cameraUp * t * farPlaneZ;
+				t *= g_camera3D.GetAspect();
+
+				//近平面の中央座標を計算
+				auto nearPlaneCenterPos = g_camera3D.GetPosition() + g_camera3D.GetForward() * nearPlaneZ;
+				//手前右上の座標
+				v[0] = nearPlaneCenterPos + g_camera3D.GetRight() * t * nearPlaneZ + toUpperNear;
+				//手前右下の座標
+				v[1] = v[0] - toUpperNear * 2.0f;
+				//手前左上の座標
+				v[2] = nearPlaneCenterPos + g_camera3D.GetRight() * -t * nearPlaneZ + toUpperNear;
+				//手前左下の座標
+				v[3] = v[2] - toUpperNear * 2.0f;
+
+				//遠平面の中央座標を計算
+				auto farPlaneCenterPos = g_camera3D.GetPosition() + g_camera3D.GetForward() * farPlaneZ;
+				//奥右上の座標
+				v[4] = farPlaneCenterPos + g_camera3D.GetRight() * t * farPlaneZ + toUpperFar;
+				//奥右下の座標
+				v[5] = v[4] - toUpperFar * 2.0f;
+				//奥左上の座標
+				v[6] = farPlaneCenterPos + g_camera3D.GetRight() * -t * farPlaneZ + toUpperFar;
+				//奥左下の座標
+				v[7] = v[6] - toUpperFar * 2.0f;
+
+				//ライト行列を作成
+				auto viewFrustumCenterPosition = (nearPlaneCenterPos + farPlaneCenterPos) * 0.5f;
+				auto lightPos = CalcLightPosition(lightHeight, viewFrustumCenterPosition);
+
+				m_lightViewMatrix = lightViewRot;
+
+				m_lightViewMatrix.m[3][0] = lightPos.x;
+				m_lightViewMatrix.m[3][1] = lightPos.y;
+				m_lightViewMatrix.m[3][2] = lightPos.z;
+				m_lightViewMatrix.m[3][3] = 1.0f;
+
+				//ライトビュー完成
+				m_lightViewMatrix.Inverse(m_lightViewMatrix);
+
+				//視推台を構成する8頂点を計算で来たので、ライト空間に座標変換して、AABBを求める
+				CVector3 vMax = { -FLT_MAX,-FLT_MAX,-FLT_MAX };
+				CVector3 vMin = { FLT_MAX, FLT_MAX, FLT_MAX };
+				for (auto& vInLight : v)
+				{
+					//ベクトルと行列の乗算
+					//lightPos.yが入っていた値しか変わらない
+					m_lightViewMatrix.Mul(vInLight);
+
+					//最大値を設定
+					vMax.Max(vInLight);
+					//最小値を設定
+					vMin.Min(vInLight);
+				}
+				w = vMax.x - vMin.x;
+				h = vMax.y - vMin.y;
+				far_z = vMax.z;
+			}
+
+			CMatrix proj = CMatrix::Identity();
+			proj.MakeOrthoProjectionMatrix(
+				w,
+				h,
+				far_z / 100.0f,
+				far_z
 			);
-	//	}
+			CMatrix m_mat = CMatrix::Identity();
+
+			m_mat.Mul(m_lightViewMatrix, proj);
+			m_lightProMatrix[i] = m_mat;
+			nearPlaneZ = farPlaneZ;
+			
+			////カメラの上方向が決まったので、ライトビュー行列を計算する
+			//m_lightViewMatrix.MakeLookAt
+			//(
+			//	lightCameraPos,
+			//	lightCameraTarget,
+			//	lightCameraUpAxis
+			//);
+
+			////ライトプロジェクション行列を作成する
+			////太陽光からの影を落としたいなら、平行投影行列を作成する
+			//m_lightProMatrix[0].MakeOrthoProjectionMatrix
+			//(
+			//	3000,
+			//	3000,
+			//	0.1f,
+			//	5000.0f
+			//);
+		}
 	}
 
 	void ShadowMap::RenderToShadowMap()
 	{
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
 		
-		for (int i = 0; i < 4; i++)
+		for (int i = 0; i < CascadeShadow; i++)
 		{
 			ShadowTextureNum = i;
 			//レンダリングターゲットを切り替える
@@ -128,8 +247,8 @@ namespace Engine {
 				//シャドウキャスターをシャドウマップにレンダリング。
 			for (auto& caster : m_shadowCasters) {
 				caster->Draw(
-					m_lightViewMatrix[1],
-					m_lightProMatrix[1],
+					m_lightViewMatrix,
+					m_lightProMatrix[i],
 					enRenderMode_CreateShadowMap
 				);
 

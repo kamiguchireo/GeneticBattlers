@@ -112,7 +112,7 @@ void Game::Update()
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
 	m_shadowMap->Update({ 0.0f, 1000.0f, 0.0f },
-		{ 0.0f, 0.0f, 150.0f });
+		{ 0.0f, 0.0f, 0.0f });
 	m_shadowMap->RegistShadowCaster(&m_model);
 	Render();
 	////モデルのドロー
@@ -243,18 +243,14 @@ void Game::Render()
 	(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
-		enRenderMode_Normal,
-		m_shadowMap->GetLigthProjMatrix(1),
-		m_shadowMap->GetLightViewMatrix(1)
+		enRenderMode_Normal
 	);
 	//モデル3のドロー
 	m_model3.Draw
 	(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
-		enRenderMode_Normal,
-		m_shadowMap->GetLigthProjMatrix(1),
-		m_shadowMap->GetLightViewMatrix(1)
+		enRenderMode_Normal
 	);
 
 	//PostRender();

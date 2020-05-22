@@ -95,6 +95,29 @@ public:
 	{
 		return m_viewAngle;
 	}
+	
+	//アスペクト比を取得
+	float GetAspect()
+	{
+		return 1280.0f / 720.0f;
+	}
+	//カメラの前方向を取得
+	CVector3 GetForward()
+	{
+		CVector3 m_forward = m_target - m_position;
+		m_forward.Normalize();
+		return m_forward;
+	}
+
+	//カメラの右方向を取得
+	CVector3 GetRight()
+	{
+		CVector3 m_forward = m_target - m_position;
+		CVector3 m_right;
+		m_right.Cross(m_up, m_forward);
+		m_right.Normalize();
+		return m_right;
+	}
 private:
 
 	CMatrix	m_viewMatrix = CMatrix::Identity();		//ビュー行列。
