@@ -198,11 +198,12 @@
     <ClCompile Include="SourceFile\graphic\GaussianBlur.cpp" />
     <ClCompile Include="SourceFile\graphic\PostEffect.cpp" />
     <ClCompile Include="SourceFile\graphic\GPUBuffer\ConstantBufferGPU.cpp" />
-    <ClCompile Include="gameScenes\NetScenes.cpp" />
     <ClCompile Include="SourceFile\graphic\font\Font.cpp" />
     <ClCompile Include="SourceFile\graphic\font\FontRender.cpp" />
     <ClCompile Include="monster\parameter\StatusUI.cpp" />
     <ClCompile Include="monster\parameter\StatusManager.cpp" />
+    <ClCompile Include="gameScenes\NetScenes\NetScenes.cpp" />
+    <ClCompile Include="gameScenes\NetScenes\NetSceneText.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -356,11 +357,12 @@
     <ClInclude Include="SourceFile\graphic\GaussianBlur.h" />
     <ClInclude Include="SourceFile\graphic\PostEffect.h" />
     <ClInclude Include="SourceFile\graphic\GPUBuffer\ConstantBufferGPU.h" />
-    <ClInclude Include="gameScenes\NetScenes.h" />
     <ClInclude Include="SourceFile\graphic\font\Font.h" />
     <ClInclude Include="SourceFile\graphic\font\FontRender.h" />
     <ClInclude Include="monster\parameter\StatusUI.h" />
     <ClInclude Include="monster\parameter\StatusManager.h" />
+    <ClInclude Include="gameScenes\NetScenes\NetScenes.h" />
+    <ClInclude Include="gameScenes\NetScenes\NetSceneText.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

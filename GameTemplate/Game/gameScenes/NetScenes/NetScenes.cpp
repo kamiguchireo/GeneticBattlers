@@ -2,6 +2,7 @@
 #include "NetScenes.h"
 #include "Network/SampleNetwork.h"
 #include "Fade.h"
+#include "NetSceneText.h"
 
 //行動テーブルのデータ。
 //!<skillNo		スキル番号。
@@ -29,23 +30,11 @@ NetScenes::NetScenes()
 NetScenes::~NetScenes()
 {
 	m_instance = nullptr;
-	DeleteGO(m_fontRender);
+	DeleteGO(m_text);
 }
 
 bool NetScenes::Start()
 {
-	//フォントデータのロード。
-	m_spFont = std::make_unique<DirectX::SpriteFont>(
-		g_graphicsEngine->GetD3DDevice(),
-		L"Assets/font/myfile.spritefont"
-		);
-
-	//フォントレンダーの初期化。
-	m_fontRender = NewGO<prefab::FontRender>(3);
-	m_fontRender->SetFont(m_spFont.get());
-	m_fontRender->SetPivot({ 0.0f,0.0f });
-	m_fontRender->SetText(L"テストTest1234");
-
 	//ネットの処理。
 	m_net = SampleNetwork::GetInstance();
 	m_net->JoinRoom();
@@ -54,37 +43,23 @@ bool NetScenes::Start()
 	m_fade = Fade::GetInstance();
 	m_fade->StartFadeIn();
 
+	//テキストのインスタンス化
+	m_text = NewGO<NetSceneText>(0);
+
 	return true;
 }
 
 void NetScenes::Update()
 {
-	if (g_pad[0].IsPress(enButtonA)) {
-		m_color -= CVector3::One() * 0.01f;
-		m_color.Max(CVector3::Zero());
-		m_fontRender->SetColor(m_color);
-		m_fontRender->SetText(L"準備中だよ！");
-	}
-	else if (g_pad[0].IsPress(enButtonB)) {
-		m_color += CVector3::One() * 0.01f;
-		m_color.Min(CVector3::One());
-		m_fontRender->SetColor(m_color);
-	}
-	else if (g_pad[0].IsTrigger(enButtonX)) {
-		//m_fontRender->SetColor({ 1.0f,0.0f,0.0f });
-		m_fontRender->SetPivot({ 1.0f,1.0f });
-
+	if (g_pad[0].IsTrigger(enButtonA)) {
 		m_net->putEvent(1, enAI_Attaker);
-		SendAIData("Assets/AIData/Attaker.bin");	
+		SendAIData("Assets/AIData/Attaker.bin");
 		m_net->putEvent(1, enAI_Healer);
-		SendAIData("Assets/AIData/Healer.bin");	
+		SendAIData("Assets/AIData/Healer.bin");
 		m_net->putEvent(1, enAI_Supporter);
 		SendAIData("Assets/AIData/Supporter.bin");
-
 	}
-	else if (g_pad[0].IsTrigger(enButtonY)) {
-		//m_fontRender->SetColor({ 0.0f,1.0f,0.0f });
-		m_fontRender->SetPivot({ 0.0f,0.0f });
+	else if (g_pad[0].IsTrigger(enButtonB)) {
 		AIDataTable hoge = *m_Tabelelist.begin();
 	}
 }

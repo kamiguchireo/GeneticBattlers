@@ -3,7 +3,7 @@
 #include "Photon/Common-cpp/inc/JVector.h"
 #include "Photon/Common-cpp/inc/Object.h"
 #include "Photon/LoadBalancing-cpp/inc/listener.h"
-#include "../gameScenes/NetScenes.h"
+#include "../gameScenes/NetScenes/NetScenes.h"
 
 class Listener:public ExitGames::LoadBalancing::Listener
 {
