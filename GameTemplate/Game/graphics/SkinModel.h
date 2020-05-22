@@ -92,6 +92,12 @@ public:
 	{
 		IsShadowReciever = flag;
 	}
+
+	//シャドウレシーバーのフラグがアクティブがどうか
+	bool GetShadowRecieverFlag()
+	{
+		return IsShadowReciever;
+	}
 	/*!
 	*@brief	スケルトンの取得。
 	*/

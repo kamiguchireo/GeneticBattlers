@@ -77,9 +77,9 @@ bool Game::Start()
 	m_model3.SetShadowReciever(true);
 	//m_position.y = 100.0f;
 	
-	fr = NewGO<prefab::FontRender>(0);
-	fr->SetText(L"‚±‚ñ‚É‚¿‚Í¢ŠE");
-	fr->SetPivot({0.5f, 0.5f });
+	//fr = NewGO<prefab::FontRender>(0);
+	//fr->SetText(L"‚±‚ñ‚É‚¿‚Í¢ŠE");
+	//fr->SetPivot({0.5f, 0.5f });
 	return true;
 }
 
@@ -108,7 +108,7 @@ void Game::Update()
 		m_model.SetLightColor(f);
 	}
 
-	fr->SetScale(f);
+	//fr->SetScale(f);
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
 	m_shadowMap->Update({ 0.0f, 1000.0f, 0.0f },
@@ -243,14 +243,18 @@ void Game::Render()
 	(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
-		enRenderMode_Normal
+		enRenderMode_Normal,
+		g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
+		g_graphicsEngine->GetShadowMap()->GetLightViewMatrix()
 	);
 	//ƒ‚ƒfƒ‹3‚Ìƒhƒ[
 	m_model3.Draw
 	(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
-		enRenderMode_Normal
+		enRenderMode_Normal,
+		g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(1),
+		g_graphicsEngine->GetShadowMap()->GetLightViewMatrix()
 	);
 
 	//PostRender();

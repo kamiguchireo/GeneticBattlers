@@ -55,16 +55,16 @@ namespace Engine {
 		if (fabsf(lightDir.y) > 0.99998f)
 		{
 			//ほぼ真上or真下を向いているので、1,0,0を上方向とする
-			//lightCameraUpAxis = CVector3::AxisX();
-			//lightCameraUpAxis.Cross(lightDir, CVector3::Right());
-			lightCameraUpAxis = CVector3::Right();
+			lightCameraUpAxis = CVector3::AxisX();
+			lightCameraUpAxis.Cross(lightDir, CVector3::Right());
+			//lightCameraUpAxis = CVector3::Right();
 		}
 		else
 		{
 			//真上を向いていないときは、0,1,0を上方向とする
-			//lightCameraUpAxis = CVector3::AxisY();
-			//lightCameraUpAxis.Cross(lightDir, CVector3::Up());
-			lightCameraUpAxis = CVector3::Up();
+			lightCameraUpAxis = CVector3::AxisY();
+			lightCameraUpAxis.Cross(lightDir, CVector3::Up());
+			//lightCameraUpAxis = CVector3::Up();
 
 		}
 		//ライトの右方向
@@ -256,5 +256,19 @@ namespace Engine {
 
 		}
 		m_shadowCasters.clear();
+	}
+
+	void ShadowMap::SendShadowRecieverParamToGpu()
+	{
+		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+		//定数バッファの内容を更新
+		d3dDeviceContext->UpdateSubresource(m_shadowCb.GetBody(), 0, NULL, &m_shadowCbEntity, 0, 0);
+		d3dDeviceContext->PSSetConstantBuffers(2, 1, &m_shadowCb.GetBody());
+		//テクスチャを送信
+		for (int i = 0; i < CascadeShadow; i++)
+		{
+			m_shadow = GetSRV(i);
+			d3dDeviceContext->PSSetShaderResources(2 + i, 1,&m_shadow);
+		}
 	}
 }

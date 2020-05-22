@@ -55,9 +55,27 @@ namespace Engine {
 
 		int GetShadowTextureNum()
 		{
+			ShadowTextureNum++;
+			if (ShadowTextureNum > CascadeShadow - 1)
+			{
+				ShadowTextureNum = 0;
+			}
 			return ShadowTextureNum;
 		}
+		
+		int GetCascadeShadow()
+		{
+			return CascadeShadow;
+		}
+
+		void SendShadowRecieverParamToGpu();
+
 	private:
+		struct SShadowCb {
+			CMatrix mLVP[3];
+			CVector4 texOffset[3];
+			float shadowAreaDepthInViewSpace[3];	//カメラ空間での影を落とすエリアの深度テーブル。
+		};
 		int CascadeShadow = 3;		//シャドウマップの枚数
 		int ShadowTextureNum = 0;		//シャドウマップに使うテクスチャの番号
 		RenderTarget m_shadowMapRT[3];
@@ -66,8 +84,11 @@ namespace Engine {
 		CMatrix m_lightViewMatrix;
 		CMatrix m_lightProMatrix[3];
 		std::vector<SkinModel*> m_shadowCasters;	//シャドウキャスターの配列。
-		float m_lightHeight = 2000.0f;				//ライトの高さ。
+		float m_lightHeight = 200.0f;				//ライトの高さ。
 		CVector3 lightDir = CVector3::Down();		//ライトの向き
+		SShadowCb m_shadowCbEntity;
+		ConstantBuffer m_shadowCb;		//影を落とす時に使用する定数バッファ。
+		ID3D11ShaderResourceView* m_shadow = nullptr;
 
 	};
 

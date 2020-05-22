@@ -11,7 +11,11 @@ Texture2D<float4> albedoTexture : register(t0);
 //ボーン行列
 StructuredBuffer<float4x4> boneMatrix : register(t1);
 //シャドウテクスチャ
-Texture2D<float4>g_shadowMap:register(t2);
+Texture2D<float4>g_shadowMap0:register(t2);
+//シャドウテクスチャ
+Texture2D<float4>g_shadowMap1:register(t3);
+//シャドウテクスチャ
+Texture2D<float4>g_shadowMap2:register(t4);
 
 /////////////////////////////////////////////////////////////
 // SamplerState
@@ -43,6 +47,13 @@ cbuffer LightCb:register(b1)
 	float specPow;	//鏡面反射の絞り
 	uint3 ActiveFlag;	//ライトの各アクティブフラグ
 }
+
+//シャドウマップ用の定数バッファ
+cbuffer ShadowCb : register(b2) {
+	float4x4 mLVP[NUM_SHADOW_MAP];		//ライトビュープロジェクション行列。
+	float4 texOffset[NUM_SHADOW_MAP];	//シャドウマップのサイズ。
+	float4  shadowAreaDepthInViewSpace;	//カメラ空間での影を落とすエリアの深度テーブル。
+};
 
 /////////////////////////////////////////////////////////////
 //各種構造体

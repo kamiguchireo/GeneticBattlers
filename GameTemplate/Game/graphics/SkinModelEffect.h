@@ -69,9 +69,15 @@ public:
 	{
 		m_renderMode = renderMode;
 	}
+
+	void SetActiveShadow(bool IsShadow)
+	{
+		IsActiveShadow = IsShadow;
+	}
 private:
 	void InitSilhouettoDepthStepsilState();
 	int m_renderMode = 0;
+	bool IsActiveShadow = false;
 };
 /*!
 *@brief

@@ -136,6 +136,7 @@ public:
 	{
 		return m_spriteFont.get();
 	}
+
 private:
 	Camera m_mainCamera;		//ƒJƒƒ‰
 	//Camera m_2DCamera;

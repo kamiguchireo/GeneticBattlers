@@ -160,6 +160,7 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix,EnRenderMode renderM
 	m_modelDx->UpdateEffects([&](DirectX::IEffect* material) {
 		auto modelMaterial = reinterpret_cast<ModelEffect*>(material);
 		modelMaterial->SetRenderMode(renderMode);
+		modelMaterial->SetActiveShadow(IsShadowReciever);
 	});
 	//•`‰æB
 	m_modelDx->Draw(
