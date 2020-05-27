@@ -114,6 +114,7 @@ void Game::Update()
 	m_shadowMap->Update({ 0.0f, 1000.0f, 0.0f },
 		{ 0.0f, 0.0f, 0.0f });
 	m_shadowMap->RegistShadowCaster(&m_model);
+	m_shadowMap->SendShadowRecieverParamToGpu();
 	Render();
 	////ƒ‚ƒfƒ‹‚Ìƒhƒ[
 	//m_model.Draw

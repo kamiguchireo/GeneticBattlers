@@ -38,7 +38,7 @@ cbuffer VSPSCb : register(b0){
 };
 
 static const int NUM_DIRECTION_LIG = 4;
-
+static const int NUM_SHADOW_MAP = 3;
 cbuffer LightCb:register(b1)
 {
 	float3 dligDirection[NUM_DIRECTION_LIG];	//ライトの向き
@@ -51,8 +51,7 @@ cbuffer LightCb:register(b1)
 //シャドウマップ用の定数バッファ
 cbuffer ShadowCb : register(b2) {
 	float4x4 mLVP[NUM_SHADOW_MAP];		//ライトビュープロジェクション行列。
-	float4 texOffset[NUM_SHADOW_MAP];	//シャドウマップのサイズ。
-	float4  shadowAreaDepthInViewSpace;	//カメラ空間での影を落とすエリアの深度テーブル。
+	float  shadowAreaDepthInViewSpace[NUM_SHADOW_MAP];	//カメラ空間での影を落とすエリアの深度テーブル。
 };
 
 /////////////////////////////////////////////////////////////
@@ -91,12 +90,92 @@ struct PSInput{
 	float2 TexCoord 	: TEXCOORD0;
 	float3 worldPos:TEXCOORD1;
 	float4 posInLVP:TEXCOORD2;		//ライトビュープロジェクション空間での座標
+	float4 posInview:TEXCOORD3;
+	float4 Pos:TEXCOORD4;
 };
 
 //シャドウマップ用のピクセルシェーダーへの入力構造体
 struct PSInput_ShadowMap {
 	float4 Position:SV_POSITION;		//座標
 };
+
+//使用するシャドウマップの番号を取得
+int GetCascadeIndex(float zInView)
+{
+	for (int i = 0; i < NUM_SHADOW_MAP; i++) {
+		if (zInView < shadowAreaDepthInViewSpace[i]) {
+			return i;
+		}
+	}
+	return 0;
+}
+
+float CalcShadowPercent(Texture2D<float4> tex, float2 uv, float depth)
+{
+	float shadow_val = tex.Sample(Sampler, uv).r;
+	if (depth > shadow_val.r + 0.01f) {
+		return 1.0f;
+	}
+	return 0.0f;
+}
+
+//シャドウを計算
+float CalcShadow(float3 worldPos, float zInView)
+{
+	float shadow = 0.0f;
+	//シャドウレシーバーのフラグが1
+	if (isShadowReciever == 1)
+	{
+		//影を落とす。
+		//使用するシャドウマップの番号を取得する。
+		int cascadeIndex = GetCascadeIndex(zInView);
+
+		float4 posInLVP = mul(mLVP[cascadeIndex], float4(worldPos, 1.0f));
+		posInLVP.xyz /= posInLVP.w;
+
+		//深度値を取得
+		float depth = min(posInLVP.z, 1.0f);
+
+		//uv座標に変換。
+		float2 shadowMapUV = float2(0.5f, -0.5f) * posInLVP.xy + float2(0.5f, 0.5f);
+		float shadow_val = 1.0f;
+
+		if (cascadeIndex == 0) {
+			shadow = CalcShadowPercent(g_shadowMap0, shadowMapUV, depth);
+			////シャドウマップに書き込まれている深度値を取得
+			//float zInShadowMap = g_shadowMap0.Sample(Sampler, shadowMapUV);
+
+			//if (depth > zInShadowMap + 0.01f)
+			//{
+			//	shadow = 1.0f;
+			//}
+		}
+		else if (cascadeIndex == 1) {
+			shadow = CalcShadowPercent(g_shadowMap1, shadowMapUV, depth);
+			////シャドウマップに書き込まれている深度値を取得
+			//float zInShadowMap = g_shadowMap1.Sample(Sampler, shadowMapUV);
+
+			//if (depth > zInShadowMap + 0.01f)
+			//{
+			//	shadow = 1.0f;
+			//}
+		}
+		else if (cascadeIndex == 2) {
+			shadow = CalcShadowPercent(g_shadowMap2, shadowMapUV, depth);
+			//	//シャドウマップに書き込まれている深度値を取得
+		//	float zInShadowMap = g_shadowMap2.Sample(Sampler, shadowMapUV);
+
+		//	if (depth > zInShadowMap + 0.01f)
+		//	{
+		//		shadow = 1.0f;
+		//	}
+		}
+
+	}
+
+	return shadow;
+}
+
 /*!
  *@brief	スキン行列を計算。
  */
@@ -122,8 +201,10 @@ PSInput VSMain( VSInputNmTxVcTangent In )
 	PSInput psInput = (PSInput)0;
 	//ローカル座標系からワールド座標系に変換する。
 	float4 worldPos = mul(mWorld, In.Position);
+	psInput.Pos = worldPos;
 	//ワールド座標系からカメラ座標系に変換する。
 	psInput.Position = mul(mView, worldPos);
+	psInput.posInview = psInput.Position;
 	//カメラ座標系からスクリーン座標系に変換する。
 	psInput.Position = mul(mProj, psInput.Position);
 
@@ -218,33 +299,35 @@ float4 PSMain(PSInput In) : SV_Target0
 				lig += spec;
 				}
 			}
-		//シャドウレシーバーのフラグが1
-		if (isShadowReciever == 1)
-		{
-			//LVP空間から見た時の最も手前の深度値をシャドウマップから取得する
-			float2 shadowMapUV = In.posInLVP.xy / In.posInLVP.w;
-			//シャドウマップのUV座標を0.0～1.0にする
-			shadowMapUV *= float2(0.5f, -0.5f);
-			shadowMapUV += 0.5f;
-			//シャドウマップの範囲内かどうかを判定する。
-			if (shadowMapUV.x > 0.0&&shadowMapUV.x < 1.0
-				&&shadowMapUV.y > 0.0&&shadowMapUV.y < 1.0
-				)
-			{
-				//LVP空間での深度値を計算
-				float zInLVP = In.posInLVP.z / In.posInLVP.w;
-				//シャドウマップに書き込まれている深度値を取得
-				float zInShadowMap = g_shadowMap.Sample(Sampler, shadowMapUV);
+		////シャドウレシーバーのフラグが1
+		//if (isShadowReciever == 1)
+		//{
+		//	//LVP空間から見た時の最も手前の深度値をシャドウマップから取得する
+		//	float2 shadowMapUV = In.posInLVP.xy / In.posInLVP.w;
+		//	//シャドウマップのUV座標を0.0～1.0にする
+		//	shadowMapUV *= float2(0.5f, -0.5f);
+		//	shadowMapUV += 0.5f;
+		//	//シャドウマップの範囲内かどうかを判定する。
+		//	if (shadowMapUV.x > 0.0&&shadowMapUV.x < 1.0
+		//		&&shadowMapUV.y > 0.0&&shadowMapUV.y < 1.0
+		//		)
+		//	{
+		//		//LVP空間での深度値を計算
+		//		float zInLVP = In.posInLVP.z / In.posInLVP.w;
+		//		//シャドウマップに書き込まれている深度値を取得
+		//		float zInShadowMap = g_shadowMap.Sample(Sampler, shadowMapUV);
 
-				if (zInLVP > zInShadowMap + 0.01f)
-				{
-					//影が落ちているので、光を弱くする
-					lig *= 0.5f;
-				}
+		//		if (zInLVP > zInShadowMap + 0.01f)
+		//		{
+		//			//影が落ちているので、光を弱くする
+		//			lig *= 0.5f;
+		//		}
 
 
-			}
-		}
+		//	}
+		//}
+		float f;
+		f = CalcShadow(In.Pos, In.posInview.z);
 
 		if (ActiveFlag.x == 0)
 		{

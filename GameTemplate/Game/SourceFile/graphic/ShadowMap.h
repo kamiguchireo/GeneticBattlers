@@ -73,7 +73,6 @@ namespace Engine {
 	private:
 		struct SShadowCb {
 			CMatrix mLVP[3];
-			CVector4 texOffset[3];
 			float shadowAreaDepthInViewSpace[3];	//カメラ空間での影を落とすエリアの深度テーブル。
 		};
 		int CascadeShadow = 3;		//シャドウマップの枚数

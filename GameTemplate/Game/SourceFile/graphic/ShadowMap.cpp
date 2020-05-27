@@ -22,6 +22,7 @@ namespace Engine {
 
 	void ShadowMap::ShadowMapRTCreate()
 	{
+
 		for (int i = 0; i < CascadeShadow; i++)
 		{
 			//シャドウマップ生成用のレンダリングターゲットを作る
@@ -33,7 +34,12 @@ namespace Engine {
 				2048,
 				DXGI_FORMAT_R32_FLOAT
 			);
+
 		}
+
+		//定数バッファを作成
+		m_shadowCb.Create(&m_shadowCbEntity, sizeof(m_shadowCbEntity));
+
 	}
 
 	void ShadowMap::Update(CVector3 lightCameraPos, CVector3 lightCameraTarget)
@@ -191,7 +197,8 @@ namespace Engine {
 			CMatrix m_mat = CMatrix::Identity();
 
 			m_mat.Mul(m_lightViewMatrix, proj);
-			m_lightProMatrix[i] = m_mat;
+			m_shadowCbEntity.mLVP[i] = m_mat;
+			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ * 0.8f;
 			nearPlaneZ = farPlaneZ;
 			
 			////カメラの上方向が決まったので、ライトビュー行列を計算する
