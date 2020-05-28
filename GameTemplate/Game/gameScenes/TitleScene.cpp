@@ -84,7 +84,7 @@ void TitleScene::Update()
 				NewGO<BattleScenes>(0);
 				break;
 			case enMenu_Net:
-				NewGO<NetScenes>(0);
+				NewGO<NetScenes>(0,"NetScenes");
 				break;
 			}
 			DeleteGO(this);

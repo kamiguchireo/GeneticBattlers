@@ -58,12 +58,7 @@ void NetScenes::Update()
 	case enState_Idle:
 		break;
 	case enState_Send:
-		if (g_pad[0].IsTrigger(enButtonA)) {
-			SendData();
-		}
-		else if (g_pad[0].IsTrigger(enButtonB)) {
-			AIDataTable hoge = *m_Tabelelist.begin();
-		}
+		
 		break;
 	default:
 		break;
@@ -72,20 +67,15 @@ void NetScenes::Update()
 
 void NetScenes::PushBackData(int ListNum, int skill, int target, float rate)
 {
-	if (m_instance == nullptr) { return; }
-
 	AIData hoge = { skill,target,rate };
 	m_Tabelelist[ListNum].push_back(hoge);
 }
 
 void NetScenes::SendData()
 {
-	m_net->putEvent(1, enAI_Attaker);
-	SendAIData("Assets/AIData/Attacker.bin");
-	m_net->putEvent(1, enAI_Healer);
-	SendAIData("Assets/AIData/Healer.bin");
-	m_net->putEvent(1, enAI_Supporter);
-	SendAIData("Assets/AIData/Supporter.bin");
+	SendAIData("Assets/AIData/Attacker.bin", enAI_Attaker);
+	SendAIData("Assets/AIData/Healer.bin", enAI_Healer);
+	SendAIData("Assets/AIData/Supporter.bin", enAI_Supporter);
 }
 
 void NetScenes::SetStateIdle()
@@ -96,11 +86,12 @@ void NetScenes::SetStateIdle()
 
 void NetScenes::SetStateSend()
 {
+	SendData();
 	m_state = enState_Send;
 	m_text->SetState(m_state);
 }
 
-void NetScenes::SendAIData(const char* filePath)
+void NetScenes::SendAIData(const char* filePath, int dataType)
 {
 	FILE* fp;
 	fp = fopen(filePath, "rb");
@@ -118,7 +109,7 @@ void NetScenes::SendAIData(const char* filePath)
 
 	//‚±‚ê‚Å‘—‚ê‚é‚Ì‚©H
 	for (auto& data : dataList) {
-		//m_net->putEvent(1, 0);
+		m_net->putEvent(1, dataType);
 		m_net->putEvent(2, data.skillNo);
 		m_net->putEvent(3, data.target);
 		m_net->putEvent(4, data.rate);
