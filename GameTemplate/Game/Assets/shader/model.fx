@@ -138,37 +138,15 @@ float CalcShadow(float3 worldPos, float zInView)
 
 		//uv座標に変換。
 		float2 shadowMapUV = float2(0.5f, -0.5f) * posInLVP.xy + float2(0.5f, 0.5f);
-		float shadow_val = 1.0f;
 
 		if (cascadeIndex == 0) {
 			shadow = CalcShadowPercent(g_shadowMap0, shadowMapUV, depth);
-			////シャドウマップに書き込まれている深度値を取得
-			//float zInShadowMap = g_shadowMap0.Sample(Sampler, shadowMapUV);
-
-			//if (depth > zInShadowMap + 0.01f)
-			//{
-			//	shadow = 1.0f;
-			//}
 		}
 		else if (cascadeIndex == 1) {
 			shadow = CalcShadowPercent(g_shadowMap1, shadowMapUV, depth);
-			////シャドウマップに書き込まれている深度値を取得
-			//float zInShadowMap = g_shadowMap1.Sample(Sampler, shadowMapUV);
-
-			//if (depth > zInShadowMap + 0.01f)
-			//{
-			//	shadow = 1.0f;
-			//}
 		}
 		else if (cascadeIndex == 2) {
 			shadow = CalcShadowPercent(g_shadowMap2, shadowMapUV, depth);
-			//	//シャドウマップに書き込まれている深度値を取得
-		//	float zInShadowMap = g_shadowMap2.Sample(Sampler, shadowMapUV);
-
-		//	if (depth > zInShadowMap + 0.01f)
-		//	{
-		//		shadow = 1.0f;
-		//	}
 		}
 
 	}
@@ -261,6 +239,7 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 	psInput.TexCoord = In.TexCoord;
     return psInput;
 }
+
 //--------------------------------------------------------------------------------------
 // ピクセルシェーダーのエントリ関数。
 //--------------------------------------------------------------------------------------
@@ -328,6 +307,10 @@ float4 PSMain(PSInput In) : SV_Target0
 		//}
 		float f;
 		f = CalcShadow(In.Pos, In.posInview.z);
+		if (f == 1.0f)
+		{
+			lig *= 0.5f;
+		}
 
 		if (ActiveFlag.x == 0)
 		{
@@ -374,3 +357,4 @@ float4 PSMain_ShadowMap(PSInput_ShadowMap In): SV_Target0
 	//射影空間でのZ値を返す
 	return In.Position.z / In.Position.w;
 }
+

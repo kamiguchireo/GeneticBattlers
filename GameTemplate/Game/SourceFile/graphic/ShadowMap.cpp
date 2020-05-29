@@ -60,14 +60,14 @@ namespace Engine {
 		CVector3 lightCameraUpAxis;
 		if (fabsf(lightDir.y) > 0.99998f)
 		{
-			//ほぼ真上or真下を向いているので、1,0,0を上方向とする
+			//ほぼ真上or真下を向いている
 			lightCameraUpAxis = CVector3::AxisX();
 			lightCameraUpAxis.Cross(lightDir, CVector3::Right());
 			//lightCameraUpAxis = CVector3::Right();
 		}
 		else
 		{
-			//真上を向いていないときは、0,1,0を上方向とする
+			//真上を向いていない
 			lightCameraUpAxis = CVector3::AxisY();
 			lightCameraUpAxis.Cross(lightDir, CVector3::Up());
 			//lightCameraUpAxis = CVector3::Up();
@@ -115,13 +115,17 @@ namespace Engine {
 		{
 			farPlaneZ = nearPlaneZ + shadowAreaTbl[i];
 			
-			//ライトビュー行列
-			m_lightViewMatrix = CMatrix::Identity();
+			//ライトビュー行
+			for (int i = 0; i < 3; i++)
+			{
+				m_lightViewMatrix = CMatrix::Identity();
+			}
 			//画角の半分を取得
 			float halfViewAngle = g_camera3D.GetViewAngle()*0.5f;
 			//視推台の8頂点をライト空間に変換して、正射影の幅と高さを求める
 			float w, h;
 			float far_z = -1.0f;
+
 			CVector3 v[8];
 			{
 				//画角から距離に対する高さの割合を計算
@@ -211,7 +215,7 @@ namespace Engine {
 
 			////ライトプロジェクション行列を作成する
 			////太陽光からの影を落としたいなら、平行投影行列を作成する
-			//m_lightProMatrix[0].MakeOrthoProjectionMatrix
+			//m_shadowCbEntity.mLVP[0].MakeOrthoProjectionMatrix
 			//(
 			//	3000,
 			//	3000,
@@ -251,11 +255,11 @@ namespace Engine {
 			float clearColor[4] = { 1.0f,1.0f,1.0f,1.0f };
 			m_shadowMapRT[i].ClearRenderTarget(clearColor);
 
-				//シャドウキャスターをシャドウマップにレンダリング。
+			//シャドウキャスターをシャドウマップにレンダリング。
 			for (auto& caster : m_shadowCasters) {
 				caster->Draw(
 					m_lightViewMatrix,
-					m_lightProMatrix[i],
+					m_shadowCbEntity.mLVP[i],
 					enRenderMode_CreateShadowMap
 				);
 
