@@ -28,27 +28,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	SampleNetwork networkLogic(appID, appVersion);
 	networkLogic.connect();
 
-
-	//networkLogic.SendEvent(1.0f);
-	/*
-	RenderTarget m_mainRenderTarget;		//メインレンダリングターゲット。
-	//メインとなるレンダリングターゲットを作成する。
-	m_mainRenderTarget.Create(
-		FRAME_BUFFER_W,
-		FRAME_BUFFER_H,
-		DXGI_FORMAT_R8G8B8A8_UNORM
-	);
-
-	Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
-	//メインレンダリングターゲットに描かれた絵を
-	//フレームバッファにコピーするためのスプライトを初期化する
-	m_copyMainRtToFrameBufferSprite.Init(
-		m_mainRenderTarget.GetRenderTargetSRV(),
-		FRAME_BUFFER_W,
-		FRAME_BUFFER_H
-	);
-	*/
-
 	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
 	CVector3 m_sposition = { 0.0,0.0,5.0 };			//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();			//!<回転。
@@ -87,47 +66,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	g_camera2D.Update2D();
 	PostEffect m_postEffect;		//ポストエフェクト
 
-	//networkLogic.putEvent((nByte)1, 1);
-	//networkLogic.putEvent((nByte)2, 10.0f);
-	//networkLogic.GetEvent((nByte)1);
-	//networkLogic.GetEvent((nByte)2);
-	//int i = 0;
-	//bool a = false;
-	//bool s = false;
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{
 		//i++;
 		networkLogic.run();
 
-		////ルーム作成
-		//if (GetAsyncKeyState('A'))
-		//{
-		//	if (a == false)
-		//	{
-		//		networkLogic.createRoom(L"abc", 2);
-
-		//		a = true;
-		//	}
-		//}
-
-		////ルーム参加
-		//if (GetAsyncKeyState('S'))
-		//{
-		//	if (s == false)
-		//	{
-		//		networkLogic.JoinRoom();
-		//	}
-		//}
-
-
-		//if (GetAsyncKeyState('C'))
-		//{
-		//	if (a == true)
-		//	{
-		//		networkLogic.SendEventHash();
-		//	}
-		//}
 		//描画開始。
 		g_graphicsEngine->BegineRender();
 

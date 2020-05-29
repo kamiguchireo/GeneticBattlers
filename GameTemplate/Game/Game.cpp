@@ -88,19 +88,19 @@ void Game::Update()
 	static float f = 0.5f;
 	if (GetAsyncKeyState(VK_UP))
 	{
-		m_position.z--;
+		m_position.z-=5.0f;
 	}
 	if (GetAsyncKeyState(VK_DOWN))
 	{
-		m_position.z++;
+		m_position.z+=5.0f;
 	}
 	if (GetAsyncKeyState(VK_RIGHT))
 	{
-		m_position.x--;
+		m_position.x-=5.0f;
 	}	
 	if (GetAsyncKeyState(VK_LEFT))
 	{
-		m_position.x++;
+		m_position.x+=5.0f;
 	}
 	if (GetAsyncKeyState('A'))
 	{
@@ -254,7 +254,7 @@ void Game::Render()
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
 		enRenderMode_Normal,
-		g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(1),
+		g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
 		g_graphicsEngine->GetShadowMap()->GetLightViewMatrix()
 	);
 
