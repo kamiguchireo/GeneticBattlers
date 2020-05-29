@@ -203,7 +203,7 @@ void BattleScenes::Update()
 		{
 			for (int i = 0; i < m_monsterTeam1List.size(); i++)
 			{
-				m_monsterTeam1List[i]->Save("aaa");
+				//m_monsterTeam1List[i]->Save();
 			}
 			//フェードさせる。
 			m_state = enState_FadeOut;

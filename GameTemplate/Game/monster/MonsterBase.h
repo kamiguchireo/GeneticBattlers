@@ -2,21 +2,9 @@
 #include "Skill/SkillBase.h"
 #include "parameter/StatusManager.h"
 #include "parameter/StatusUI.h"
-
-//const int AI_SIZE = 6;							//AIがとりうる行動の数。
-//const int AI_SIZE = 6;							//AIがとりうる行動の数。
+#include "parameter/GIManager.h"
 
 struct Status;
-
-//行動テーブルのデータ。
-//!<skillNo		スキル番号。
-//!<target		ターゲット番号。
-//!<rate		使用頻度。
-struct AIData {
-	int skillNo = 0;
-	int target = 0;
-	float rate = 0.0f;
-};
 
 //行動のリザルト。
 //!<damage		ダメージ値。
@@ -27,7 +15,6 @@ struct ACTResullt {
 	int damage = 0;
 	int skillNo = 0;
 	int target = 0;
-	bool score = false;
 };
 
 /************************/
@@ -105,14 +92,6 @@ public:
 	//行動の評価を行う。
 	virtual bool ACTScoring();
 
-	//行動のリザルトの設定。
-	//!<No			スキル番号。
-	//!<damage		ダメージ値。
-	void SetActResult(int No ,int damage) {
-		m_actRes.skillNo = No;
-		m_actRes.damage = damage;
-	}
-
 	/// <summary>
 	/// ダメージを与える。
 	/// </summary>
@@ -176,19 +155,12 @@ public:
 	/// </summary>
 	/// <param name="filePath">ファイルパス。</param>
 	virtual void Init(const char* filePath);
-	/// <summary>
-	/// binファイルにデータを書き込む。
-	/// </summary>
-	/// <param name="filePath">ファイルパス。</param>
-	virtual void Save(const char* filePath);
 
 protected:
 	/// <summary>
 	/// デフォルトの行動を作り出す。
 	/// </summary>
-	virtual void MakeData() {};
-	//遺伝的アルゴリズムを用いて行動テーブルを更新。
-	void GIUpdate();
+	virtual const char* GetDefaultDataPath() = 0;
 
 	//	モデル関係
 	SkinModel m_model;									//モデルデータ。
@@ -209,10 +181,8 @@ protected:
 	StatusManager m_status;								//ステータス。
 
 	//	AIデータ。
-	std::vector<AIData> m_AI;							//AIデータ。
-	char m_AIPath[64];									//AIデータのファイルパス。
+	GIManager m_GIData;									//行動テーブルのデータ。
 	ACTResullt m_actRes;								//行動のリザルト。
-	std::vector<ACTResullt> m_actResList;				//行動のリザルトの可変長配列。
 	int m_scoringFlag = 0;								//評価のフラグ。
 
 	//	ポインタとか。

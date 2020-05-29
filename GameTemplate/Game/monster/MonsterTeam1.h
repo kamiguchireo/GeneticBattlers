@@ -22,8 +22,6 @@ public:
 	void SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)override;
 	//AIデータを読み込みたい。
 	void Init(const char* filePath)override {};
-	//AIデータを書き込みたい。
-	void Save(const char* filePath)override {};
 
 	void SetUIPos(const CVector3& pos)
 	{
@@ -31,6 +29,12 @@ public:
 	}
 
 private:
+	const char* GetDefaultDataPath()
+	{
+		return "Assets/AIData/HealerDefault.bin";
+	}
+	const char m_filePath[64] = "Assets/AIData/HealerDefault.bin";
+
 	//行動の状態遷移の列挙。
 	enum ActionState {
 		en_state_Tame,

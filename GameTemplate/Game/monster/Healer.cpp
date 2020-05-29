@@ -93,19 +93,4 @@ bool Healer::BattleAction()
 	return flag;
 }
 
-void Healer::MakeData()
-{
-	//ファイルが存在しないならデフォルト。
-	AIData healerAI[6];
-	healerAI[0] = { 100,0,0.25f };
-	healerAI[1] = { 100,1,0.1f };
-	healerAI[2] = { 100,2,0.15f };
-	healerAI[3] = { 101,0,0.25f };
-	healerAI[4] = { 101,1,0.1f };
-	healerAI[5] = { 101,2,0.15f };
-
-	for (int i = 0; i < 6; i++) {
-		m_AI.push_back(healerAI[i]);
-	}
-}
 

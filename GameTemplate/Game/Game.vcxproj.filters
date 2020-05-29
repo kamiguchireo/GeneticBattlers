@@ -204,6 +204,7 @@
     <ClCompile Include="monster\parameter\StatusManager.cpp" />
     <ClCompile Include="gameScenes\NetScenes\NetScenes.cpp" />
     <ClCompile Include="gameScenes\NetScenes\NetSceneText.cpp" />
+    <ClCompile Include="monster\parameter\GIManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -363,6 +364,7 @@
     <ClInclude Include="monster\parameter\StatusManager.h" />
     <ClInclude Include="gameScenes\NetScenes\NetScenes.h" />
     <ClInclude Include="gameScenes\NetScenes\NetSceneText.h" />
+    <ClInclude Include="monster\parameter\GIManager.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

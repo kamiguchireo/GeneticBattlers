@@ -100,6 +100,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="gameScenes\NetScenes\NetSceneText.cpp" />
+    <ClCompile Include="monster\parameter\GIManager.cpp" />
     <ClCompile Include="SourceFile\graphic\font\FontRender.cpp" />
     <ClCompile Include="SourceFile\graphic\font\Font.cpp" />
     <ClCompile Include="gameScenes\NetScenes\NetScenes.cpp" />
@@ -176,6 +177,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="gameScenes\NetScenes\NetSceneText.h" />
+    <ClInclude Include="monster\parameter\GIManager.h" />
     <ClInclude Include="SourceFile\graphic\font\FontRender.h" />
     <ClInclude Include="SourceFile\graphic\font\Font.h" />
     <ClInclude Include="gameScenes\NetScenes\NetScenes.h" />

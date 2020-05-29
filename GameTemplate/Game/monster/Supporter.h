@@ -11,7 +11,10 @@ public:
 	bool BattleAction();
 
 private:
-	//行動のテーブルを作り出す。
-	void MakeData();
+	const char* GetDefaultDataPath() 
+	{
+		return "Assets/AIData/SupporterDefault.bin";
+	}
+	//const char m_filePath[] = "Assets/AIData/SupporterDefault.bin";
 };
 

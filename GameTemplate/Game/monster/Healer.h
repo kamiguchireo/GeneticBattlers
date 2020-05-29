@@ -11,7 +11,10 @@ public:
 	bool BattleAction();
 
 private:
-	//デフォルトの行動テーブルを作り出す。
-	void MakeData()override;
+	const char* GetDefaultDataPath()
+	{
+		return "Assets/AIData/HealerDefault.bin";
+	}
+	//const char m_filePath[] = "Assets/AIData/HealerDefault.bin";
 };
 
