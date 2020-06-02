@@ -109,7 +109,8 @@ namespace Engine {
 		//遠平面の距離
 		float farPlaneZ;
 		CVector3 cameraUp;
-		cameraUp.Cross(g_camera3D.GetRight(), g_camera3D.GetForward());
+		//cameraUp.Cross(g_camera3D.GetRight(), g_camera3D.GetForward());
+		cameraUp = g_camera3D.GetUp();
 		//カスケードシャドウの枚数分回す
 		for(int i = 0;i < CascadeShadow;i++)
 		{
@@ -118,7 +119,7 @@ namespace Engine {
 			//ライトビュー行
 			for (int i = 0; i < 3; i++)
 			{
-				m_lightViewMatrix = CMatrix::Identity();
+				m_lightViewMatrix[i] = CMatrix::Identity();
 			}
 			//画角の半分を取得
 			float halfViewAngle = g_camera3D.GetViewAngle()*0.5f;
@@ -162,15 +163,15 @@ namespace Engine {
 				auto viewFrustumCenterPosition = (nearPlaneCenterPos + farPlaneCenterPos) * 0.5f;
 				auto lightPos = CalcLightPosition(lightHeight, viewFrustumCenterPosition);
 
-				m_lightViewMatrix = lightViewRot;
+				m_lightViewMatrix[i] = lightViewRot;
 
-				m_lightViewMatrix.m[3][0] = lightPos.x;
-				m_lightViewMatrix.m[3][1] = lightPos.y;
-				m_lightViewMatrix.m[3][2] = lightPos.z;
-				m_lightViewMatrix.m[3][3] = 1.0f;
+				m_lightViewMatrix[i].m[3][0] = lightPos.x;
+				m_lightViewMatrix[i].m[3][1] = lightPos.y;
+				m_lightViewMatrix[i].m[3][2] = lightPos.z;
+				m_lightViewMatrix[i].m[3][3] = 1.0f;
 
 				//ライトビュー完成
-				m_lightViewMatrix.Inverse(m_lightViewMatrix);
+				m_lightViewMatrix[i].Inverse(m_lightViewMatrix[i]);
 
 				//視推台を構成する8頂点を計算で来たので、ライト空間に座標変換して、AABBを求める
 				CVector3 vMax = { -FLT_MAX,-FLT_MAX,-FLT_MAX };
@@ -178,8 +179,7 @@ namespace Engine {
 				for (auto& vInLight : v)
 				{
 					//ベクトルと行列の乗算
-					//lightPos.yが入っていた値しか変わらない
-					m_lightViewMatrix.Mul(vInLight);
+					m_lightViewMatrix[i].Mul(vInLight);
 
 					//最大値を設定
 					vMax.Max(vInLight);
@@ -200,7 +200,8 @@ namespace Engine {
 			);
 			CMatrix m_mat = CMatrix::Identity();
 
-			m_mat.Mul(m_lightViewMatrix, proj);
+			m_mat.Mul(m_lightViewMatrix[i], proj);
+			m_lightProMatrix[i] = m_mat;
 			m_shadowCbEntity.mLVP[i] = m_mat;
 			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ * 0.8f;
 			nearPlaneZ = farPlaneZ;
@@ -258,8 +259,8 @@ namespace Engine {
 			//シャドウキャスターをシャドウマップにレンダリング。
 			for (auto& caster : m_shadowCasters) {
 				caster->Draw(
-					m_lightViewMatrix,
-					m_shadowCbEntity.mLVP[i],
+					m_lightViewMatrix[i],
+					m_lightProMatrix[i],
 					enRenderMode_CreateShadowMap
 				);
 

@@ -44,9 +44,9 @@ namespace Engine {
 		// 計算されたライトの座標
 		CVector3 CalcLightPosition(float lightHeight, CVector3 viewFrustomCenterPosition);
 	
-		CMatrix GetLightViewMatrix()
+		CMatrix GetLightViewMatrix(int i)
 		{
-			return m_lightViewMatrix;
+			return m_lightViewMatrix[i];
 		}
 		CMatrix GetLigthProjMatrix(int i)
 		{
@@ -80,10 +80,10 @@ namespace Engine {
 		RenderTarget m_shadowMapRT[3];
 		CVector3 m_lightCameraPos = CVector3::Zero();
 		CVector3 m_lightCameraTarget = CVector3::Zero();
-		CMatrix m_lightViewMatrix;
+		CMatrix m_lightViewMatrix[3];
 		CMatrix m_lightProMatrix[3];
 		std::vector<SkinModel*> m_shadowCasters;	//シャドウキャスターの配列。
-		float m_lightHeight = 200.0f;				//ライトの高さ。
+		float m_lightHeight = 2000.0f;				//ライトの高さ。
 		CVector3 lightDir = CVector3::Down();		//ライトの向き
 		SShadowCb m_shadowCbEntity;
 		ConstantBuffer m_shadowCb;		//影を落とす時に使用する定数バッファ。
