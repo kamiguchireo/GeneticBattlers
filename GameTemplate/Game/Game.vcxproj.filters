@@ -160,7 +160,6 @@
     </ClCompile>
     <ClCompile Include="Skill\SkillBase.cpp" />
     <ClCompile Include="Network\SampleNetwork.cpp" />
-    <ClCompile Include="gameScenes\BattleScenes.cpp" />
     <ClCompile Include="gameScenes\TitleScene.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Network\Listener.cpp" />
@@ -205,6 +204,8 @@
     <ClCompile Include="gameScenes\NetScenes\NetScenes.cpp" />
     <ClCompile Include="gameScenes\NetScenes\NetSceneText.cpp" />
     <ClCompile Include="monster\parameter\GIManager.cpp" />
+    <ClCompile Include="gameScenes\BattleScenes\BattleScenes.cpp" />
+    <ClCompile Include="gameScenes\BattleScenes\BattleManager.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -315,7 +316,6 @@
       <Filter>skill</Filter>
     </ClInclude>
     <ClInclude Include="Skill\SkillBase.h" />
-    <ClInclude Include="gameScenes\BattleScenes.h" />
     <ClInclude Include="gameScenes\TitleScene.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="Network\Listener.h" />
@@ -365,6 +365,8 @@
     <ClInclude Include="gameScenes\NetScenes\NetScenes.h" />
     <ClInclude Include="gameScenes\NetScenes\NetSceneText.h" />
     <ClInclude Include="monster\parameter\GIManager.h" />
+    <ClInclude Include="gameScenes\BattleScenes\BattleScenes.h" />
+    <ClInclude Include="gameScenes\BattleScenes\BattleManager.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

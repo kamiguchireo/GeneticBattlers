@@ -165,7 +165,9 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const 
 
 void MonsterBase::Init(const char * filePath)
 {
+	//ファイルパスから読み込めないければ。
 	if (m_GIData.Load(filePath)) {
+		//デフォルトのデータのファイルを読み込む。
 		m_GIData.LoadDefault(GetDefaultDataPath());
 	}
 }

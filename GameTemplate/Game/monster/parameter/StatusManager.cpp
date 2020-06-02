@@ -93,7 +93,7 @@ bool StatusManager::AddATB(StatusUI* ui)
 
 	m_activeTime += (float)m_status.DEX * addTime;
 	for (int i = 0; i < en_buff_num; i++) {
-		if (buffTimeList[i] >= 0.0f) continue;
+		if (buffTimeList[i] == 0.0f) continue;
 
 		buffTimeList[i] -= addTime;
 		if (buffTimeList[i] < 0.0f) {
