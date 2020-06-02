@@ -244,18 +244,18 @@ void Game::Render()
 	(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
-		enRenderMode_Normal,
-		g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
-		g_graphicsEngine->GetShadowMap()->GetLightViewMatrix(0)
+		enRenderMode_Normal
+		//g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
+		//g_graphicsEngine->GetShadowMap()->GetLightViewMatrix(0)
 	);
 	//ƒ‚ƒfƒ‹3‚Ìƒhƒ[
 	m_model3.Draw
 	(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
-		enRenderMode_Normal,
-		g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
-		g_graphicsEngine->GetShadowMap()->GetLightViewMatrix(0)
+		enRenderMode_Normal
+		//g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
+		//g_graphicsEngine->GetShadowMap()->GetLightViewMatrix(0)
 	);
 
 	//PostRender();
