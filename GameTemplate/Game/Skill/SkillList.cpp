@@ -78,7 +78,7 @@ bool Attack::UseSkill(MonsterBase * attack, MonsterBase * target)
 		int damage = DamageCalcuration(attack, target);
 		int res = target->Damage(damage);
 
-		attack->SetActResult(m_skillNo, res);
+		//attack->SetActResult(m_skillNo, res);
 		//クールタイムの設定。
 		attack->SetCoolTime(coolTime);
 
@@ -113,7 +113,7 @@ bool DoubleAttack::UseSkill(MonsterBase * attack, MonsterBase * target)
 		damage = DamageCalcuration(attack, target);
 		res += target->Damage(damage);
 		
-		attack->SetActResult(m_skillNo, res);
+		//attack->SetActResult(m_skillNo, res);
 
 		//クールタイムの設定。
 		attack->SetCoolTime(coolTime);
@@ -147,7 +147,7 @@ bool Heal::UseSkill(MonsterBase * attack, MonsterBase * target)
 		//回復量の計算。
 		int result = attack->GetStatusManager().GetStatus().MAT * skillPower;
 		int res = target->Healing(result);
-		attack->SetActResult(m_skillNo, res);
+		//attack->SetActResult(m_skillNo, res);
 		//クールタイムの設定。
 		attack->SetCoolTime(coolTime);
 
@@ -173,7 +173,7 @@ bool BuffSkill::UseSkill(MonsterBase * attack, MonsterBase * target)
 		int result = attack->GetStatusManager().GetStatus().MAT * 5.0f;
 		//バフをかける。
 		int res = target->Monster_Buff(m_status, skillPower, result);
-		attack->SetActResult(m_skillNo, res);
+		//attack->SetActResult(m_skillNo, res);
 		//クールタイムの設定。
 		attack->SetCoolTime(coolTime);
 
@@ -206,7 +206,7 @@ bool BuffSkillWide::UseSkill(MonsterBase * attack, MonsterBase * target)
 			res += list[i]->Monster_Buff(m_status, skillPower, result);
 		}
 		res /= list.size();		//上昇値の平均をとる。
-		attack->SetActResult(m_skillNo, res);
+		//attack->SetActResult(m_skillNo, res);
 		//クールタイムの設定。
 		attack->SetCoolTime(coolTime);
 

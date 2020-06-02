@@ -92,20 +92,5 @@ bool Attacker::BattleAction()
 	return flag;
 }
 
-void Attacker::MakeData()
-{
-	//デフォルトの行動。
-	AIData attackerAI[6];
-	attackerAI[0] = { 0,0,0.25f };
-	attackerAI[1] = { 0,1,0.1f };
-	attackerAI[2] = { 0,2,0.15f };
-	attackerAI[3] = { 1,0,0.25f };
-	attackerAI[4] = { 1,1,0.1f };
-	attackerAI[5] = { 1,2,0.15f };
-
-	for (int i = 0; i < 6; i++) {
-		m_AI.push_back(attackerAI[i]);
-	}
-}
 
 

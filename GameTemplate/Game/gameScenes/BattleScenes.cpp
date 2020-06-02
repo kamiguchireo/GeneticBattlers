@@ -49,7 +49,6 @@ bool BattleScenes::Start()
 			MonsterBase* monster = NewGO<MonsterTeam1>(0);
 			Status hoge;
 			hoge.HP = rand() % 50 + 100;
-			//hoge.MP = rand() % 50 + 100;
 			hoge.ATK = rand() % 10 + 10;
 			hoge.DEF = rand() % 10 + 10;
 			hoge.MAT = rand() % 10 + 10;
@@ -71,7 +70,6 @@ bool BattleScenes::Start()
 			Status hoge;
 			hoge.HP = 130;
 			//hoge.HP = 1;
-			//hoge.MP = 100;			//使わんかも
 			hoge.ATK = 300;
 			hoge.DEF = 10;
 			hoge.MAT = 5;
@@ -91,7 +89,6 @@ bool BattleScenes::Start()
 			Status hoge;
 			hoge.HP = 130;
 			//hoge.HP = 1;
-			//hoge.MP = 100;			//使わんかも
 			hoge.ATK = 5;
 			hoge.DEF = 10;
 			hoge.MAT = 30;
@@ -111,7 +108,6 @@ bool BattleScenes::Start()
 			Status hoge;
 			hoge.HP = 130;
 			//hoge.HP = 1;
-			//hoge.MP = 100;			//使わんかも
 			hoge.ATK = 5;
 			hoge.DEF = 15;
 			hoge.MAT = 20;
@@ -207,7 +203,7 @@ void BattleScenes::Update()
 		{
 			for (int i = 0; i < m_monsterTeam1List.size(); i++)
 			{
-				m_monsterTeam1List[i]->Save("aaa");
+				//m_monsterTeam1List[i]->Save();
 			}
 			//フェードさせる。
 			m_state = enState_FadeOut;

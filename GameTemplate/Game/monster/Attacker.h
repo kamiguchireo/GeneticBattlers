@@ -12,7 +12,10 @@ public:
 
 
 private:
-	//デフォルトの行動テーブルを作り出す。
-	void MakeData() override;
+	const char* GetDefaultDataPath()
+	{
+		return "Assets/AIData/AttackerDefault.bin";
+	}
+	//const char m_filePath[] = "Assets/AIData/AttackerDefault.bin";
 };
 

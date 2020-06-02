@@ -91,19 +91,3 @@ bool Supporter::BattleAction()
 
 	return flag;
 }
-
-void Supporter::MakeData()
-{
-	//デフォルトの行動。
-	AIData supporterAI[6];
-	supporterAI[0] = { 200,0,0.25f };
-	supporterAI[1] = { 200,1,0.1f };
-	supporterAI[2] = { 200,2,0.15f };
-	supporterAI[3] = { 201,0,0.25f };
-	supporterAI[4] = { 201,1,0.1f };
-	supporterAI[5] = { 201,2,0.15f };
-
-	for (int i = 0; i < 6; i++) {
-		m_AI.push_back(supporterAI[i]);
-	}
-}
