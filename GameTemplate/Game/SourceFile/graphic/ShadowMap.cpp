@@ -71,7 +71,6 @@ namespace Engine {
 			lightCameraUpAxis = CVector3::AxisY();
 			lightCameraUpAxis.Cross(lightDir, CVector3::Up());
 			//lightCameraUpAxis = CVector3::Up();
-
 		}
 		//ライトの右方向
 		CVector3 lightViewRight;
@@ -96,9 +95,9 @@ namespace Engine {
 		lightViewRot.m[2][2] = lightDir.z;
 		lightViewRot.m[2][3] = 0.0f;
 		float shadowAreaTbl[] = {
-			m_lightHeight * 0.8f,
-			m_lightHeight * 1.6f,
-			m_lightHeight * 3.6f
+			1000.0f,//m_lightHeight * 0.8f,
+			2000.0f,//m_lightHeight * 1.6f,
+			3000.0f//m_lightHeight * 3.6f
 		};
 
 		//ライトビューの高さを計算
@@ -109,7 +108,6 @@ namespace Engine {
 		//遠平面の距離
 		float farPlaneZ;
 		CVector3 cameraUp;
-		//cameraUp.Cross(g_camera3D.GetRight(), g_camera3D.GetForward());
 		cameraUp = g_camera3D.GetUp();
 		//カスケードシャドウの枚数分回す
 		for(int i = 0;i < CascadeShadow;i++)
@@ -203,7 +201,8 @@ namespace Engine {
 			m_mat.Mul(m_lightViewMatrix[i], proj);
 			m_lightProMatrix[i] = m_mat;
 			m_shadowCbEntity.mLVP[i] = m_mat;
-			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ * 0.8f;
+			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ;
+			m_shadowCbEntity.shadowAreaDepthInViewSpaceNear[i] = nearPlaneZ;
 			nearPlaneZ = farPlaneZ;
 			
 			////カメラの上方向が決まったので、ライトビュー行列を計算する
@@ -283,4 +282,5 @@ namespace Engine {
 			d3dDeviceContext->PSSetShaderResources(2 + i, 1,&m_shadow);
 		}
 	}
+
 }

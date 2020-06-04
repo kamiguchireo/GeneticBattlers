@@ -74,6 +74,7 @@ namespace Engine {
 		struct SShadowCb {
 			CMatrix mLVP[3];
 			float shadowAreaDepthInViewSpace[3];	//カメラ空間での影を落とすエリアの深度テーブル。
+			float shadowAreaDepthInViewSpaceNear[3];
 		};
 		int CascadeShadow = 3;		//シャドウマップの枚数
 		int ShadowTextureNum = 0;		//シャドウマップに使うテクスチャの番号
@@ -83,7 +84,7 @@ namespace Engine {
 		CMatrix m_lightViewMatrix[3];
 		CMatrix m_lightProMatrix[3];
 		std::vector<SkinModel*> m_shadowCasters;	//シャドウキャスターの配列。
-		float m_lightHeight = 2000.0f;				//ライトの高さ。
+		float m_lightHeight = 1000.0f;				//ライトの高さ。
 		CVector3 lightDir = CVector3::Down();		//ライトの向き
 		SShadowCb m_shadowCbEntity;
 		ConstantBuffer m_shadowCb;		//影を落とす時に使用する定数バッファ。

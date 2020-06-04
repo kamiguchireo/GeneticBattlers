@@ -52,6 +52,7 @@ cbuffer LightCb:register(b1)
 cbuffer ShadowCb : register(b2) {
 	float4x4 mLVP[NUM_SHADOW_MAP];		//ライトビュープロジェクション行列。
 	float  shadowAreaDepthInViewSpace[NUM_SHADOW_MAP];	//カメラ空間での影を落とすエリアの深度テーブル。
+	float shadowAreaDepthInViewSpaceNear[NUM_SHADOW_MAP];
 };
 
 /////////////////////////////////////////////////////////////
@@ -103,8 +104,11 @@ struct PSInput_ShadowMap {
 int GetCascadeIndex(float zInView)
 {
 	for (int i = 0; i < NUM_SHADOW_MAP; i++) {
-		if (zInView < shadowAreaDepthInViewSpace[i]) {
-			return i;
+		if (zInView > shadowAreaDepthInViewSpaceNear[i])
+		{
+			if (zInView < shadowAreaDepthInViewSpace[i]) {
+				return i;
+			}
 		}
 	}
 	return 0;
@@ -234,6 +238,7 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 	psInput.Tangent = normalize( mul(skinning, In.Tangent) );
 
 	pos = mul(mView, pos);
+	psInput.posInview = pos;
 	pos = mul(mProj, pos);
 	psInput.Position = pos;
 	psInput.TexCoord = In.TexCoord;

@@ -20,7 +20,7 @@ Game::Game()
 	//	FRAME_BUFFER_H
 	//);
 
-	g_camera3D.SetPosition({ 0.0f, 200.0f, 500.0f });
+	g_camera3D.SetPosition({ 0.0f, 200.0f, 800.0f });
 	g_camera3D.SetTarget({ 0.0f, 200.0f, 0.0f });
 
 }
