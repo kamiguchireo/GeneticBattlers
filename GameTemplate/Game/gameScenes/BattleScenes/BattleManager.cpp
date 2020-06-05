@@ -15,7 +15,6 @@ void BattleManager::ActiveTimeUpdate()
 		//ゲージが溜まり切ったらポインタを取得する。　
 		if (is_action) {
 			m_monsterACTList.push_back(m_monsterEnemy[i]);
-			m_monsterTeam[i]->SelectUseSkill(m_monsterEnemy, m_monsterTeam);
 			//ステートを変更。
 			m_battleState = enState_ACT;
 		}
@@ -27,7 +26,6 @@ void BattleManager::ActiveTimeUpdate()
 		//ゲージが溜まり切ったらポインタを取得する。　
 		if (is_action) {
 			m_monsterACTList.push_back(m_monsterEnemy[i]);
-			m_monsterEnemy[i]->SelectUseSkill(m_monsterTeam, m_monsterEnemy);
 			//ステートを変更。
 			m_battleState = enState_ACT;
 		}
@@ -38,19 +36,22 @@ void BattleManager::MonsterAction()
 {
 	m_monsterACT = m_monsterACTList.front();
 
-	//行動が終わるまで行動をさせる。
-	bool is_playAction = m_monsterACT->BattleAction();
+	////行動が終わるまで行動をさせる。
+	//bool is_playAction = m_monsterACT->BattleAction();
 
-	if (is_playAction) {
-		//残りHPに応じてステートを更新。
-		for (int i = 0; i < m_monsterTeam.size(); i++) {
-			m_monsterTeam[i]->StateUpdate();
-		}
-		for (int i = 0; i < m_monsterEnemy.size(); i++) {
-			m_monsterEnemy[i]->StateUpdate();
-		}
+	//if (is_playAction) {
+	//	//残りHPに応じてステートを更新。
+	//	for (int i = 0; i < m_monsterTeam.size(); i++) {
+	//		m_monsterTeam[i]->StateUpdate();
+	//	}
+	//	for (int i = 0; i < m_monsterEnemy.size(); i++) {
+	//		m_monsterEnemy[i]->StateUpdate();
+	//	}
 
-		m_battleState = enState_Scoring;
+	//	m_battleState = enState_Scoring;
+	//}
+	if (m_usingSkill->IsDead()) {
+
 	}
 }
 

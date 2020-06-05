@@ -25,10 +25,10 @@ public:
 	void InitMonster();
 
 private:
-	//アクティブタイムバーの更新。
-	void ActiveTimeUpdate();
-	//モンスターに行動させる。
-	void MonsterAction();
+	////アクティブタイムバーの更新。
+	//void ActiveTimeUpdate();
+	////モンスターに行動させる。
+	//void MonsterAction();
 	//行動の評価を行う。
 	void MonsterScoring();
 	//フェード切り替え

@@ -157,11 +157,11 @@ void BattleScenes::Update()
 		{
 		//アクティブタイムを加算。
 		case enState_ATB:
-			ActiveTimeUpdate();
+			//ActiveTimeUpdate();
 			break;
 		//行動処理を行う。
 		case enState_ACT:
-			MonsterAction();
+			//MonsterAction();
 			break;
 		//評価処理を行う。
 		case enState_Scoring:
@@ -249,58 +249,6 @@ void BattleScenes::InitMonster()
 	}
 }
 
-void BattleScenes::MonsterAction()
-{
-	m_monsterACT = m_monsterACTList.front();
-
-	//行動が終わるまで行動をさせる。
-	bool is_playAction = m_monsterACT->BattleAction();
-
-	if (is_playAction) {
-		//残りHPに応じてステートを更新。
-		for (int i = 0; i < m_monsterTeam1List.size(); i++) {
-			m_monsterTeam1List[i]->StateUpdate();
-		}
-		for (int i = 0; i < m_monsterTeam2List.size(); i++) {
-			m_monsterTeam2List[i]->StateUpdate();
-		}
-
-		m_battleState = enState_Scoring;
-	}
-}
-
-
-void BattleScenes::ActiveTimeUpdate()
-{
-	//行動中なら中断。
-	if (m_monsterACTList.size() != 0)return;
-
-	//全員のタイムゲージを加算していく。
-	for (int i = 0; i < m_monsterTeam1List.size(); i++)
-	{
-		bool is_action = m_monsterTeam1List[i]->AddATB();
-
-		//ゲージが溜まり切ったらポインタを取得する。　
-		if (is_action) {
-			m_monsterACTList.push_back(m_monsterTeam1List[i]);
-			m_monsterTeam1List[i]->SelectUseSkill(m_monsterTeam2List, m_monsterTeam1List);
-			//ステートを変更。
-			m_battleState = enState_ACT;
-		}
-	}	
-	for (int i = 0; i < m_monsterTeam2List.size(); i++)
-	{
-		bool is_action = m_monsterTeam2List[i]->AddATB();
-
-		//ゲージが溜まり切ったらポインタを取得する。　
-		if (is_action) {
-			m_monsterACTList.push_back(m_monsterTeam2List[i]);
-			m_monsterTeam2List[i]->SelectUseSkill(m_monsterTeam1List, m_monsterTeam2List);
-			//ステートを変更。
-			m_battleState = enState_ACT;
-		}
-	}
-}
 
 void BattleScenes::MonsterScoring()
 {

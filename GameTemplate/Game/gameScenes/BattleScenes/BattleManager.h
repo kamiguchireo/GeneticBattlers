@@ -36,6 +36,7 @@ private:
 	MonsterList m_monsterACTList;	//!<行動中のリスト。
 	MonsterBase* m_monsterACT = nullptr;	//!<現在行動中のモンスター。
 	SkillList skillList;					//!<スキルリスト。
+	SkillBase* m_usingSkill = nullptr;		//現在使用中のスキル。
 	BattleState m_battleState = enState_ATB;
 };
 
