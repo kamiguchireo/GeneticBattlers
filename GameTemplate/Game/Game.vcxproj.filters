@@ -206,6 +206,10 @@
     <ClCompile Include="monster\parameter\GIManager.cpp" />
     <ClCompile Include="gameScenes\BattleScenes\BattleScenes.cpp" />
     <ClCompile Include="gameScenes\BattleScenes\BattleManager.cpp" />
+    <ClCompile Include="Skill\SkillAttack.cpp" />
+    <ClCompile Include="Skill\SkillMagic.cpp" />
+    <ClCompile Include="Skill\SkillHeal.cpp" />
+    <ClCompile Include="Skill\SkillBuff.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -367,6 +371,10 @@
     <ClInclude Include="monster\parameter\GIManager.h" />
     <ClInclude Include="gameScenes\BattleScenes\BattleScenes.h" />
     <ClInclude Include="gameScenes\BattleScenes\BattleManager.h" />
+    <ClInclude Include="Skill\SkillAttack.h" />
+    <ClInclude Include="Skill\SkillMagic.h" />
+    <ClInclude Include="Skill\SkillHeal.h" />
+    <ClInclude Include="Skill\SkillBuff.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

@@ -1,5 +1,9 @@
 #include "stdafx.h"
 #include "SkillList.h"
+#include "SkillAttack.h"
+#include "SkillHeal.h"
+#include "SkillBuff.h"
+#include "SkillMagic.h"
 
 SkillList*SkillList::m_instance = nullptr;
 
@@ -11,209 +15,144 @@ SkillList::SkillList()
 	}
 
 	m_instance = this;
-
-	//通常行動。
-	const int typeNum = 3;
-	SkillTable typeList[typeNum];
-	auto attack = NewGO<Attack>(0);		//通常攻撃。
-	attack->InitSkill("通常攻撃", 1.0f, 30.0f, 0.95f, 0);
-	attack->SetEffect(L"Assets/effect/test.efk");
-	typeList[0].push_back(attack);
-	auto doublAttack = NewGO<DoubleAttack>(0);		//ダブルアタック。
-	doublAttack->InitSkill("ダブルアタック", 1.0f, 50.0f, 0.85f, 1);
-	typeList[0].push_back(doublAttack);
-
-	//回復魔法。
-	auto heal = NewGO<Heal>(0);		//ヒール。
-	heal->InitSkill("ヒール", 0.7f, 30.0f, 1.0f, 100, false, en_elements_Empty, true);
-	heal->SetEffect(L"Assets/effect/heal.efk");
-	typeList[1].push_back(heal);
-	auto hiheal = NewGO<Heal>(0);	//ハイヒール。
-	hiheal->InitSkill("ハイヒール", 1.3f, 50.0f, 1.0f, 101, false, en_elements_Empty, true);
-	hiheal->SetEffect(L"Assets/effect/healS.efk");
-	typeList[1].push_back(hiheal);
-
-	//バフ魔法
-	auto sukuruto = NewGO<BuffSkill>(0);	//スクルト。
-	sukuruto->InitSkill("スクルト", 2.0f, 50.0f, 1.0f, 200, false, en_elements_Empty, true);
-	sukuruto->SetStatusBuff(en_buff_DEF);
-	typeList[2].push_back(sukuruto);
-	auto sukara = NewGO<BuffSkillWide>(0);
-	sukara->InitSkill("スカラ", 1.5f, 60.0f, 1.0f, 201, false, en_elements_Empty, true);
-	sukara->SetStatusBuff(en_buff_DEF);
-	typeList[2].push_back(sukara);
-	
-	for (int i = 0; i < typeNum; i++)
-	{
-		m_skillList.push_back(typeList[i]);
-	}
 }
 
 SkillList::~SkillList()
 {
-	for (SkillTable table : m_skillList)
-	{
-		for (SkillBase* SB : table)
-		{
-			DeleteGO(SB);
-		}
-	}
-
 	m_instance = nullptr;
 }
 
-//通常攻撃。
-bool Attack::UseSkill(MonsterBase * attack, MonsterBase * target)
+SkillBase * SkillList::GetSkillData(int table, int no)
 {
-	if(skillEffect == nullptr){
-		//エフェクトの再生。
-		skillEffect = NewGO<prefab::CEffect>(0);
-		skillEffect->Play(effectPath);
-		skillEffect->SetPosition(attack->GetPosition() + CVector3::AxisY()*20.0f);
-		skillEffect->SetRotation(attack->GetRotation());
-		skillEffect->SetScale(CVector3::One() * 20.0f);
+	SkillBase* useSkill = nullptr;
+	switch (table)
+	{
+	case 0:
+		useSkill = GetSkillAttack(no);
+		break;
+
+	case 1:
+		useSkill = GetSkillHeal(no);
+		break;
+
+	case 2:
+		useSkill = GetSkillBuff(no);
+		break;
+
+	default:
+		break;
 	}
-	else if (!skillEffect->IsPlay()) {
-		//ダメージを与える。
-		int damage = DamageCalcuration(attack, target);
-		int res = target->Damage(damage);
-
-		//attack->SetActResult(m_skillNo, res);
-		//クールタイムの設定。
-		attack->SetCoolTime(coolTime);
-
-		skillEffect = nullptr;
-
-		return true;
-	}
-
-	return false;
+	return useSkill;
 }
 
-//ダブルアタック。
-bool DoubleAttack::UseSkill(MonsterBase * attack, MonsterBase * target)
+SkillBase * SkillList::GetSkillAttack(int no)
 {
-	if (skillEffect == nullptr) {
-		//エフェクトの再生。
-		skillEffect = NewGO<prefab::CEffect>(0);
-		skillEffect->Play(L"Assets/effect/test.efk");
-		skillEffect->SetPosition(attack->GetPosition() + CVector3::AxisY()*20.0f);
-		CQuaternion qRot;
-		qRot.SetRotationDeg(CVector3::AxisY(), 90.0f);
-		qRot.Multiply(attack->GetRotation());
-		skillEffect->SetRotation(qRot);
-		skillEffect->SetScale(CVector3::One() * 20.0f);
+	auto* attackSkill = NewGO<SkillAttack>(0);
+	switch (no)
+	{
+	case 0:
+		attackSkill->InitSkill("通常攻撃", 1.0f, 30.0f, 0.95f, 0);
+		attackSkill->SetEffect(L"Assets/effect/test.efk");
+		break;
+	case 1:
+		attackSkill->InitSkill("強攻撃", 1.8f, 50.0f, 0.85f, 1);
+		attackSkill->SetEffect(L"Assets/effect/test.efk");
+
+	default:
+		DeleteGO(attackSkill);
+		return nullptr;
+		break;
 	}
-	else if (!skillEffect->IsPlay()) {
-		int res = 0;
-		//ダメージの計算。
-		int damage = DamageCalcuration(attack, target);
-		res += target->Damage(damage);
-		//２回攻撃。
-		damage = DamageCalcuration(attack, target);
-		res += target->Damage(damage);
-		
-		//attack->SetActResult(m_skillNo, res);
+	return attackSkill;
+}
 
-		//クールタイムの設定。
-		attack->SetCoolTime(coolTime);
+SkillBase * SkillList::GetSkillHeal(int no)
+{
+	auto* healSkill = NewGO<SkillHeal>(0);
+	switch (no)
+	{
+	case 0:
+		healSkill->InitSkill("ヒール", 0.7f, 30.0f, 1.0f, 100);
+		healSkill->SetEffect(L"Assets/effect/heal.efk");
+		break;
 
-		skillEffect = nullptr;
+	case 1:
+		healSkill->InitSkill("ハイヒール", 1.3f, 50.0f, 1.0f, 101);
+		healSkill->SetEffect(L"Assets/effect/healS.efk");
+		break;
 
-		return true;
+	default:
+		DeleteGO(healSkill);
+		return nullptr;
+		break;
 	}
+	return healSkill;
+}
 
+SkillBase * SkillList::GetSkillBuff(int no)
+{
+	auto* buffSkill = NewGO<SkillBuff>(0);
+	switch (no)
+	{
+	case 0:
+		buffSkill->InitSkill("スクルト", 2.0f, 50.0f, 1.0f, 200);
+		buffSkill->SetStatusBuff(en_buff_DEF);
+		break;
 
-	return false;
+	case 1:
+		buffSkill->InitSkill("スカラ", 1.5f, 60.0f, 1.0f, 201);
+		buffSkill->SetStatusBuff(en_buff_DEF);
+		buffSkill->SetIsWide(true);
+		break;
+
+	default:
+		DeleteGO(buffSkill);
+		return nullptr;
+		break;
+	}
+	return buffSkill;
+}
+
+SkillBase * SkillList::GetSkillMagic(int no)
+{
+	return nullptr;
 }
 
 
-//ヒール。
-bool Heal::UseSkill(MonsterBase * attack, MonsterBase * target)
-{
-	if (skillEffect == nullptr) {
-		//エフェクトの再生。
-		skillEffect = NewGO<prefab::CEffect>(0);
-		skillEffect->Play(L"Assets/effect/chant1.efk");
-		skillEffect->SetPosition(attack->GetPosition() + CVector3::AxisY()*20.0f);
-		skillEffect->SetScale(CVector3::One() * 50.0f);
-	}
-	else if (!skillEffect->IsPlay()) {
-		//エフェクトの再生。
-		auto ef = NewGO<prefab::CEffect>(0);
-		ef->Play(effectPath);
-		ef->SetPosition(target->GetPosition() + CVector3::AxisY()*20.0f);
-		ef->SetScale(CVector3::One()*80.0f);
-		//回復量の計算。
-		int result = attack->GetStatusManager().GetStatus().MAT * skillPower;
-		int res = target->Healing(result);
-		//attack->SetActResult(m_skillNo, res);
-		//クールタイムの設定。
-		attack->SetCoolTime(coolTime);
+////ダブルアタック。
+//bool DoubleAttack::UseSkill(MonsterBase * attack, MonsterBase * target)
+//{
+//	if (skillEffect == nullptr) {
+//		//エフェクトの再生。
+//		skillEffect = NewGO<prefab::CEffect>(0);
+//		skillEffect->Play(L"Assets/effect/test.efk");
+//		skillEffect->SetPosition(attack->GetPosition() + CVector3::AxisY()*20.0f);
+//		CQuaternion qRot;
+//		qRot.SetRotationDeg(CVector3::AxisY(), 90.0f);
+//		qRot.Multiply(attack->GetRotation());
+//		skillEffect->SetRotation(qRot);
+//		skillEffect->SetScale(CVector3::One() * 20.0f);
+//	}
+//	else if (!skillEffect->IsPlay()) {
+//		int res = 0;
+//		//ダメージの計算。
+//		int damage = DamageCalcuration();
+//		res += target->Damage(damage);
+//		//２回攻撃。
+//		damage = DamageCalcuration();
+//		res += target->Damage(damage);
+//		
+//		//attack->SetActResult(m_skillNo, res);
+//
+//		//クールタイムの設定。
+//		attack->SetCoolTime(coolTime);
+//
+//		skillEffect = nullptr;
+//
+//		return true;
+//	}
+//
+//
+//	return false;
+//}
 
-		skillEffect = nullptr;
-
-		return true;
-	}
-
-	return false;
-}
-
-bool BuffSkill::UseSkill(MonsterBase * attack, MonsterBase * target)
-{
-	if (skillEffect == nullptr) {
-		//エフェクトの再生。
-		skillEffect = NewGO<prefab::CEffect>(0);
-		skillEffect->Play(L"Assets/effect/chant1.efk");
-		skillEffect->SetPosition(attack->GetPosition() + CVector3::AxisY()*20.0f);
-		skillEffect->SetScale(CVector3::One() * 50.0f);
-	}
-	else if (!skillEffect->IsPlay()) {
-		//効果時間を計算。
-		int result = attack->GetStatusManager().GetStatus().MAT * 5.0f;
-		//バフをかける。
-		int res = target->Monster_Buff(m_status, skillPower, result);
-		//attack->SetActResult(m_skillNo, res);
-		//クールタイムの設定。
-		attack->SetCoolTime(coolTime);
-
-		skillEffect = nullptr;
-
-		return true;
-	}
-
-	return false;
-}
-
-bool BuffSkillWide::UseSkill(MonsterBase * attack, MonsterBase * target)
-{
-	if (skillEffect == nullptr) {
-		//エフェクトの再生。
-		skillEffect = NewGO<prefab::CEffect>(0);
-		skillEffect->Play(L"Assets/effect/chant1.efk");
-		skillEffect->SetPosition(attack->GetPosition() + CVector3::AxisY()*20.0f);
-		skillEffect->SetScale(CVector3::One() * 50.0f);
-	}
-	else if (!skillEffect->IsPlay()) {
-		//効果時間の計算。
-		int result = attack->GetStatusManager().GetStatus().MAT * 5.0f;
-		//チームメンバーを取得。
-		auto list = target->GetTeamMenber();
-
-		int res = 0;
-		for (int i = 0; i < list.size(); i++) {
-			//全体にバフをかける。
-			res += list[i]->Monster_Buff(m_status, skillPower, result);
-		}
-		res /= list.size();		//上昇値の平均をとる。
-		//attack->SetActResult(m_skillNo, res);
-		//クールタイムの設定。
-		attack->SetCoolTime(coolTime);
-
-		skillEffect = nullptr;
-
-		return true;
-	}
-
-	return false;
-}

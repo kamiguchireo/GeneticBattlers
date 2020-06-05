@@ -4,7 +4,6 @@
 
 class MonsterBase;
 class MonsterTeam1;
-//class SkillList;
 class Fade;
 class GameCamera;
 

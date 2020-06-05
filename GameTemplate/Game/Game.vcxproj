@@ -102,6 +102,10 @@
     <ClCompile Include="gameScenes\BattleScenes\BattleManager.cpp" />
     <ClCompile Include="gameScenes\NetScenes\NetSceneText.cpp" />
     <ClCompile Include="monster\parameter\GIManager.cpp" />
+    <ClCompile Include="Skill\SkillBuff.cpp" />
+    <ClCompile Include="Skill\SkillHeal.cpp" />
+    <ClCompile Include="Skill\SkillMagic.cpp" />
+    <ClCompile Include="Skill\SkillAttack.cpp" />
     <ClCompile Include="SourceFile\graphic\font\FontRender.cpp" />
     <ClCompile Include="SourceFile\graphic\font\Font.cpp" />
     <ClCompile Include="gameScenes\NetScenes\NetScenes.cpp" />
@@ -180,6 +184,10 @@
     <ClInclude Include="gameScenes\BattleScenes\BattleManager.h" />
     <ClInclude Include="gameScenes\NetScenes\NetSceneText.h" />
     <ClInclude Include="monster\parameter\GIManager.h" />
+    <ClInclude Include="Skill\SkillBuff.h" />
+    <ClInclude Include="Skill\SkillHeal.h" />
+    <ClInclude Include="Skill\SkillMagic.h" />
+    <ClInclude Include="Skill\SkillAttack.h" />
     <ClInclude Include="SourceFile\graphic\font\FontRender.h" />
     <ClInclude Include="SourceFile\graphic\font\Font.h" />
     <ClInclude Include="gameScenes\NetScenes\NetScenes.h" />
