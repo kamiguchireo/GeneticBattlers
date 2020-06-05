@@ -51,8 +51,7 @@ cbuffer LightCb:register(b1)
 //シャドウマップ用の定数バッファ
 cbuffer ShadowCb : register(b2) {
 	float4x4 mLVP[NUM_SHADOW_MAP];		//ライトビュープロジェクション行列。
-	float  shadowAreaDepthInViewSpace[NUM_SHADOW_MAP];	//カメラ空間での影を落とすエリアの深度テーブル。
-	float shadowAreaDepthInViewSpaceNear[NUM_SHADOW_MAP];
+	float3  shadowAreaDepthInViewSpace;	//カメラ空間での影を落とすエリアの深度テーブル。
 };
 
 /////////////////////////////////////////////////////////////
@@ -103,8 +102,10 @@ struct PSInput_ShadowMap {
 //使用するシャドウマップの番号を取得
 int GetCascadeIndex(float zInView)
 {
+	
+
 	for (int i = 0; i < NUM_SHADOW_MAP; i++) {
-		if (zInView > shadowAreaDepthInViewSpaceNear[i])
+		//if (zInView > shadowAreaDepthInViewSpaceNear[i])
 		{
 			if (zInView < shadowAreaDepthInViewSpace[i]) {
 				return i;
@@ -130,10 +131,11 @@ float CalcShadow(float3 worldPos, float zInView)
 	//シャドウレシーバーのフラグが1
 	if (isShadowReciever == 1)
 	{
+
 		//影を落とす。
 		//使用するシャドウマップの番号を取得する。
 		int cascadeIndex = GetCascadeIndex(zInView);
-
+		
 		float4 posInLVP = mul(mLVP[cascadeIndex], float4(worldPos, 1.0f));
 		posInLVP.xyz /= posInLVP.w;
 
@@ -142,14 +144,18 @@ float CalcShadow(float3 worldPos, float zInView)
 
 		//uv座標に変換。
 		float2 shadowMapUV = float2(0.5f, -0.5f) * posInLVP.xy + float2(0.5f, 0.5f);
+	;
 
 		if (cascadeIndex == 0) {
+			
 			shadow = CalcShadowPercent(g_shadowMap0, shadowMapUV, depth);
 		}
 		else if (cascadeIndex == 1) {
+			
 			shadow = CalcShadowPercent(g_shadowMap1, shadowMapUV, depth);
 		}
 		else if (cascadeIndex == 2) {
+			
 			shadow = CalcShadowPercent(g_shadowMap2, shadowMapUV, depth);
 		}
 
@@ -234,6 +240,7 @@ PSInput VSMainSkin( VSInputNmTxWeights In )
 		//mulは乗算命令。
 	    pos = mul(skinning, In.Position);
 	}
+	psInput.Pos = pos;
 	psInput.Normal = normalize( mul(skinning, In.Normal) );
 	psInput.Tangent = normalize( mul(skinning, In.Tangent) );
 
@@ -312,8 +319,10 @@ float4 PSMain(PSInput In) : SV_Target0
 		//}
 		float f;
 		f = CalcShadow(In.Pos, In.posInview.z);
+		
 		if (f == 1.0f)
 		{
+			
 			lig *= 0.5f;
 		}
 

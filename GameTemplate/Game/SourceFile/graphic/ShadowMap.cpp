@@ -34,7 +34,6 @@ namespace Engine {
 				2048,
 				DXGI_FORMAT_R32_FLOAT
 			);
-
 		}
 
 		//定数バッファを作成
@@ -94,10 +93,12 @@ namespace Engine {
 		lightViewRot.m[2][1] = lightDir.y;
 		lightViewRot.m[2][2] = lightDir.z;
 		lightViewRot.m[2][3] = 0.0f;
+		
+		//シャドウマップを設定する範囲
 		float shadowAreaTbl[] = {
-			1000.0f,//m_lightHeight * 0.8f,
-			2000.0f,//m_lightHeight * 1.6f,
-			3000.0f//m_lightHeight * 3.6f
+			m_range.x,
+			m_range.y,
+			m_range.z
 		};
 
 		//ライトビューの高さを計算
@@ -132,7 +133,9 @@ namespace Engine {
 
 				CVector3 toUpperNear, toUpperFar;
 				toUpperNear = cameraUp * t * nearPlaneZ;
+				toUpperNear.y = min(toUpperNear.y, maxheight);
 				toUpperFar = cameraUp * t * farPlaneZ;
+				toUpperFar.y = min(toUpperFar.y, maxheight);
 				t *= g_camera3D.GetAspect();
 
 				//近平面の中央座標を計算
@@ -202,33 +205,32 @@ namespace Engine {
 			m_lightProMatrix[i] = m_mat;
 			m_shadowCbEntity.mLVP[i] = m_mat;
 			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ;
-			m_shadowCbEntity.shadowAreaDepthInViewSpaceNear[i] = nearPlaneZ;
-			nearPlaneZ = farPlaneZ;
 			
-			////カメラの上方向が決まったので、ライトビュー行列を計算する
-			//m_lightViewMatrix.MakeLookAt
-			//(
-			//	lightCameraPos,
-			//	lightCameraTarget,
-			//	lightCameraUpAxis
-			//);
-
-			////ライトプロジェクション行列を作成する
-			////太陽光からの影を落としたいなら、平行投影行列を作成する
-			//m_shadowCbEntity.mLVP[0].MakeOrthoProjectionMatrix
-			//(
-			//	3000,
-			//	3000,
-			//	0.1f,
-			//	5000.0f
-			//);
+			nearPlaneZ = farPlaneZ;
+		}
+		//ライトビュー行
+		for (int i = 0; i < 3; i++)
+		{
+			m_lightViewMatrix[i] = CMatrix::Identity();
 		}
 	}
 
 	void ShadowMap::RenderToShadowMap()
 	{
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-		
+		//現在のレンダリングターゲットをバックアップしておく
+		d3dDeviceContext->OMGetRenderTargets
+		(
+			1,
+			&oldRenderTargetView,
+			&oldDepthStencilView
+		);
+
+		//ビューポートもバックアップを取っておく
+		unsigned int numViewPort = 1;
+		D3D11_VIEWPORT oldViewPorts;
+		d3dDeviceContext->RSGetViewports(&numViewPort, &oldViewPorts);
+
 		for (int i = 0; i < CascadeShadow; i++)
 		{
 			ShadowTextureNum = i;
@@ -258,15 +260,33 @@ namespace Engine {
 			//シャドウキャスターをシャドウマップにレンダリング。
 			for (auto& caster : m_shadowCasters) {
 				caster->Draw(
-					m_lightViewMatrix[i],
+					CMatrix::Identity(),//m_lightViewMatrix[i],
 					m_lightProMatrix[i],
 					enRenderMode_CreateShadowMap
 				);
-
-			}		
-
+			}
 		}
+
 		m_shadowCasters.clear();
+
+		//デバイスコンテキストをもとに戻す
+		d3dDeviceContext->OMSetRenderTargets
+		(
+			1,
+			&oldRenderTargetView,
+			oldDepthStencilView
+		);
+		d3dDeviceContext->RSSetViewports
+		(
+			numViewPort,
+			&oldViewPorts
+		);
+
+		//レンダリングターゲットとデプスステンシルの参照カウンタを下す
+		oldRenderTargetView->Release();
+		oldDepthStencilView->Release();
+
+		SendShadowRecieverParamToGpu();
 	}
 
 	void ShadowMap::SendShadowRecieverParamToGpu()
@@ -282,5 +302,4 @@ namespace Engine {
 			d3dDeviceContext->PSSetShaderResources(2 + i, 1,&m_shadow);
 		}
 	}
-
 }
