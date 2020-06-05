@@ -118,6 +118,12 @@ public:
 		m_right.Normalize();
 		return m_right;
 	}
+
+	//遠平面を取得
+	float GetFarPlane()
+	{
+		return m_far;
+	}
 private:
 
 	CMatrix	m_viewMatrix = CMatrix::Identity();		//ビュー行列。

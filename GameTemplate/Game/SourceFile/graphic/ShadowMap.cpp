@@ -34,7 +34,6 @@ namespace Engine {
 				2048,
 				DXGI_FORMAT_R32_FLOAT
 			);
-
 		}
 
 		//定数バッファを作成
@@ -71,7 +70,6 @@ namespace Engine {
 			lightCameraUpAxis = CVector3::AxisY();
 			lightCameraUpAxis.Cross(lightDir, CVector3::Up());
 			//lightCameraUpAxis = CVector3::Up();
-
 		}
 		//ライトの右方向
 		CVector3 lightViewRight;
@@ -95,10 +93,12 @@ namespace Engine {
 		lightViewRot.m[2][1] = lightDir.y;
 		lightViewRot.m[2][2] = lightDir.z;
 		lightViewRot.m[2][3] = 0.0f;
+		
+		//シャドウマップを設定する範囲
 		float shadowAreaTbl[] = {
-			m_lightHeight * 0.8f,
-			m_lightHeight * 1.6f,
-			m_lightHeight * 3.6f
+			m_range.x,
+			m_range.y,
+			m_range.z
 		};
 
 		//ライトビューの高さを計算
@@ -109,7 +109,7 @@ namespace Engine {
 		//遠平面の距離
 		float farPlaneZ;
 		CVector3 cameraUp;
-		cameraUp.Cross(g_camera3D.GetRight(), g_camera3D.GetForward());
+		cameraUp = g_camera3D.GetUp();
 		//カスケードシャドウの枚数分回す
 		for(int i = 0;i < CascadeShadow;i++)
 		{
@@ -118,7 +118,7 @@ namespace Engine {
 			//ライトビュー行
 			for (int i = 0; i < 3; i++)
 			{
-				m_lightViewMatrix = CMatrix::Identity();
+				m_lightViewMatrix[i] = CMatrix::Identity();
 			}
 			//画角の半分を取得
 			float halfViewAngle = g_camera3D.GetViewAngle()*0.5f;
@@ -133,7 +133,9 @@ namespace Engine {
 
 				CVector3 toUpperNear, toUpperFar;
 				toUpperNear = cameraUp * t * nearPlaneZ;
+				toUpperNear.y = min(toUpperNear.y, maxheight);
 				toUpperFar = cameraUp * t * farPlaneZ;
+				toUpperFar.y = min(toUpperFar.y, maxheight);
 				t *= g_camera3D.GetAspect();
 
 				//近平面の中央座標を計算
@@ -162,15 +164,15 @@ namespace Engine {
 				auto viewFrustumCenterPosition = (nearPlaneCenterPos + farPlaneCenterPos) * 0.5f;
 				auto lightPos = CalcLightPosition(lightHeight, viewFrustumCenterPosition);
 
-				m_lightViewMatrix = lightViewRot;
+				m_lightViewMatrix[i] = lightViewRot;
 
-				m_lightViewMatrix.m[3][0] = lightPos.x;
-				m_lightViewMatrix.m[3][1] = lightPos.y;
-				m_lightViewMatrix.m[3][2] = lightPos.z;
-				m_lightViewMatrix.m[3][3] = 1.0f;
+				m_lightViewMatrix[i].m[3][0] = lightPos.x;
+				m_lightViewMatrix[i].m[3][1] = lightPos.y;
+				m_lightViewMatrix[i].m[3][2] = lightPos.z;
+				m_lightViewMatrix[i].m[3][3] = 1.0f;
 
 				//ライトビュー完成
-				m_lightViewMatrix.Inverse(m_lightViewMatrix);
+				m_lightViewMatrix[i].Inverse(m_lightViewMatrix[i]);
 
 				//視推台を構成する8頂点を計算で来たので、ライト空間に座標変換して、AABBを求める
 				CVector3 vMax = { -FLT_MAX,-FLT_MAX,-FLT_MAX };
@@ -178,8 +180,7 @@ namespace Engine {
 				for (auto& vInLight : v)
 				{
 					//ベクトルと行列の乗算
-					//lightPos.yが入っていた値しか変わらない
-					m_lightViewMatrix.Mul(vInLight);
+					m_lightViewMatrix[i].Mul(vInLight);
 
 					//最大値を設定
 					vMax.Max(vInLight);
@@ -200,35 +201,36 @@ namespace Engine {
 			);
 			CMatrix m_mat = CMatrix::Identity();
 
-			m_mat.Mul(m_lightViewMatrix, proj);
+			m_mat.Mul(m_lightViewMatrix[i], proj);
+			m_lightProMatrix[i] = m_mat;
 			m_shadowCbEntity.mLVP[i] = m_mat;
-			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ * 0.8f;
-			nearPlaneZ = farPlaneZ;
+			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ;
 			
-			////カメラの上方向が決まったので、ライトビュー行列を計算する
-			//m_lightViewMatrix.MakeLookAt
-			//(
-			//	lightCameraPos,
-			//	lightCameraTarget,
-			//	lightCameraUpAxis
-			//);
-
-			////ライトプロジェクション行列を作成する
-			////太陽光からの影を落としたいなら、平行投影行列を作成する
-			//m_shadowCbEntity.mLVP[0].MakeOrthoProjectionMatrix
-			//(
-			//	3000,
-			//	3000,
-			//	0.1f,
-			//	5000.0f
-			//);
+			nearPlaneZ = farPlaneZ;
+		}
+		//ライトビュー行
+		for (int i = 0; i < 3; i++)
+		{
+			m_lightViewMatrix[i] = CMatrix::Identity();
 		}
 	}
 
 	void ShadowMap::RenderToShadowMap()
 	{
 		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-		
+		//現在のレンダリングターゲットをバックアップしておく
+		d3dDeviceContext->OMGetRenderTargets
+		(
+			1,
+			&oldRenderTargetView,
+			&oldDepthStencilView
+		);
+
+		//ビューポートもバックアップを取っておく
+		unsigned int numViewPort = 1;
+		D3D11_VIEWPORT oldViewPorts;
+		d3dDeviceContext->RSGetViewports(&numViewPort, &oldViewPorts);
+
 		for (int i = 0; i < CascadeShadow; i++)
 		{
 			ShadowTextureNum = i;
@@ -258,15 +260,33 @@ namespace Engine {
 			//シャドウキャスターをシャドウマップにレンダリング。
 			for (auto& caster : m_shadowCasters) {
 				caster->Draw(
-					m_lightViewMatrix,
-					m_shadowCbEntity.mLVP[i],
+					CMatrix::Identity(),//m_lightViewMatrix[i],
+					m_lightProMatrix[i],
 					enRenderMode_CreateShadowMap
 				);
-
-			}		
-
+			}
 		}
+
 		m_shadowCasters.clear();
+
+		//デバイスコンテキストをもとに戻す
+		d3dDeviceContext->OMSetRenderTargets
+		(
+			1,
+			&oldRenderTargetView,
+			oldDepthStencilView
+		);
+		d3dDeviceContext->RSSetViewports
+		(
+			numViewPort,
+			&oldViewPorts
+		);
+
+		//レンダリングターゲットとデプスステンシルの参照カウンタを下す
+		oldRenderTargetView->Release();
+		oldDepthStencilView->Release();
+
+		SendShadowRecieverParamToGpu();
 	}
 
 	void ShadowMap::SendShadowRecieverParamToGpu()

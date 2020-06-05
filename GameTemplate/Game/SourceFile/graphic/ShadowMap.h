@@ -15,7 +15,9 @@ namespace Engine {
 		//lightCameraTarget		ライトのターゲット
 		void Update(CVector3 lightCameraPos, CVector3 lightCameraTarget);
 		
+		//シャドウマップに影を書き込むタイミングで呼んでください
 		void RenderToShadowMap();
+
 		ID3D11ShaderResourceView*GetSRV(int i)
 		{
 			return m_shadowMapRT[i].GetSRV();
@@ -44,15 +46,17 @@ namespace Engine {
 		// 計算されたライトの座標
 		CVector3 CalcLightPosition(float lightHeight, CVector3 viewFrustomCenterPosition);
 	
-		CMatrix GetLightViewMatrix()
+		CMatrix GetLightViewMatrix(int i)
 		{
-			return m_lightViewMatrix;
+			return m_lightViewMatrix[i];
 		}
 		CMatrix GetLigthProjMatrix(int i)
 		{
 			return m_lightProMatrix[i];
 		}
 
+		//エンジン内部で使用しています。
+		//使用しないでください
 		int GetShadowTextureNum()
 		{
 			ShadowTextureNum++;
@@ -63,13 +67,32 @@ namespace Engine {
 			return ShadowTextureNum;
 		}
 		
+		//エンジン内部で使用しています。
+		//使用しないでください
 		int GetCascadeShadow()
 		{
 			return CascadeShadow;
 		}
 
+		//シャドウマップの情報をシェーダーに送ります
+		//シャドウマップの書き込みが終わった後に読んでください
 		void SendShadowRecieverParamToGpu();
 
+		//シャドウマップの高さの最大値を決めてください
+		//初期値では500.0fが入っています
+		//ビルなど高い建物の影を出したい場合はこの値を大きくしてください
+		void SetMaxheight(float f)
+		{
+			maxheight = f;
+		}
+
+		//範囲を決めてください
+		//初期値では{ 1000.0f,2000.0f,3000.0f }が入っています
+		//この場合カメラビューでのz値が1000.0f,3000.0f,6000.0fがシャドウマップの境界となります
+		void SetRange(CVector3 range)
+		{
+			m_range = range;
+		}
 	private:
 		struct SShadowCb {
 			CMatrix mLVP[3];
@@ -80,15 +103,18 @@ namespace Engine {
 		RenderTarget m_shadowMapRT[3];
 		CVector3 m_lightCameraPos = CVector3::Zero();
 		CVector3 m_lightCameraTarget = CVector3::Zero();
-		CMatrix m_lightViewMatrix;
+		CMatrix m_lightViewMatrix[3];
 		CMatrix m_lightProMatrix[3];
 		std::vector<SkinModel*> m_shadowCasters;	//シャドウキャスターの配列。
-		float m_lightHeight = 200.0f;				//ライトの高さ。
+		float m_lightHeight = 1000.0f;				//ライトの高さ。
 		CVector3 lightDir = CVector3::Down();		//ライトの向き
 		SShadowCb m_shadowCbEntity;
 		ConstantBuffer m_shadowCb;		//影を落とす時に使用する定数バッファ。
 		ID3D11ShaderResourceView* m_shadow = nullptr;
-
+		float maxheight = 500.0f;
+		CVector3 m_range = { 1000.0f,2000.0f,3000.0f };
+		ID3D11RenderTargetView* oldRenderTargetView = nullptr;
+		ID3D11DepthStencilView* oldDepthStencilView = nullptr;
 	};
 
 }

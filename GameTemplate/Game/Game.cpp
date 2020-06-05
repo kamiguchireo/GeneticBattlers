@@ -20,7 +20,7 @@ Game::Game()
 	//	FRAME_BUFFER_H
 	//);
 
-	g_camera3D.SetPosition({ 0.0f, 200.0f, 500.0f });
+	g_camera3D.SetPosition({ 0.0f, 200.0f, 800.0f });
 	g_camera3D.SetTarget({ 0.0f, 200.0f, 0.0f });
 
 }
@@ -70,7 +70,8 @@ bool Game::Start()
 	//モデル3
 	m_model3.Init(L"Assets/modelData/EngineGround.cmo");
 	CVector3 m_pos3 = { 0.0f,0.0f,0.0f };
-	m_model3.UpdateWorldMatrix(m_pos3, CQuaternion::Identity(), CVector3::One());
+	CVector3 m_scale = { 5.0f,5.0f,5.0f };
+	m_model3.UpdateWorldMatrix(m_pos3, CQuaternion::Identity(), m_scale);
 	//CQuaternion m_ligdir3 = { 0.0f,-1.0f,0.0f,0.0f };
 	//m_model3.SetLightDir(m_ligdir3);
 	m_model3.SetActiveDLFlag(0);
@@ -102,16 +103,20 @@ void Game::Update()
 	{
 		m_position.x+=5.0f;
 	}
-	if (GetAsyncKeyState('A'))
-	{
-		f += 0.01f;
-		m_model.SetLightColor(f);
-	}
+
 
 	//fr->SetScale(f);
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
-	m_shadowMap->Update({ 0.0f, 1000.0f, 0.0f },
+
+	if (GetAsyncKeyState('A'))
+	{
+		f += 0.01f;
+		m_model.SetLightColor(f);
+		//m_shadowMap->SetMaxheight(500.0f);
+		//m_shadowMap->SetRange({ 400.0f,5000.0f,2000.0f });
+	}
+	m_shadowMap->Update({ 500.0f, 1000.0f, 0.0f },
 		{ 0.0f, 0.0f, 0.0f });
 	m_shadowMap->RegistShadowCaster(&m_model);
 	m_shadowMap->SendShadowRecieverParamToGpu();
@@ -202,40 +207,42 @@ void Game::UpdateShadowMap()
 //}
 void Game::Render()
 {
-	//描画開始
-	//シャドウマップにレンダリング
-	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-	//現在のレンダリングターゲットをバックアップしておく
-	d3dDeviceContext->OMGetRenderTargets
-	(
-		1,
-		&oldRenderTargetView,
-		&oldDepthStencilView
-	);
-	//ビューポートもバックアップを取っておく
-	unsigned int numViewPort = 1;
-	D3D11_VIEWPORT oldViewPorts;
-	d3dDeviceContext->RSGetViewports(&numViewPort, &oldViewPorts);
+	////描画開始
+	////シャドウマップにレンダリング
+	//auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
+	////現在のレンダリングターゲットをバックアップしておく
+	//d3dDeviceContext->OMGetRenderTargets
+	//(
+	//	1,
+	//	&oldRenderTargetView,
+	//	&oldDepthStencilView
+	//);
+	////ビューポートもバックアップを取っておく
+	//unsigned int numViewPort = 1;
+	//D3D11_VIEWPORT oldViewPorts;
+	//d3dDeviceContext->RSGetViewports(&numViewPort, &oldViewPorts);
 	//シャドウマップにレンダリング
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
 	m_shadowMap->RenderToShadowMap();
 
-	//デバイスコンテキストをもとに戻す
-	d3dDeviceContext->OMSetRenderTargets
-	(
-		1,
-		&oldRenderTargetView,
-		oldDepthStencilView
-	);
-	d3dDeviceContext->RSSetViewports
-	(
-		numViewPort,
-		&oldViewPorts
-	);
-	//レンダリングターゲットとデプスステンシルの参照カウンタを下す
-	oldRenderTargetView->Release();
-	oldDepthStencilView->Release();
+	////デバイスコンテキストをもとに戻す
+	//d3dDeviceContext->OMSetRenderTargets
+	//(
+	//	1,
+	//	&oldRenderTargetView,
+	//	oldDepthStencilView
+	//);
+	//d3dDeviceContext->RSSetViewports
+	//(
+	//	numViewPort,
+	//	&oldViewPorts
+	//);
+	//
+	////レンダリングターゲットとデプスステンシルの参照カウンタを下す
+	//oldRenderTargetView->Release();
+	//oldDepthStencilView->Release();
 
+	//m_shadowMap->SendShadowRecieverParamToGpu();
 	//ForwordRender();
 
 	//通常レンダリング
@@ -244,18 +251,18 @@ void Game::Render()
 	(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
-		enRenderMode_Normal,
-		g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
-		g_graphicsEngine->GetShadowMap()->GetLightViewMatrix()
+		enRenderMode_Normal
+		//g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
+		//g_graphicsEngine->GetShadowMap()->GetLightViewMatrix(0)
 	);
 	//モデル3のドロー
 	m_model3.Draw
 	(
 		g_camera3D.GetViewMatrix(),
 		g_camera3D.GetProjectionMatrix(),
-		enRenderMode_Normal,
-		g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
-		g_graphicsEngine->GetShadowMap()->GetLightViewMatrix()
+		enRenderMode_Normal
+		//g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
+		//g_graphicsEngine->GetShadowMap()->GetLightViewMatrix(0)
 	);
 
 	//PostRender();
