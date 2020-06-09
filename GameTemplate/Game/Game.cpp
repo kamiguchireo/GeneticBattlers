@@ -78,9 +78,10 @@ bool Game::Start()
 	m_model3.SetShadowReciever(true);
 	//m_position.y = 100.0f;
 	
-	//fr = NewGO<prefab::FontRender>(0);
-	//fr->SetText(L"こんにちは世界");
-	//fr->SetPivot({0.5f, 0.5f });
+	fr = NewGO<prefab::FontRender>(0);
+	fr->SetText(L"aaaaaaaaaaaaaaaaaaaaaa");
+	fr->SetPosition({ 0.0f, 0.0f });
+	fr->SetPivot({0.5f, 0.5f });
 	return true;
 }
 
@@ -105,7 +106,7 @@ void Game::Update()
 	}
 
 
-	//fr->SetScale(f);
+	fr->SetScale(f);
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
 
@@ -221,6 +222,7 @@ void Game::Render()
 	//unsigned int numViewPort = 1;
 	//D3D11_VIEWPORT oldViewPorts;
 	//d3dDeviceContext->RSGetViewports(&numViewPort, &oldViewPorts);
+	
 	//シャドウマップにレンダリング
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
 	m_shadowMap->RenderToShadowMap();
