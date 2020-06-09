@@ -9,6 +9,7 @@ namespace Engine
 	{
 		m_spriteBatch = g_graphicsEngine->GetSpriteBatch();
 		m_spriteFont = g_graphicsEngine->GetSpriteFont();
+
 	};
 
 	Font::~Font()
@@ -54,12 +55,11 @@ namespace Engine
 			return;
 		}
 		pivot.y = 1.0f - pivot.y;
-		DirectX::XMFLOAT2 float2Zero(0.0f, 0.0f);
 
 		//座標系をスプライトと合わせる
 		CVector2 pos = position;
-		float frameBufferHalfWidth = 1280.0f / 2.0f;
-		float frameBufferHalfHeight = 720.0f / 2.0f;
+		float frameBufferHalfWidth = 1280.0f * 0.5f;
+		float frameBufferHalfHeight = 720.0f * 0.5f;
 
 		pos.x += frameBufferHalfWidth;
 		pos.y = -pos.y + frameBufferHalfHeight;
@@ -70,7 +70,7 @@ namespace Engine
 			pos.vec,
 			color,
 			rotation,
-			DirectX::XMFLOAT2(pos.x/2*pivot.x, pos.y/2* pivot.y),
+			DirectX::XMFLOAT2(pivot.x,pivot.y),
 			scale
 		);
 	}
