@@ -40,6 +40,7 @@ void MonsterBase::Draw()
 //行動の評価。
 bool MonsterBase::ACTScoring()
 {
+	//もうちょいこの辺も切り離したいかなぁ
 	//評価の選択の処理。
 	if (g_pad[0].IsTrigger(enButtonRight)) {		
 		m_scoringFlag = 1;
@@ -80,6 +81,10 @@ bool MonsterBase::ACTScoring()
 
 int MonsterBase::Monster_Buff(StatusBuff status, float pow, float time)
 {
+	if (IsDeath()) {
+		//死亡時はバフをかけられない。
+		return 0;
+	}
 	//エフェクトの再生。
 	auto ef = NewGO<prefab::CEffect>(0);
 	ef->Play(L"Assets/effect/buff.efk");
@@ -91,12 +96,11 @@ int MonsterBase::Monster_Buff(StatusBuff status, float pow, float time)
 
 void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)
 {
-	SkillList* skillList = SkillList::GetInstance();
-
 	auto ene_list = e_team;	//ソートするためにリストをコピー。
 	auto list = m_team;
 
 	//現在HPの低い方から順番にソート。
+	//これ戦闘の処理のほうでやったほうがいい気がするなぁ
 	for (int i = 0; i < list.size(); i++) {
 		for (int j = i; j < list.size(); j++) {
 			if (list[i]->GetStatusManager().GetStatus().HP > list[j]->GetStatusManager().GetStatus().HP) {
@@ -135,37 +139,47 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const 
 		}
 	}
 
+	bool flag = false;
 	//ターゲットが定まるまで回す。
-	while (m_target == nullptr) {
+	while (!flag) {
 		//行動をテーブルから決定。
 		int skill, targetNo;
 		m_GIData.ActionDicide(&skill, &targetNo);
 		//スキルの選択。
 		int skillTable = (int)(skill / 100);
 		int skillNo = skill % 100;
-		m_useSkill = skillList->GetSkillData(skillTable, skillNo);
 
-		//敵か味方のどちらに攻撃するか。
-		if (!m_useSkill->GetIsAttack()) {
-			//ターゲットが死亡していなければ。
-			if (!list[targetNo]->IsDeath()) {
-				m_target = list[targetNo];
-			}
-		}
-		else if (m_useSkill->GetIsAttack()) {
+		switch (skillTable)
+		{
+			//攻撃系スキルか
+		case 0:
 			//ターゲットが死亡していなければ。
 			if (!ene_list[targetNo]->IsDeath()) {
-				m_target = ene_list[targetNo];
+				flag == true;
 			}
+			break;
+
+			//味方に使用するスキルか
+		case 1:
+		case 2:
+			//ターゲットが死亡していなければ。
+			if (!list[targetNo]->IsDeath()) {
+				flag = true;
+			}
+			break;
+
+		default:
+			break;
 		}
 
-		break;
 	}
 }
 
 void MonsterBase::Init(const char * filePath)
 {
+	//ファイルパスから読み込めないければ。
 	if (m_GIData.Load(filePath)) {
+		//デフォルトのデータのファイルを読み込む。
 		m_GIData.LoadDefault(GetDefaultDataPath());
 	}
 }

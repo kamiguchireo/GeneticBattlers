@@ -8,7 +8,7 @@ public:
 
 	bool Start();
 	void Update();
-	bool BattleAction();
+	//bool BattleAction();
 
 private:
 	const char* GetDefaultDataPath() 

@@ -1,5 +1,5 @@
 #pragma once
-#include "Skill/SkillBase.h"
+//#include "Skill/SkillBase.h"
 #include "parameter/StatusManager.h"
 #include "parameter/StatusUI.h"
 #include "parameter/GIManager.h"
@@ -47,7 +47,7 @@ public:
 		return m_status;
 	}
 	//チームメンバーリストを取得。
-	const std::vector<MonsterBase*> GetTeamMenber()const
+	const std::vector<MonsterBase*>& GetTeamMenber()const
 	{
 		return m_teamMenber;
 	}
@@ -78,6 +78,16 @@ public:
 	}
 
 	void Draw();			//描画処理とかをまとめたもの。
+	//魔法のアニメーションを再生。
+	void AnimationMagic()
+	{
+		m_animation.Play(en_anim_Magic, 0.3f);
+	}
+	//攻撃のアニメーション
+	void AnimationAttack()
+	{
+		m_animation.Play(en_anim_Attack, 0.3f);
+	}
 
 	//クールタイムを設定する。
 	void SetCoolTime(float time)
@@ -91,6 +101,11 @@ public:
 
 	//行動の評価を行う。
 	virtual bool ACTScoring();
+	//ダメージのリザルトを取得。
+	void SetDamageResult(int res)
+	{
+		m_actRes.damage = res;
+	}
 
 	/// <summary>
 	/// ダメージを与える。
@@ -147,9 +162,6 @@ public:
 	/// <param name="m_team">味方のチーム。</param>
 	virtual void SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team);
 
-	//行動をさせる。
-	virtual bool BattleAction() = 0;
-
 	/// <summary>
 	/// binファイルからデータを読み込む。
 	/// </summary>
@@ -187,7 +199,7 @@ protected:
 
 	//	ポインタとか。
 	std::vector<MonsterBase*> m_teamMenber;				//自分のチーム。
-	SkillBase* m_useSkill = nullptr;					//使用しているスキルのポインタ。
+	//SkillBase* m_useSkill = nullptr;					//使用しているスキルのポインタ。
 	MonsterBase* m_target = nullptr;					//スキルの対象。
 
 	//UIを表示させる。

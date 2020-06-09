@@ -84,6 +84,11 @@ namespace Engine {
 		{
 			m_isDead = true;
 		}
+		//€–S”»’èB
+		bool IsDead()const
+		{
+			return m_isDead;
+		}
 
 		GameObjectPrio GetPriority() const
 		{

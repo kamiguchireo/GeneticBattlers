@@ -70,27 +70,27 @@ void Attacker::Update()
 	m_animation.Update(1.0f / 30.0f);
 }
 
-bool Attacker::BattleAction()
-{
-	MonsterBase* attack = this;
-
-	bool flag = m_useSkill->UseSkill(attack, m_target);
-
-	if (!m_useSkill->GetIsMagic()) {
-		m_animation.Play(en_anim_Attack, 0.3f);
-	}
-	else if (m_useSkill->GetIsMagic()) {
-		m_animation.Play(en_anim_Magic, 0.3f);
-	}
-
-	if (m_useSkill != nullptr && flag)
-	{
-		m_useSkill = nullptr;
-		m_target = nullptr;
-	}
-
-	return flag;
-}
+//bool Attacker::BattleAction()
+//{
+//	MonsterBase* attack = this;
+//
+//	bool flag = m_useSkill->UseSkill(attack, m_target);
+//
+//	if (!m_useSkill->IsMagic()) {
+//		m_animation.Play(en_anim_Attack, 0.3f);
+//	}
+//	else if (m_useSkill->IsMagic()) {
+//		m_animation.Play(en_anim_Magic, 0.3f);
+//	}
+//
+//	if (m_useSkill != nullptr && flag)
+//	{
+//		m_useSkill = nullptr;
+//		m_target = nullptr;
+//	}
+//
+//	return flag;
+//}
 
 
 

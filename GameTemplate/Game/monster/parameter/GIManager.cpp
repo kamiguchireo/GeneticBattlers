@@ -16,6 +16,11 @@ bool GIManager::Load(const char * filePath)
 	FILE* fp = fopen(filePath, "rb");
 	if (fp == nullptr) {
 		//読み込み失敗。
+#ifdef _DEBUG
+		char message[256];
+		sprintf(message, "AIデータが存在しませんでした。%s\n", filePath);
+		OutputDebugStringA(message);
+#endif
 		return false;
 	}
 
@@ -137,11 +142,11 @@ void GIManager::ActionDicide(int * skill, int * target)
 		return;
 	}
 	int res = rand() % 100;	//適当な乱数。
-	int sum = 0;
+	float sum = 0;
 
 	//行動テーブルをもとに行動させる。
 	for (int i = 0; i < m_AI.size(); i++) {
-		sum += (int)(m_AI[i].rate * 100);
+		sum += m_AI[i].rate * 100;
 		if (sum > res) {
 			*skill = m_AI[i].skillNo;
 			*target = m_AI[i].target;

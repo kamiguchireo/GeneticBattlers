@@ -79,141 +79,112 @@ void MonsterTeam1::Update()
 	m_animation.Update(1.0f / 30.0f);
 }
 
-bool MonsterTeam1::Action_good()
-{
-	if (m_useSkill == nullptr) return true;
-
-	if (!m_useSkill->GetIsMagic()){
-		m_animation.Play(en_anim_Attack, 0.3f);
-	}
-	else if (m_useSkill->GetIsMagic()) {
-		m_animation.Play(en_anim_Magic, 0.3f);
-	}
-
-	MonsterBase* attack = this;
-
-	if (m_useSkill->UseSkill(attack, m_target))
-	{
-		m_useSkill = nullptr;
-		m_target = nullptr;
-
-		m_animation.Play(en_anim_Idle, 0.3f);
-
-		return true;
-	}
-
-	return false;
-}
-
-bool MonsterTeam1::Action_usually()
-{
-	if (m_useSkill == nullptr) return true;
-
-	if (!m_useSkill->GetIsMagic()) {
-		m_animation.Play(en_anim_Attack, 0.3f);
-	}
-	else if (m_useSkill->GetIsMagic()) {
-		m_animation.Play(en_anim_Magic, 0.3f);
-	}
-
-	MonsterBase* attack = this;
-
-	if (m_useSkill->UseSkill(attack, m_target))
-	{
-		m_useSkill = nullptr;
-		m_target = nullptr;
-
-		m_animation.Play(en_anim_Idle, 0.3f);
-
-		return true;
-	}
-
-	return false;
-}
-
-bool MonsterTeam1::Action_bad()
-{
-	if (m_useSkill == nullptr) return true;
-
-	if (!m_useSkill->GetIsMagic()) {
-		m_animation.Play(en_anim_Attack, 0.3f);
-	}
-	else if (m_useSkill->GetIsMagic()) {
-		m_animation.Play(en_anim_Magic, 0.3f);
-	}
-
-	MonsterBase* attack = this;
-
-	if (m_useSkill->UseSkill(attack, m_target))
-	{
-		m_useSkill = nullptr;
-		m_target = nullptr;
-
-		m_animation.Play(en_anim_Idle, 0.3f);
-
-		return true;
-	}
-
-	return false;
-}
-
-bool MonsterTeam1::Action()
-{
-	bool flag = false;
-	//残りHPに応じて行動を決める。
-	switch (m_status.GetState())
-	{
-	case en_state_Good:
-		flag = Action_good();
-		break;
-
-	case en_state_Usually:
-		flag = Action_usually();
-		break;
-
-	case en_state_Bad:
-		flag = Action_bad();
-		break;
-
-	case en_state_Death:
-		return true;
-		break;
-	}
-	return flag;
-}
-
-bool MonsterTeam1::BattleAction()
-{
-	bool flag = Action();
-
-	return flag;
-}
-
-void MonsterTeam1::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)
-{
-	if (m_useSkill != nullptr) return;
-
-	SkillList* skillList = SkillList::GetInstance();
-
-	//残りHPに応じて行動を決める。
-	switch (m_status.GetState())
-	{
-	case en_state_Good:
-		m_useSkill = skillList->GetSkillData(0, 0);
-		m_target = e_team[rand() % e_team.size()];
-		break;
-
-	case en_state_Usually:
-		m_useSkill = skillList->GetSkillData(0, 1);
-		m_target = e_team[rand() % e_team.size()];
-		break;
-
-	case en_state_Bad:
-		m_useSkill = skillList->GetSkillData(1, 0);
-		m_target = this;
-		break;
-
-	case en_state_Death:
-		break;
-	}
-}
+//bool MonsterTeam1::Action_good()
+//{
+//	if (m_useSkill == nullptr) return true;
+//
+//	if (!m_useSkill->IsMagic()){
+//		m_animation.Play(en_anim_Attack, 0.3f);
+//	}
+//	else if (m_useSkill->IsMagic()) {
+//		m_animation.Play(en_anim_Magic, 0.3f);
+//	}
+//
+//	MonsterBase* attack = this;
+//
+//	if (m_useSkill->UseSkill(attack, m_target))
+//	{
+//		m_useSkill = nullptr;
+//		m_target = nullptr;
+//
+//		m_animation.Play(en_anim_Idle, 0.3f);
+//
+//		return true;
+//	}
+//
+//	return false;
+//}
+//
+//bool MonsterTeam1::Action_usually()
+//{
+//	if (m_useSkill == nullptr) return true;
+//
+//	if (!m_useSkill->IsMagic()) {
+//		m_animation.Play(en_anim_Attack, 0.3f);
+//	}
+//	else if (m_useSkill->IsMagic()) {
+//		m_animation.Play(en_anim_Magic, 0.3f);
+//	}
+//
+//	MonsterBase* attack = this;
+//
+//	if (m_useSkill->UseSkill(attack, m_target))
+//	{
+//		m_useSkill = nullptr;
+//		m_target = nullptr;
+//
+//		m_animation.Play(en_anim_Idle, 0.3f);
+//
+//		return true;
+//	}
+//
+//	return false;
+//}
+//
+//bool MonsterTeam1::Action_bad()
+//{
+//	if (m_useSkill == nullptr) return true;
+//
+//	if (!m_useSkill->IsMagic()) {
+//		m_animation.Play(en_anim_Attack, 0.3f);
+//	}
+//	else if (m_useSkill->IsMagic()) {
+//		m_animation.Play(en_anim_Magic, 0.3f);
+//	}
+//
+//	MonsterBase* attack = this;
+//
+//	if (m_useSkill->UseSkill(attack, m_target))
+//	{
+//		m_useSkill = nullptr;
+//		m_target = nullptr;
+//
+//		m_animation.Play(en_anim_Idle, 0.3f);
+//
+//		return true;
+//	}
+//
+//	return false;
+//}
+//
+//bool MonsterTeam1::Action()
+//{
+//	bool flag = false;
+//	//残りHPに応じて行動を決める。
+//	switch (m_status.GetState())
+//	{
+//	case en_state_Good:
+//		flag = Action_good();
+//		break;
+//
+//	case en_state_Usually:
+//		flag = Action_usually();
+//		break;
+//
+//	case en_state_Bad:
+//		flag = Action_bad();
+//		break;
+//
+//	case en_state_Death:
+//		return true;
+//		break;
+//	}
+//	return flag;
+//}
+//
+//bool MonsterTeam1::BattleAction()
+//{
+//	bool flag = Action();
+//
+//	return flag;
+//}

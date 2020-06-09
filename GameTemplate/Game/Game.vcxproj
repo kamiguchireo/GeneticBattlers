@@ -99,8 +99,13 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gameScenes\BattleScenes\BattleManager.cpp" />
     <ClCompile Include="gameScenes\NetScenes\NetSceneText.cpp" />
     <ClCompile Include="monster\parameter\GIManager.cpp" />
+    <ClCompile Include="Skill\SkillBuff.cpp" />
+    <ClCompile Include="Skill\SkillHeal.cpp" />
+    <ClCompile Include="Skill\SkillMagic.cpp" />
+    <ClCompile Include="Skill\SkillAttack.cpp" />
     <ClCompile Include="SourceFile\graphic\font\FontRender.cpp" />
     <ClCompile Include="SourceFile\graphic\font\Font.cpp" />
     <ClCompile Include="gameScenes\NetScenes\NetScenes.cpp" />
@@ -119,7 +124,7 @@
     <ClCompile Include="SourceFile\Sound\SoundEngine.cpp" />
     <ClCompile Include="SourceFile\graphic\Effect\CEffect.cpp" />
     <ClCompile Include="Fade.cpp" />
-    <ClCompile Include="gameScenes\BattleScenes.cpp" />
+    <ClCompile Include="gameScenes\BattleScenes\BattleScenes.cpp" />
     <ClCompile Include="CGPUBuffer.cpp" />
     <ClCompile Include="character\CharacterController.cpp" />
     <ClCompile Include="ConstantBuffer.cpp" />
@@ -176,8 +181,13 @@
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gameScenes\BattleScenes\BattleManager.h" />
     <ClInclude Include="gameScenes\NetScenes\NetSceneText.h" />
     <ClInclude Include="monster\parameter\GIManager.h" />
+    <ClInclude Include="Skill\SkillBuff.h" />
+    <ClInclude Include="Skill\SkillHeal.h" />
+    <ClInclude Include="Skill\SkillMagic.h" />
+    <ClInclude Include="Skill\SkillAttack.h" />
     <ClInclude Include="SourceFile\graphic\font\FontRender.h" />
     <ClInclude Include="SourceFile\graphic\font\Font.h" />
     <ClInclude Include="gameScenes\NetScenes\NetScenes.h" />
@@ -197,7 +207,7 @@
     <ClInclude Include="SourceFile\Sound\SoundEngine.h" />
     <ClInclude Include="SourceFile\graphic\Effect\CEffect.h" />
     <ClInclude Include="Fade.h" />
-    <ClInclude Include="gameScenes\BattleScenes.h" />
+    <ClInclude Include="gameScenes\BattleScenes\BattleScenes.h" />
     <ClInclude Include="CGPUBuffer.h" />
     <ClInclude Include="character\CharacterController.h" />
     <ClInclude Include="ConstantBuffer.h" />

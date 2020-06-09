@@ -1,7 +1,6 @@
 #pragma once
 #include "SourceFile/graphic/Effect/CEffect.h"
-
-class MonsterBase;
+#include "monster/MonsterBase.h"
 
 enum Elements {
 	en_elements_Fire,		//!<炎属性。
@@ -16,7 +15,6 @@ class SkillBase : public IGameObject
 public:
 	SkillBase();
 	~SkillBase();
-	virtual bool UseSkill(MonsterBase* attack, MonsterBase* target) = 0;
 	/*
 	スキルの設定をする。
 	char*		name	!<スキルの名前。
@@ -24,18 +22,53 @@ public:
 	float		time	!<クールタイム。
 	float		acc		!<スキルの命中率。
 	int			no		!<スキル番号。
-	bool		isAttack!<攻撃スキルかどうか。trueは敵に対して使うスキル。
 	Elements	ele		!<スキルの属性。
-	bool		isMagic	!<魔法かどうか。
 	*/
 	void InitSkill(const char* name,
 		float power,
 		float time,
 		float acc,
-		int no,
-		bool isAttack = true,
-		Elements ele = en_elements_Empty,
-		bool isMagic = false);
+		int no
+	);
+	//使用者のポインタをセット。
+	void SetUser(MonsterBase* user)
+	{
+		m_user = user;
+	}
+	//ターゲットのポインタをセット。
+	void SetTarget(MonsterBase* target)
+	{
+		m_target = target;
+	}
+	//再生するエフェクトのファイルパスを設定する。
+	void SetEffect(const wchar_t* path)
+	{
+		swprintf(effectPath, path);
+	}
+	//スキルが全体効果か？
+	void SetIsWide(bool isFlag = false)
+	{
+		m_isWide = isFlag;
+	}
+	//スキル番号を取得する。
+	const int GetSkillNo()const
+	{
+		return m_skillNo;
+	}
+
+	/// <summary>
+	/// ダメージ計算。
+	/// </summary>
+	/// <param name="attack">攻撃するキャラ。</param>
+	/// <param name="target">ターゲットのキャラ。</param>
+	/// <returns>ダメージ量。</returns>
+	int DamageCalcuration();
+
+	//魔法かどうか。
+	virtual bool IsMagic() = 0;
+	//攻撃スキルかどうか。
+	virtual bool IsAttack() = 0;
+protected:
 	//スキルの名前を設定。
 	void SetSkillName(const char* name)
 	{
@@ -61,85 +94,16 @@ public:
 	{
 		m_skillNo = no;
 	}
-	//
-	void SetElements(Elements ele)
-	{
-		m_skillElements = ele;
-	}
-	//魔法かどうかを設定する。
-	void SetMagic(bool isMagic)
-	{
-		m_isMagic = isMagic;
-	}
-	//攻撃スキルかどうかを設定する。
-	void SetIsAttack(bool isAttack)
-	{
-		m_isAttack = isAttack;
-	}
-	//再生するエフェクトのファイルパスを設定する。
-	void SetEffect(const wchar_t* path)
-	{
-		swprintf(effectPath, path);
-	}
-	//スキル番号を取得する。
-	const int GetSkillNo()const
-	{
-		return m_skillNo;
-	}
-	//魔法かどうか。
-	const bool GetIsMagic()const
-	{
-		return m_isMagic;
-	}
-	//攻撃スキルかどうか。
-	const bool GetIsAttack()const 
-	{
-		return m_isAttack;
-	}
 
-	/// <summary>
-	/// 属性相性を取得する。
-	/// </summary>
-	/// <param name="attack">攻撃側の属性。</param>
-	/// <param name="target">対象側の属性。</param>
-	/// <returns></returns>
-	const float GetCompatibility(Elements attack, Elements target)
-	{
-		return m_elementsComp[attack][target];
-	}
-	//属性相性取得int型引数ver。
-	float GetCompatibility(int attack, int target);
-	/// <summary>
-	/// ダメージ計算。
-	/// </summary>
-	/// <param name="attack">攻撃するキャラ。</param>
-	/// <param name="target">ターゲットのキャラ。</param>
-	/// <returns>ダメージ量。</returns>
-	int DamageCalcuration(MonsterBase* attack, MonsterBase* target);
-
-	static float eleResist;		//相性不利。
-	static float eleCritical;		//相性有利。
-	static float eleNormal;		//相性普通。
-protected:
-	prefab::CEffect* skillEffect = nullptr;
-	//wchar_t* effectPath = nullptr;
+	MonsterBase* m_user = nullptr;
+	MonsterBase* m_target = nullptr;
+	prefab::CEffect* skillEffect = nullptr;	//行動のエフェクト。
 	wchar_t effectPath[128];	//エフェクトのファイルパス。
 	char skillName[30];
 	float skillPower = 1.0f;
 	float coolTime = 0.0f;	//クールタイム
 	float accuracy = 1.0f;	//命中率
 	int m_skillNo = 0;
-	Elements m_skillElements = en_elements_Empty;
-	bool m_isMagic = false;
-	bool m_isAttack = true;
-
-	//属性相性。[攻撃側][対象側]
-	const float m_elementsComp[en_elements_Num][en_elements_Num]=
-	{
-		{eleNormal	,	eleCritical	,	eleResist	,eleNormal},
-		{eleResist	,	eleNormal	,	eleCritical	,eleNormal},
-		{eleCritical,	eleResist	,	eleNormal	,eleNormal},
-		{eleNormal	,	eleNormal	,	eleNormal	,eleNormal}
-	};
+	bool m_isWide = false;	//全体効果か？
 };
 

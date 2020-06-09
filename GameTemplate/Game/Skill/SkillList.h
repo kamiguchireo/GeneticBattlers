@@ -9,11 +9,6 @@ public:
 	SkillList();
 	~SkillList();
 
-	static SkillList* m_instance;
-	static SkillList* GetInstance()
-	{
-		return m_instance;
-	}
 	/// <summary>
 	/// スキルデータを取得する。
 	/// </summary>
@@ -24,14 +19,22 @@ public:
 	/// </param>
 	/// <param name="no">スキルナンバー</param>
 	/// <returns>スキルのデータ</returns>
-	SkillBase* GetSkillData(int table, int no)
-	{
-		return m_skillList[table][no];
-	}
+	SkillBase* GetSkillData(int table, int no);
 
+	SkillBase* GetSkillAttack(int no);
+	SkillBase* GetSkillHeal(int no);
+	SkillBase* GetSkillBuff(int no);
+	SkillBase* GetSkillMagic(int no);
+
+	static SkillList* GetInstance()
+	{
+		return m_instance;
+	}
 private:
-	typedef std::vector<SkillBase*>SkillTable;
-	std::vector<SkillTable>m_skillList;
+	static SkillList* m_instance;
+
+	//typedef std::vector<SkillBase*>SkillTable;
+	//std::vector<SkillTable>m_skillList;
 };
 
 //単体攻撃。
