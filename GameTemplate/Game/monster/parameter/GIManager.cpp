@@ -18,7 +18,7 @@ bool GIManager::Load(const char * filePath)
 		//読み込み失敗。
 #ifdef _DEBUG
 		char message[256];
-		sprintf(message, "AIデータが存在しませんでした。%s\n", filePath);
+		sprintf(message, "binデータの読み込みに失敗しました。%s\n", filePath);
 		OutputDebugStringA(message);
 #endif
 		return false;
@@ -40,6 +40,12 @@ void GIManager::LoadDefault(const char * filePath)
 {
 	FILE* fp = fopen(filePath, "rb");
 	if (fp == nullptr) {
+		//読み込み失敗。
+#ifdef _DEBUG
+		char message[256];
+		sprintf(message, "binデータの読み込みに失敗しました。%s\n", filePath);
+		OutputDebugStringA(message);
+#endif
 		return;
 	}
 
