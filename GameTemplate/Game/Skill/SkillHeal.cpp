@@ -14,17 +14,16 @@ bool SkillHeal::Start()
 
 void SkillHeal::Update()
 {
-	if (!skillEffect->IsPlay()
-		&& m_healEffect == nullptr) {
+	if (m_healEffect == nullptr
+		&& !skillEffect->IsPlay()) {
 		//エフェクトの再生。
 		m_healEffect = NewGO<prefab::CEffect>(0);
 		m_healEffect->Play(effectPath);
 		m_healEffect->SetPosition(m_target->GetPosition() + CVector3::AxisY()*20.0f);
 		m_healEffect->SetScale(CVector3::One()*80.0f);
-
-		skillEffect = nullptr;
 	}
-	if (m_healEffect->IsPlay()) {
+	else if (m_healEffect != nullptr
+		&& !m_healEffect->IsPlay()) {
 		//回復量の計算。
 		int result = m_user->GetStatusManager().GetStatus().MAT * skillPower;
 		int res = m_target->Healing(result);
@@ -35,5 +34,6 @@ void SkillHeal::Update()
 		m_user->SetCoolTime(coolTime);
 
 		m_healEffect = nullptr;
+		DeleteGO(this);
 	}
 }

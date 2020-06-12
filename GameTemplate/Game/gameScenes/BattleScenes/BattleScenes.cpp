@@ -18,14 +18,6 @@ BattleScenes::~BattleScenes()
 {
 	DeleteGO(m_camera);
 	DeleteGO(m_resultSprite);
-	for (int i = 0; i < m_monsterTeam1List.size(); i++)
-	{
-		DeleteGO(m_monsterTeam1List[i]);
-	}
-	for (int i = 0; i < m_monsterTeam2List.size(); i++)
-	{
-		DeleteGO(m_monsterTeam2List[i]);
-	}
 }
 
 bool BattleScenes::Start()
@@ -57,7 +49,8 @@ bool BattleScenes::Start()
 			monster->SetStatus(hoge);
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
-			m_monsterTeam2List.push_back(monster);
+			monster->Init("aaa");
+			m_battleManager.PushBackEnemys(monster);
 
 			CVector3 uipos = { objData.position.x / -2.5f - 50.0f,300.0f,0.0f };
 			monster->SetUIPos(uipos);
@@ -79,7 +72,7 @@ bool BattleScenes::Start()
 			attacker->SetPosition(objData.position);
 			attacker->SetRotation(objData.rotation);
 			attacker->Init("Assets/AIData/Attacker.bin");
-			m_monsterTeam1List.push_back(attacker);
+			m_battleManager.PushBackTeams(attacker);
 
 			return true;
 		}	
@@ -98,7 +91,7 @@ bool BattleScenes::Start()
 			healer->SetPosition(objData.position);
 			healer->SetRotation(objData.rotation);
 			healer->Init("Assets/AIData/Healer.bin");
-			m_monsterTeam1List.push_back(healer);
+			m_battleManager.PushBackTeams(healer);
 		
 			return true;
 		}
@@ -117,7 +110,7 @@ bool BattleScenes::Start()
 			support->SetPosition(objData.position);
 			support->SetRotation(objData.rotation);
 			support->Init("Assets/AIData/Supporter.bin");
-			m_monsterTeam1List.push_back(support);
+			m_battleManager.PushBackTeams(support);
 		
 			return true;
 		}
@@ -125,16 +118,8 @@ bool BattleScenes::Start()
 
 		return false;
 		});
-
-	for (int i = 0; i < m_monsterTeam1List.size(); i++)
-	{
-		m_monsterTeam1List[i]->SetTeamMenber(m_monsterTeam1List);
-	}
-	for (int i = 0; i < m_monsterTeam2List.size(); i++)
-	{
-		m_monsterTeam2List[i]->SetTeamMenber(m_monsterTeam2List);
-	}
-
+	
+	m_battleManager.SetTeams();
 	//カメラ。
 	m_camera = NewGO<GameCamera>(0);
 	//フェード。
@@ -153,24 +138,8 @@ void BattleScenes::Update()
 		if (!m_fade->IsFade())	m_state = enState_Battle;
 		break;
 	case enState_Battle:
-		switch (m_battleState)
-		{
-		//アクティブタイムを加算。
-		case enState_ATB:
-			//ActiveTimeUpdate();
-			break;
-		//行動処理を行う。
-		case enState_ACT:
-			//MonsterAction();
-			break;
-		//評価処理を行う。
-		case enState_Scoring:
-			MonsterScoring();
-			break;
-
-		default:
-			break;
-		}
+		//戦闘の更新処理をさせる。
+		m_battleManager.BattleUpdate();
 
 		if (g_pad[0].IsTrigger(enButtonStart)) 
 		{
@@ -201,10 +170,6 @@ void BattleScenes::Update()
 		
 		if (g_pad[0].IsTrigger(enButtonA))
 		{
-			for (int i = 0; i < m_monsterTeam1List.size(); i++)
-			{
-				//m_monsterTeam1List[i]->Save();
-			}
 			//フェードさせる。
 			m_state = enState_FadeOut;
 			m_fade->StartFadeOut();
@@ -245,52 +210,6 @@ void BattleScenes::InitMonster()
 		hoge.DEX = rand() % 10 + 10;
 		monster->SetPosition(pos);
 		monster->SetStatus(hoge);
-		m_monsterTeam1List.push_back(monster);
 	}
 }
 
-
-void BattleScenes::MonsterScoring()
-{
-	bool flag = m_monsterACT->ACTScoring();
-
-	if (flag) {
-		//行動が終わったらポインタにnullを入れる。
-		m_monsterACTList.erase(m_monsterACTList.begin());
-		m_monsterACT = nullptr;
-
-
-		int myDeath = 0;
-		int eneDeath = 0;
-
-		//デス数をカウントする。
-		for (int i = 0; i < m_monsterTeam1List.size(); i++) {
-			if (m_monsterTeam1List[i]->IsDeath())myDeath++;
-		}
-		for (int i = 0; i < m_monsterTeam2List.size(); i++) {
-			if (m_monsterTeam2List[i]->IsDeath())eneDeath++;
-		}
-		//どちらかが全滅すればリザルトへ
-		if (myDeath == m_monsterTeam1List.size()) {
-			m_isWin = false;
-			m_state = enState_Result;
-			battleCoolTime = 3.0f;
-			return;
-		}	
-		else if (eneDeath == m_monsterTeam2List.size()) {
-			m_isWin = true;
-			m_state = enState_Result;
-			battleCoolTime = 1.0f;
-			return;
-		}
-
-		//誰も行動していないなら
-		if (m_monsterACTList.size() == 0) {
-			m_battleState = enState_ATB;
-		}
-		else {
-			m_battleState = enState_ACT;
-		}
-
-	}
-}

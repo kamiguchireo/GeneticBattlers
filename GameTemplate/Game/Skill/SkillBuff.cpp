@@ -35,6 +35,7 @@ void SkillBuff::Update()
 		m_user->SetCoolTime(coolTime);
 
 		skillEffect = nullptr;
+		DeleteGO(this);
 	}
 }
 

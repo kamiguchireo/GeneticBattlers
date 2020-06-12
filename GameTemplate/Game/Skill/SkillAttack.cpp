@@ -26,5 +26,6 @@ void SkillAttack::Update()
 		m_user->SetCoolTime(coolTime);
 
 		skillEffect = nullptr;
+		DeleteGO(this);
 	}
 }

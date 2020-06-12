@@ -9,15 +9,6 @@ public:
 	~MonsterTeam1();
 	bool Start();
 	void Update();
-	//bool Action_good();
-	//bool Action_usually();
-	//bool Action_bad();
-	///// <summary>
-	///// ステートに応じて行動を決める。
-	///// </summary>
-	//bool Action();
-
-	//bool BattleAction();
 
 	bool ACTScoring() { return true; };
 	//AIデータを読み込みたい。
@@ -35,9 +26,9 @@ public:
 private:
 	const char* GetDefaultDataPath()
 	{
-		return "Assets/AIData/HealerDefault.bin";
+		//return "Assets/AIData/HealerDefault.bin";
+		return "Assets/AIData/Healer.bin";		//仮置き行動。
 	}
-	//const char m_filePath[64] = "Assets/AIData/HealerDefault.bin";
 
 	//行動の状態遷移の列挙。
 	enum ActionState {

@@ -160,7 +160,12 @@ public:
 	/// </summary>
 	/// <param name="e_team">敵のチーム。</param>
 	/// <param name="m_team">味方のチーム。</param>
-	virtual void SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team);
+	/// <param name="skill">スキル番号のバッファ。</param>
+	/// <param name="target">ターゲット番号のバッファ。</param>
+	virtual void SelectUseSkill(
+		const std::vector<MonsterBase*>& e_team, 
+		const std::vector<MonsterBase*>& m_team,
+		int& skill, int& target);
 
 	/// <summary>
 	/// binファイルからデータを読み込む。
@@ -199,7 +204,6 @@ protected:
 
 	//	ポインタとか。
 	std::vector<MonsterBase*> m_teamMenber;				//自分のチーム。
-	//SkillBase* m_useSkill = nullptr;					//使用しているスキルのポインタ。
 	MonsterBase* m_target = nullptr;					//スキルの対象。
 
 	//UIを表示させる。

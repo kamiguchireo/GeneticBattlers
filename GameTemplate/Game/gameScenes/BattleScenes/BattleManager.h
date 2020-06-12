@@ -1,12 +1,30 @@
 #pragma once
 #include "Skill/SkillList.h"
 
+struct ACTMonsterInfo {
+	MonsterBase* actMonster = nullptr;
+	bool isEnemy = false;
+};
 
 class BattleManager
 {
 public:
-	BattleManager() {};
-	~BattleManager() {};
+	BattleManager();
+	~BattleManager();
+
+	//戦闘処理。
+	void BattleUpdate();
+	//味方のチームをセット。
+	void PushBackTeams(MonsterBase* monster)
+	{
+		m_monsterTeam.push_back(monster);
+	}
+	//敵のチームをセット。
+	void PushBackEnemys(MonsterBase* enemy)
+	{
+		m_monsterEnemy.push_back(enemy);
+	}
+	void SetTeams();
 
 private:
 	typedef std::vector<MonsterBase*> MonsterList;
@@ -23,6 +41,8 @@ private:
 	/// 評価させる。
 	/// </summary>
 	void MonsterScoring();
+	//HPでソートを行う。
+	void SortTeams();
 
 	//バトルの処理切り替え
 	enum BattleState {
@@ -33,10 +53,10 @@ private:
 	//モンスターのポインタ。
 	MonsterList m_monsterTeam;
 	MonsterList m_monsterEnemy;
-	MonsterList m_monsterACTList;	//!<行動中のリスト。
-	MonsterBase* m_monsterACT = nullptr;	//!<現在行動中のモンスター。
-	SkillList skillList;					//!<スキルリスト。
-	SkillBase* m_usingSkill = nullptr;		//現在使用中のスキル。
+	std::vector <ACTMonsterInfo> m_monsterACTList;	//!<行動中のリスト。
+	ACTMonsterInfo m_monsterACT;					//!<現在行動中のモンスター。
+	SkillList skillList;							//!<スキルリスト。
+	SkillBase* m_usingSkill = nullptr;				//現在使用中のスキル。
 	BattleState m_battleState = enState_ATB;
 };
 
