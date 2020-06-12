@@ -54,7 +54,7 @@ void BattleManager::ActiveTimeUpdate()
 
 		//ゲージが溜まり切ったらポインタを取得する。　
 		if (is_action) {
-			m_monsterACTList.push_back({ m_monsterTeam[i], true });
+			m_monsterACTList.push_back({ m_monsterTeam[i], false });
 			//ステートを変更。
 			m_battleState = enState_ACT;
 		}
@@ -65,7 +65,7 @@ void BattleManager::ActiveTimeUpdate()
 
 		//ゲージが溜まり切ったらポインタを取得する。　
 		if (is_action) {
-			m_monsterACTList.push_back({ m_monsterEnemy[i],false });
+			m_monsterACTList.push_back({ m_monsterEnemy[i], true });
 			//ステートを変更。
 			m_battleState = enState_ACT;
 		}
@@ -93,10 +93,20 @@ void BattleManager::MonsterAction()
 		//使用者、ターゲットの設定。
 		m_usingSkill->SetUser(m_monsterACT.actMonster);
 		if (m_monsterACT.isEnemy) {
-			m_usingSkill->SetTarget(m_monsterTeam[target]);
+			if (m_usingSkill->IsAttack()) {
+				m_usingSkill->SetTarget(m_monsterTeam[target]);
+			}
+			else {
+				m_usingSkill->SetTarget(m_monsterEnemy[target]);
+			}
 		}
 		else {
-			m_usingSkill->SetTarget(m_monsterEnemy[target]);
+			if (m_usingSkill->IsAttack()) {
+				m_usingSkill->SetTarget(m_monsterEnemy[target]);
+			}
+			else {
+				m_usingSkill->SetTarget(m_monsterTeam[target]);
+			}
 		}
 	}
 	//行動が終わったらステート切り替え。
