@@ -120,6 +120,7 @@ bool BattleScenes::Start()
 		});
 	
 	m_battleManager.SetTeams();
+	m_battleManager.SetScenePointa(this);
 	//カメラ。
 	m_camera = NewGO<GameCamera>(0);
 	//フェード。

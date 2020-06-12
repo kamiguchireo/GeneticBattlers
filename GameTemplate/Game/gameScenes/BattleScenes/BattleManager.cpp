@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "BattleManager.h"
+#include "BattleScenes.h"
 #include "monster/MonsterBase.h"
 
 BattleManager::BattleManager()
@@ -148,9 +149,11 @@ void BattleManager::MonsterScoring()
 		//どちらかが全滅すればリザルトへ
 		if (myDeath == m_monsterTeam.size()) {
 			//バトルシーンに対してステートの変化と勝敗判定を渡す
+			m_scenes->SetBattleResult(false);
 			return;
 		}
 		else if (eneDeath == m_monsterEnemy.size()) {
+			m_scenes->SetBattleResult(true);
 			return;
 		}
 

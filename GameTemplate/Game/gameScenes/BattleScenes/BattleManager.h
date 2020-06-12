@@ -1,6 +1,8 @@
 #pragma once
 #include "Skill/SkillList.h"
 
+class BattleScenes;
+
 struct ACTMonsterInfo {
 	MonsterBase* actMonster = nullptr;
 	bool isEnemy = false;
@@ -24,7 +26,16 @@ public:
 	{
 		m_monsterEnemy.push_back(enemy);
 	}
+	//それぞれに味方チームを知らせる。
 	void SetTeams();
+	/// <summary>
+	/// バトルシーンのポインタ設定。
+	/// </summary>
+	/// <param name="p">ポインタ。</param>
+	void SetScenePointa(BattleScenes* p)
+	{
+		m_scenes = p;
+	}
 
 private:
 	typedef std::vector<MonsterBase*> MonsterList;
@@ -50,6 +61,7 @@ private:
 		enState_ACT,
 		enState_Scoring
 	};
+	BattleScenes* m_scenes = nullptr;
 	//モンスターのポインタ。
 	MonsterList m_monsterTeam;
 	MonsterList m_monsterEnemy;

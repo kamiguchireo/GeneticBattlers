@@ -25,6 +25,18 @@ public:
 	//モンスターの初期化。
 	void InitMonster();
 
+	/// <summary>
+	/// 勝利したかどうか。
+	/// ついでにステートの切り替え。
+	/// </summary>
+	/// <param name="res">true 勝利 : false 敗北</param>
+	void SetBattleResult(bool res)
+	{
+		m_isWin = res;
+		battleCoolTime = 2.0f;
+		m_state = enState_Result;
+	}
+
 private:
 	//フェード切り替え
 	enum SceneState {
