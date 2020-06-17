@@ -99,8 +99,8 @@ void MonsterBase::SelectUseSkill(
 	const std::vector<MonsterBase*>& m_team, 
 	int& skill, int& target)
 {
-	int skillNo = 0;
-	int targetNo = 0;
+	int skillNo = 0;	//取得した番号を記録する。
+	int targetNo = 0;	//取得した番号を記録する。
 
 	bool flag = false;
 	//ターゲットが定まるまで回す。

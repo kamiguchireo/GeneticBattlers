@@ -36,6 +36,15 @@ public:
 	{
 		m_scenes = p;
 	}
+	//GIの更新処理と保存をさせる。
+	void SaveData()
+	{
+		//全員分の記録を行う。
+		for (auto p : m_monsterTeam) {
+			auto GI = p->GetGIManager();
+			GI.Save();
+		}
+	}
 
 private:
 	typedef std::vector<MonsterBase*> MonsterList;

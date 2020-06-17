@@ -51,6 +51,10 @@ public:
 	{
 		return m_teamMenber;
 	}
+	const GIManager& GetGIManager()const
+	{
+		return m_GIData;
+	}
 	//ステータスの設定。
 	//正直ファイルからロードしたい。
 	void SetStatus(int hp, int mp, int atk, int def, int mat, int mdf, int dex);
@@ -76,6 +80,10 @@ public:
 	{
 		m_teamMenber = list;
 	}
+
+	/// <summary>
+	/// モデル関係の処理もクラス分けしたほうがいいんかなぁ？
+	/// </summary>
 
 	void Draw();			//描画処理とかをまとめたもの。
 	//魔法のアニメーションを再生。
@@ -107,6 +115,21 @@ public:
 		m_actRes.damage = res;
 	}
 
+	//アクティブタイム加算。
+	bool AddATB()
+	{
+		return m_status.AddATB(m_UI);
+	}
+	//ステートのアップデート。
+	void StateUpdate()
+	{
+		m_status.StateUpdate(m_UI);
+	}
+
+	/// <summary>
+	/// この辺の処理ステータスのほうでまとめたほうがいいのでは？
+	/// </summary>
+
 	/// <summary>
 	/// ダメージを与える。
 	/// </summary>
@@ -119,16 +142,6 @@ public:
 		m_animation.Play(en_anim_Damage, 0.3f);
 
 		return m_status.Damage(damage);
-	}
-	//アクティブタイム加算。
-	bool AddATB()
-	{
-		return m_status.AddATB(m_UI);
-	}
-	//ステートのアップデート。
-	void StateUpdate()
-	{
-		m_status.StateUpdate(m_UI);
 	}
 
 	/// <summary>
@@ -175,7 +188,7 @@ public:
 
 protected:
 	/// <summary>
-	/// デフォルトの行動を作り出す。
+	/// デフォルトの行動のデータを読み込むためのファイルパス。
 	/// </summary>
 	virtual const char* GetDefaultDataPath() = 0;
 

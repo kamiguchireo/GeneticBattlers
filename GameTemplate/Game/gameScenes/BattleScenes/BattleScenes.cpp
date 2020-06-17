@@ -171,6 +171,9 @@ void BattleScenes::Update()
 		
 		if (g_pad[0].IsTrigger(enButtonA))
 		{
+			//戦闘後処理。
+			m_battleManager.SaveData();		//行動データの更新と保存。
+
 			//フェードさせる。
 			m_state = enState_FadeOut;
 			m_fade->StartFadeOut();
