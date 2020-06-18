@@ -32,6 +32,8 @@ public:
 	/// </summary>
 	~MonsterBase();
 
+	void Update()override;
+
 	//座標を取得。
 	const CVector3& GetPosition() const
 	{
@@ -95,6 +97,11 @@ public:
 	void AnimationAttack()
 	{
 		m_animation.Play(en_anim_Attack, 0.3f);
+	}
+	//待機状態のアニメーション。
+	void AnimationIdle()
+	{
+		m_animation.Play(en_anim_Idle, 0.3f);
 	}
 
 	//クールタイムを設定する。

@@ -8,7 +8,6 @@ public:
 	MonsterTeam1();
 	~MonsterTeam1();
 	bool Start();
-	void Update();
 
 	bool ACTScoring() { return true; };
 	//AIデータを読み込みたい。

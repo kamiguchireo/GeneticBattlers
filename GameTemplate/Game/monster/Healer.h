@@ -7,8 +7,6 @@ public:
 	~Healer();
 
 	bool Start();
-	void Update();
-	//bool BattleAction();
 
 private:
 	const char* GetDefaultDataPath()

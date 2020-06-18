@@ -10,6 +10,9 @@ bool SkillAttack::Start()
 	skillEffect->SetRotation(m_user->GetRotation());
 	skillEffect->SetScale(CVector3::One() * 20.0f);
 
+	//アニメーションの再生。
+	m_user->AnimationAttack();
+
 	return true;
 }
 

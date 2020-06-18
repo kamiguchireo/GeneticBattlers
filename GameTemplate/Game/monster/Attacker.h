@@ -7,9 +7,6 @@ public:
 	~Attacker();
 
 	bool Start();
-	void Update();
-	//bool BattleAction();
-
 
 private:
 	const char* GetDefaultDataPath()

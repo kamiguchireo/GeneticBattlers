@@ -9,6 +9,9 @@ bool SkillHeal::Start()
 	skillEffect->SetPosition(m_user->GetPosition() + CVector3::AxisY()*20.0f);
 	skillEffect->SetScale(CVector3::One() * 50.0f);
 
+	//アニメーションの再生。
+	m_user->AnimationMagic();
+
 	return true;
 }
 
