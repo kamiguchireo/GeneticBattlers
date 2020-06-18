@@ -115,6 +115,11 @@ namespace Engine {
 		CVector3 m_range = { 1000.0f,2000.0f,3000.0f };
 		ID3D11RenderTargetView* oldRenderTargetView = nullptr;
 		ID3D11DepthStencilView* oldDepthStencilView = nullptr;
+		const int TexResolution = 2048;		//シャドウマップテクスチャの解像度
+		const float UpBoundary = 0.99998f;		//真上かどうかの境界
+		const float DistBoundary = 0.0001f;		//距離限界の境界
+		const float InitNearPlane = 0.0f;		//NearPlaneの初期値
+		const int NumLightViewMat = 3;		//ライトビュー行列の数
 	};
 
 }

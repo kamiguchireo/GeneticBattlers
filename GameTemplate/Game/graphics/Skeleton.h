@@ -212,10 +212,16 @@ public:
 	*@param[in]	parentMatrix	親のボーンのワールド行列。
 	*/
 	static 	void UpdateBoneWorldMatrix(Bone& bone, const CMatrix& parentMatrix);
+
+	static Skeleton* GetSkeleton()
+	{
+		return m_skeleton;
+	}
 private:
 	
 	std::vector<Bone*>			m_bones;					//!<ボーンの配列。
 	std::vector<CMatrix>		m_boneMatrixs;				//!<ボーン行列。
 	ID3D11Buffer*				m_boneMatrixSB = nullptr;	//!<ボーン行列のストラクチャーバッファ。
 	ID3D11ShaderResourceView*	m_boneMatrixSRV = nullptr;	//!<ボーン行列のSRV。
+	static Skeleton *m_skeleton;		//スケルトン。
 };

@@ -21,7 +21,7 @@ SkinModel::~SkinModel()
 void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 {
 	//スケルトンのデータを読み込む。
-	InitSkeleton(filePath);
+	//InitSkeleton(filePath);
 
 	//定数バッファの作成。
 	InitConstantBuffer();
@@ -30,7 +30,7 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 	InitSamplerState();
 
 	//SkinModelDataManagerを使用してCMOファイルのロード。
-	m_modelDx = g_skinModelDataManager.Load(filePath, m_skeleton);
+	//m_modelDx = g_skinModelDataManager.Load(filePath, m_skeleton);
 
 	m_enFbxUpAxis = enFbxUpAxis;
 
@@ -38,28 +38,28 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 	//CQuaternion direction = { 0.707,-0.707,0.0,1.0 };
 	//SetLightDir(direction);
 }
-void SkinModel::InitSkeleton(const wchar_t* filePath)
-{
-	//スケルトンのデータを読み込む。
-	//cmoファイルの拡張子をtksに変更する。
-	std::wstring skeletonFilePath = filePath;
-	//文字列から.cmoファイル始まる場所を検索。
-	int pos = (int)skeletonFilePath.find(L".cmo");
-	//.cmoファイルを.tksに置き換える。
-	skeletonFilePath.replace(pos, 4, L".tks");
-	//tksファイルをロードする。
-	bool result = m_skeleton.Load(skeletonFilePath.c_str());
-	if ( result == false ) {
-		//スケルトンが読み込みに失敗した。
-		//アニメーションしないモデルは、スケルトンが不要なので
-		//読み込みに失敗することはあるので、ログ出力だけにしておく。
-#ifdef _DEBUG
-		char message[256];
-		sprintf(message, "tksファイルの読み込みに失敗しました。%ls\n", skeletonFilePath.c_str());
-		OutputDebugStringA(message);
-#endif
-	}
-}
+//void SkinModel::InitSkeleton(const wchar_t* filePath)
+//{
+//	//スケルトンのデータを読み込む。
+//	//cmoファイルの拡張子をtksに変更する。
+//	std::wstring skeletonFilePath = filePath;
+//	//文字列から.cmoファイル始まる場所を検索。
+//	int pos = (int)skeletonFilePath.find(L".cmo");
+//	//.cmoファイルを.tksに置き換える。
+//	skeletonFilePath.replace(pos, 4, L".tks");
+//	//tksファイルをロードする。
+//	bool result = m_skeleton.Load(skeletonFilePath.c_str());
+//	if ( result == false ) {
+//		//スケルトンが読み込みに失敗した。
+//		//アニメーションしないモデルは、スケルトンが不要なので
+//		//読み込みに失敗することはあるので、ログ出力だけにしておく。
+//#ifdef _DEBUG
+//		char message[256];
+//		sprintf(message, "tksファイルの読み込みに失敗しました。%ls\n", skeletonFilePath.c_str());
+//		OutputDebugStringA(message);
+//#endif
+//	}
+//}
 void SkinModel::InitConstantBuffer()
 {
 	//作成するバッファのサイズをsizeof演算子で求める。
@@ -111,7 +111,7 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 	m_worldMatrix.Mul(m_worldMatrix, transMatrix);
 
 	//スケルトンの更新。
-	m_skeleton.Update(m_worldMatrix);
+	//m_skeleton.Update(m_worldMatrix);
 }
 
 //シルエット描画の仕方
@@ -151,7 +151,7 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix,EnRenderMode renderM
 	//サンプラステートを設定。
 	d3dDeviceContext->PSSetSamplers(0, 1, &m_samplerState);
 	//ボーン行列をGPUに転送。
-	m_skeleton.SendBoneMatrixArrayToGPU();
+	//m_skeleton.SendBoneMatrixArrayToGPU();
 
 	DL.Draw();
 

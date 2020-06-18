@@ -45,5 +45,6 @@ namespace Engine
 		DirectX::SpriteBatch* m_spriteBatch = nullptr;		//スプライトバッチ
 		DirectX::SpriteFont* m_spriteFont = nullptr;		//スプライトフォント
 		CMatrix m_scaleMat = CMatrix::Identity();
+		float kaizoudo[2] = { 1280.0f,720.0f };
 	};
 }

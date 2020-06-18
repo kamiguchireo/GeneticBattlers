@@ -22,6 +22,10 @@ Game::Game()
 
 	g_camera3D.SetPosition({ 0.0f, 200.0f, 800.0f });
 	g_camera3D.SetTarget({ 0.0f, 200.0f, 0.0f });
+	
+	//アニメーションクリップの読み込み。
+	m_animClip[0].Load(L"Assets/animData/run.tka");
+	m_animClip[0].SetLoopFlag(true);
 
 }
 
@@ -57,6 +61,15 @@ bool Game::Start()
 	m_model.SetActiveDLFlag(0);
 	m_model.SetActiveRLFlag(1);
 	m_position = m_pos;
+
+	bool result = m_skeleton.Load(L"Assets/modelData/unityChan.tks");
+	if (result == false)
+	{
+		throw;
+	}
+	m_animation.Init(m_skeleton, m_animClip, 1);
+	m_animation.Play(0);
+
 	////モデル2
 	//m_model2.Init(L"Assets/modelData/unityChan.cmo");
 	//CVector3 m_pos2 = { 40.0f,0.0f,0.0f };
@@ -78,15 +91,18 @@ bool Game::Start()
 	m_model3.SetShadowReciever(true);
 	//m_position.y = 100.0f;
 	
-	fr = NewGO<prefab::FontRender>(0);
-	fr->SetText(L"aaaaaaaaaaaaaaaaaaaaaa");
-	fr->SetPosition({ 0.0f, 0.0f });
-	fr->SetPivot({0.5f, 0.5f });
+	//fr = NewGO<prefab::FontRender>(0);
+	//fr->SetText(L"aaaaaaaaaaaaaaaaaaaaaa");
+	//fr->SetPosition({ 0.0f, 0.0f });
+	//fr->SetPivot({0.5f, 0.5f });
 	return true;
 }
 
 void Game::Update()
 {	
+	m_skeleton.Update(m_model.GetWorldMatrix());
+	m_skeleton.SendBoneMatrixArrayToGPU();
+	m_animation.Update(1.0f / 30.0f);
 	static float f = 0.5f;
 	if (GetAsyncKeyState(VK_UP))
 	{
@@ -106,7 +122,7 @@ void Game::Update()
 	}
 
 
-	fr->SetScale(f);
+	//fr->SetScale(f);
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
 
