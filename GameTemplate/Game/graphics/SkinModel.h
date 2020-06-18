@@ -44,16 +44,16 @@ public:
 	*/
 	void UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVector3 scale);
 	
-	///*!
-	//*@brief	ボーンを検索。
-	//*@param[in]		boneName	ボーンの名前。
-	//*@return	見つかったボーン。見つからなかった場合はnullptrを返します。
-	//*/
-	//Bone* FindBone(const wchar_t* boneName)
-	//{
-	//	int boneId = m_skeleton.FindBoneID(boneName);
-	//	return m_skeleton.GetBone(boneId);
-	//}
+	/*!
+	*@brief	ボーンを検索。
+	*@param[in]		boneName	ボーンの名前。
+	*@return	見つかったボーン。見つからなかった場合はnullptrを返します。
+	*/
+	Bone* FindBone(const wchar_t* boneName)
+	{
+		int boneId = m_skeleton.FindBoneID(boneName);
+		return m_skeleton.GetBone(boneId);
+	}
 
 	/*!
 	*@brief	モデルを描画。
@@ -107,13 +107,13 @@ public:
 		return IsShadowReciever;
 	}
 
-	///*!
-	//*@brief	スケルトンの取得。
-	//*/
-	//Skeleton& GetSkeleton()
-	//{
-	//	return m_skeleton;
-	//}
+	/*!
+	*@brief	スケルトンの取得。
+	*/
+	Skeleton& GetSkeleton()
+	{
+		return m_skeleton;
+	}
 	
 	/*!
 	*@brief	メッシュを検索する。
@@ -150,7 +150,7 @@ private:
 	*@brief	スケルトンの初期化。
 	*@param[in]	filePath		ロードするcmoファイルのファイルパス。
 	*/
-	//void InitSkeleton(const wchar_t* filePath);
+	void InitSkeleton(const wchar_t* filePath);
 	
 
 private:
@@ -165,7 +165,7 @@ private:
 	};
 	EnFbxUpAxis			m_enFbxUpAxis = enFbxUpAxisZ;	//!<FBXの上方向。
 	ID3D11Buffer*		m_cb = nullptr;					//!<定数バッファ。
-	//Skeleton			m_skeleton;						//!<スケルトン。
+	Skeleton			m_skeleton;						//!<スケルトン。
 	CMatrix				m_worldMatrix;					//!<ワールド行列。
 	DirectX::Model*		m_modelDx;						//!<DirectXTKが提供するモデルクラス。
 	ID3D11SamplerState* m_samplerState = nullptr;		//!<サンプラステート。
