@@ -3,13 +3,14 @@
 
 bool SkillBuff::Start()
 {
-	if (skillEffect == nullptr) {
-		//エフェクトの再生。
-		skillEffect = NewGO<prefab::CEffect>(0);
-		skillEffect->Play(L"Assets/effect/chant1.efk");
-		skillEffect->SetPosition(m_user->GetPosition() + CVector3::AxisY()*20.0f);
-		skillEffect->SetScale(CVector3::One() * 50.0f);
-	}
+	//エフェクトの再生。
+	skillEffect = NewGO<prefab::CEffect>(0);
+	skillEffect->Play(L"Assets/effect/chant1.efk");
+	skillEffect->SetPosition(m_user->GetPosition() + CVector3::AxisY()*20.0f);
+	skillEffect->SetScale(CVector3::One() * 50.0f);
+
+	//アニメーションの再生。
+	//m_user->AnimationMagic();
 
 	return true;
 }
@@ -35,6 +36,7 @@ void SkillBuff::Update()
 		m_user->SetCoolTime(coolTime);
 
 		skillEffect = nullptr;
+		DeleteGO(this);
 	}
 }
 

@@ -57,7 +57,7 @@ SkillBase * SkillList::GetSkillAttack(int no)
 	case 1:
 		attackSkill->InitSkill("‹­UŒ‚", 1.8f, 50.0f, 0.85f, 1);
 		attackSkill->SetEffect(L"Assets/effect/test.efk");
-
+		break;
 	default:
 		DeleteGO(attackSkill);
 		return nullptr;

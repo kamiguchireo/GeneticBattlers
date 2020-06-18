@@ -7,8 +7,6 @@ public:
 	~Supporter();
 
 	bool Start();
-	void Update();
-	//bool BattleAction();
 
 private:
 	const char* GetDefaultDataPath() 

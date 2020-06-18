@@ -18,7 +18,7 @@ bool GIManager::Load(const char * filePath)
 		//読み込み失敗。
 #ifdef _DEBUG
 		char message[256];
-		sprintf(message, "AIデータが存在しませんでした。%s\n", filePath);
+		sprintf(message, "binデータの読み込みに失敗しました。%s\n", filePath);
 		OutputDebugStringA(message);
 #endif
 		return false;
@@ -40,6 +40,12 @@ void GIManager::LoadDefault(const char * filePath)
 {
 	FILE* fp = fopen(filePath, "rb");
 	if (fp == nullptr) {
+		//読み込み失敗。
+#ifdef _DEBUG
+		char message[256];
+		sprintf(message, "binデータの読み込みに失敗しました。%s\n", filePath);
+		OutputDebugStringA(message);
+#endif
 		return;
 	}
 
@@ -126,7 +132,7 @@ void GIManager::GIUpdate()
 	}
 }
 
-void GIManager::ActionDicide(int * skill, int * target)
+void GIManager::ActionDicide(int& skill, int& target)
 {
 	//突然変異的な
 	int pMutation = rand() % 100;
@@ -134,8 +140,8 @@ void GIManager::ActionDicide(int * skill, int * target)
 	if (pMutation == 0) {
 		//ランダムに数字を入れる。
 		int actNum = rand() % m_AI.size();
-		*skill = m_AI[actNum].skillNo;
-		*target = m_AI[actNum].target;//突然変異的な
+		skill = m_AI[actNum].skillNo;
+		target = m_AI[actNum].target;//突然変異的な
 		int pMutation = rand() % 100;
 
 		//関数を抜ける。
@@ -148,8 +154,8 @@ void GIManager::ActionDicide(int * skill, int * target)
 	for (int i = 0; i < m_AI.size(); i++) {
 		sum += m_AI[i].rate * 100;
 		if (sum > res) {
-			*skill = m_AI[i].skillNo;
-			*target = m_AI[i].target;
+			skill = m_AI[i].skillNo;
+			target = m_AI[i].target;
 			break;
 		}
 	}

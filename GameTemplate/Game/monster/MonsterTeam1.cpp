@@ -18,7 +18,7 @@ bool MonsterTeam1::Start()
 	m_model.Init(L"Assets/modelData/unityChan.cmo", enFbxUpAxisY);
 	m_model.SetActiveDLFlag(0);
 	m_model.SetActiveRLFlag(0);
-
+	/*
 	//アニメーションクリップの読み込み。
 	m_animClip[en_anim_Idle].Load(L"Assets/animData/idle.tka");
 	m_animClip[en_anim_Idle].SetLoopFlag(true);
@@ -38,9 +38,9 @@ bool MonsterTeam1::Start()
 		m_animClip,
 		en_anim_num
 	);
-
+	
 	m_animation.Play(en_anim_Idle, 0.3f);
-
+	*/
 	//UIを作る。
 	m_UI = NewGO<StatusUI>(0);
 	m_UI->SetPosition(m_UIpos);
@@ -50,141 +50,3 @@ bool MonsterTeam1::Start()
 	return true;
 }
 
-void MonsterTeam1::Update()
-{
-	//if (m_stateAI == en_state_Death) return;	//死亡時は更新しない。
-
-	//m_position.y = m_activeTime;
-	switch (m_status.GetState())
-	{
-	case en_state_Death:
-		if (!m_status.IsDeath()) {
-			m_status.SetDeath(true);
-			m_animation.Play(en_anim_Death, 0.3f);
-		}
-
-		break;
-	default:
-		//アニメーションされていないなら。
-		if (!m_animation.IsPlaying()) {
-			m_status.SetDeath(false);
-			m_animation.Play(en_anim_Idle, 0.3f);
-		}
-
-		break;
-	}
-	//描画処理。
-	Draw();
-	//アニメーションの更新処理。
-	m_animation.Update(1.0f / 30.0f);
-}
-
-//bool MonsterTeam1::Action_good()
-//{
-//	if (m_useSkill == nullptr) return true;
-//
-//	if (!m_useSkill->IsMagic()){
-//		m_animation.Play(en_anim_Attack, 0.3f);
-//	}
-//	else if (m_useSkill->IsMagic()) {
-//		m_animation.Play(en_anim_Magic, 0.3f);
-//	}
-//
-//	MonsterBase* attack = this;
-//
-//	if (m_useSkill->UseSkill(attack, m_target))
-//	{
-//		m_useSkill = nullptr;
-//		m_target = nullptr;
-//
-//		m_animation.Play(en_anim_Idle, 0.3f);
-//
-//		return true;
-//	}
-//
-//	return false;
-//}
-//
-//bool MonsterTeam1::Action_usually()
-//{
-//	if (m_useSkill == nullptr) return true;
-//
-//	if (!m_useSkill->IsMagic()) {
-//		m_animation.Play(en_anim_Attack, 0.3f);
-//	}
-//	else if (m_useSkill->IsMagic()) {
-//		m_animation.Play(en_anim_Magic, 0.3f);
-//	}
-//
-//	MonsterBase* attack = this;
-//
-//	if (m_useSkill->UseSkill(attack, m_target))
-//	{
-//		m_useSkill = nullptr;
-//		m_target = nullptr;
-//
-//		m_animation.Play(en_anim_Idle, 0.3f);
-//
-//		return true;
-//	}
-//
-//	return false;
-//}
-//
-//bool MonsterTeam1::Action_bad()
-//{
-//	if (m_useSkill == nullptr) return true;
-//
-//	if (!m_useSkill->IsMagic()) {
-//		m_animation.Play(en_anim_Attack, 0.3f);
-//	}
-//	else if (m_useSkill->IsMagic()) {
-//		m_animation.Play(en_anim_Magic, 0.3f);
-//	}
-//
-//	MonsterBase* attack = this;
-//
-//	if (m_useSkill->UseSkill(attack, m_target))
-//	{
-//		m_useSkill = nullptr;
-//		m_target = nullptr;
-//
-//		m_animation.Play(en_anim_Idle, 0.3f);
-//
-//		return true;
-//	}
-//
-//	return false;
-//}
-//
-//bool MonsterTeam1::Action()
-//{
-//	bool flag = false;
-//	//残りHPに応じて行動を決める。
-//	switch (m_status.GetState())
-//	{
-//	case en_state_Good:
-//		flag = Action_good();
-//		break;
-//
-//	case en_state_Usually:
-//		flag = Action_usually();
-//		break;
-//
-//	case en_state_Bad:
-//		flag = Action_bad();
-//		break;
-//
-//	case en_state_Death:
-//		return true;
-//		break;
-//	}
-//	return flag;
-//}
-//
-//bool MonsterTeam1::BattleAction()
-//{
-//	bool flag = Action();
-//
-//	return flag;
-//}

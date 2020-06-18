@@ -70,15 +70,11 @@ public:
 	{
 		return m_statusBase;
 	}
+	//現在のステートの取得。
 	const MonsterState& GetState()const
 	{
 		return m_stateAI;
 	}
-	////モンスターの属性を取得。
-	//const Elements& GetElements() const
-	//{
-	//	return m_elemnts;
-	//}
 	//クールタイムを設定する。
 	void SetCoolTime(float time)
 	{
@@ -141,7 +137,7 @@ private:
 	//	ステータス
 	Status m_statusBase;								//基礎ステータス。
 	Status m_status;									//ステータス。
-	MonsterState m_stateAI = en_state_Good;						//ステート。
+	MonsterState m_stateAI = en_state_Good;				//ステート。
 	bool m_IsDeath = false;								//キャラクター死亡フラグ。
 	const float addTime = 1.0f / 144.0f * 4.0f;			//加算タイム。
 	float m_activeTime = 0.0f;							//アクティブタイム。

@@ -32,6 +32,8 @@ public:
 	/// </summary>
 	~MonsterBase();
 
+	void Update()override;
+
 	//座標を取得。
 	const CVector3& GetPosition() const
 	{
@@ -50,6 +52,10 @@ public:
 	const std::vector<MonsterBase*>& GetTeamMenber()const
 	{
 		return m_teamMenber;
+	}
+	const GIManager& GetGIManager()const
+	{
+		return m_GIData;
 	}
 	//ステータスの設定。
 	//正直ファイルからロードしたい。
@@ -77,17 +83,26 @@ public:
 		m_teamMenber = list;
 	}
 
+	/// <summary>
+	/// モデル関係の処理もクラス分けしたほうがいいんかなぁ？
+	/// </summary>
+
 	void Draw();			//描画処理とかをまとめたもの。
-	//魔法のアニメーションを再生。
-	void AnimationMagic()
-	{
-		m_animation.Play(en_anim_Magic, 0.3f);
-	}
-	//攻撃のアニメーション
-	void AnimationAttack()
-	{
-		m_animation.Play(en_anim_Attack, 0.3f);
-	}
+	////魔法のアニメーションを再生。
+	//void AnimationMagic()
+	//{
+	//	m_animation.Play(en_anim_Magic, 0.3f);
+	//}
+	////攻撃のアニメーション
+	//void AnimationAttack()
+	//{
+	//	m_animation.Play(en_anim_Attack, 0.3f);
+	//}
+	////待機状態のアニメーション。
+	//void AnimationIdle()
+	//{
+	//	m_animation.Play(en_anim_Idle, 0.3f);
+	//}
 
 	//クールタイムを設定する。
 	void SetCoolTime(float time)
@@ -107,19 +122,6 @@ public:
 		m_actRes.damage = res;
 	}
 
-	/// <summary>
-	/// ダメージを与える。
-	/// </summary>
-	/// <param name="damage">ダメージ量。</param>
-	/// <returns>入ったダメージ量。</returns>
-	int Damage(int damage)
-	{
-		if (m_status.IsDeath()) return 0;
-		//アニメーション。
-		m_animation.Play(en_anim_Damage, 0.3f);
-
-		return m_status.Damage(damage);
-	}
 	//アクティブタイム加算。
 	bool AddATB()
 	{
@@ -129,6 +131,24 @@ public:
 	void StateUpdate()
 	{
 		m_status.StateUpdate(m_UI);
+	}
+
+	/// <summary>
+	/// この辺の処理ステータスのほうでまとめたほうがいいのでは？
+	/// </summary>
+
+	/// <summary>
+	/// ダメージを与える。
+	/// </summary>
+	/// <param name="damage">ダメージ量。</param>
+	/// <returns>入ったダメージ量。</returns>
+	int Damage(int damage)
+	{
+		if (m_status.IsDeath()) return 0;
+		////アニメーション。
+		//m_animation.Play(en_anim_Damage, 0.3f);
+
+		return m_status.Damage(damage);
 	}
 
 	/// <summary>
@@ -160,7 +180,12 @@ public:
 	/// </summary>
 	/// <param name="e_team">敵のチーム。</param>
 	/// <param name="m_team">味方のチーム。</param>
-	virtual void SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team);
+	/// <param name="skill">スキル番号のバッファ。</param>
+	/// <param name="target">ターゲット番号のバッファ。</param>
+	virtual void SelectUseSkill(
+		const std::vector<MonsterBase*>& e_team, 
+		const std::vector<MonsterBase*>& m_team,
+		int& skill, int& target);
 
 	/// <summary>
 	/// binファイルからデータを読み込む。
@@ -170,7 +195,7 @@ public:
 
 protected:
 	/// <summary>
-	/// デフォルトの行動を作り出す。
+	/// デフォルトの行動のデータを読み込むためのファイルパス。
 	/// </summary>
 	virtual const char* GetDefaultDataPath() = 0;
 
@@ -185,8 +210,8 @@ protected:
 		en_anim_Death,
 		en_anim_num
 	};
-	Animation m_animation;								//アニメーション。
-	AnimationClip m_animClip[en_anim_num];				//アニメーションクリップ。
+	//Animation m_animation;								//アニメーション。
+	//AnimationClip m_animClip[en_anim_num];				//アニメーションクリップ。
 	CVector3 m_position = CVector3::Zero();				//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転。
 
@@ -199,7 +224,6 @@ protected:
 
 	//	ポインタとか。
 	std::vector<MonsterBase*> m_teamMenber;				//自分のチーム。
-	//SkillBase* m_useSkill = nullptr;					//使用しているスキルのポインタ。
 	MonsterBase* m_target = nullptr;					//スキルの対象。
 
 	//UIを表示させる。

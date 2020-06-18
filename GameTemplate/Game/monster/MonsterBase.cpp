@@ -12,6 +12,32 @@ MonsterBase::~MonsterBase()
 {
 }
 
+void MonsterBase::Update()
+{
+	switch (m_status.GetState())
+	{
+	case en_state_Death:
+		if (!m_status.IsDeath()) {
+			m_status.SetDeath(true);
+			//m_animation.Play(en_anim_Death, 0.3f);
+		}
+
+		break;
+	default:
+		////アニメーションされていないなら。
+		//if (!m_animation.IsPlaying()) {
+		//	m_status.SetDeath(false);
+		//	m_animation.Play(en_anim_Idle, 0.3f);
+		//}
+
+		break;
+	}
+	//描画処理。
+	Draw();
+	////アニメーションの更新処理。
+	//m_animation.Update(1.0f / 30.0f);
+}
+
 void MonsterBase::SetStatus(int hp, int mp, int atk, int def, int mat, int mdf, int dex)
 {
 	Status hoge;
@@ -94,68 +120,29 @@ int MonsterBase::Monster_Buff(StatusBuff status, float pow, float time)
 	return m_status.Monster_Buff(status,pow,time);
 }
 
-void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const std::vector<MonsterBase*>& m_team)
+void MonsterBase::SelectUseSkill(
+	const std::vector<MonsterBase*>& e_team,
+	const std::vector<MonsterBase*>& m_team, 
+	int& skill, int& target)
 {
-	auto ene_list = e_team;	//ソートするためにリストをコピー。
-	auto list = m_team;
-
-	//現在HPの低い方から順番にソート。
-	//これ戦闘の処理のほうでやったほうがいい気がするなぁ
-	for (int i = 0; i < list.size(); i++) {
-		for (int j = i; j < list.size(); j++) {
-			if (list[i]->GetStatusManager().GetStatus().HP > list[j]->GetStatusManager().GetStatus().HP) {
-				auto hoge = list[i];
-				list[i] = list[j];
-				list[j] = hoge;
-			}
-		}
-	}
-	for (int i = 0; i < ene_list.size(); i++) {
-		for (int j = i; j < ene_list.size(); j++) {
-			if (ene_list[i]->GetStatusManager().GetStatus().HP > ene_list[j]->GetStatusManager().GetStatus().HP) {
-				auto hoge = ene_list[i];
-				ene_list[i] = ene_list[j];
-				ene_list[j] = hoge;
-			}
-		}
-	}
-	//HPが0のやつは後ろに回す。
-	for (int i = list.size() - 1; i >= 0; i--) {
-		for (int j = i; j < list.size(); j++) {
-			if (list[i]->GetStatusManager().GetStatus().HP <= 0) {
-				auto hoge = list[i];
-				list[i] = list[j];
-				list[j] = hoge;
-			}
-		}
-	}
-	for (int i = ene_list.size() - 1; i >= 0; i--) {
-		for (int j = i; j < ene_list.size(); j++) {
-			if (ene_list[i]->GetStatusManager().GetStatus().HP <= 0) {
-				auto hoge = ene_list[i];
-				ene_list[i] = ene_list[j];
-				ene_list[j] = hoge;
-			}
-		}
-	}
+	int skillNo = 0;	//取得した番号を記録する。
+	int targetNo = 0;	//取得した番号を記録する。
 
 	bool flag = false;
 	//ターゲットが定まるまで回す。
 	while (!flag) {
 		//行動をテーブルから決定。
-		int skill, targetNo;
-		m_GIData.ActionDicide(&skill, &targetNo);
+		m_GIData.ActionDicide(skillNo, targetNo);
 		//スキルの選択。
-		int skillTable = (int)(skill / 100);
-		int skillNo = skill % 100;
+		int skillTable = (int)(skillNo / 100);
 
 		switch (skillTable)
 		{
 			//攻撃系スキルか
 		case 0:
 			//ターゲットが死亡していなければ。
-			if (!ene_list[targetNo]->IsDeath()) {
-				flag == true;
+			if (!e_team[targetNo]->IsDeath()) {
+				flag = true;
 			}
 			break;
 
@@ -163,7 +150,7 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const 
 		case 1:
 		case 2:
 			//ターゲットが死亡していなければ。
-			if (!list[targetNo]->IsDeath()) {
+			if (!m_team[targetNo]->IsDeath()) {
 				flag = true;
 			}
 			break;
@@ -173,12 +160,16 @@ void MonsterBase::SelectUseSkill(const std::vector<MonsterBase*>& e_team, const 
 		}
 
 	}
+
+	//決定したものを受け渡す。
+	skill = skillNo;
+	target = targetNo;
 }
 
 void MonsterBase::Init(const char * filePath)
 {
 	//ファイルパスから読み込めないければ。
-	if (m_GIData.Load(filePath)) {
+	if (!m_GIData.Load(filePath)) {
 		//デフォルトのデータのファイルを読み込む。
 		m_GIData.LoadDefault(GetDefaultDataPath());
 	}

@@ -44,7 +44,7 @@ public:
 	/// </summary>
 	/// <param name="skill">決定したスキルを取得する。</param>
 	/// <param name="target">決定したターゲットを取得する。</param>
-	void ActionDicide(int* skill, int* target);
+	void ActionDicide(int& skill, int& target);
 	/// <summary>
 	/// 行動のリザルトを積む。
 	/// </summary>
