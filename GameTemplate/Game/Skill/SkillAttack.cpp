@@ -11,7 +11,7 @@ bool SkillAttack::Start()
 	skillEffect->SetScale(CVector3::One() * 20.0f);
 
 	//アニメーションの再生。
-	m_user->AnimationAttack();
+	//m_user->AnimationAttack();
 
 	return true;
 }

@@ -18,7 +18,7 @@ bool MonsterTeam1::Start()
 	m_model.Init(L"Assets/modelData/unityChan.cmo", enFbxUpAxisY);
 	m_model.SetActiveDLFlag(0);
 	m_model.SetActiveRLFlag(0);
-
+	/*
 	//アニメーションクリップの読み込み。
 	m_animClip[en_anim_Idle].Load(L"Assets/animData/idle.tka");
 	m_animClip[en_anim_Idle].SetLoopFlag(true);
@@ -38,9 +38,9 @@ bool MonsterTeam1::Start()
 		m_animClip,
 		en_anim_num
 	);
-
+	
 	m_animation.Play(en_anim_Idle, 0.3f);
-
+	*/
 	//UIを作る。
 	m_UI = NewGO<StatusUI>(0);
 	m_UI->SetPosition(m_UIpos);

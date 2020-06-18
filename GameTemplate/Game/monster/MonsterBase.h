@@ -88,21 +88,21 @@ public:
 	/// </summary>
 
 	void Draw();			//描画処理とかをまとめたもの。
-	//魔法のアニメーションを再生。
-	void AnimationMagic()
-	{
-		m_animation.Play(en_anim_Magic, 0.3f);
-	}
-	//攻撃のアニメーション
-	void AnimationAttack()
-	{
-		m_animation.Play(en_anim_Attack, 0.3f);
-	}
-	//待機状態のアニメーション。
-	void AnimationIdle()
-	{
-		m_animation.Play(en_anim_Idle, 0.3f);
-	}
+	////魔法のアニメーションを再生。
+	//void AnimationMagic()
+	//{
+	//	m_animation.Play(en_anim_Magic, 0.3f);
+	//}
+	////攻撃のアニメーション
+	//void AnimationAttack()
+	//{
+	//	m_animation.Play(en_anim_Attack, 0.3f);
+	//}
+	////待機状態のアニメーション。
+	//void AnimationIdle()
+	//{
+	//	m_animation.Play(en_anim_Idle, 0.3f);
+	//}
 
 	//クールタイムを設定する。
 	void SetCoolTime(float time)
@@ -145,8 +145,8 @@ public:
 	int Damage(int damage)
 	{
 		if (m_status.IsDeath()) return 0;
-		//アニメーション。
-		m_animation.Play(en_anim_Damage, 0.3f);
+		////アニメーション。
+		//m_animation.Play(en_anim_Damage, 0.3f);
 
 		return m_status.Damage(damage);
 	}
@@ -210,8 +210,8 @@ protected:
 		en_anim_Death,
 		en_anim_num
 	};
-	Animation m_animation;								//アニメーション。
-	AnimationClip m_animClip[en_anim_num];				//アニメーションクリップ。
+	//Animation m_animation;								//アニメーション。
+	//AnimationClip m_animClip[en_anim_num];				//アニメーションクリップ。
 	CVector3 m_position = CVector3::Zero();				//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転。
 
