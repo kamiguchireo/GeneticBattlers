@@ -104,6 +104,13 @@ public:
 		mLoadBalancingClient.opRaiseEvent(false, hash, eventCode);
 		//hash.removeAllElements();
 	}
+	//ステータスデータの送信。
+	void SendMonsterStatus()
+	{
+		nByte eventCode = 5;
+		mLoadBalancingClient.opRaiseEvent(false, hash, eventCode);
+		hash.removeAllElements();
+	}
 
 	void boolExit(bool a)
 	{

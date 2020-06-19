@@ -32,6 +32,14 @@ public:
 	/// <param name="filePath">デフォルトの数値の入ったファイルパス。</param>
 	void LoadDefault(const char* filePath);
 	/// <summary>
+	/// 通信で取得したデータを取り込む。
+	/// </summary>
+	/// <param name="copy">行動データ。</param>
+	void Init(const std::vector<AIData>& copy)
+	{
+		m_AI = copy;
+	}
+	/// <summary>
 	/// GIを記録する。
 	/// </summary>
 	void Save();

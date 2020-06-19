@@ -9,9 +9,13 @@ struct AIData;
 //状態。
 enum NetState {
 	enState_Init,
-	enState_Idle,
-	enState_Send,
-	enState_Exit
+	enState_Idle,		//通信待機状態。
+	enState_SendGI,		//GIの送信。
+	enState_SendStatus,	//ステータスの送信。
+	enState_Exit,		//通信終了。
+	enState_Brake,		//通信の中断。
+	enState_FadeOut,	//フェードアウトする。
+	enState_Battle		//戦闘シーンに移行した。
 };
 
 class NetScenes:public IGameObject
@@ -21,11 +25,13 @@ public:
 	~NetScenes();
 	bool Start();
 	void Update();
-
+	//インスタンス取得。
 	static NetScenes* GetInstance()
 	{
 		return m_instance;
 	}
+	//イベント切り替え。
+	void SwitchEvent(int type);
 
 	/// <summary>
 	/// 行動テーブルをプッシュバックする。
@@ -40,8 +46,9 @@ public:
 	/// </summary>
 	void SendData();
 	//ステートの変更。
-	void SetStateIdle();
-	void SetStateSend();
+	void SetStateIdle();		//待機状態。
+	void SetStateSendGI();		//GIデータを送る。
+	void SetStateSendStatus();	//ステータスデータを送る。
 
 	typedef std::vector<AIData> AIDataTable;			//行動テーブル。
 	//アタッカーのデータを取得。

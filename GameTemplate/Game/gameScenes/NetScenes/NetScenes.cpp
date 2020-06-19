@@ -3,16 +3,18 @@
 #include "Network/SampleNetwork.h"
 #include "Fade.h"
 #include "NetSceneText.h"
+#include "../TitleScene.h"
+#include "../BattleScenes/BattleScenes.h"
 
-//行動テーブルのデータ。
-//!<skillNo		スキル番号。
-//!<target		ターゲット番号。
-//!<rate		使用頻度。
-struct AIData {
-	int skillNo = 0;
-	int target = 0;
-	float rate = 0.0f;
-};
+////行動テーブルのデータ。
+////!<skillNo		スキル番号。
+////!<target		ターゲット番号。
+////!<rate		使用頻度。
+//struct AIData {
+//	int skillNo = 0;
+//	int target = 0;
+//	float rate = 0.0f;
+//};
 
 NetScenes* NetScenes::m_instance = nullptr;
 
@@ -56,9 +58,71 @@ void NetScenes::Update()
 	switch (m_state)
 	{
 	case enState_Idle:
+		//Bボタンでタイトルに戻る。
+		if (g_pad[0].IsTrigger(enButtonB))
+		{
+			m_state = enState_Brake;
+			m_fade->StartFadeOut();
+		}
+		else {
+			m_net->SendEvent(enState_SendGI);
+		}
 		break;
-	case enState_Send:
-		
+	case enState_SendGI:
+		m_net->SendEvent(enState_SendStatus);		//イベント切り替え。
+		break;
+	case enState_SendStatus:
+		m_net->SendEvent(enState_Exit);				//イベント切り替え。
+		break;
+	case enState_Exit:
+		//Aボタンで戦闘に移る。
+		if (g_pad[0].IsTrigger(enButtonA))
+		{
+			m_state = enState_FadeOut;
+			m_fade->StartFadeOut();
+		}
+
+		break;
+	case enState_Brake:
+		if (!m_fade->IsFade()) {
+			DeleteGO(this);
+			NewGO<TitleScene>(0);
+		}
+		break;
+	case enState_FadeOut:
+		if (!m_fade->IsFade()) {
+			DeleteGO(m_text);			//テキスト削除。
+			m_text = nullptr;			//ポインタにnullを入れる。
+			NewGO<BattleScenes>(0);		//戦闘シーンを作成。
+			m_state = enState_Battle;
+		}
+		break;
+	case enState_Battle:
+		break;
+	default:
+		break;
+	}
+}
+
+void NetScenes::SwitchEvent(int type)
+{
+	switch (type)
+	{
+	case enState_Init:
+		break;
+	case enState_Idle:
+		break;
+	case enState_SendGI:
+		SetStateSendGI();		//GIデータの送信。
+		break;
+	case enState_SendStatus:
+		SetStateSendStatus();	//GIデータの送信。
+		break;
+	case enState_Exit:
+		m_state = enState_Exit;
+		m_text->SetState(m_state);
+		break;
+	case enState_Brake:
 		break;
 	default:
 		break;
@@ -84,10 +148,16 @@ void NetScenes::SetStateIdle()
 	m_text->SetState(m_state);
 }
 
-void NetScenes::SetStateSend()
+void NetScenes::SetStateSendGI()
 {
 	SendData();
-	m_state = enState_Send;
+	m_state = enState_SendGI;
+	m_text->SetState(m_state);
+}
+
+void NetScenes::SetStateSendStatus()
+{
+	m_state = enState_SendStatus;
 	m_text->SetState(m_state);
 }
 
