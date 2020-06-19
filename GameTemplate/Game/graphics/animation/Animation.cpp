@@ -7,6 +7,7 @@
 #include "graphics/animation/Animation.h"
 #include "graphics/skeleton.h"
 #include "graphics/skinModel.h"
+#include "graphics/Skeleton.h"
 
 Animation::Animation()
 {
@@ -16,7 +17,31 @@ Animation::~Animation()
 	
 }
 	
-void Animation::Init(SkinModel& skinModel, AnimationClip animClipList[], int numAnimClip)
+//void Animation::Init(SkinModel& skinModel, AnimationClip animClipList[], int numAnimClip)
+//{
+//	if (animClipList == nullptr) {
+//#ifdef _DEBUG
+//		char message[256];
+//		strcpy(message, "animClipListがNULLです。\n");
+//		OutputDebugStringA(message);
+//		//止める。
+//		std::abort();
+//#endif
+//		
+//	}
+//	m_skeleton = &skinModel.GetSkeleton();
+//
+//	for (int i = 0; i < numAnimClip; i++) {
+//		m_animationClips.push_back(&animClipList[i]);
+//	}
+//	for (auto& ctr : m_animationPlayController) {
+//		ctr.Init(m_skeleton);
+//	}
+//		
+//	Play(0);
+//}
+
+void Animation::Init(Skeleton& skeleton, AnimationClip animClipList[], int numAnimClip)
 {
 	if (animClipList == nullptr) {
 #ifdef _DEBUG
@@ -26,9 +51,9 @@ void Animation::Init(SkinModel& skinModel, AnimationClip animClipList[], int num
 		//止める。
 		std::abort();
 #endif
-		
+
 	}
-	m_skeleton = &skinModel.GetSkeleton();
+	m_skeleton = &skeleton;
 
 	for (int i = 0; i < numAnimClip; i++) {
 		m_animationClips.push_back(&animClipList[i]);
@@ -36,9 +61,10 @@ void Animation::Init(SkinModel& skinModel, AnimationClip animClipList[], int num
 	for (auto& ctr : m_animationPlayController) {
 		ctr.Init(m_skeleton);
 	}
-		
+
 	Play(0);
 }
+
 /*!
 * @brief	ローカルポーズの更新。
 */

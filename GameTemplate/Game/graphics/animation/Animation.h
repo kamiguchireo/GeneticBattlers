@@ -26,9 +26,10 @@ public:
 		*@param[in]	animeClipList	アニメーションクリップの配列。
 		*@param[in]	numAnimClip		アニメーションクリップの数。
 		*/
-	void Init(SkinModel& skinModel, AnimationClip animClipList[], int numAnimClip);
+	//void Init(SkinModel& skinModel, AnimationClip animClipList[], int numAnimClip);
 
-		
+	void Init(Skeleton& skeleton, AnimationClip animClipList[], int numAnimClip);
+
 	/*!
 	*@brief	アニメーションの再生。
 	*@param[in]	clipNo	アニメーションクリップの番号。Init関数に渡したanimClipListの並びとなる。

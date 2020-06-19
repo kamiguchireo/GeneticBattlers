@@ -58,8 +58,8 @@ namespace Engine
 
 		//座標系をスプライトと合わせる
 		CVector2 pos = position;
-		float frameBufferHalfWidth = 1280.0f * 0.5f;
-		float frameBufferHalfHeight = 720.0f * 0.5f;
+		float frameBufferHalfWidth = kaizoudo[0] * 0.5f;
+		float frameBufferHalfHeight = kaizoudo[1] * 0.5f;
 
 		pos.x += frameBufferHalfWidth;
 		pos.y = -pos.y + frameBufferHalfHeight;

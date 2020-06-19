@@ -30,8 +30,8 @@ namespace Engine {
 			//テクスチャのフォーマットはR成分のみの32ビットのFloat型
 			m_shadowMapRT[i].Create
 			(
-				2048,
-				2048,
+				TexResolution,
+				TexResolution,
 				DXGI_FORMAT_R32_FLOAT
 			);
 		}
@@ -45,7 +45,7 @@ namespace Engine {
 	{
 		//ライトの方向を計算する
 		auto lightDir = lightCameraTarget - lightCameraPos;
-		if (lightDir.Length() < 0.0001f)
+		if (lightDir.Length() < DistBoundary)
 		{
 			//ライトカメラの注視点と視点が近すぎる
 			//もっと距離を離してください
@@ -57,7 +57,7 @@ namespace Engine {
 
 		//ライトの方向によって、ライトカメラの上方向を決める
 		CVector3 lightCameraUpAxis;
-		if (fabsf(lightDir.y) > 0.99998f)
+		if (fabsf(lightDir.y) > UpBoundary)
 		{
 			//ほぼ真上or真下を向いている
 			lightCameraUpAxis = CVector3::AxisX();
@@ -105,7 +105,7 @@ namespace Engine {
 		float lightHeight = g_camera3D.GetTarget().y + m_lightHeight;
 
 		//近平面の距離
-		float nearPlaneZ = 0.0f;
+		float nearPlaneZ = InitNearPlane;
 		//遠平面の距離
 		float farPlaneZ;
 		CVector3 cameraUp;
@@ -116,7 +116,7 @@ namespace Engine {
 			farPlaneZ = nearPlaneZ + shadowAreaTbl[i];
 			
 			//ライトビュー行
-			for (int i = 0; i < 3; i++)
+			for (int i = 0; i < NumLightViewMat; i++)
 			{
 				m_lightViewMatrix[i] = CMatrix::Identity();
 			}
@@ -209,7 +209,7 @@ namespace Engine {
 			nearPlaneZ = farPlaneZ;
 		}
 		//ライトビュー行
-		for (int i = 0; i < 3; i++)
+		for (int i = 0; i < CascadeShadow; i++)
 		{
 			m_lightViewMatrix[i] = CMatrix::Identity();
 		}

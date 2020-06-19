@@ -16,6 +16,12 @@ enum EnFbxUpAxis {
 class SkinModel
 {
 public:
+	CMatrix &GetWorldMatrix()
+	{
+		return m_worldMatrix;
+	}
+
+
 	//メッシュが見つかったときのコールバック関数。
 	using OnFindMesh = std::function<void(const std::unique_ptr<DirectX::ModelMeshPart>&)>;
 	SkinModel();
@@ -37,6 +43,7 @@ public:
 	*@param[in]	scale		モデルの拡大率。
 	*/
 	void UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVector3 scale);
+	
 	/*!
 	*@brief	ボーンを検索。
 	*@param[in]		boneName	ボーンの名前。
@@ -47,6 +54,7 @@ public:
 		int boneId = m_skeleton.FindBoneID(boneName);
 		return m_skeleton.GetBone(boneId);
 	}
+
 	/*!
 	*@brief	モデルを描画。
 	*@param[in]	viewMatrix		カメラ行列。
@@ -98,6 +106,7 @@ public:
 	{
 		return IsShadowReciever;
 	}
+
 	/*!
 	*@brief	スケルトンの取得。
 	*/
@@ -105,6 +114,7 @@ public:
 	{
 		return m_skeleton;
 	}
+	
 	/*!
 	*@brief	メッシュを検索する。
 	*@param[in] onFindMesh		メッシュが見つかったときのコールバック関数
@@ -135,12 +145,14 @@ private:
 	*@brief	定数バッファの作成。
 	*/
 	void InitConstantBuffer();
+	
 	/*!
 	*@brief	スケルトンの初期化。
 	*@param[in]	filePath		ロードするcmoファイルのファイルパス。
 	*/
 	void InitSkeleton(const wchar_t* filePath);
 	
+
 private:
 	//定数バッファ。
 	struct SVSConstantBuffer {
