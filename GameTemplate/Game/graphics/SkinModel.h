@@ -44,16 +44,16 @@ public:
 	*/
 	void UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVector3 scale);
 	
-	/*!
-	*@brief	ボーンを検索。
-	*@param[in]		boneName	ボーンの名前。
-	*@return	見つかったボーン。見つからなかった場合はnullptrを返します。
-	*/
-	Bone* FindBone(const wchar_t* boneName)
-	{
-		int boneId = m_skeleton.FindBoneID(boneName);
-		return m_skeleton.GetBone(boneId);
-	}
+	///*!
+	//*@brief	ボーンを検索。
+	//*@param[in]		boneName	ボーンの名前。
+	//*@return	見つかったボーン。見つからなかった場合はnullptrを返します。
+	//*/
+	//Bone* FindBone(const wchar_t* boneName)
+	//{
+	//	int boneId = m_skeleton.FindBoneID(boneName);
+	//	return m_skeleton.GetBone(boneId);
+	//}
 
 	/*!
 	*@brief	モデルを描画。
@@ -107,13 +107,13 @@ public:
 		return IsShadowReciever;
 	}
 
-	/*!
-	*@brief	スケルトンの取得。
-	*/
-	Skeleton& GetSkeleton()
-	{
-		return m_skeleton;
-	}
+	///*!
+	//*@brief	スケルトンの取得。
+	//*/
+	//Skeleton& GetSkeleton()
+	//{
+	//	return m_skeleton;
+	//}
 	
 	/*!
 	*@brief	メッシュを検索する。

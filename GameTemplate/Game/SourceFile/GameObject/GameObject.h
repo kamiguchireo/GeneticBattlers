@@ -48,7 +48,7 @@ namespace Engine {
 	public:
 		void UpdateWrapper()
 		{
-			if (m_isStart == true)
+			if (m_isStart == true && m_isDead == false)
 			{
 				Update();
 			}

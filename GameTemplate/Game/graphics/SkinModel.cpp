@@ -21,7 +21,7 @@ SkinModel::~SkinModel()
 void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 {
 	//スケルトンのデータを読み込む。
-	InitSkeleton(filePath);
+	//InitSkeleton(filePath);
 
 	//定数バッファの作成。
 	InitConstantBuffer();
@@ -30,7 +30,7 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 	InitSamplerState();
 
 	//SkinModelDataManagerを使用してCMOファイルのロード。
-	m_modelDx = g_skinModelDataManager.Load(filePath, m_skeleton);
+	m_modelDx = g_skinModelDataManager.Load(filePath/*, m_skeleton*/);
 
 	m_enFbxUpAxis = enFbxUpAxis;
 
@@ -111,7 +111,7 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 	m_worldMatrix.Mul(m_worldMatrix, transMatrix);
 
 	//スケルトンの更新。
-	m_skeleton.Update(m_worldMatrix);
+	//m_skeleton.Update(m_worldMatrix);
 }
 
 //シルエット描画の仕方
@@ -151,7 +151,7 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix,EnRenderMode renderM
 	//サンプラステートを設定。
 	d3dDeviceContext->PSSetSamplers(0, 1, &m_samplerState);
 	//ボーン行列をGPUに転送。
-	m_skeleton.SendBoneMatrixArrayToGPU();
+	//m_skeleton.SendBoneMatrixArrayToGPU();
 
 	DL.Draw();
 
