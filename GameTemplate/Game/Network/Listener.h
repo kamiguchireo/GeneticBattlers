@@ -26,7 +26,7 @@ public:
 		auto p = NetScenes::GetInstance();
 		if (p != nullptr) 
 		{
-			p->
+			p->SwitchError();
 		}
 	}
 	//ルームでイベントの送信があればcunstomEventActionが呼ばれます
