@@ -8,14 +8,14 @@ struct AIData;
 
 //状態。
 enum NetState {
-	enState_Init,
 	enState_Idle,		//通信待機状態。
 	enState_SendGI,		//GIの送信。
 	enState_SendStatus,	//ステータスの送信。
 	enState_Exit,		//通信終了。
 	enState_Brake,		//通信の中断。
 	enState_FadeOut,	//フェードアウトする。
-	enState_Battle		//戦闘シーンに移行した。
+	enState_Battle,		//戦闘シーンに移行した。
+	enState_Error		//通信エラー。
 };
 
 class NetScenes:public IGameObject
@@ -32,6 +32,14 @@ public:
 	}
 	//イベント切り替え。
 	void SwitchEvent(int type);
+	void SwitchError()
+	{
+		if (m_state == enState_Exit || m_state == enState_Battle) return;
+		m_state = enState_Error;
+		if (m_text != nullptr) {
+			m_text->SetState(m_state);
+		}
+	}
 
 	/// <summary>
 	/// 行動テーブルをプッシュバックする。

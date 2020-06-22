@@ -21,7 +21,14 @@ public:
 			//NetScenes::GetInstance()->SetStateSend();
 		}
 	}
-	void leaveRoomEventAction(int playerNr, bool isInactive) {}
+	void leaveRoomEventAction(int playerNr, bool isInactive) 
+	{
+		auto p = NetScenes::GetInstance();
+		if (p != nullptr) 
+		{
+			p->
+		}
+	}
 	//ルームでイベントの送信があればcunstomEventActionが呼ばれます
 	void customEventAction(int playerNr, nByte eventCode, const ExitGames::Common::Object& eventContent) 
 	{

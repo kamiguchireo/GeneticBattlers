@@ -41,7 +41,7 @@ bool NetScenes::Start()
 {
 	//ネットの処理。
 	m_net = SampleNetwork::GetInstance();
-	m_net->JoinRoom();
+	m_net->JoinRoom("aaa", 2);
 
 	//フェードの処理。
 	m_fade = Fade::GetInstance();
@@ -68,12 +68,15 @@ void NetScenes::Update()
 			m_net->SendEvent(enState_SendGI);
 		}
 		break;
+
 	case enState_SendGI:
 		m_net->SendEvent(enState_SendStatus);		//イベント切り替え。
 		break;
+
 	case enState_SendStatus:
 		m_net->SendEvent(enState_Exit);				//イベント切り替え。
 		break;
+
 	case enState_Exit:
 		//Aボタンで戦闘に移る。
 		if (g_pad[0].IsTrigger(enButtonA))
@@ -81,14 +84,16 @@ void NetScenes::Update()
 			m_state = enState_FadeOut;
 			m_fade->StartFadeOut();
 		}
-
 		break;
+
 	case enState_Brake:
 		if (!m_fade->IsFade()) {
 			DeleteGO(this);
 			NewGO<TitleScene>(0);
+			m_net->LeaveRoom();
 		}
 		break;
+
 	case enState_FadeOut:
 		if (!m_fade->IsFade()) {
 			DeleteGO(m_text);			//テキスト削除。
@@ -97,6 +102,16 @@ void NetScenes::Update()
 			m_state = enState_Battle;
 		}
 		break;
+
+	case enState_Error:
+		//Bボタンでタイトルに戻る。
+		if (g_pad[0].IsTrigger(enButtonB))
+		{
+			m_state = enState_Brake;
+			m_fade->StartFadeOut();
+		}
+		break;
+
 	case enState_Battle:
 		break;
 	default:
@@ -108,22 +123,33 @@ void NetScenes::SwitchEvent(int type)
 {
 	switch (type)
 	{
-	case enState_Init:
-		break;
 	case enState_Idle:
 		break;
+
 	case enState_SendGI:
-		SetStateSendGI();		//GIデータの送信。
+		if (m_state == enState_Idle) {					//現在ステートが意図してないときは無視。
+			SetStateSendGI();		//GIデータの送信。
+		}
 		break;
+
 	case enState_SendStatus:
-		SetStateSendStatus();	//GIデータの送信。
+		if (m_state == enState_SendGI){					//現在ステートが意図してないときは無視。
+			SetStateSendStatus();	//GIデータの送信。
+		}
 		break;
+
 	case enState_Exit:
+		if (m_state != enState_SendStatus) return;		//現在ステートが意図してないときは無視。
 		m_state = enState_Exit;
-		m_text->SetState(m_state);
+		if (m_text != nullptr)
+		{
+			m_text->SetState(m_state);
+		}
 		break;
+
 	case enState_Brake:
 		break;
+
 	default:
 		break;
 	}
@@ -145,20 +171,29 @@ void NetScenes::SendData()
 void NetScenes::SetStateIdle()
 {
 	m_state = enState_Idle;
-	m_text->SetState(m_state);
+	if (m_text != nullptr)
+	{
+		m_text->SetState(m_state);
+	}
 }
 
 void NetScenes::SetStateSendGI()
 {
 	SendData();
 	m_state = enState_SendGI;
-	m_text->SetState(m_state);
+	if (m_text != nullptr)
+	{
+		m_text->SetState(m_state);
+	}
 }
 
 void NetScenes::SetStateSendStatus()
 {
 	m_state = enState_SendStatus;
-	m_text->SetState(m_state);
+	if (m_text != nullptr)
+	{
+		m_text->SetState(m_state);
+	}
 }
 
 void NetScenes::SendAIData(const char* filePath, int dataType)

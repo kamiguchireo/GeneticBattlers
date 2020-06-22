@@ -31,10 +31,16 @@ public:
 
 	//ゲームルームの検索
 	//ランダムな部屋を検索して入る
-	void JoinRoom()
+	void JoinRoom(const ExitGames::Common::JString& roomName, nByte maxPlayers)
 	{
-		mLoadBalancingClient.opJoinRandomOrCreateRoom();
+		mLoadBalancingClient.opJoinRandomOrCreateRoom(roomName, ExitGames::LoadBalancing::RoomOptions().setMaxPlayers(maxPlayers));
 	}
+	//部屋を抜ける処理かなぁ？
+	void LeaveRoom()
+	{
+		mLoadBalancingClient.opLeaveRoom();
+	}
+
 	//任意の部屋を検索して入る
 	void JoinCostomRoom(const ExitGames::Common::JString& roomName)
 	{

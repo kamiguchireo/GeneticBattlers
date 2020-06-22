@@ -22,7 +22,7 @@ bool NetSceneText::Start()
 
 	//フォントレンダーの初期化。
 	m_fontRender = NewGO<prefab::FontRender>(3);
-	//m_fontRender->SetFont(m_spFont.get());
+	m_fontRender->SetFont(m_spFont.get());
 	m_fontRender->SetPivot({ 0.5f,0.5f });
 
 	return true;
@@ -42,9 +42,6 @@ void NetSceneText::SetState(NetState state)
 	m_state = state;
 	switch (m_state)
 	{
-	case enState_Init:
-
-		break;
 	case enState_Idle:
 		m_fontRender->SetText(L"待機中。");
 		break;
@@ -56,6 +53,9 @@ void NetSceneText::SetState(NetState state)
 		break;
 	case enState_Exit:
 		m_fontRender->SetText(L"通信が完了しました。");
+		break;
+	case enState_Error:
+		m_fontRender->SetText(L"通信に失敗しました。");
 		break;
 	default:
 		break;
