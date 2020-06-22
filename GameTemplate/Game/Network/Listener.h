@@ -18,7 +18,7 @@ public:
 	{
 		if (playernrs.getSize() == 2)
 		{
-			NetScenes::GetInstance()->SetStateSend();
+			//NetScenes::GetInstance()->SetStateSend();
 		}
 	}
 	void leaveRoomEventAction(int playerNr, bool isInactive) {}
@@ -42,6 +42,10 @@ public:
 		{
 			// of course the payload does not need to be a Hashtable - how about just sending around for example a plain 64bit integer?
 			int content = ExitGames::Common::ValueObject<int>(eventContent).getDataCopy();
+			auto p = NetScenes::GetInstance();
+			if (p != nullptr) {
+				p->SwitchEvent(content);
+			}
 			//↑でcontentに値が入ってます
 			//NetScenes::GetInstance()->PushBackData(content);
 		}
@@ -89,6 +93,10 @@ public:
 			NetScenes::GetInstance()->PushBackData(list,skill,target,rate);
 		}
 		break;
+		case 5:		//ステータスデータの取得。とりあえず準備段階。
+		{
+
+		}
 		default:
 		{
 			// have a look at demo_typeSupport inside the C++ client SDKs for example code on how to send and receive more fancy data types

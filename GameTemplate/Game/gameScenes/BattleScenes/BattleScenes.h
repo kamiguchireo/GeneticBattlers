@@ -7,6 +7,7 @@ class MonsterBase;
 class MonsterTeam1;
 class Fade;
 class GameCamera;
+class NetScenes;
 
 class BattleScenes : public IGameObject
 {
@@ -46,6 +47,7 @@ private:
 		enState_FadeOut
 	};
 	Fade* m_fade = nullptr;
+	NetScenes* m_netScenes = nullptr;
 	SceneState m_state = enState_FadeIn;
 	Level m_level;
 	BattleManager m_battleManager;
