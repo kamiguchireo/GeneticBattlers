@@ -137,6 +137,8 @@ bool BattleScenes::Start()
 	m_fade = Fade::GetInstance();
 	m_fade->StartFadeIn();
 
+	DeleteGO(m_netScenes);
+
 	return true;
 }
 

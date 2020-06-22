@@ -32,14 +32,7 @@ public:
 	}
 	//イベント切り替え。
 	void SwitchEvent(int type);
-	void SwitchError()
-	{
-		if (m_state == enState_Exit || m_state == enState_Battle) return;
-		m_state = enState_Error;
-		if (m_text != nullptr) {
-			m_text->SetState(m_state);
-		}
-	}
+	void SwitchError();
 
 	/// <summary>
 	/// 行動テーブルをプッシュバックする。

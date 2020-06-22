@@ -155,6 +155,15 @@ void NetScenes::SwitchEvent(int type)
 	}
 }
 
+void NetScenes::SwitchError()
+{
+	if (m_state == enState_Exit || m_state == enState_Battle) return;
+	m_state = enState_Error;
+	if (m_text != nullptr) {
+		m_text->SetState(m_state);
+	}
+}
+
 void NetScenes::PushBackData(int ListNum, int skill, int target, float rate)
 {
 	AIData hoge = { skill,target,rate };
