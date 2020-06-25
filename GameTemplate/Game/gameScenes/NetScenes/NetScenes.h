@@ -13,7 +13,7 @@ enum NetState {
 	enState_SendStatus,	//ステータスの送信。
 	enState_Exit,		//通信終了。
 	enState_Brake,		//通信の中断。
-	enState_FadeOut,	//フェードアウトする。
+	enState_SceneChange,	//フェードアウトする。
 	enState_Battle,		//戦闘シーンに移行した。
 	enState_Error		//通信エラー。
 };

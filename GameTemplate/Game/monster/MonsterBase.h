@@ -53,7 +53,7 @@ public:
 	{
 		return m_teamMenber;
 	}
-	const GIManager& GetGIManager()const
+	GIManager& GetGIManager()
 	{
 		return m_GIData;
 	}

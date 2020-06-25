@@ -81,7 +81,7 @@ void NetScenes::Update()
 		//Aボタンで戦闘に移る。
 		if (g_pad[0].IsTrigger(enButtonA))
 		{
-			m_state = enState_FadeOut;
+			m_state = enState_SceneChange;
 			m_fade->StartFadeOut();
 		}
 		break;
@@ -94,7 +94,7 @@ void NetScenes::Update()
 		}
 		break;
 
-	case enState_FadeOut:
+	case enState_SceneChange:
 		if (!m_fade->IsFade()) {
 			DeleteGO(m_text);			//テキスト削除。
 			m_text = nullptr;			//ポインタにnullを入れる。

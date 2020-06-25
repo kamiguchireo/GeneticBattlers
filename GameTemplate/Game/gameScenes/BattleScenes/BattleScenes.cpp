@@ -57,7 +57,7 @@ bool BattleScenes::Start()
 				monster->Init("aaa");
 			}
 			else {		//’ÊM‚µ‚Ä‚¢‚é‚È‚çB
-				auto gi = monster->GetGIManager();
+				auto& gi = monster->GetGIManager();
 				gi.Init(m_netScenes->GetHealerData());
 			}
 			m_battleManager.PushBackEnemys(monster);
