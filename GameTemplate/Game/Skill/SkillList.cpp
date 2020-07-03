@@ -51,11 +51,11 @@ SkillBase * SkillList::GetSkillAttack(int no)
 	switch (no)
 	{
 	case 0:
-		attackSkill->InitSkill("通常攻撃", 1.0f, 30.0f, 0.95f, 0);
+		attackSkill->InitSkill(L"通常攻撃", 1.0f, 30.0f, 0.95f, 0);
 		attackSkill->SetEffect(L"Assets/effect/test.efk");
 		break;
 	case 1:
-		attackSkill->InitSkill("強攻撃", 1.8f, 50.0f, 0.85f, 1);
+		attackSkill->InitSkill(L"強攻撃", 1.8f, 50.0f, 0.85f, 1);
 		attackSkill->SetEffect(L"Assets/effect/test.efk");
 		break;
 	default:
@@ -72,12 +72,12 @@ SkillBase * SkillList::GetSkillHeal(int no)
 	switch (no)
 	{
 	case 0:
-		healSkill->InitSkill("ヒール", 0.7f, 30.0f, 1.0f, 100);
+		healSkill->InitSkill(L"ヒール", 0.7f, 30.0f, 1.0f, 100);
 		healSkill->SetEffect(L"Assets/effect/heal.efk");
 		break;
 
 	case 1:
-		healSkill->InitSkill("ハイヒール", 1.3f, 50.0f, 1.0f, 101);
+		healSkill->InitSkill(L"ハイヒール", 1.3f, 50.0f, 1.0f, 101);
 		healSkill->SetEffect(L"Assets/effect/healS.efk");
 		break;
 
@@ -95,12 +95,12 @@ SkillBase * SkillList::GetSkillBuff(int no)
 	switch (no)
 	{
 	case 0:
-		buffSkill->InitSkill("スクルト", 2.0f, 50.0f, 1.0f, 200);
+		buffSkill->InitSkill(L"スクルト", 2.0f, 50.0f, 1.0f, 200);
 		buffSkill->SetStatusBuff(en_buff_DEF);
 		break;
 
 	case 1:
-		buffSkill->InitSkill("スカラ", 1.5f, 60.0f, 1.0f, 201);
+		buffSkill->InitSkill(L"スカラ", 1.5f, 60.0f, 1.0f, 201);
 		buffSkill->SetStatusBuff(en_buff_DEF);
 		buffSkill->SetIsWide(true);
 		break;

@@ -1,6 +1,7 @@
 #pragma once
-#include "SourceFile/graphic/Effect/CEffect.h"
 #include "monster/MonsterBase.h"
+
+class SkillLog;
 
 enum Elements {
 	en_elements_Fire,		//!<炎属性。
@@ -15,6 +16,7 @@ class SkillBase : public IGameObject
 public:
 	SkillBase();
 	~SkillBase();
+	bool Start();
 	/*
 	スキルの設定をする。
 	char*		name	!<スキルの名前。
@@ -24,7 +26,7 @@ public:
 	int			no		!<スキル番号。
 	Elements	ele		!<スキルの属性。
 	*/
-	void InitSkill(const char* name,
+	void InitSkill(const wchar_t* name,
 		float power,
 		float time,
 		float acc,
@@ -55,6 +57,8 @@ public:
 	{
 		return m_skillNo;
 	}
+	//スキルの設定
+	virtual void SkillSetting() = 0;
 
 	/// <summary>
 	/// ダメージ計算。
@@ -70,9 +74,9 @@ public:
 	virtual bool IsAttack() = 0;
 protected:
 	//スキルの名前を設定。
-	void SetSkillName(const char* name)
+	void SetSkillName(const wchar_t* name)
 	{
-		sprintf_s(skillName, name);
+		swprintf_s(skillName, name);
 	}
 	//スキルの威力(倍率)を設定
 	void SetSkillPower(float power)
@@ -95,11 +99,12 @@ protected:
 		m_skillNo = no;
 	}
 
+	SkillLog* m_log = nullptr;
 	MonsterBase* m_user = nullptr;
 	MonsterBase* m_target = nullptr;
 	prefab::CEffect* skillEffect = nullptr;	//行動のエフェクト。
 	wchar_t effectPath[128];	//エフェクトのファイルパス。
-	char skillName[30];
+	wchar_t skillName[30];
 	float skillPower = 1.0f;
 	float coolTime = 0.0f;	//クールタイム
 	float accuracy = 1.0f;	//命中率

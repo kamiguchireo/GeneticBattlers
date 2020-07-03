@@ -4,7 +4,7 @@
 class SkillBuff : public SkillBase
 {
 public:
-	bool Start();
+	void SkillSetting();
 	void Update();
 
 	bool IsMagic()

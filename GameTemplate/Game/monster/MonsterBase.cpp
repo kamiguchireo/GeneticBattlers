@@ -99,6 +99,8 @@ bool MonsterBase::ACTScoring()
 		}
 		m_UI->ScoreReset();
 		m_scoringFlag = 0;
+		DeleteGO("sLog");
+
 		return true;
 	}
 

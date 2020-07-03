@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SkillBuff.h"
 
-bool SkillBuff::Start()
+void SkillBuff::SkillSetting()
 {
 	//エフェクトの再生。
 	skillEffect = NewGO<prefab::CEffect>(0);
@@ -11,8 +11,6 @@ bool SkillBuff::Start()
 
 	//アニメーションの再生。
 	//m_user->AnimationMagic();
-
-	return true;
 }
 
 void SkillBuff::Update()

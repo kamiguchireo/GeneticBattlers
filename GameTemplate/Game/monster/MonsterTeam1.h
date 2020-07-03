@@ -9,7 +9,11 @@ public:
 	~MonsterTeam1();
 	bool Start();
 
-	bool ACTScoring() { return true; };
+	bool ACTScoring() 
+	{
+		DeleteGO("sLog");
+		return true; 
+	};
 	//AIデータを読み込みたい。
 	void Init(const char* filePath)override 
 	{

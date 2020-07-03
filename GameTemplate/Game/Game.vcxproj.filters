@@ -262,6 +262,7 @@
     <ClCompile Include="gameScenes\NetScenes\NetScenes.cpp">
       <Filter>gameScenes\NetScenes</Filter>
     </ClCompile>
+    <ClCompile Include="Skill\SkillLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -461,6 +462,7 @@
     <ClInclude Include="gameScenes\NetScenes\NetScenes.h">
       <Filter>gameScenes\NetScenes</Filter>
     </ClInclude>
+    <ClInclude Include="Skill\SkillLog.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

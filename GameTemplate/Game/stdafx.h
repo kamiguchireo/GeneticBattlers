@@ -47,6 +47,9 @@
 #include "Sourcefile/GameObject/GameObject.h"
 #include "Sourcefile/GameObject/GameObjectManager.h"
 #include "SpriteRender.h"
+#include "SourceFile/graphic/font/FontRender.h"
+#include "SourceFile/graphic/Effect/CEffect.h"
+#include "SourceFile/Sound/CSoundSource.h"
 
 #include <xaudio2.h>
 #include <xaudio2fx.h>
