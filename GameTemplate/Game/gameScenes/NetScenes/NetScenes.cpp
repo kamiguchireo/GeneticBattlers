@@ -35,6 +35,7 @@ NetScenes::~NetScenes()
 {
 	m_instance = nullptr;
 	DeleteGO(m_text);
+	DeleteGO(m_spriteRender);
 }
 
 bool NetScenes::Start()
@@ -42,6 +43,13 @@ bool NetScenes::Start()
 	//ネットの処理。
 	m_net = SampleNetwork::GetInstance();
 	m_net->JoinRoom("aaa", 2);
+
+	//m_spriteRender = NewGO<prefab::SpriteRender>(0);
+	//m_spriteRender->Init(
+	//	L"Assets/sprite/BackWindow.dds",
+	//	FRAME_BUFFER_W,
+	//	FRAME_BUFFER_H
+	//);
 
 	//フェードの処理。
 	m_fade = Fade::GetInstance();
@@ -96,8 +104,12 @@ void NetScenes::Update()
 
 	case enState_SceneChange:
 		if (!m_fade->IsFade()) {
+			//戦闘シーンに移行する。
 			DeleteGO(m_text);			//テキスト削除。
 			m_text = nullptr;			//ポインタにnullを入れる。
+			DeleteGO(m_spriteRender);	//スプライト削除。
+			m_spriteRender = nullptr;	//nullを入れる。
+
 			NewGO<BattleScenes>(0);		//戦闘シーンを作成。
 			m_state = enState_Battle;
 		}
