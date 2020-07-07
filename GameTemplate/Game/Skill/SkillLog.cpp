@@ -19,7 +19,7 @@ bool SkillLog::Start()
 	m_sprite->Init(
 		L"Assets/sprite/BackWindow.dds",
 		300,
-		100
+		75
 	);
 	m_sprite->SetPosition({ 
 		LOG_POSITION.x,
@@ -32,6 +32,7 @@ bool SkillLog::Start()
 	m_font->SetText(m_skillText);
 	m_font->SetPosition(LOG_POSITION);
 	m_font->SetPivot({ 0.5f,0.5f });
+	m_font->SetScale(0.75f);			//文字サイズ変更。
 
 	return true;
 }
