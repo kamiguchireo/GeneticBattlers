@@ -2,7 +2,6 @@
 #include "Skill/SkillBase.h"
 #include "monster/MonsterBase.h"
 
-
 class SkillList : public IGameObject
 {
 public:

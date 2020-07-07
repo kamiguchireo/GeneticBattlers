@@ -5,7 +5,8 @@
 #include "SkillBuff.h"
 #include "SkillMagic.h"
 
-SkillList*SkillList::m_instance = nullptr;
+SkillList* SkillList::m_instance = nullptr;
+
 
 SkillList::SkillList()
 {

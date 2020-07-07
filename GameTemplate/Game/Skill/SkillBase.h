@@ -24,7 +24,6 @@ public:
 	float		time	!<クールタイム。
 	float		acc		!<スキルの命中率。
 	int			no		!<スキル番号。
-	Elements	ele		!<スキルの属性。
 	*/
 	void InitSkill(const wchar_t* name,
 		float power,
