@@ -53,11 +53,11 @@ SkillBase * SkillList::GetSkillAttack(int no)
 	{
 	case 0:
 		attackSkill->InitSkill(L"’ÊíUŒ‚", 1.0f, 30.0f, 0.95f, 0);
-		attackSkill->SetEffect(L"Assets/effect/test.efk");
+		attackSkill->SetEffect(L"Assets/effect/test.efk",en_PosUser);
 		break;
 	case 1:
 		attackSkill->InitSkill(L"‹­UŒ‚", 1.8f, 50.0f, 0.85f, 1);
-		attackSkill->SetEffect(L"Assets/effect/test.efk");
+		attackSkill->SetEffect(L"Assets/effect/test.efk", en_PosUser);
 		break;
 	default:
 		DeleteGO(attackSkill);
@@ -74,12 +74,12 @@ SkillBase * SkillList::GetSkillHeal(int no)
 	{
 	case 0:
 		healSkill->InitSkill(L"ƒq[ƒ‹", 0.7f, 30.0f, 1.0f, 100);
-		healSkill->SetEffect(L"Assets/effect/heal.efk");
+		healSkill->SetEffect(L"Assets/effect/heal.efk",en_PosTarget);
 		break;
 
 	case 1:
 		healSkill->InitSkill(L"ƒnƒCƒq[ƒ‹", 1.3f, 50.0f, 1.0f, 101);
-		healSkill->SetEffect(L"Assets/effect/healS.efk");
+		healSkill->SetEffect(L"Assets/effect/healS.efk",en_PosTarget);
 		break;
 
 	default:

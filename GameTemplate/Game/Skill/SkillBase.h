@@ -11,6 +11,12 @@ class SkillLog;
 //	en_elements_Num
 //};
 
+enum EffectPos
+{
+	en_PosUser,
+	en_PosTarget
+};
+
 class SkillBase : public IGameObject
 {
 public:
@@ -19,7 +25,7 @@ public:
 	bool Start();
 	/*
 	スキルの設定をする。
-	char*		name	!<スキルの名前。
+	wchar_t*		name	!<スキルの名前。
 	float		power	!<スキルの威力。
 	float		time	!<クールタイム。
 	float		acc		!<スキルの命中率。
@@ -42,9 +48,10 @@ public:
 		m_target = target;
 	}
 	//再生するエフェクトのファイルパスを設定する。
-	void SetEffect(const wchar_t* path)
+	void SetEffect(const wchar_t* path,int enPos)
 	{
 		m_effectPaths.push_back(path);
+		m_effectPosFlag.push_back(enPos);
 	}
 	//スキルが全体効果か？
 	void SetIsWide(bool isFlag = false)
@@ -97,6 +104,8 @@ protected:
 	{
 		m_skillNo = no;
 	}
+	//エフェクトを再生する場所を決める。
+	const CVector3& GetEffectPos(int enPos) const;
 
 	SkillLog* m_log = nullptr;
 	MonsterBase* m_user = nullptr;
@@ -104,6 +113,7 @@ protected:
 	prefab::CEffect* skillEffect = nullptr;	//行動のエフェクト。
 	typedef const wchar_t* EffectPath;
 	std::vector<EffectPath> m_effectPaths;
+	std::vector<int> m_effectPosFlag;
 	int m_playEffectNum = 0;
 	wchar_t skillName[30];
 	float skillPower = 1.0f;
