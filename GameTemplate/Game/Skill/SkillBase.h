@@ -3,13 +3,13 @@
 
 class SkillLog;
 
-enum Elements {
-	en_elements_Fire,		//!<炎属性。
-	en_elements_Reef,		//!<草属性。
-	en_elements_Water,		//!<水属性。
-	en_elements_Empty,		//!<無属性。
-	en_elements_Num
-};
+//enum Elements {
+//	en_elements_Fire,		//!<炎属性。
+//	en_elements_Reef,		//!<草属性。
+//	en_elements_Water,		//!<水属性。
+//	en_elements_Empty,		//!<無属性。
+//	en_elements_Num
+//};
 
 class SkillBase : public IGameObject
 {
@@ -44,7 +44,7 @@ public:
 	//再生するエフェクトのファイルパスを設定する。
 	void SetEffect(const wchar_t* path)
 	{
-		swprintf(effectPath, path);
+		m_effectPaths.push_back(path);
 	}
 	//スキルが全体効果か？
 	void SetIsWide(bool isFlag = false)
@@ -102,7 +102,9 @@ protected:
 	MonsterBase* m_user = nullptr;
 	MonsterBase* m_target = nullptr;
 	prefab::CEffect* skillEffect = nullptr;	//行動のエフェクト。
-	wchar_t effectPath[128];	//エフェクトのファイルパス。
+	typedef const wchar_t* EffectPath;
+	std::vector<EffectPath> m_effectPaths;
+	int m_playEffectNum = 0;
 	wchar_t skillName[30];
 	float skillPower = 1.0f;
 	float coolTime = 0.0f;	//クールタイム

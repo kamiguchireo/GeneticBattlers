@@ -44,12 +44,12 @@ bool NetScenes::Start()
 	m_net = SampleNetwork::GetInstance();
 	m_net->JoinRoom("aaa", 2);
 
-	//m_spriteRender = NewGO<prefab::SpriteRender>(0);
-	//m_spriteRender->Init(
-	//	L"Assets/sprite/BackWindow.dds",
-	//	FRAME_BUFFER_W,
-	//	FRAME_BUFFER_H
-	//);
+	m_spriteRender = NewGO<prefab::SpriteRender>(0);
+	m_spriteRender->Init(
+		L"Assets/sprite/BackWindow.dds",
+		FRAME_BUFFER_W,
+		FRAME_BUFFER_H
+	);
 
 	//フェードの処理。
 	m_fade = Fade::GetInstance();

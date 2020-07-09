@@ -5,10 +5,12 @@ void SkillAttack::SkillSetting()
 {
 	//エフェクトの再生。
 	skillEffect = NewGO<prefab::CEffect>(0);
-	skillEffect->Play(effectPath);
+	skillEffect->Play(m_effectPaths[m_playEffectNum]);
 	skillEffect->SetPosition(m_user->GetPosition() + CVector3::AxisY()*20.0f);
 	skillEffect->SetRotation(m_user->GetRotation());
 	skillEffect->SetScale(CVector3::One() * 20.0f);
+
+	m_playEffectNum++;
 
 	//アニメーションの再生。
 	//m_user->AnimationAttack();

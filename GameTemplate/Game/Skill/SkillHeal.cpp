@@ -15,26 +15,51 @@ void SkillHeal::SkillSetting()
 
 void SkillHeal::Update()
 {
-	if (m_healEffect == nullptr
-		&& !skillEffect->IsPlay()) {
-		//エフェクトの再生。
-		m_healEffect = NewGO<prefab::CEffect>(0);
-		m_healEffect->Play(effectPath);
-		m_healEffect->SetPosition(m_target->GetPosition() + CVector3::AxisY()*20.0f);
-		m_healEffect->SetScale(CVector3::One()*80.0f);
-	}
-	else if (m_healEffect != nullptr
-		&& !m_healEffect->IsPlay()) {
-		//回復量の計算。
-		int result = m_user->GetStatusManager().GetStatus().MAT * skillPower;
-		int res = m_target->Healing(result);
+	//if (m_healEffect == nullptr
+	//	&& !skillEffect->IsPlay()) {
+	//	//エフェクトの再生。
+	//	m_healEffect = NewGO<prefab::CEffect>(0);
+	//	m_healEffect->Play(effectPath);
+	//	m_healEffect->SetPosition(m_target->GetPosition() + CVector3::AxisY()*20.0f);
+	//	m_healEffect->SetScale(CVector3::One()*80.0f);
+	//}
+	//else if (m_healEffect != nullptr
+	//	&& !m_healEffect->IsPlay()) {
+	//	//回復量の計算。
+	//	int result = m_user->GetStatusManager().GetStatus().MAT * skillPower;
+	//	int res = m_target->Healing(result);
 
-		//効果値を記録。
-		m_user->SetDamageResult(res);
-		//クールタイムの設定。
-		m_user->SetCoolTime(coolTime);
+	//	//効果値を記録。
+	//	m_user->SetDamageResult(res);
+	//	//クールタイムの設定。
+	//	m_user->SetCoolTime(coolTime);
 
-		m_healEffect = nullptr;
-		DeleteGO(this);
+	//	m_healEffect = nullptr;
+	//	DeleteGO(this);
+	//}
+	if (!skillEffect->IsPlay())
+	{
+		if (m_effectPaths.size() > m_playEffectNum)
+		{
+			skillEffect = NewGO<prefab::CEffect>(0);
+			skillEffect->Play(m_effectPaths[m_playEffectNum]);
+			skillEffect->SetPosition(m_target->GetPosition() + CVector3::AxisY() * 20.0f);
+			skillEffect->SetScale(CVector3::One() * 80.0f);
+
+			m_playEffectNum++;
+		}
+		else
+		{
+			//回復量の計算。
+			int result = m_user->GetStatusManager().GetStatus().MAT * skillPower;
+			int res = m_target->Healing(result);
+
+			//効果値を記録。
+			m_user->SetDamageResult(res);
+			//クールタイムの設定。
+			m_user->SetCoolTime(coolTime);
+
+			DeleteGO(this);
+		}
 	}
 }

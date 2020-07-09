@@ -17,7 +17,7 @@ public:
 	}
 
 private:
-	prefab::CEffect* m_healEffect = nullptr;
+	//prefab::CEffect* m_healEffect = nullptr;
 
 };
 
