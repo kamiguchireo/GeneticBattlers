@@ -8,7 +8,7 @@ void SkillHeal::SkillSetting()
 	skillEffect->Play(L"Assets/effect/chant1.efk");
 	CVector3 effectPos = GetEffectPos(en_PosUser);
 	skillEffect->SetPosition(effectPos);
-	skillEffect->SetScale(CVector3::One() * 50.0f);
+	//skillEffect->SetScale(CVector3::One() * 50.0f);
 
 	//アニメーションの再生。
 	m_user->AnimationMagic();
@@ -46,7 +46,7 @@ void SkillHeal::Update()
 			skillEffect->Play(m_effectPaths[m_playEffectNum]);
 			CVector3 efPos = GetEffectPos(m_effectPosFlag[m_playEffectNum]);
 			skillEffect->SetPosition(efPos);
-			skillEffect->SetScale(CVector3::One() * 80.0f);
+			//skillEffect->SetScale(CVector3::One() * 80.0f);
 
 			m_playEffectNum++;
 		}

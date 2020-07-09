@@ -117,7 +117,7 @@ int MonsterBase::Monster_Buff(StatusBuff status, float pow, float time)
 	auto ef = NewGO<prefab::CEffect>(0);
 	ef->Play(L"Assets/effect/buff.efk");
 	ef->SetPosition(m_position + CVector3::AxisY()*20.0f);
-	ef->SetScale(CVector3::One()*80.0f);
+	//ef->SetScale(CVector3::One()*80.0f);
 
 	return m_status.Monster_Buff(status,pow,time);
 }

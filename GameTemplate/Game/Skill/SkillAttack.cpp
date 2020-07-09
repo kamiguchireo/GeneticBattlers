@@ -9,7 +9,7 @@ void SkillAttack::SkillSetting()
 	CVector3 effectPos = GetEffectPos(en_PosUser);
 	skillEffect->SetPosition(effectPos);
 	skillEffect->SetRotation(m_user->GetRotation());
-	skillEffect->SetScale(CVector3::One() * 20.0f);
+	//skillEffect->SetScale(CVector3::One() * 20.0f);
 
 	m_playEffectNum++;
 
