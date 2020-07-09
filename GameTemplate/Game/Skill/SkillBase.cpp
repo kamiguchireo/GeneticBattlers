@@ -62,21 +62,22 @@ int SkillBase::DamageCalcuration()
 
 const CVector3 & SkillBase::GetEffectPos(int enPos) const
 {
+	CVector3 effectPos = CVector3::Zero();
 	switch (enPos)
 	{
 	case en_PosUser:
 		//使用者の少し上。
-		return m_user->GetPosition() + CVector3::AxisY() * 20.0f;
+		effectPos = m_user->GetPosition() + CVector3::AxisY() * 20.0f;
 		break;
 
 	case en_PosTarget:
 		//ターゲットの少し上。
-		return m_target->GetPosition() + CVector3::AxisY() * 20.0f;
+		effectPos = m_target->GetPosition() + CVector3::AxisY() * 20.0f;
 		break;
 	default:
 		break;
 	}
 
-	return CVector3::Zero();
+	return effectPos;
 }
 

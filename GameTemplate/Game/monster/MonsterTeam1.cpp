@@ -15,7 +15,7 @@ MonsterTeam1::~MonsterTeam1()
 bool MonsterTeam1::Start()
 {
 	//cmoファイルの読み込み。
-	m_model.Init(L"Assets/modelData/unityChan.cmo", enFbxUpAxisY);
+	m_model.Init(L"Assets/modelData/unityChan.cmo");
 	m_model.SetActiveDLFlag(0);
 	m_model.SetActiveRLFlag(0);
 	

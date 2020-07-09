@@ -6,7 +6,8 @@ void SkillBuff::SkillSetting()
 	//エフェクトの再生。
 	skillEffect = NewGO<prefab::CEffect>(0);
 	skillEffect->Play(L"Assets/effect/chant1.efk");
-	skillEffect->SetPosition(m_user->GetPosition() + CVector3::AxisY()*20.0f);
+	CVector3 effectPos = GetEffectPos(en_PosUser);
+	skillEffect->SetPosition(effectPos);
 	skillEffect->SetScale(CVector3::One() * 50.0f);
 
 	//アニメーションの再生。

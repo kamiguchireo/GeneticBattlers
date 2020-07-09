@@ -6,7 +6,8 @@ void SkillAttack::SkillSetting()
 	//エフェクトの再生。
 	skillEffect = NewGO<prefab::CEffect>(0);
 	skillEffect->Play(m_effectPaths[m_playEffectNum]);
-	skillEffect->SetPosition(m_user->GetPosition() + CVector3::AxisY()*20.0f);
+	CVector3 effectPos = GetEffectPos(en_PosUser);
+	skillEffect->SetPosition(effectPos);
 	skillEffect->SetRotation(m_user->GetRotation());
 	skillEffect->SetScale(CVector3::One() * 20.0f);
 
