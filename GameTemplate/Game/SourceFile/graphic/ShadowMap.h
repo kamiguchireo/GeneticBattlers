@@ -18,7 +18,7 @@ namespace Engine {
 		//シャドウマップに影を書き込むタイミングで呼んでください
 		void RenderToShadowMap();
 
-		ID3D11ShaderResourceView*GetSRV(int i)
+		ID3D11ShaderResourceView*GetSRV(int i)const
 		{
 			return m_shadowMapRT[i].GetSRV();
 		}
@@ -46,11 +46,11 @@ namespace Engine {
 		// 計算されたライトの座標
 		CVector3 CalcLightPosition(float lightHeight, CVector3 viewFrustomCenterPosition);
 	
-		CMatrix GetLightViewMatrix(int i)
+		CMatrix GetLightViewMatrix(int i)const
 		{
 			return m_lightViewMatrix[i];
 		}
-		CMatrix GetLigthProjMatrix(int i)
+		CMatrix GetLigthProjMatrix(int i)const
 		{
 			return m_lightProMatrix[i];
 		}
@@ -69,7 +69,7 @@ namespace Engine {
 		
 		//エンジン内部で使用しています。
 		//使用しないでください
-		int GetCascadeShadow()
+		int GetCascadeShadow()const
 		{
 			return CascadeShadow;
 		}

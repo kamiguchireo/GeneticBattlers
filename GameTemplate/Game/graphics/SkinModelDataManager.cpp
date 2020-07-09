@@ -6,23 +6,23 @@
 //g_skinModelDataManagerの実体。
 SkinModelDataManager g_skinModelDataManager;
 
-DirectX::Model* SkinModelDataManager::Load(const wchar_t* filePath/*, const Skeleton& skeleton*/)
+DirectX::Model* SkinModelDataManager::Load(const wchar_t* filePath, const Skeleton& skeleton)
 {
 	DirectX::Model* retModel = NULL;
-	////ボーンを発見したときのコールバック関数。
-	//auto onFindBone = [&](
-	//	const wchar_t* boneName,
-	//	const VSD3DStarter::Bone* bone,
-	//	std::vector<int>& localBoneIDtoGlobalBoneIDTbl
-	//	) 
-	//{
-	//	int globalBoneID = skeleton.FindBoneID(boneName);
-	//	if (globalBoneID == -1) {
-	//		//ボーンが見つからなかった。
-	//		return;
-	//	}
-	//	localBoneIDtoGlobalBoneIDTbl.push_back(globalBoneID);
-	//};
+	//ボーンを発見したときのコールバック関数。
+	auto onFindBone = [&](
+		const wchar_t* boneName,
+		const VSD3DStarter::Bone* bone,
+		std::vector<int>& localBoneIDtoGlobalBoneIDTbl
+		) 
+	{
+		int globalBoneID = skeleton.FindBoneID(boneName);
+		if (globalBoneID == -1) {
+			//ボーンが見つからなかった。
+			return;
+		}
+		localBoneIDtoGlobalBoneIDTbl.push_back(globalBoneID);
+	};
 	//マップに登録されているか調べる。
 	auto it = m_directXModelMap.find(filePath);
 	if (it == m_directXModelMap.end()) {
@@ -37,8 +37,8 @@ DirectX::Model* SkinModelDataManager::Load(const wchar_t* filePath/*, const Skel
 			filePath,									//第二引数は読み込むCMOファイルのファイルパス。
 			effectFactory,								//第三引数はエフェクトファクトリ。
 			false,										//第四引数はCullモード。今は気にしなくてよい。
-			false//,
-			//onFindBone
+			false,
+			onFindBone
 		);
 		retModel = model.get();
 		//新規なのでマップに登録する。

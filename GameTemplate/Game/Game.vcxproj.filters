@@ -383,6 +383,9 @@
     <MeshContentTask Include="Assets\modelData\testGround.fbx" />
     <MeshContentTask Include="Assets\modelData\testModel.fbx" />
     <MeshContentTask Include="Assets\modelData\EngineGround.FBX" />
+    <MeshContentTask Include="Assets\modelData\DesertDragon.FBX">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\mikyan.jpg" />
