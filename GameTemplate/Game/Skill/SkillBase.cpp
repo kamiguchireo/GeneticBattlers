@@ -10,7 +10,7 @@ SkillBase::SkillBase()
 SkillBase::~SkillBase()
 {
 	//待機状態のアニメーションの再生。
-	//m_user->AnimationIdle();
+	m_user->AnimationIdle();
 }
 
 bool SkillBase::Start()

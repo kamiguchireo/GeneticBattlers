@@ -13,7 +13,7 @@ void SkillAttack::SkillSetting()
 	m_playEffectNum++;
 
 	//アニメーションの再生。
-	//m_user->AnimationAttack();
+	m_user->AnimationAttack();
 }
 
 void SkillAttack::Update()

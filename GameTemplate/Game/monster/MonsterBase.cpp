@@ -19,23 +19,23 @@ void MonsterBase::Update()
 	case en_state_Death:
 		if (!m_status.IsDeath()) {
 			m_status.SetDeath(true);
-			//m_animation.Play(en_anim_Death, 0.3f);
+			m_animation.Play(en_anim_Death, 0.3f);
 		}
 
 		break;
 	default:
-		////アニメーションされていないなら。
-		//if (!m_animation.IsPlaying()) {
-		//	m_status.SetDeath(false);
-		//	m_animation.Play(en_anim_Idle, 0.3f);
-		//}
+		//アニメーションされていないなら。
+		if (!m_animation.IsPlaying()) {
+			m_status.SetDeath(false);
+			m_animation.Play(en_anim_Idle, 0.3f);
+		}
 
 		break;
 	}
 	//描画処理。
 	Draw();
-	////アニメーションの更新処理。
-	//m_animation.Update(1.0f / 30.0f);
+	//アニメーションの更新処理。
+	m_animation.Update(1.0f / 30.0f);
 }
 
 void MonsterBase::SetStatus(int hp, int mp, int atk, int def, int mat, int mdf, int dex)

@@ -10,7 +10,7 @@ void SkillBuff::SkillSetting()
 	skillEffect->SetScale(CVector3::One() * 50.0f);
 
 	//アニメーションの再生。
-	//m_user->AnimationMagic();
+	m_user->AnimationMagic();
 }
 
 void SkillBuff::Update()
