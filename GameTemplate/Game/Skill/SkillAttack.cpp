@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SkillAttack.h"
 
-bool SkillAttack::Start()
+void SkillAttack::SkillSetting()
 {
 	//エフェクトの再生。
 	skillEffect = NewGO<prefab::CEffect>(0);
@@ -12,8 +12,6 @@ bool SkillAttack::Start()
 
 	//アニメーションの再生。
 	//m_user->AnimationAttack();
-
-	return true;
 }
 
 void SkillAttack::Update()

@@ -86,6 +86,7 @@ private:
 
 	static NetScenes* m_instance;	//インスタンス。
 
+	prefab::SpriteRender* m_spriteRender = nullptr;		//スプライト。
 	NetState m_state = enState_Idle;	//ステート。
 
 	SampleNetwork* m_net = nullptr;			//ネットワーク。

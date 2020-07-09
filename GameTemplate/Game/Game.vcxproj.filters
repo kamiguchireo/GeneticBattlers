@@ -55,6 +55,24 @@
     <Filter Include="skill">
       <UniqueIdentifier>{1bc3184a-29a2-49ae-bba0-789ee1507af7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="monster\parameter">
+      <UniqueIdentifier>{4c414831-4bd3-4e5c-86f3-36e27fef3558}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameScenes">
+      <UniqueIdentifier>{1fd4b792-dc74-4e32-a5fb-21f5aff8fda3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameScenes\BattleScenes">
+      <UniqueIdentifier>{4eb78ef5-3aac-4299-abcb-2e3da81aedb8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="gameScenes\NetScenes">
+      <UniqueIdentifier>{af282f35-64ea-4218-a53a-e9f7ccfb14f9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\sprite">
+      <UniqueIdentifier>{25bfcd4a-3c50-4bf7-8b6e-15fe8732507e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Assets\sprite\preset">
+      <UniqueIdentifier>{4ee41ae8-bfec-49ec-9a2d-bd93b297129b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -154,13 +172,10 @@
     <ClCompile Include="monster\MonsterBase.cpp">
       <Filter>monster</Filter>
     </ClCompile>
-    <ClCompile Include="monster\MonsterTeam1.cpp" />
     <ClCompile Include="Skill\SkillList.cpp">
       <Filter>skill</Filter>
     </ClCompile>
-    <ClCompile Include="Skill\SkillBase.cpp" />
     <ClCompile Include="Network\SampleNetwork.cpp" />
-    <ClCompile Include="gameScenes\TitleScene.cpp" />
     <ClCompile Include="Fade.cpp" />
     <ClCompile Include="Network\Listener.cpp" />
     <ClCompile Include="SourceFile\Sound\SoundEngine.cpp" />
@@ -168,9 +183,6 @@
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
     <ClCompile Include="SourceFile\Sound\CSoundSource.cpp" />
     <ClCompile Include="GameCamera.cpp" />
-    <ClCompile Include="monster\Attacker.cpp" />
-    <ClCompile Include="monster\Healer.cpp" />
-    <ClCompile Include="monster\Supporter.cpp" />
     <ClCompile Include="SourceFile\Light\DirectionLight.cpp" />
     <ClCompile Include="SourceFile\graphic\2D\Sprite.cpp">
       <Filter>Source Files\graphics\2D</Filter>
@@ -199,17 +211,58 @@
     <ClCompile Include="SourceFile\graphic\GPUBuffer\ConstantBufferGPU.cpp" />
     <ClCompile Include="SourceFile\graphic\font\Font.cpp" />
     <ClCompile Include="SourceFile\graphic\font\FontRender.cpp" />
-    <ClCompile Include="monster\parameter\StatusUI.cpp" />
-    <ClCompile Include="monster\parameter\StatusManager.cpp" />
-    <ClCompile Include="gameScenes\NetScenes\NetScenes.cpp" />
-    <ClCompile Include="gameScenes\NetScenes\NetSceneText.cpp" />
-    <ClCompile Include="monster\parameter\GIManager.cpp" />
-    <ClCompile Include="gameScenes\BattleScenes\BattleScenes.cpp" />
-    <ClCompile Include="gameScenes\BattleScenes\BattleManager.cpp" />
-    <ClCompile Include="Skill\SkillAttack.cpp" />
-    <ClCompile Include="Skill\SkillMagic.cpp" />
-    <ClCompile Include="Skill\SkillHeal.cpp" />
-    <ClCompile Include="Skill\SkillBuff.cpp" />
+    <ClCompile Include="Skill\SkillAttack.cpp">
+      <Filter>skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill\SkillBase.cpp">
+      <Filter>skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill\SkillBuff.cpp">
+      <Filter>skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill\SkillHeal.cpp">
+      <Filter>skill</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill\SkillMagic.cpp">
+      <Filter>skill</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\Supporter.cpp">
+      <Filter>monster</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\Healer.cpp">
+      <Filter>monster</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\Attacker.cpp">
+      <Filter>monster</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\MonsterTeam1.cpp">
+      <Filter>monster</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\parameter\StatusManager.cpp">
+      <Filter>monster\parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\parameter\StatusUI.cpp">
+      <Filter>monster\parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\parameter\GIManager.cpp">
+      <Filter>monster\parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="gameScenes\TitleScene.cpp">
+      <Filter>gameScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="gameScenes\BattleScenes\BattleScenes.cpp">
+      <Filter>gameScenes\BattleScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="gameScenes\BattleScenes\BattleManager.cpp">
+      <Filter>gameScenes\BattleScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="gameScenes\NetScenes\NetSceneText.cpp">
+      <Filter>gameScenes\NetScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="gameScenes\NetScenes\NetScenes.cpp">
+      <Filter>gameScenes\NetScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Skill\SkillLog.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -315,12 +368,9 @@
     <ClInclude Include="monster\MonsterBase.h">
       <Filter>monster</Filter>
     </ClInclude>
-    <ClInclude Include="monster\MonsterTeam1.h" />
     <ClInclude Include="Skill\SkillList.h">
       <Filter>skill</Filter>
     </ClInclude>
-    <ClInclude Include="Skill\SkillBase.h" />
-    <ClInclude Include="gameScenes\TitleScene.h" />
     <ClInclude Include="Fade.h" />
     <ClInclude Include="Network\Listener.h" />
     <ClInclude Include="Network\SampleNetwork.h" />
@@ -329,9 +379,6 @@
     <ClInclude Include="SourceFile\Sound\WaveFile.h" />
     <ClInclude Include="SourceFile\Sound\CSoundSource.h" />
     <ClInclude Include="GameCamera.h" />
-    <ClInclude Include="monster\Attacker.h" />
-    <ClInclude Include="monster\Healer.h" />
-    <ClInclude Include="monster\Supporter.h" />
     <ClInclude Include="SourceFile\Light\DirectionLight.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="SourceFile\graphic\2D\Sprite.h">
@@ -364,44 +411,119 @@
     <ClInclude Include="SourceFile\graphic\GPUBuffer\ConstantBufferGPU.h" />
     <ClInclude Include="SourceFile\graphic\font\Font.h" />
     <ClInclude Include="SourceFile\graphic\font\FontRender.h" />
-    <ClInclude Include="monster\parameter\StatusUI.h" />
-    <ClInclude Include="monster\parameter\StatusManager.h" />
-    <ClInclude Include="gameScenes\NetScenes\NetScenes.h" />
-    <ClInclude Include="gameScenes\NetScenes\NetSceneText.h" />
-    <ClInclude Include="monster\parameter\GIManager.h" />
-    <ClInclude Include="gameScenes\BattleScenes\BattleScenes.h" />
-    <ClInclude Include="gameScenes\BattleScenes\BattleManager.h" />
-    <ClInclude Include="Skill\SkillAttack.h" />
-    <ClInclude Include="Skill\SkillMagic.h" />
-    <ClInclude Include="Skill\SkillHeal.h" />
-    <ClInclude Include="Skill\SkillBuff.h" />
+    <ClInclude Include="Skill\SkillAttack.h">
+      <Filter>skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill\SkillBase.h">
+      <Filter>skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill\SkillBuff.h">
+      <Filter>skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill\SkillHeal.h">
+      <Filter>skill</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill\SkillMagic.h">
+      <Filter>skill</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\Supporter.h">
+      <Filter>monster</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\Healer.h">
+      <Filter>monster</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\Attacker.h">
+      <Filter>monster</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\MonsterTeam1.h">
+      <Filter>monster</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\parameter\StatusManager.h">
+      <Filter>monster\parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\parameter\StatusUI.h">
+      <Filter>monster\parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\parameter\GIManager.h">
+      <Filter>monster\parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="gameScenes\TitleScene.h">
+      <Filter>gameScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="gameScenes\BattleScenes\BattleScenes.h">
+      <Filter>gameScenes\BattleScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="gameScenes\BattleScenes\BattleManager.h">
+      <Filter>gameScenes\BattleScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="gameScenes\NetScenes\NetSceneText.h">
+      <Filter>gameScenes\NetScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="gameScenes\NetScenes\NetScenes.h">
+      <Filter>gameScenes\NetScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill\SkillLog.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\testGround.fbx" />
-    <MeshContentTask Include="Assets\modelData\testModel.fbx" />
-    <MeshContentTask Include="Assets\modelData\EngineGround.FBX" />
-    <MeshContentTask Include="Assets\modelData\DesertDragon.FBX">
+    <MeshContentTask Include="Assets\modelData\testModel.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\testGround.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\EngineGround.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
-    <ImageContentTask Include="Assets\sprite\mikyan.jpg" />
-    <ImageContentTask Include="Assets\sprite\win.png" />
-    <ImageContentTask Include="Assets\sprite\preset\fade.png" />
-    <ImageContentTask Include="Assets\sprite\PreTitle.png" />
-    <ImageContentTask Include="Assets\sprite\ATB.png" />
-    <ImageContentTask Include="Assets\sprite\ATBG.png" />
-    <ImageContentTask Include="Assets\sprite\para.png" />
-    <ImageContentTask Include="Assets\sprite\HP.png" />
-    <ImageContentTask Include="Assets\sprite\HPG.png" />
-    <ImageContentTask Include="Assets\sprite\Bad.png" />
-    <ImageContentTask Include="Assets\sprite\Good.png" />
-    <ImageContentTask Include="Assets\sprite\paraE.png" />
-    <ImageContentTask Include="Assets\sprite\lose.png" />
-    <ImageContentTask Include="Assets\sprite\Select.png" />
+    <ImageContentTask Include="Assets\sprite\Bad.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\BackWindow.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\ATB.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\ATBG.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Good.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\HP.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\HPG.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\lose.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\mikyan.jpg">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\para.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\paraE.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\PreTitle.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\Select.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\win.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\preset\fade.png">
+      <Filter>Assets\sprite\preset</Filter>
+    </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />

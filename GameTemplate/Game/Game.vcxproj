@@ -104,6 +104,7 @@
     <ClCompile Include="monster\parameter\GIManager.cpp" />
     <ClCompile Include="Skill\SkillBuff.cpp" />
     <ClCompile Include="Skill\SkillHeal.cpp" />
+    <ClCompile Include="Skill\SkillLog.cpp" />
     <ClCompile Include="Skill\SkillMagic.cpp" />
     <ClCompile Include="Skill\SkillAttack.cpp" />
     <ClCompile Include="SourceFile\graphic\font\FontRender.cpp" />
@@ -186,6 +187,7 @@
     <ClInclude Include="monster\parameter\GIManager.h" />
     <ClInclude Include="Skill\SkillBuff.h" />
     <ClInclude Include="Skill\SkillHeal.h" />
+    <ClInclude Include="Skill\SkillLog.h" />
     <ClInclude Include="Skill\SkillMagic.h" />
     <ClInclude Include="Skill\SkillAttack.h" />
     <ClInclude Include="SourceFile\graphic\font\FontRender.h" />
@@ -311,6 +313,9 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\Select.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\BackWindow.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

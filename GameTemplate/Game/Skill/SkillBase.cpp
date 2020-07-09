@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SkillBase.h"
+#include "SkillLog.h"
 
 SkillBase::SkillBase()
 {
@@ -12,7 +13,17 @@ SkillBase::~SkillBase()
 	//m_user->AnimationIdle();
 }
 
-void SkillBase::InitSkill(const char * name, float power, float time, float acc, int no)
+bool SkillBase::Start()
+{
+	SkillSetting();
+
+	m_log = NewGO<SkillLog>(1,"sLog");
+	m_log->SetText(skillName);
+
+	return true;
+}
+
+void SkillBase::InitSkill(const wchar_t * name, float power, float time, float acc, int no)
 {
 	SetSkillName(name);
 	SetSkillPower(power);

@@ -4,7 +4,7 @@
 class SkillHeal : public SkillBase
 {
 public:
-	bool Start();
+	void SkillSetting();
 	void Update();
 
 	bool IsMagic()override

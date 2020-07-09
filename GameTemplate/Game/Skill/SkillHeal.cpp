@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "SkillHeal.h"
 
-bool SkillHeal::Start()
+void SkillHeal::SkillSetting()
 {
 	//エフェクトの再生。
 	skillEffect = NewGO<prefab::CEffect>(0);
@@ -11,8 +11,6 @@ bool SkillHeal::Start()
 
 	//アニメーションの再生。
 	//m_user->AnimationMagic();
-
-	return true;
 }
 
 void SkillHeal::Update()
