@@ -17,29 +17,29 @@ Animation::~Animation()
 	
 }
 	
-//void Animation::Init(SkinModel& skinModel, AnimationClip animClipList[], int numAnimClip)
-//{
-//	if (animClipList == nullptr) {
-//#ifdef _DEBUG
-//		char message[256];
-//		strcpy(message, "animClipListがNULLです。\n");
-//		OutputDebugStringA(message);
-//		//止める。
-//		std::abort();
-//#endif
-//		
-//	}
-//	m_skeleton = &skinModel.GetSkeleton();
-//
-//	for (int i = 0; i < numAnimClip; i++) {
-//		m_animationClips.push_back(&animClipList[i]);
-//	}
-//	for (auto& ctr : m_animationPlayController) {
-//		ctr.Init(m_skeleton);
-//	}
-//		
-//	Play(0);
-//}
+void Animation::Init(SkinModel& skinModel, AnimationClip animClipList[], int numAnimClip)
+{
+	if (animClipList == nullptr) {
+#ifdef _DEBUG
+		char message[256];
+		strcpy(message, "animClipListがNULLです。\n");
+		OutputDebugStringA(message);
+		//止める。
+		std::abort();
+#endif
+		
+	}
+	m_skeleton = &skinModel.GetSkeleton();
+
+	for (int i = 0; i < numAnimClip; i++) {
+		m_animationClips.push_back(&animClipList[i]);
+	}
+	for (auto& ctr : m_animationPlayController) {
+		ctr.Init(m_skeleton);
+	}
+		
+	Play(0);
+}
 
 void Animation::Init(Skeleton& skeleton, AnimationClip animClipList[], int numAnimClip)
 {
@@ -62,7 +62,7 @@ void Animation::Init(Skeleton& skeleton, AnimationClip animClipList[], int numAn
 		ctr.Init(m_skeleton);
 	}
 
-	Play(0);
+	//Play(0);
 }
 
 /*!
@@ -97,6 +97,11 @@ void Animation::UpdateGlobalPose()
 		vGlobalPose[i] = CVector3::Zero();
 		vGlobalScale[i] = CVector3::One();
 	}
+
+	CQuaternion qRot = CQuaternion::Identity();
+	qRot.SetRotationDeg(CVector3::AxisX(), 90.0f);
+
+
 	//グローバルポーズを計算していく。
 	int startIndex = m_startAnimationPlayController;
 	for (int i = 0; i < m_numAnimationPlayController; i++) {
@@ -142,7 +147,14 @@ void Animation::UpdateGlobalPose()
 				
 			//回転の補完
 			CQuaternion qBone;
+		/*	for (int i = 0; i < numBone; i++)
+			{
+				qGlobalPose[i] = qRot;
+			}*/
 			qBone.SetRotation(m);
+			//if (i == 0) {
+			//	qBone.Multiply(qRot);
+			//}
 			qGlobalPose[boneNo].Slerp(intepolateRate, qGlobalPose[boneNo], qBone);
 		}
 	}

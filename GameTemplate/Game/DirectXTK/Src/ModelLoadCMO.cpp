@@ -138,11 +138,11 @@ std::unique_ptr<Model> DirectX::Model::CreateFromCMO(
         throw std::exception("No meshes found");
 
     std::unique_ptr<Model> model(new Model());
-	//std::vector<int> localBoneIDtoGlobalBoneIDTbl; //メッシュにウェイトが設定されているボーンだけのボーン配列のIDから、すべてのボーン配列のIDに変換するテーブル。
-	//localBoneIDtoGlobalBoneIDTbl.reserve(512);
+	std::vector<int> localBoneIDtoGlobalBoneIDTbl; //メッシュにウェイトが設定されているボーンだけのボーン配列のIDから、すべてのボーン配列のIDに変換するテーブル。
+	localBoneIDtoGlobalBoneIDTbl.reserve(512);
     for( UINT meshIndex = 0; meshIndex < *nMesh; ++meshIndex )
     {
-		//localBoneIDtoGlobalBoneIDTbl.clear();
+		localBoneIDtoGlobalBoneIDTbl.clear();
         // Mesh name
         auto nName = reinterpret_cast<const UINT*>( meshData + usedSize );
         usedSize += sizeof(UINT);
@@ -445,7 +445,7 @@ std::unique_ptr<Model> DirectX::Model::CreateFromCMO(
 
 				if (onFindBoneData != nullptr) {
 					//ボーンを見つけた時のコールバック関数が指定されている。
-					//onFindBoneData(boneName, bones, localBoneIDtoGlobalBoneIDTbl);
+					onFindBoneData(boneName, bones, localBoneIDtoGlobalBoneIDTbl);
 				}
             }
 
@@ -550,10 +550,10 @@ std::unique_ptr<Model> DirectX::Model::CreateFromCMO(
 
                         auto skinv = reinterpret_cast<VertexPositionNormalTangentColorTextureSkinning*>( ptr );
 						XMUINT4 index = *reinterpret_cast<const XMUINT4*>(skinptr[v].boneIndex);
-						//index.x = localBoneIDtoGlobalBoneIDTbl[index.x];
-						//index.y = localBoneIDtoGlobalBoneIDTbl[index.y];
-						//index.z = localBoneIDtoGlobalBoneIDTbl[index.z];
-						//index.w = localBoneIDtoGlobalBoneIDTbl[index.w];
+						index.x = localBoneIDtoGlobalBoneIDTbl[index.x];
+						index.y = localBoneIDtoGlobalBoneIDTbl[index.y];
+						index.z = localBoneIDtoGlobalBoneIDTbl[index.z];
+						index.w = localBoneIDtoGlobalBoneIDTbl[index.w];
 						
                         skinv->SetBlendIndices( index );
                         skinv->SetBlendWeights( *reinterpret_cast<const XMFLOAT4*>( skinptr[v].boneWeight ) );
@@ -746,9 +746,9 @@ std::unique_ptr<Model> DirectX::Model::CreateFromCMO(
         throw std::exception( "CreateFromCMO" );
     }
 
-    auto model = CreateFromCMO( 
-		d3dDevice, data.get(), dataSize, 
-		fxFactory, ccw, pmalpha, 
+	auto model = CreateFromCMO(
+		d3dDevice, data.get(), dataSize,
+		fxFactory, ccw, pmalpha,
 		onFindBoneData);
 
     model->name = szFileName;

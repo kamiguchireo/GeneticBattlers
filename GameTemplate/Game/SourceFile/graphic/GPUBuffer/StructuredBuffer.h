@@ -18,7 +18,8 @@ namespace Engine {
 		{
 			return m_structuredBuffer;
 		}
-		//ŠJ•ú‚µ‚Ä—~‚µ‚­‚ÎRelease‚ğŒÄ‚Ô‚ñ‚¾‚È
+
+		//‰ğ•úˆ—
 		void Release();
 
 	private:

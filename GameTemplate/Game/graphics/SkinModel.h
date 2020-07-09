@@ -49,11 +49,11 @@ public:
 	//*@param[in]		boneName	ボーンの名前。
 	//*@return	見つかったボーン。見つからなかった場合はnullptrを返します。
 	//*/
-	//Bone* FindBone(const wchar_t* boneName)
-	//{
-	//	int boneId = m_skeleton.FindBoneID(boneName);
-	//	return m_skeleton.GetBone(boneId);
-	//}
+	Bone* FindBone(const wchar_t* boneName)
+	{
+		int boneId = m_skeleton.FindBoneID(boneName);
+		return m_skeleton.GetBone(boneId);
+	}
 
 	/*!
 	*@brief	モデルを描画。
@@ -107,13 +107,13 @@ public:
 		return IsShadowReciever;
 	}
 
-	///*!
-	//*@brief	スケルトンの取得。
-	//*/
-	//Skeleton& GetSkeleton()
-	//{
-	//	return m_skeleton;
-	//}
+	/*!
+	*@brief	スケルトンの取得。
+	*/
+	Skeleton& GetSkeleton()
+	{
+		return m_skeleton;
+	}
 	
 	/*!
 	*@brief	メッシュを検索する。
@@ -136,6 +136,8 @@ public:
 		enSkinModelSRVReg_BoneMatrix,				//!<ボーン行列。
 		enSkinModelSRVReg_ShadowTexture = 2,		//シャドウテクスチャ
 	};
+
+
 private:
 	/*!
 	*@brief	サンプラステートの初期化。

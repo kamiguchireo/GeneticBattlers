@@ -20,19 +20,19 @@ namespace Engine {
 		void ClearRenderTarget(float*clearColor);
 
 		//レンダリングターゲットビューを取得
-		ID3D11RenderTargetView*GetRenderTargetView()
+		ID3D11RenderTargetView*GetRenderTargetView()const
 		{
 			return m_renderTargetView;
 		}
 
 		//デプスステンシルビューを取得
-		ID3D11DepthStencilView*GetDepthStensilView()
+		ID3D11DepthStencilView*GetDepthStensilView()const
 		{
 			return m_depthStencilView;
 		}
 
 		//レンダリングターゲットのSRVを取得
-		ID3D11ShaderResourceView*GetRenderTargetSRV()
+		ID3D11ShaderResourceView*GetRenderTargetSRV()const
 		{
 			return m_renderTargetSRV;
 		}
@@ -44,7 +44,7 @@ namespace Engine {
 		}
 
 		//SRVの取得
-		ID3D11ShaderResourceView* GetSRV()
+		ID3D11ShaderResourceView* GetSRV()const
 		{
 			return m_renderTargetSRV;
 		}

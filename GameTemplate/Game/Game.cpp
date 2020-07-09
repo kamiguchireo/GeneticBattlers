@@ -24,8 +24,8 @@ Game::Game()
 	g_camera3D.SetTarget({ 0.0f, 200.0f, 0.0f });
 	
 	//アニメーションクリップの読み込み。
-	m_animClip[0].Load(L"Assets/animData/run.tka");
-	m_animClip[0].SetLoopFlag(true);
+	//m_animClip[0].Load(L"Assets/animData/run.tka");
+	//m_animClip[0].SetLoopFlag(true);
 
 }
 
@@ -53,22 +53,27 @@ bool Game::Start()
 	//ss.Play(false);
 
 	//モデル1
+	//m_model.Init(L"Assets/modelData/DesertDragon.cmo");
+
 	m_model.Init(L"Assets/modelData/unityChan.cmo");
 	CVector3 m_pos = { 0.0f,0.0f,0.0f };
-	m_model.UpdateWorldMatrix(m_pos, CQuaternion::Identity(), CVector3::One());
+	//m_model.UpdateWorldMatrix(m_pos, CQuaternion::Identity(), CVector3::One());
 	//CQuaternion m_ligdir2 = { 1.0f,.0f,0.0f,0.0f };
 	//m_model.SetLightDir(m_ligdir2);
 	m_model.SetActiveDLFlag(0);
 	m_model.SetActiveRLFlag(1);
 	m_position = m_pos;
+	m_rotation.SetRotationDeg(CVector3::AxisX(), 90.0f);
 
-	bool result = m_skeleton.Load(L"Assets/modelData/unityChan.tks");
-	if (result == false)
-	{
-		throw;
-	}
-	m_animation.Init(m_skeleton, m_animClip, 1);
-	m_animation.Play(0);
+	//bool result = m_skeleton.Load(L"Assets/modelData/unityChan.tks");
+	//if (result == false)
+	//{
+	//	throw;
+	//}
+	//m_skeleton.Update(m_model.GetWorldMatrix());
+
+	//m_animation.Init(m_model, m_animClip, 1);
+	//m_animation.Play(0);
 
 	////モデル2
 	//m_model2.Init(L"Assets/modelData/unityChan.cmo");
@@ -99,10 +104,7 @@ bool Game::Start()
 }
 
 void Game::Update()
-{	
-	m_skeleton.Update(m_model.GetWorldMatrix());
-	m_skeleton.SendBoneMatrixArrayToGPU();
-	m_animation.Update(1.0f / 30.0f);
+{
 	static float f = 0.5f;
 	if (GetAsyncKeyState(VK_UP))
 	{
@@ -124,6 +126,13 @@ void Game::Update()
 
 	//fr->SetScale(f);
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
+	
+	
+	//m_skeleton.Update(m_model.GetWorldMatrix());
+	//m_animation.Update(1.0f / 30.0f);
+	//m_skeleton.SendBoneMatrixArrayToGPU();
+	
+	
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
 
 	if (GetAsyncKeyState('A'))
@@ -239,6 +248,8 @@ void Game::Render()
 	//D3D11_VIEWPORT oldViewPorts;
 	//d3dDeviceContext->RSGetViewports(&numViewPort, &oldViewPorts);
 	
+
+
 	//シャドウマップにレンダリング
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
 	m_shadowMap->RenderToShadowMap();
@@ -263,6 +274,9 @@ void Game::Render()
 	//m_shadowMap->SendShadowRecieverParamToGpu();
 	//ForwordRender();
 
+
+	//PostRender();
+	
 	//通常レンダリング
 	//モデルのドロー
 	m_model.Draw
@@ -282,7 +296,4 @@ void Game::Render()
 		//g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
 		//g_graphicsEngine->GetShadowMap()->GetLightViewMatrix(0)
 	);
-
-	//PostRender();
-
 }

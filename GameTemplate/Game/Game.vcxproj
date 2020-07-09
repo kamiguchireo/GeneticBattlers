@@ -266,6 +266,7 @@
     <ClInclude Include="SourceFile\Sound\WaveFile.h" />
   </ItemGroup>
   <ItemGroup>
+    <MeshContentTask Include="Assets\modelData\DesertDragon.FBX" />
     <MeshContentTask Include="Assets\modelData\EngineGround.FBX" />
     <MeshContentTask Include="Assets\modelData\testGround.fbx" />
     <MeshContentTask Include="Assets\modelData\testModel.fbx" />

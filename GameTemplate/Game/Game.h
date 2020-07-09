@@ -34,11 +34,11 @@ private:
 	//D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
 	//Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。
 	//CVector3 m_sposition = { 0.0,0.0,5.0 };			//座標。
-	//CQuaternion m_rotation = CQuaternion::Identity();			//!<回転。
+	CQuaternion m_rotation = CQuaternion::Identity();			//!<回転。
 	//CVector3 m_scale = CVector3::One();			//拡大率。
 	//CVector2 m_pivot = Sprite::DEFAULT_PIVOT;	//ピボット。
 	//prefab::FontRender* fr;
-	Skeleton m_skeleton;		//スケルトン。
+	//Skeleton m_skeleton;		//スケルトン。
 	Animation m_animation;								//アニメーション。
 	AnimationClip m_animClip[1];				//アニメーションクリップ。
 };
