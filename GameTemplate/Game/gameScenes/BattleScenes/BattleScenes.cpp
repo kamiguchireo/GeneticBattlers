@@ -27,7 +27,7 @@ bool BattleScenes::Start()
 	m_netScenes = NetScenes::GetInstance();
 
 	//レベル。
-	m_level.Init(L"Assets/level/testStage.tkl",[&](LevelObjectData& objData) {
+	m_level.Init(L"Assets/level/BattleStage.tkl",[&](LevelObjectData& objData) {
 		if (wcscmp(objData.name, L"testGround") == 0)
 		{
 			m_model.Init(L"Assets/modelData/testGround.cmo");
@@ -40,7 +40,61 @@ bool BattleScenes::Start()
 			);
 			return true;
 		}
-		if (wcscmp(objData.name, L"testModel") == 0)
+		if (wcscmp(objData.name, L"EAttacker") == 0)
+		{
+			MonsterTeam1* monster = NewGO<MonsterTeam1>(0);
+			Status hoge;
+			hoge.HP = rand() % 50 + 100;
+			hoge.ATK = rand() % 10 + 10;
+			hoge.DEF = rand() % 10 + 10;
+			hoge.MAT = rand() % 10 + 10;
+			hoge.MDF = rand() % 10 + 10;
+			hoge.DEX = rand() % 10 + 10;
+			monster->SetStatus(hoge);
+			monster->SetPosition(objData.position);
+			monster->SetRotation(objData.rotation);
+			if (m_netScenes == nullptr){		//ネット通信でなければ。
+				monster->Init("aaa");
+			}
+			else {		//通信しているなら。
+				auto& gi = monster->GetGIManager();
+				gi.Init(m_netScenes->GetAttakerData());
+			}
+			m_battleManager.PushBackEnemys(monster);
+
+			CVector3 uipos = { objData.position.x / -2.5f - 50.0f,300.0f,0.0f };
+			monster->SetUIPos(uipos);
+
+			return true;
+		}
+		if (wcscmp(objData.name, L"EBuff") == 0)
+		{
+			MonsterTeam1* monster = NewGO<MonsterTeam1>(0);
+			Status hoge;
+			hoge.HP = rand() % 50 + 100;
+			hoge.ATK = rand() % 10 + 10;
+			hoge.DEF = rand() % 10 + 10;
+			hoge.MAT = rand() % 10 + 10;
+			hoge.MDF = rand() % 10 + 10;
+			hoge.DEX = rand() % 10 + 10;
+			monster->SetStatus(hoge);
+			monster->SetPosition(objData.position);
+			monster->SetRotation(objData.rotation);
+			if (m_netScenes == nullptr){		//ネット通信でなければ。
+				monster->Init("aaa");
+			}
+			else {		//通信しているなら。
+				auto& gi = monster->GetGIManager();
+				gi.Init(m_netScenes->GetSupporterData());
+			}
+			m_battleManager.PushBackEnemys(monster);
+
+			CVector3 uipos = { objData.position.x / -2.5f - 50.0f,300.0f,0.0f };
+			monster->SetUIPos(uipos);
+
+			return true;
+		}
+		if (wcscmp(objData.name, L"EHealer") == 0)
 		{
 			MonsterTeam1* monster = NewGO<MonsterTeam1>(0);
 			Status hoge;
