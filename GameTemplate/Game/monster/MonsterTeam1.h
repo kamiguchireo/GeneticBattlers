@@ -29,8 +29,7 @@ public:
 private:
 	const char* GetDefaultDataPath()
 	{
-		//return "Assets/AIData/HealerDefault.bin";
-		return "Assets/AIData/Healer.bin";		//仮置き行動。
+		return "Assets/AIData/EnemyData.bin";		//ネットではないときのAI。
 	}
 
 	//行動の状態遷移の列挙。
