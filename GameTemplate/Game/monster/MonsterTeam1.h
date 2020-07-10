@@ -14,12 +14,12 @@ public:
 		DeleteGO("sLog");
 		return true; 
 	};
-	//AIデータを読み込みたい。
-	void Init(const char* filePath)override 
-	{
-		//デフォルトのデータのファイルを読み込む。
-		m_GIData.LoadDefault(GetDefaultDataPath());
-	};
+	////AIデータを読み込みたい。
+	//void Init(const char* filePath)override 
+	//{
+	//	//デフォルトのデータのファイルを読み込む。
+	//	m_GIData.LoadDefault(GetDefaultDataPath());
+	//};
 
 	void SetUIPos(const CVector3& pos)
 	{
@@ -29,7 +29,7 @@ public:
 private:
 	const char* GetDefaultDataPath()
 	{
-		return "Assets/AIData/EnemyData.bin";		//ネットではないときのAI。
+		return "Assets/AIData/DefaultData/EnemyData.bin";		//ネットではないときのAI。
 	}
 
 	//行動の状態遷移の列挙。

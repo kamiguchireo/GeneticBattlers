@@ -42,7 +42,7 @@ bool BattleScenes::Start()
 		}
 		if (wcscmp(objData.name, L"EAttacker") == 0)
 		{
-			MonsterTeam1* monster = NewGO<MonsterTeam1>(0);
+			MonsterBase* monster = NewGO<MonsterTeam1>(0);
 			Status hoge;
 			hoge.HP = rand() % 50 + 100;
 			hoge.ATK = rand() % 10 + 10;
@@ -54,7 +54,7 @@ bool BattleScenes::Start()
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
 			if (m_netScenes == nullptr){		//ネット通信でなければ。
-				monster->Init("aaa");
+				monster->Init("Assets/AIData/DefaultData/AttackerDefault.bin");
 			}
 			else {		//通信しているなら。
 				auto& gi = monster->GetGIManager();
@@ -69,7 +69,7 @@ bool BattleScenes::Start()
 		}
 		if (wcscmp(objData.name, L"EBuff") == 0)
 		{
-			MonsterTeam1* monster = NewGO<MonsterTeam1>(0);
+			MonsterBase* monster = NewGO<MonsterTeam1>(0);
 			Status hoge;
 			hoge.HP = rand() % 50 + 100;
 			hoge.ATK = rand() % 10 + 10;
@@ -81,7 +81,7 @@ bool BattleScenes::Start()
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
 			if (m_netScenes == nullptr){		//ネット通信でなければ。
-				monster->Init("aaa");
+				monster->Init("Assets/AIData/DefaultData/SupporterDefault.bin");
 			}
 			else {		//通信しているなら。
 				auto& gi = monster->GetGIManager();
@@ -96,7 +96,7 @@ bool BattleScenes::Start()
 		}
 		if (wcscmp(objData.name, L"EHealer") == 0)
 		{
-			MonsterTeam1* monster = NewGO<MonsterTeam1>(0);
+			MonsterBase* monster = NewGO<MonsterTeam1>(0);
 			Status hoge;
 			hoge.HP = rand() % 50 + 100;
 			hoge.ATK = rand() % 10 + 10;
@@ -108,7 +108,7 @@ bool BattleScenes::Start()
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
 			if (m_netScenes == nullptr){		//ネット通信でなければ。
-				monster->Init("aaa");
+				monster->Init("Assets/AIData/DefaultData/HealerDefault.bin");
 			}
 			else {		//通信しているなら。
 				auto& gi = monster->GetGIManager();

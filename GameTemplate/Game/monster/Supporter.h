@@ -11,7 +11,7 @@ public:
 private:
 	const char* GetDefaultDataPath() 
 	{
-		return "Assets/AIData/SupporterDefault.bin";
+		return "Assets/AIData/DefaultData/SupporterDefault.bin";
 	}
 	//const char m_filePath[] = "Assets/AIData/SupporterDefault.bin";
 };
