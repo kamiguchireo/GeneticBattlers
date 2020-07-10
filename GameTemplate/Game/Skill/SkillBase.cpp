@@ -23,12 +23,12 @@ bool SkillBase::Start()
 	return true;
 }
 
-void SkillBase::InitSkill(const wchar_t * name, float power, float time, float acc, int no)
+void SkillBase::InitSkill(const wchar_t * name, float power, float time, float hitRate, int no)
 {
 	SetSkillName(name);
 	SetSkillPower(power);
 	SetCoolTime(time);
-	SetAccuracy(acc);
+	SetAccuracy(hitRate);
 	SetSkillNo(no);
 }
 

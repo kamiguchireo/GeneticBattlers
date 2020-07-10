@@ -28,13 +28,13 @@ public:
 	wchar_t*		name	!<スキルの名前。
 	float		power	!<スキルの威力。
 	float		time	!<クールタイム。
-	float		acc		!<スキルの命中率。
+	float		hitRate	!<スキルの命中率。
 	int			no		!<スキル番号。
 	*/
 	void InitSkill(const wchar_t* name,
 		float power,
-		float time,
-		float acc,
+		float time, 
+		float hitRate,
 		int no
 	);
 	//使用者のポインタをセット。

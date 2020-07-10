@@ -263,6 +263,9 @@
       <Filter>gameScenes\NetScenes</Filter>
     </ClCompile>
     <ClCompile Include="Skill\SkillLog.cpp" />
+    <ClCompile Include="SkillDataLoad.cpp">
+      <Filter>skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -463,6 +466,9 @@
       <Filter>gameScenes\NetScenes</Filter>
     </ClInclude>
     <ClInclude Include="Skill\SkillLog.h" />
+    <ClInclude Include="SkillDataLoad.h">
+      <Filter>skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -477,6 +483,7 @@
     <MeshContentTask Include="Assets\modelData\EngineGround.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\DesertDragon.FBX" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\Bad.png">

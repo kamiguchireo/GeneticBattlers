@@ -23,21 +23,21 @@ SkillList::~SkillList()
 	m_instance = nullptr;
 }
 
-SkillBase * SkillList::GetSkillData(int table, int no)
+SkillBase * SkillList::NewSkillData(int table, int no)
 {
 	SkillBase* useSkill = nullptr;
 	switch (table)
 	{
 	case 0:
-		useSkill = GetSkillAttack(no);
+		useSkill = NewSkillAttack(no);
 		break;
 
 	case 1:
-		useSkill = GetSkillHeal(no);
+		useSkill = NewSkillHeal(no);
 		break;
 
 	case 2:
-		useSkill = GetSkillBuff(no);
+		useSkill = NewSkillBuff(no);
 		break;
 
 	default:
@@ -46,7 +46,7 @@ SkillBase * SkillList::GetSkillData(int table, int no)
 	return useSkill;
 }
 
-SkillBase * SkillList::GetSkillAttack(int no)
+SkillBase * SkillList::NewSkillAttack(int no)
 {
 	auto* attackSkill = NewGO<SkillAttack>(0);
 	switch (no)
@@ -67,7 +67,7 @@ SkillBase * SkillList::GetSkillAttack(int no)
 	return attackSkill;
 }
 
-SkillBase * SkillList::GetSkillHeal(int no)
+SkillBase * SkillList::NewSkillHeal(int no)
 {
 	auto* healSkill = NewGO<SkillHeal>(0);
 	switch (no)
@@ -90,7 +90,7 @@ SkillBase * SkillList::GetSkillHeal(int no)
 	return healSkill;
 }
 
-SkillBase * SkillList::GetSkillBuff(int no)
+SkillBase * SkillList::NewSkillBuff(int no)
 {
 	auto* buffSkill = NewGO<SkillBuff>(0);
 	switch (no)
@@ -114,7 +114,7 @@ SkillBase * SkillList::GetSkillBuff(int no)
 	return buffSkill;
 }
 
-SkillBase * SkillList::GetSkillMagic(int no)
+SkillBase * SkillList::NewSkillMagic(int no)
 {
 	return nullptr;
 }
