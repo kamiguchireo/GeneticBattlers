@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "SkillBase.h"
 #include "SkillLog.h"
+#include "SkillDataLoad.h"
 
 SkillBase::SkillBase()
 {
@@ -30,6 +31,15 @@ void SkillBase::InitSkill(const wchar_t * name, float power, float time, float h
 	SetCoolTime(time);
 	SetAccuracy(hitRate);
 	SetSkillNo(no);
+}
+
+void SkillBase::InitSkill(SkillData data)
+{
+	SetSkillName(data.Name.c_str());
+	SetSkillPower(data.Power);
+	SetCoolTime(data.CoolTime);
+	SetAccuracy(data.HitRate);
+	SetSkillNo(data.SkillNo);
 }
 
 int SkillBase::DamageCalcuration()

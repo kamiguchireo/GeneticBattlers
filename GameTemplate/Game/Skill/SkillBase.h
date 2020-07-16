@@ -2,6 +2,7 @@
 #include "monster/MonsterBase.h"
 
 class SkillLog;
+struct SkillData;
 
 //enum Elements {
 //	en_elements_Fire,		//!<炎属性。
@@ -37,6 +38,7 @@ public:
 		float hitRate,
 		int no
 	);
+	void InitSkill(SkillData data);
 	//使用者のポインタをセット。
 	void SetUser(MonsterBase* user)
 	{

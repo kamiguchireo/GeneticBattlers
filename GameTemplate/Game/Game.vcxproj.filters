@@ -263,7 +263,7 @@
       <Filter>gameScenes\NetScenes</Filter>
     </ClCompile>
     <ClCompile Include="Skill\SkillLog.cpp" />
-    <ClCompile Include="SkillDataLoad.cpp">
+    <ClCompile Include="Skill\SkillDataLoad.cpp">
       <Filter>skill</Filter>
     </ClCompile>
   </ItemGroup>
@@ -466,7 +466,7 @@
       <Filter>gameScenes\NetScenes</Filter>
     </ClInclude>
     <ClInclude Include="Skill\SkillLog.h" />
-    <ClInclude Include="SkillDataLoad.h">
+    <ClInclude Include="Skill\SkillDataLoad.h">
       <Filter>skill</Filter>
     </ClInclude>
   </ItemGroup>

@@ -102,7 +102,7 @@
     <ClCompile Include="gameScenes\BattleScenes\BattleManager.cpp" />
     <ClCompile Include="gameScenes\NetScenes\NetSceneText.cpp" />
     <ClCompile Include="monster\parameter\GIManager.cpp" />
-    <ClCompile Include="SkillDataLoad.cpp" />
+    <ClCompile Include="Skill\SkillDataLoad.cpp" />
     <ClCompile Include="Skill\SkillBuff.cpp" />
     <ClCompile Include="Skill\SkillHeal.cpp" />
     <ClCompile Include="Skill\SkillLog.cpp" />
@@ -186,7 +186,7 @@
     <ClInclude Include="gameScenes\BattleScenes\BattleManager.h" />
     <ClInclude Include="gameScenes\NetScenes\NetSceneText.h" />
     <ClInclude Include="monster\parameter\GIManager.h" />
-    <ClInclude Include="SkillDataLoad.h" />
+    <ClInclude Include="Skill\SkillDataLoad.h" />
     <ClInclude Include="Skill\SkillBuff.h" />
     <ClInclude Include="Skill\SkillHeal.h" />
     <ClInclude Include="Skill\SkillLog.h" />
