@@ -28,9 +28,47 @@ SkillDataLoad::~SkillDataLoad()
 
 bool SkillDataLoad::Start()
 {
-
+	LoadData("Assets/SkillData/AttackSkill.csv",en_Attack);
+	LoadData("Assets/SkillData/HealSkill.csv", en_Heal);
+	LoadData("Assets/SkillData/BuffSkill.csv", en_Buff);
 
 	return true;
+}
+
+SkillData SkillDataLoad::GetSkillAttack(int No)
+{
+	if (No < m_attackSkillList.size())
+	{
+		return m_attackSkillList[No];
+	}
+	SkillData errorData;
+	errorData.Name = L"エラースキル";
+
+	return errorData;
+}
+
+SkillData SkillDataLoad::GetSkillHeal(int No)
+{
+	if (No < m_healSkillList.size())
+	{
+		return m_healSkillList[No];
+	}
+	SkillData errorData;
+	errorData.Name = L"エラースキル";
+
+	return errorData;
+}
+
+SkillData SkillDataLoad::GetSkillBuff(int No)
+{
+	if (No < m_buffSkillList.size())
+	{
+		return m_buffSkillList[No];
+	}
+	SkillData errorData;
+	errorData.Name = L"エラースキル";
+
+	return errorData;
 }
 
 SkillData SkillDataLoad::GetSkillData(int No)
@@ -51,6 +89,7 @@ SkillData SkillDataLoad::GetSkillData(int No)
 		retData = m_buffSkillList[skillNo];
 		break;
 	default:
+		retData.Name = L"エラースキル";
 		break;
 	}
 	return retData;
@@ -76,8 +115,15 @@ void SkillDataLoad::LoadData(const char * FilePath, EnSkillType skillType)
 	}
 
 	FILE* fp = fopen(FilePath, "r");
-	if (fp == nullptr) return;
-
+	if (fp == nullptr) {
+		//読み込み失敗。
+#ifdef _DEBUG
+		char message[256];
+		sprintf(message, "binデータの読み込みに失敗しました。%s\n", FilePath);
+		OutputDebugStringA(message);
+#endif		
+		return;
+	}
 	char text[256];
 	while (fgets(text, 256, fp) != NULL)
 	{
@@ -93,10 +139,15 @@ void SkillDataLoad::LoadData(const char * FilePath, EnSkillType skillType)
 			&loadData.SkillNo,		//スキル番号
 			nextNoBuffer			//次のスキル番号。
 		);
-		//スキル名をワイド型文字列にする。
-		wchar_t buffer[64];
-		mbstowcs(buffer, skillName, sizeof(skillName));
-		loadData.Name = buffer;
+		//スキル名をワイド型文字列にする。思ってたよりもメンドイ処理だなぁ
+		int in_length = strlen(skillName);
+		int out_length = MultiByteToWideChar(CP_ACP, 0 , skillName, in_length, 0, 0);  
+		std::vector<wchar_t> buffer(out_length);
+		if (out_length) {
+			MultiByteToWideChar(CP_ACP, 0, skillName, in_length, &buffer[0], out_length);
+		}
+		std::wstring result(buffer.begin(), buffer.end());
+		loadData.Name = result;
 
 		//次のスキル番号を登録分だけ読み込む(正直よくない)
 		int nextNo[MAX_NEXT_SIZE] = { NOSKILL,NOSKILL,NOSKILL };

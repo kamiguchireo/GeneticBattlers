@@ -25,6 +25,10 @@ public:
 		return m_instance;
 	}
 	//スキル情報の取得。
+	SkillData GetSkillAttack(int No);
+	SkillData GetSkillHeal(int No);
+	SkillData GetSkillBuff(int No);
+	//番号からスキル情報を取得。
 	SkillData GetSkillData(int No);
 
 private:

@@ -2,6 +2,8 @@
 #include "Skill/SkillBase.h"
 #include "monster/MonsterBase.h"
 
+class SkillDataLoad;
+
 class SkillList
 {
 public:
@@ -31,5 +33,5 @@ private:
 	SkillBase* NewSkillBuff(int no);
 	SkillBase* NewSkillMagic(int no);
 	static SkillList* m_instance;
-
+	SkillDataLoad* m_skillData = nullptr;
 };
