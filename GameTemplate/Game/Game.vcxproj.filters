@@ -531,6 +531,12 @@
     <ImageContentTask Include="Assets\sprite\preset\fade.png">
       <Filter>Assets\sprite\preset</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\CPUBattle.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\MultiBattle.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />

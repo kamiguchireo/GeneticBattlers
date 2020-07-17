@@ -319,6 +319,10 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\BackWindow.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\CPUBattle.png" />
+    <ImageContentTask Include="Assets\sprite\MultiBattle.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />
