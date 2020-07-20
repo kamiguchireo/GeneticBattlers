@@ -1,10 +1,11 @@
 #pragma once
 #include "SourceFile/graphic/RenderTarget.h"
 #include "GaussianBlur.h"
+#include "SourceFile/Noncopyable.h"
 
 class PostEffect;
 
-class Bloom
+class Bloom :Engine::Noncopyable
 {
 public:
 	Bloom();

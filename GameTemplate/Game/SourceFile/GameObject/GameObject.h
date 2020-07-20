@@ -1,10 +1,11 @@
 #pragma once
 #include "SourceFile/graphic/RenderContext.h"
+#include "SourceFile/Noncopyable.h"
 
 namespace Engine {
 	typedef unsigned char	GameObjectPrio;
 
-	class IGameObject
+	class IGameObject:Engine::Noncopyable
 	{
 	public:
 		IGameObject():

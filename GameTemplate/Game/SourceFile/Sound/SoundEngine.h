@@ -2,6 +2,7 @@
 #include "WaveFile.h"
 #include "SourceFile/Sound/CWaveFileBank.h"
 #include "SourceFile/Sound/CSoundSource.h"
+#include "SourceFile/Noncopyable.h"
 
 
 
@@ -9,7 +10,7 @@ namespace Engine {
 	class CWaveFile;
 	class CSoundSource;
 
-	class CSoundEngine
+	class CSoundEngine:Engine::Noncopyable
 	{
 	public:
 		//コンストラクタ

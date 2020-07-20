@@ -1,7 +1,8 @@
 #pragma once
+#include "SourceFile/Noncopyable.h"
 
 namespace Engine {
-	class ConstantBufferGPU
+	class ConstantBufferGPU:Engine::Noncopyable
 	{
 	public:
 		ConstantBufferGPU();

@@ -4,10 +4,11 @@
 #include "ShaderResourceView.h"
 #include "GPUBuffer/IndexBuffer.h"
 #include "graphics/Shader.h"
+#include "SourceFile/Noncopyable.h"
 
 namespace Engine {
 
-	class RenderContext
+	class RenderContext:Engine::Noncopyable
 	{
 	public:
 		RenderContext() {}

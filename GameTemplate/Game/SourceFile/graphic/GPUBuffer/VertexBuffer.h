@@ -1,8 +1,9 @@
 #pragma once
+#include "SourceFile/Noncopyable.h"
 
 namespace Engine {
 	//頂点バッファ
-	class VertexBuffer
+	class VertexBuffer:Engine::Noncopyable
 	{
 	public:
 		VertexBuffer();

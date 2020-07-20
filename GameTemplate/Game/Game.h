@@ -30,6 +30,8 @@ private:
 	CVector3 m_ligPos = { 0.0f,300.0f,0.0f };
 	CVector3 m_ligDir = { 1.0f,0.0f,0.0f };
 	CVector3 m_position = CVector3::Zero();
+	CVector3 m_pos2 = { 40.0f,0.0f,0.0f };
+
 	//RenderTarget m_mainRenderTarget;		//メインレンダリングターゲット。
 	//D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
 	//Sprite m_copyMainRtToFrameBufferSprite;			//メインレンダリングターゲットに描かれた絵をフレームバッファにコピーするためのスプライト。

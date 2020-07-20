@@ -5,6 +5,7 @@
 
 #include <map>
 #include <memory>
+#include "SourceFile/Noncopyable.h"
 
 namespace Engine {
 	class CWaveFile;
@@ -17,7 +18,7 @@ namespace Engine {
 		* 一度ロードされた波形データをバンクに登録することが出来ます。
 		* 登録された波形データは再読み込みを行う必要がなく、バンクから再利用することが出来ます。
 		*/
-	class CWaveFileBank {
+	class CWaveFileBank:Engine::Noncopyable {
 	public:
 		CWaveFileBank();
 		~CWaveFileBank();

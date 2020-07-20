@@ -1,8 +1,9 @@
 #pragma once
+#include "SourceFile/Noncopyable.h"
 
 namespace Engine
 {
-	class Font
+	class Font:Engine::Noncopyable
 	{
 	public:
 		Font();

@@ -1,9 +1,10 @@
 #pragma once
 #include "SourceFile/graphic/RenderTarget.h"
+#include "SourceFile/Noncopyable.h"
 
 class SkinModel;
 namespace Engine {
-	class ShadowMap
+	class ShadowMap:Engine::Noncopyable
 	{
 	public:
 		ShadowMap();

@@ -1,4 +1,6 @@
 //クラスのコピーを禁止したい場合にこれを継承してください
+#ifndef _NONCOPYABLE_H_
+#define _NONCOPYABLE_H_
 
 namespace Engine {
 	struct Noncopyable {
@@ -7,3 +9,5 @@ namespace Engine {
 		Noncopyable&operator = (const Noncopyable &) = delete;
 	};
 }
+
+#endif

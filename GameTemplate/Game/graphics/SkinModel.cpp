@@ -40,6 +40,7 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 	//CQuaternion direction = { 0.707,-0.707,0.0,1.0 };
 	//SetLightDir(direction);
 }
+
 void SkinModel::InitSkeleton(const wchar_t* filePath)
 {
 	//スケルトンのデータを読み込む。

@@ -2,6 +2,7 @@
 
 #include "Skeleton.h"
 #include "SourceFile/Light/DirectionLight.h"
+#include "SourceFile/Noncopyable.h"
 
 /*!
 *@brief	FBXの上方向。
@@ -13,7 +14,7 @@ enum EnFbxUpAxis {
 /*!
 *@brief	スキンモデルクラス。
 */
-class SkinModel
+class SkinModel:Engine::Noncopyable
 {
 public:
 	CMatrix &GetWorldMatrix()
@@ -154,7 +155,6 @@ private:
 	*/
 	void InitSkeleton(const wchar_t* filePath);
 	
-
 private:
 	//定数バッファ。
 	struct SVSConstantBuffer {
