@@ -2,7 +2,9 @@
 #include "Skill/SkillBase.h"
 #include "monster/MonsterBase.h"
 
-class SkillList : public IGameObject
+class SkillDataLoad;
+
+class SkillList
 {
 public:
 	SkillList();
@@ -18,18 +20,18 @@ public:
 	/// </param>
 	/// <param name="no">スキルナンバー</param>
 	/// <returns>スキルのデータ</returns>
-	SkillBase* GetSkillData(int table, int no);
+	SkillBase* NewSkillData(int table, int no);
 
-	SkillBase* GetSkillAttack(int no);
-	SkillBase* GetSkillHeal(int no);
-	SkillBase* GetSkillBuff(int no);
-	SkillBase* GetSkillMagic(int no);
 
 	static SkillList* GetInstance()
 	{
 		return m_instance;
 	}
 private:
+	SkillBase* NewSkillAttack(int no);
+	SkillBase* NewSkillHeal(int no);
+	SkillBase* NewSkillBuff(int no);
+	SkillBase* NewSkillMagic(int no);
 	static SkillList* m_instance;
-
+	SkillDataLoad* m_skillData = nullptr;
 };

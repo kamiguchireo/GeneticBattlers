@@ -8,7 +8,7 @@ void SkillBuff::SkillSetting()
 	skillEffect->Play(L"Assets/effect/chant1.efk");
 	CVector3 effectPos = GetEffectPos(en_PosUser);
 	skillEffect->SetPosition(effectPos);
-	skillEffect->SetScale(CVector3::One() * 50.0f);
+	//skillEffect->SetScale(CVector3::One() * 50.0f);
 
 	//アニメーションの再生。
 	m_user->AnimationMagic();

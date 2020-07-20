@@ -29,11 +29,11 @@ bool TitleScene::Start()
 
 	//メニューのスプライト。
 	m_menuSprite[enMenu_Single] = NewGO<prefab::SpriteRender>(2);	//一人プレイ。
-	m_menuSprite[enMenu_Single]->Init(L"Assets/sprite/Select.dds", 400, 100);
+	m_menuSprite[enMenu_Single]->Init(L"Assets/sprite/CPUBattle.dds", 400, 100);
 	m_menuSprite[enMenu_Single]->SetPosition({ 0.0f,-100.0f,4.0f });
 
 	m_menuSprite[enMenu_Net] = NewGO<prefab::SpriteRender>(2);		//通信プレイ。
-	m_menuSprite[enMenu_Net]->Init(L"Assets/sprite/Select.dds", 400, 100);
+	m_menuSprite[enMenu_Net]->Init(L"Assets/sprite/MultiBattle.dds", 400, 100);
 	m_menuSprite[enMenu_Net]->SetPosition({ 0.0f,-200.0f,4.0f });
 
 	//メニューの乗算カラー初期化。

@@ -191,7 +191,7 @@ public:
 	/// binファイルからデータを読み込む。
 	/// </summary>
 	/// <param name="filePath">ファイルパス。</param>
-	virtual void Init(const char* filePath);
+	void Init(const char* filePath);
 
 protected:
 	/// <summary>

@@ -90,7 +90,7 @@ void BattleManager::MonsterAction()
 		//スキルの取得。
 		int skillTable = (int)(skill / 100);
 		int No = skill % 100;
-		m_usingSkill = SkillList::GetInstance()->GetSkillData(skillTable, No);
+		m_usingSkill = SkillList::GetInstance()->NewSkillData(skillTable, No);
 		//使用者、ターゲットの設定。
 		m_usingSkill->SetUser(m_monsterACT.actMonster);
 		if (m_monsterACT.isEnemy) {

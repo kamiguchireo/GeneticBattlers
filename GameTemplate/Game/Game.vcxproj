@@ -102,6 +102,7 @@
     <ClCompile Include="gameScenes\BattleScenes\BattleManager.cpp" />
     <ClCompile Include="gameScenes\NetScenes\NetSceneText.cpp" />
     <ClCompile Include="monster\parameter\GIManager.cpp" />
+    <ClCompile Include="Skill\SkillDataLoad.cpp" />
     <ClCompile Include="Skill\SkillBuff.cpp" />
     <ClCompile Include="Skill\SkillHeal.cpp" />
     <ClCompile Include="Skill\SkillLog.cpp" />
@@ -185,6 +186,7 @@
     <ClInclude Include="gameScenes\BattleScenes\BattleManager.h" />
     <ClInclude Include="gameScenes\NetScenes\NetSceneText.h" />
     <ClInclude Include="monster\parameter\GIManager.h" />
+    <ClInclude Include="Skill\SkillDataLoad.h" />
     <ClInclude Include="Skill\SkillBuff.h" />
     <ClInclude Include="Skill\SkillHeal.h" />
     <ClInclude Include="Skill\SkillLog.h" />
@@ -317,6 +319,10 @@
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\BackWindow.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\CPUBattle.png" />
+    <ImageContentTask Include="Assets\sprite\MultiBattle.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

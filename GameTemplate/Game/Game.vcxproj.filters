@@ -263,6 +263,9 @@
       <Filter>gameScenes\NetScenes</Filter>
     </ClCompile>
     <ClCompile Include="Skill\SkillLog.cpp" />
+    <ClCompile Include="Skill\SkillDataLoad.cpp">
+      <Filter>skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -463,7 +466,9 @@
       <Filter>gameScenes\NetScenes</Filter>
     </ClInclude>
     <ClInclude Include="Skill\SkillLog.h" />
-    <ClInclude Include="SourceFile\Noncopyable.h" />
+    <ClInclude Include="Skill\SkillDataLoad.h">
+      <Filter>skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -525,6 +530,12 @@
     </ImageContentTask>
     <ImageContentTask Include="Assets\sprite\preset\fade.png">
       <Filter>Assets\sprite\preset</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\CPUBattle.png">
+      <Filter>Assets\sprite</Filter>
+    </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\MultiBattle.png">
+      <Filter>Assets\sprite</Filter>
     </ImageContentTask>
   </ItemGroup>
   <ItemGroup>

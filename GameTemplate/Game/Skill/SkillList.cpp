@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SkillList.h"
+#include "SkillDataLoad.h"
 #include "SkillAttack.h"
 #include "SkillHeal.h"
 #include "SkillBuff.h"
@@ -16,28 +17,32 @@ SkillList::SkillList()
 	}
 
 	m_instance = this;
+
+	m_skillData = NewGO<SkillDataLoad>(0);
 }
 
 SkillList::~SkillList()
 {
 	m_instance = nullptr;
+
+	DeleteGO(m_skillData);
 }
 
-SkillBase * SkillList::GetSkillData(int table, int no)
+SkillBase * SkillList::NewSkillData(int table, int no)
 {
 	SkillBase* useSkill = nullptr;
 	switch (table)
 	{
 	case 0:
-		useSkill = GetSkillAttack(no);
+		useSkill = NewSkillAttack(no);
 		break;
 
 	case 1:
-		useSkill = GetSkillHeal(no);
+		useSkill = NewSkillHeal(no);
 		break;
 
 	case 2:
-		useSkill = GetSkillBuff(no);
+		useSkill = NewSkillBuff(no);
 		break;
 
 	default:
@@ -46,17 +51,18 @@ SkillBase * SkillList::GetSkillData(int table, int no)
 	return useSkill;
 }
 
-SkillBase * SkillList::GetSkillAttack(int no)
+SkillBase * SkillList::NewSkillAttack(int no)
 {
 	auto* attackSkill = NewGO<SkillAttack>(0);
+	attackSkill->InitSkill(m_skillData->GetSkillAttack(no));
 	switch (no)
 	{
 	case 0:
-		attackSkill->InitSkill(L"通常攻撃", 1.0f, 30.0f, 0.95f, 0);
+		//attackSkill->InitSkill(L"通常攻撃", 1.0f, 30.0f, 0.95f, 0);
 		attackSkill->SetEffect(L"Assets/effect/test.efk",en_PosUser);
 		break;
 	case 1:
-		attackSkill->InitSkill(L"強攻撃", 1.8f, 50.0f, 0.85f, 1);
+		//attackSkill->InitSkill(L"強攻撃", 1.8f, 50.0f, 0.85f, 1);
 		attackSkill->SetEffect(L"Assets/effect/test.efk", en_PosUser);
 		break;
 	default:
@@ -67,18 +73,19 @@ SkillBase * SkillList::GetSkillAttack(int no)
 	return attackSkill;
 }
 
-SkillBase * SkillList::GetSkillHeal(int no)
+SkillBase * SkillList::NewSkillHeal(int no)
 {
 	auto* healSkill = NewGO<SkillHeal>(0);
+	healSkill->InitSkill(m_skillData->GetSkillHeal(no));
 	switch (no)
 	{
 	case 0:
-		healSkill->InitSkill(L"ヒール", 0.7f, 30.0f, 1.0f, 100);
+		//healSkill->InitSkill(L"ヒール", 0.7f, 30.0f, 1.0f, 100);
 		healSkill->SetEffect(L"Assets/effect/heal.efk",en_PosTarget);
 		break;
 
 	case 1:
-		healSkill->InitSkill(L"ハイヒール", 1.3f, 50.0f, 1.0f, 101);
+		//healSkill->InitSkill(L"ハイヒール", 1.3f, 50.0f, 1.0f, 101);
 		healSkill->SetEffect(L"Assets/effect/healS.efk",en_PosTarget);
 		break;
 
@@ -90,18 +97,19 @@ SkillBase * SkillList::GetSkillHeal(int no)
 	return healSkill;
 }
 
-SkillBase * SkillList::GetSkillBuff(int no)
+SkillBase * SkillList::NewSkillBuff(int no)
 {
 	auto* buffSkill = NewGO<SkillBuff>(0);
+	buffSkill->InitSkill(m_skillData->GetSkillBuff(no));
 	switch (no)
 	{
 	case 0:
-		buffSkill->InitSkill(L"スクルト", 2.0f, 50.0f, 1.0f, 200);
+		//buffSkill->InitSkill(L"スクルト", 2.0f, 50.0f, 1.0f, 200);
 		buffSkill->SetStatusBuff(en_buff_DEF);
 		break;
 
 	case 1:
-		buffSkill->InitSkill(L"スカラ", 1.5f, 60.0f, 1.0f, 201);
+		//buffSkill->InitSkill(L"スカラ", 1.5f, 60.0f, 1.0f, 201);
 		buffSkill->SetStatusBuff(en_buff_DEF);
 		buffSkill->SetIsWide(true);
 		break;
@@ -114,7 +122,7 @@ SkillBase * SkillList::GetSkillBuff(int no)
 	return buffSkill;
 }
 
-SkillBase * SkillList::GetSkillMagic(int no)
+SkillBase * SkillList::NewSkillMagic(int no)
 {
 	return nullptr;
 }
