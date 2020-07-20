@@ -49,11 +49,11 @@ public:
 	//*@param[in]		boneName	ボーンの名前。
 	//*@return	見つかったボーン。見つからなかった場合はnullptrを返します。
 	//*/
-	Bone* FindBone(const wchar_t* boneName)
-	{
-		int boneId = m_skeleton.FindBoneID(boneName);
-		return m_skeleton.GetBone(boneId);
-	}
+	//Bone* FindBone(const wchar_t* boneName)
+	//{
+	//	int boneId = m_skeleton.FindBoneID(boneName);
+	//	return m_skeleton.GetBone(boneId);
+	//}
 
 	/*!
 	*@brief	モデルを描画。

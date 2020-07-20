@@ -19,6 +19,7 @@ public:
 	*@brief	モデルデータを全開放。
 	*/
 	void Release();
+
 private:
 	//ファイルパスをキー、DirectXModelのインスタンスを値とするマップ。
 	//辞書みたいなものです。
@@ -26,6 +27,8 @@ private:
 		std::wstring,					//wstringがキー。 
 		std::unique_ptr<DirectX::Model>	//これが値。
 	> m_directXModelMap;
+
+	Skeleton sk;
 };
 
 //g_skinModelDataManagerのextern宣言。

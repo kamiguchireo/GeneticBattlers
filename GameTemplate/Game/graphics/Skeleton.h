@@ -2,12 +2,12 @@
  *@brief	スケルトン
  */
 #pragma once
-
+#include "SourceFile/Noncopyable.h"
 
 /*!
 *@brief	ボーン。
 */
-class Bone {
+class Bone :Engine::Noncopyable{
 public:
 	/*!
 	*@brief	コンストラクタ。
@@ -104,6 +104,7 @@ public:
 		return m_children;
 	}
 	
+
 	/*!
 	 *@brief	名前の取得。
 	 */
@@ -136,13 +137,39 @@ private:
 /*!
  *@brief	スケルトン。
  */
-class Skeleton  {
+class Skeleton:Engine::Noncopyable{
 public:
 	using OnPostProcessSkeletonUpdate = std::function<void()>;
 
 	Skeleton();
 	~Skeleton();
 	
+	//子供のボーン行列を取得
+	//ボーンの名前を引数に入れるとその子供すべてを追加した配列を返してきます
+	std::vector<Bone*>& GetChildBoneMat(const wchar_t* boneName)
+	{
+		for (int i = 0; i < (int)m_bones.size(); i++) {
+			if (wcscmp(m_bones[i]->GetName(), boneName) == 0) {
+				Bone* m_bone = m_bones[i];
+				SearchChildBone(m_bone);
+				return m_boneChild;
+			}
+		}
+		//見つからなかった。
+		//ボーンの名前があってるか確認してください
+		throw;
+	}
+
+	//あるボーンの子供すべてをm_boneChildの配列に追加しています
+	//エンジン内部で使用しています
+	void SearchChildBone(Bone*bone)
+	{
+		m_boneChild.push_back(bone);
+		for (int boneChildNum = 0; boneChildNum < bone->GetChildren().size(); boneChildNum++)
+		{
+			SearchChildBone(bone->GetChildren()[boneChildNum]);
+		}
+	}
 	/*!
 	 *@brief	ボーンのローカル行列を設定。
 	 *@param[in]	boneNo		ボーン番号
@@ -180,6 +207,7 @@ public:
 		//見つからなかった。
 		return -1;
 	}
+
 	/*!
 	*@brief	ボーンを取得。
 	*/
@@ -220,6 +248,7 @@ public:
 private:
 	
 	std::vector<Bone*>			m_bones;					//!<ボーンの配列。
+	std::vector<Bone*> m_boneChild;		//あるボーンとその子供の配列
 	std::vector<CMatrix>		m_boneMatrixs;				//!<ボーン行列。
 	ID3D11Buffer*				m_boneMatrixSB = nullptr;	//!<ボーン行列のストラクチャーバッファ。
 	ID3D11ShaderResourceView*	m_boneMatrixSRV = nullptr;	//!<ボーン行列のSRV。

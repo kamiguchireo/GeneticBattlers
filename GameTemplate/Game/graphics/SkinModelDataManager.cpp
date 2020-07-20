@@ -16,7 +16,9 @@ DirectX::Model* SkinModelDataManager::Load(const wchar_t* filePath, const Skelet
 		std::vector<int>& localBoneIDtoGlobalBoneIDTbl
 		) 
 	{
+
 		int globalBoneID = skeleton.FindBoneID(boneName);
+
 		if (globalBoneID == -1) {
 			//ƒ{[ƒ“‚ªŒ©‚Â‚©‚ç‚È‚©‚Á‚½B
 			return;

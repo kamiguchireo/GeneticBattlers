@@ -24,9 +24,10 @@ Game::Game()
 	g_camera3D.SetTarget({ 0.0f, 200.0f, 0.0f });
 	
 	//アニメーションクリップの読み込み。
-	//m_animClip[0].Load(L"Assets/animData/run.tka");
-	//m_animClip[0].SetLoopFlag(true);
-
+	m_animClip[0].Load(L"Assets/animData/idle.tka");
+	m_animClip[1].Load(L"Assets/animData/run.tka");
+	m_animClip[0].SetLoopFlag(true);
+	m_animClip[1].SetLoopFlag(true);
 }
 
 
@@ -63,17 +64,17 @@ bool Game::Start()
 	m_model.SetActiveDLFlag(0);
 	m_model.SetActiveRLFlag(1);
 	m_position = m_pos;
-	m_rotation.SetRotationDeg(CVector3::AxisX(), 90.0f);
+	m_rotation.SetRotationDeg(CVector3::AxisX(), -90.0f);
 
-	//bool result = m_skeleton.Load(L"Assets/modelData/unityChan.tks");
-	//if (result == false)
-	//{
-	//	throw;
-	//}
-	//m_skeleton.Update(m_model.GetWorldMatrix());
-
-	//m_animation.Init(m_model, m_animClip, 1);
-	//m_animation.Play(0);
+	bool result = m_skeleton.Load(L"Assets/modelData/unityChan.tks");
+	if (result == false)
+	{
+		throw;
+	}
+	m_skeleton.Update(m_model.GetWorldMatrix());
+	m_skeleton.GetChildBoneMat(L"Character1_Hips");
+	m_animation.Init(m_model, m_animClip, 1);
+	m_animation.Play(0);
 
 	////モデル2
 	//m_model2.Init(L"Assets/modelData/unityChan.cmo");
@@ -129,7 +130,7 @@ void Game::Update()
 	
 	
 	//m_skeleton.Update(m_model.GetWorldMatrix());
-	//m_animation.Update(1.0f / 30.0f);
+	m_animation.Update(1.0f / 30.0f);
 	//m_skeleton.SendBoneMatrixArrayToGPU();
 	
 	
@@ -138,11 +139,12 @@ void Game::Update()
 	if (GetAsyncKeyState('A'))
 	{
 		f += 0.01f;
+		m_position.y += 10.0f;
 		m_model.SetLightColor(f);
 		//m_shadowMap->SetMaxheight(500.0f);
 		//m_shadowMap->SetRange({ 400.0f,5000.0f,2000.0f });
 	}
-	m_shadowMap->Update({ 500.0f, 1000.0f, 0.0f },
+	m_shadowMap->Update({ 0.0f, 1000.0f, 0.0f },
 		{ 0.0f, 0.0f, 0.0f });
 	m_shadowMap->RegistShadowCaster(&m_model);
 	m_shadowMap->SendShadowRecieverParamToGpu();

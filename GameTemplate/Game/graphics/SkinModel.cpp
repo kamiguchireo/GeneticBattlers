@@ -29,8 +29,10 @@ void SkinModel::Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis)
 	//サンプラステートの初期化。
 	InitSamplerState();
 
+	//g_skinModelDataManager.SetSkeleton(m_skeleton);
 	//SkinModelDataManagerを使用してCMOファイルのロード。
 	m_modelDx = g_skinModelDataManager.Load(filePath, m_skeleton);
+
 
 	m_enFbxUpAxis = enFbxUpAxis;
 

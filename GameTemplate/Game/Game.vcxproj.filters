@@ -463,6 +463,7 @@
       <Filter>gameScenes\NetScenes</Filter>
     </ClInclude>
     <ClInclude Include="Skill\SkillLog.h" />
+    <ClInclude Include="SourceFile\Noncopyable.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
@@ -477,6 +478,7 @@
     <MeshContentTask Include="Assets\modelData\EngineGround.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\DesertDragon.FBX" />
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\Bad.png">

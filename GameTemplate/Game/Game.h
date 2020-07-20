@@ -38,8 +38,10 @@ private:
 	//CVector3 m_scale = CVector3::One();			//拡大率。
 	//CVector2 m_pivot = Sprite::DEFAULT_PIVOT;	//ピボット。
 	//prefab::FontRender* fr;
-	//Skeleton m_skeleton;		//スケルトン。
-	Animation m_animation;								//アニメーション。
-	AnimationClip m_animClip[1];				//アニメーションクリップ。
+	Skeleton m_skeleton;		//スケルトン。
+	Skeleton m_skeleton2;			//ブレンディング用スケルトン
+	Animation m_animation;				//アニメーション。
+	Animation m_animation2;				//アニメーションブレンディング用
+	AnimationClip m_animClip[2];				//アニメーションクリップ。
 };
 
