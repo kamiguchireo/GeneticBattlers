@@ -16,6 +16,10 @@ void SkillBuff::SkillSetting()
 
 void SkillBuff::Update()
 {
+	if (m_target->IsDead()) {
+		DeleteGO(this);
+		return;
+	}
 	if (!skillEffect->IsPlay()) {
 		//Œø‰Ê’lB
 		int res = 0;

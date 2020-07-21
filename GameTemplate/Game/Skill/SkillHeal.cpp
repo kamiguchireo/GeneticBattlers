@@ -16,6 +16,10 @@ void SkillHeal::SkillSetting()
 
 void SkillHeal::Update()
 {
+	if (m_target->IsDead()) {
+		DeleteGO(this);
+		return;
+	}
 	//if (m_healEffect == nullptr
 	//	&& !skillEffect->IsPlay()) {
 	//	//エフェクトの再生。
