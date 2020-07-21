@@ -1,9 +1,10 @@
 #pragma once
 #include "RenderTarget.h"
 #include "SourceFile/graphic/GPUBuffer/ConstantBufferGPU.h"
+#include "SourceFile/Noncopyable.h"
 
 class PostEffect;
-class GaussianBlur
+class GaussianBlur:Engine::Noncopyable
 {
 public:
 	GaussianBlur();

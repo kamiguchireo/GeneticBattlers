@@ -3,6 +3,7 @@
  */
 
 #pragma once
+#include "SourceFile/Noncopyable.h"
 
 #include <thread>
 
@@ -15,7 +16,7 @@ namespace Engine {
 		* ReadAsyncを使用した場合はCWaveFile::IsReadEndを使用して同期をとって下さい。</br>
 		*/
 
-	class CWaveFile {
+	class CWaveFile:Engine::Noncopyable {
 	public:
 		CWaveFile();
 		~CWaveFile();

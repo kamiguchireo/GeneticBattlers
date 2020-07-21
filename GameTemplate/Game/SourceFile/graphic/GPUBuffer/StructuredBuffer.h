@@ -1,9 +1,10 @@
 #pragma once
 #include "ShaderResourceView.h"
+#include "SourceFile/Noncopyable.h"
 
 namespace Engine {
 	//テクスチャやストラクチャバッファなど、シェーダーで使用するリソースで使用するビュー
-	class CStructuredBuffer
+	class CStructuredBuffer:Engine::Noncopyable
 	{
 	public:
 		CStructuredBuffer();

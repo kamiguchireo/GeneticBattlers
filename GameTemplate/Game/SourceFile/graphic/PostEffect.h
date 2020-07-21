@@ -1,7 +1,8 @@
 #pragma once
 #include "SourceFile/graphic/Bloom.h"
+#include "SourceFile/Noncopyable.h"
 
-class PostEffect
+class PostEffect :Engine::Noncopyable
 {
 public:
 	PostEffect();

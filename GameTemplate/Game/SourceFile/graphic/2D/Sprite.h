@@ -4,9 +4,10 @@
 #include "SourceFile/graphic/Primitive.h"
 #include "ConstantBuffer.h"
 #include "SourceFile/graphic/RenderContext.h"
+#include "SourceFile/Noncopyable.h"
 
 namespace Engine {
-	class Sprite
+	class Sprite:Engine::Noncopyable
 	{
 	public:
 		//‹N“_

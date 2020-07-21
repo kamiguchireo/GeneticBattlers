@@ -2,9 +2,10 @@
 #include "GameObject.h"
 #include "util/Util.h"
 #include "SourceFile/graphic/RenderContext.h"
+#include "SourceFile/Noncopyable.h"
 
 namespace Engine {
-	class CGameObjectManager
+	class CGameObjectManager:Engine::Noncopyable
 	{
 	public:
 		CGameObjectManager()

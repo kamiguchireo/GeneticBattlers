@@ -2,10 +2,11 @@
 #include "SourceFile/graphic/GPUBuffer/IndexBuffer.h"
 #include "SourceFile/graphic/GPUBuffer/VertexBuffer.h"
 #include "SourceFile/graphic/RenderContext.h"
+#include "SourceFile/Noncopyable.h"
 
 namespace Engine {
 	//プリミティブ
-	class Primitive
+	class Primitive:Engine::Noncopyable
 	{
 	public:
 		//コンストラクタ

@@ -1,7 +1,8 @@
 #pragma once
+#include "SourceFile/Noncopyable.h"
 
 namespace Engine {
-	class RenderTarget
+	class RenderTarget:Engine::Noncopyable
 	{
 	public:
 		RenderTarget();

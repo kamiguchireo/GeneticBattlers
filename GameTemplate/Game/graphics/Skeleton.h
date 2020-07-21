@@ -2,7 +2,6 @@
  *@brief	スケルトン
  */
 #pragma once
-#include "SourceFile/Noncopyable.h"
 
 /*!
 *@brief	ボーン。

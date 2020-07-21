@@ -1,5 +1,7 @@
 #pragma once
-class Camera
+#include "SourceFile/Noncopyable.h"
+
+class Camera:Engine::Noncopyable
 {
 public:
 	/*!

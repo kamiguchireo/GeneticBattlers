@@ -1,8 +1,9 @@
 #pragma once
+#include "SourceFile/Noncopyable.h"
 
 namespace Engine {
 	//インデックスバッファ
-	class IndexBuffer
+	class IndexBuffer:Engine::Noncopyable
 	{
 	public:
 
