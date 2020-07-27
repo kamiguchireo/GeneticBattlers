@@ -37,6 +37,8 @@ public:
 	*@param[in] enFbxUpAxis		fbxの上軸。デフォルトはenFbxUpAxisZ。
 	*/
 	void Init(const wchar_t* filePath, EnFbxUpAxis enFbxUpAxis = enFbxUpAxisZ);
+	void Init(const wchar_t* filePath,const Skeleton& sk, EnFbxUpAxis enFbxUpAxis = enFbxUpAxisZ);
+
 	/*!
 	*@brief	モデルをワールド座標系に変換するためのワールド行列を更新する。
 	*@param[in]	position	モデルの座標。

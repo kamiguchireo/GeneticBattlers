@@ -102,8 +102,6 @@ struct PSInput_ShadowMap {
 //使用するシャドウマップの番号を取得
 int GetCascadeIndex(float zInView)
 {
-	
-
 	for (int i = 0; i < NUM_SHADOW_MAP; i++) {
 		//if (zInView > shadowAreaDepthInViewSpaceNear[i])
 		{
@@ -112,7 +110,7 @@ int GetCascadeIndex(float zInView)
 			}
 		}
 	}
-	return 0;
+	return 100;
 }
 
 float CalcShadowPercent(Texture2D<float4> tex, float2 uv, float depth)
@@ -136,6 +134,10 @@ float CalcShadow(float3 worldPos, float zInView)
 		//使用するシャドウマップの番号を取得する。
 		int cascadeIndex = GetCascadeIndex(zInView);
 		
+		if (cascadeIndex == 100)
+		{
+			return 0;
+		}
 		float4 posInLVP = mul(mLVP[cascadeIndex], float4(worldPos, 1.0f));
 		posInLVP.xyz /= posInLVP.w;
 

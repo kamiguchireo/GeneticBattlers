@@ -22,7 +22,11 @@ namespace Engine {
 
 	void ShadowMap::ShadowMapRTCreate()
 	{
-
+		int wh[][2] = {
+			{TexResolution,TexResolution},
+			{TexResolution,TexResolution>>2},
+			{TexResolution>>2,TexResolution>>2}
+		};
 		for (int i = 0; i < CascadeShadow; i++)
 		{
 			//シャドウマップ生成用のレンダリングターゲットを作る
@@ -30,8 +34,8 @@ namespace Engine {
 			//テクスチャのフォーマットはR成分のみの32ビットのFloat型
 			m_shadowMapRT[i].Create
 			(
-				TexResolution,
-				TexResolution,
+				wh[i][0],
+				wh[i][1],
 				DXGI_FORMAT_R32_FLOAT
 			);
 		}
@@ -200,19 +204,19 @@ namespace Engine {
 				far_z
 			);
 			CMatrix m_mat = CMatrix::Identity();
-
-			m_mat.Mul(m_lightViewMatrix[i], proj);
-			m_lightProMatrix[i] = m_mat;
-			m_shadowCbEntity.mLVP[i] = m_mat;
+			//m_mat.Mul(m_lightViewMatrix[i], proj);
+			//m_lightProMatrix[i] = m_mat;
+			//m_shadowCbEntity.mLVP[i] = m_mat;
+			m_lightProMatrix[i].Mul(m_lightViewMatrix[i], proj);
+			m_shadowCbEntity.mLVP[i] = m_lightProMatrix[i];
 			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ;
-			
-			nearPlaneZ = farPlaneZ;
+			nearPlaneZ = farPlaneZ * 0.9f;		//ギリギリだと境界ができる
 		}
-		//ライトビュー行
-		for (int i = 0; i < CascadeShadow; i++)
-		{
-			m_lightViewMatrix[i] = CMatrix::Identity();
-		}
+		////ライトビュー行
+		//for (int i = 0; i < CascadeShadow; i++)
+		//{
+		//	m_lightViewMatrix[i] = CMatrix::Identity();
+		//}
 	}
 
 	void ShadowMap::RenderToShadowMap()

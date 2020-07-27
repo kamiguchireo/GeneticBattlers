@@ -20,8 +20,8 @@ Game::Game()
 	//	FRAME_BUFFER_H
 	//);
 
-	g_camera3D.SetPosition({ 0.0f, 200.0f, 800.0f });
-	g_camera3D.SetTarget({ 0.0f, 200.0f, 0.0f });
+	g_camera3D.SetPosition({ 0.0f, 100.0f, 500.0f });
+	g_camera3D.SetTarget({ 0.0f, 0.0f, 0.0f });
 	
 	//アニメーションクリップの読み込み。
 	m_animClip[0].Load(L"Assets/animData/idle.tka");
@@ -56,7 +56,12 @@ bool Game::Start()
 	//モデル1
 	//m_model.Init(L"Assets/modelData/DesertDragon.cmo");
 
-	m_model.Init(L"Assets/modelData/unityChan.cmo");
+	bool result = m_skeleton.Load(L"Assets/modelData/unityChan.tks");
+	if (result == false)
+	{
+		throw;
+	}
+	m_model.Init(L"Assets/modelData/unityChan.cmo",m_skeleton);
 	CVector3 m_pos = { 0.0f,0.0f,0.0f };
 	//m_model.UpdateWorldMatrix(m_pos, CQuaternion::Identity(), CVector3::One());
 	//CQuaternion m_ligdir2 = { 1.0f,.0f,0.0f,0.0f };
@@ -66,14 +71,10 @@ bool Game::Start()
 	m_position = m_pos;
 	m_rotation.SetRotationDeg(CVector3::AxisX(), -90.0f);
 
-	bool result = m_skeleton.Load(L"Assets/modelData/unityChan.tks");
-	if (result == false)
-	{
-		throw;
-	}
+
 	m_skeleton.Update(m_model.GetWorldMatrix());
 	m_skeleton.GetChildBoneMat(L"Character1_Hips");
-	m_animation.Init(m_model, m_animClip, 1);
+	m_animation.Init(m_skeleton, m_animClip, 1);
 	m_animation.Play(0);
 
 	////モデル2
@@ -131,9 +132,9 @@ void Game::Update()
 	//m_model2.UpdateWorldMatrix(m_pos2, CQuaternion::Identity(), CVector3::One());
 
 	
-	//m_skeleton.Update(m_model.GetWorldMatrix());
+	m_skeleton.Update(m_model.GetWorldMatrix());
 	m_animation.Update(1.0f / 30.0f);
-	//m_skeleton.SendBoneMatrixArrayToGPU();
+	m_skeleton.SendBoneMatrixArrayToGPU();
 	
 	
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();

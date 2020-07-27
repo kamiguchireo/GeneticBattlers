@@ -147,14 +147,7 @@ void Animation::UpdateGlobalPose()
 				
 			//‰ñ“]‚Ì•âŠ®
 			CQuaternion qBone;
-		/*	for (int i = 0; i < numBone; i++)
-			{
-				qGlobalPose[i] = qRot;
-			}*/
 			qBone.SetRotation(m);
-			//if (i == 0) {
-			//	qBone.Multiply(qRot);
-			//}
 			qGlobalPose[boneNo].Slerp(intepolateRate, qGlobalPose[boneNo], qBone);
 		}
 	}
