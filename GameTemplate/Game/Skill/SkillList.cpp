@@ -106,11 +106,13 @@ SkillBase * SkillList::NewSkillBuff(int no)
 	case 0:
 		//buffSkill->InitSkill(L"スクルト", 2.0f, 50.0f, 1.0f, 200);
 		buffSkill->SetStatusBuff(en_buff_DEF);
+		buffSkill->SetEffect(L"Assets/effect/BuffDef.efk", en_PosTarget);
 		break;
 
 	case 1:
 		//buffSkill->InitSkill(L"スカラ", 1.5f, 60.0f, 1.0f, 201);
 		buffSkill->SetStatusBuff(en_buff_DEF);
+		buffSkill->SetEffect(L"Assets/effect/BuffDef.efk", en_PosTarget);
 		buffSkill->SetIsWide(true);
 		break;
 
