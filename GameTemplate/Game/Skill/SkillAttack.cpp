@@ -19,6 +19,10 @@ void SkillAttack::SkillSetting()
 
 void SkillAttack::Update()
 {
+	if (m_target->IsDead()) {
+		DeleteGO(this);
+		return;
+	}
 	if (!skillEffect->IsPlay()) {
 		//ダメージを与える。
 		int damage = DamageCalcuration();

@@ -30,7 +30,7 @@ public:
 	/// <summary>
 	/// デストラクタ。
 	/// </summary>
-	~MonsterBase();
+	virtual ~MonsterBase();
 
 	void Update()override;
 
