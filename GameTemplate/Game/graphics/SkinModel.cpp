@@ -136,7 +136,7 @@ void SkinModel::UpdateWorldMatrix(CVector3 position, CQuaternion rotation, CVect
 	m_worldMatrix.Mul(m_worldMatrix, transMatrix);
 
 	//スケルトンの更新。
-	//m_skeleton.Update(m_worldMatrix);
+	m_skeleton.Update(m_worldMatrix);
 }
 
 //シルエット描画の仕方
@@ -176,7 +176,7 @@ void SkinModel::Draw(CMatrix viewMatrix, CMatrix projMatrix,EnRenderMode renderM
 	//サンプラステートを設定。
 	d3dDeviceContext->PSSetSamplers(0, 1, &m_samplerState);
 	//ボーン行列をGPUに転送。
-	//m_skeleton.SendBoneMatrixArrayToGPU();
+	m_skeleton.SendBoneMatrixArrayToGPU();
 
 	DL.Draw();
 
