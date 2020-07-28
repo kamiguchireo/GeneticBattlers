@@ -107,7 +107,8 @@ protected:
 		m_skillNo = no;
 	}
 	//エフェクトを再生する場所を決める。
-	const CVector3& GetEffectPos(int enPos) const;
+	//ローカル変数を返しているため参照渡しではだめ
+	const CVector3 GetEffectPos(int enPos) const;
 
 	SkillLog* m_log = nullptr;
 	MonsterBase* m_user = nullptr;
