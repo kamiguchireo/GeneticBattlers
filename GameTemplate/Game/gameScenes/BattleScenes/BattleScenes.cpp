@@ -26,6 +26,8 @@ bool BattleScenes::Start()
 	//ネットシーンのポインタ取得。
 	m_netScenes = NetScenes::GetInstance();
 
+	g_graphicsEngine->GetShadowMap()->SetRange({ 1000.0f,2000.0f,3000.0f });
+
 	//レベル。
 	m_level.Init(L"Assets/level/BattleStage.tkl",[&](LevelObjectData& objData) {
 		if (wcscmp(objData.name, L"testGround") == 0)
@@ -33,6 +35,7 @@ bool BattleScenes::Start()
 			m_model.Init(L"Assets/modelData/testGround.cmo");
 			m_model.SetActiveDLFlag(1);
 			m_model.SetActiveRLFlag(0);
+			m_model.SetShadowReciever(true);
 			m_model.UpdateWorldMatrix(
 				objData.position,
 				objData.rotation,
@@ -257,10 +260,14 @@ void BattleScenes::Update()
 		break;
 	}
 
+	auto shadowMap = g_graphicsEngine->GetShadowMap();
+	shadowMap->Update(CVector3::AxisY()*1000.0f + CVector3::AxisX()*200.0f, CVector3::Zero());
+	shadowMap->SendShadowRecieverParamToGpu();
+	shadowMap->RenderToShadowMap();
 	//ステージを表示させる。
 	m_model.Draw(g_camera3D.GetViewMatrix(), g_camera3D.GetProjectionMatrix());
-	//レベルの描画。
-	m_level.Draw();
+	////レベルの描画。
+	//m_level.Draw();
 }
 
 void BattleScenes::InitMonster()
