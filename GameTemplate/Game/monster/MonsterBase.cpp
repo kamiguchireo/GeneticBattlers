@@ -38,7 +38,7 @@ void MonsterBase::Update()
 	m_animation.Update(1.0f / 30.0f);
 }
 
-void MonsterBase::SetStatus(int hp, int mp, int atk, int def, int mat, int mdf, int dex)
+void MonsterBase::SetStatus(int hp, int atk, int def, int mat, int mdf, int dex)
 {
 	Status hoge;
 	hoge.HP = hp;

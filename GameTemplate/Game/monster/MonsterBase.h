@@ -59,7 +59,7 @@ public:
 	}
 	//ステータスの設定。
 	//正直ファイルからロードしたい。
-	void SetStatus(int hp, int mp, int atk, int def, int mat, int mdf, int dex);
+	void SetStatus(int hp, int atk, int def, int mat, int mdf, int dex);
 	//ステータスの設定。(ステータス構造体ver)。
 	void SetStatus(const Status& status)
 	{
@@ -76,7 +76,10 @@ public:
 		m_rotation = rot;
 	}
 	//UIの位置を設定する。
-	virtual void SetUIPos(const CVector3& pos){}
+	void SetUIPos(const CVector3& pos)
+	{
+		m_UIpos = pos;
+	}
 	//味方チームのリストを設定。
 	void SetTeamMenber(const std::vector<MonsterBase*>& list)
 	{
@@ -228,5 +231,6 @@ protected:
 
 	//UIを表示させる。
 	StatusUI* m_UI;
+	CVector3 m_UIpos = CVector3::Zero();
 };
 

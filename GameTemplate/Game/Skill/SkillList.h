@@ -31,7 +31,7 @@ private:
 	SkillBase* NewSkillAttack(int no);
 	SkillBase* NewSkillHeal(int no);
 	SkillBase* NewSkillBuff(int no);
-	SkillBase* NewSkillMagic(int no);
+	//SkillBase* NewSkillMagic(int no);
 	static SkillList* m_instance;
 	SkillDataLoad* m_skillData = nullptr;
 };

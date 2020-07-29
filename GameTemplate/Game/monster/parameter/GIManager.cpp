@@ -81,8 +81,8 @@ void GIManager::Save()
 void GIManager::GIUpdate()
 {
 	//GIを用いて行動AIの確率の更新。?
-	const int listSize = m_actResList.size();
-	int AISize = m_AI.size();
+	const int listSize = static_cast<const int>(m_actResList.size());
+	int AISize = static_cast<int>(m_AI.size());
 	std::vector<float> AIscoreList(AISize, 0.0f);		//行動ごとのスコア。
 	float sum = 0.0f;
 	//スコアを合計する。
@@ -109,7 +109,7 @@ void GIManager::GIUpdate()
 			hoge.rate = 3.0f;		//最初からある程度の確率を持たせておく。
 			//配列に積む。
 			m_AI.push_back(hoge);
-			AIscoreList.push_back(res.damage);
+			AIscoreList.push_back(static_cast<float>(res.damage));
 			AISize++;		//サイズが増えた。
 		}
 	}
@@ -141,8 +141,7 @@ void GIManager::ActionDicide(int& skill, int& target)
 		//ランダムに数字を入れる。
 		int actNum = rand() % m_AI.size();
 		skill = m_AI[actNum].skillNo;
-		target = m_AI[actNum].target;//突然変異的な
-		int pMutation = rand() % 100;
+		target = m_AI[actNum].target;
 
 		//関数を抜ける。
 		return;

@@ -55,8 +55,8 @@ void SkillBuff::Update()
 			//バフをかける。
 			if (!m_isWide) {
 				//効果時間を計算。
-				int result = m_user->GetStatusManager().GetStatus().MAT * 5.0f;
-				res = m_target->Monster_Buff(m_status, skillPower, result);
+				float result = static_cast<float>(m_user->GetStatusManager().GetStatus().MAT * 5.0f);
+				res = static_cast<int>(m_target->Monster_Buff(m_status, skillPower, result));
 			}
 			else {	//全体にかける。
 				res = WideBuff();
@@ -76,16 +76,16 @@ void SkillBuff::Update()
 int SkillBuff::WideBuff()
 {
 	//効果時間の計算。
-	int result = m_user->GetStatusManager().GetStatus().MAT * 5.0f;
+	float result = static_cast<float>(m_user->GetStatusManager().GetStatus().MAT * 5.0f);
 	//チームメンバーを取得。
 	auto list = m_target->GetTeamMenber();
 
 	int res = 0;
 	for (int i = 0; i < list.size(); i++) {
 		//全体にバフをかける。
-		res += list[i]->Monster_Buff(m_status, skillPower, result);
+		res += static_cast<int>(list[i]->Monster_Buff(m_status, skillPower, result));
 	}
-	res /= list.size();		//上昇値の平均をとる。
+	res /= static_cast<int>(list.size());		//上昇値の平均をとる。
 
 	return res;
 }

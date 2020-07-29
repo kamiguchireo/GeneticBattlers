@@ -140,7 +140,7 @@ void SkillDataLoad::LoadData(const char * FilePath, EnSkillType skillType)
 			nextNoBuffer			//次のスキル番号。
 		);
 		//スキル名をワイド型文字列にする。思ってたよりもメンドイ処理だなぁ
-		int in_length = strlen(skillName);
+		int in_length = static_cast<int>(strlen(skillName));
 		int out_length = MultiByteToWideChar(CP_ACP, 0 , skillName, in_length, 0, 0);  
 		std::vector<wchar_t> buffer(out_length);
 		if (out_length) {

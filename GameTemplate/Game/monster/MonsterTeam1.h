@@ -21,10 +21,10 @@ public:
 	//	m_GIData.LoadDefault(GetDefaultDataPath());
 	//};
 
-	void SetUIPos(const CVector3& pos)
-	{
-		m_UIpos = pos;
-	}
+	//void SetUIPos(const CVector3& pos)
+	//{
+	//	m_UIpos = pos;
+	//}
 
 private:
 	const char* GetDefaultDataPath()
@@ -40,6 +40,5 @@ private:
 		en_state_Num
 	};
 
-	CVector3 m_UIpos = CVector3::Zero();
 };
 

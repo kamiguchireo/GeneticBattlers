@@ -57,7 +57,7 @@ void SkillHeal::Update()
 		else
 		{
 			//回復量の計算。
-			int result = m_user->GetStatusManager().GetStatus().MAT * skillPower;
+			int result = static_cast<int>(m_user->GetStatusManager().GetStatus().MAT * skillPower);
 			int res = m_target->Healing(result);
 
 			//効果値を記録。

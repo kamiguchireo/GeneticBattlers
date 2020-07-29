@@ -193,7 +193,7 @@ void BattleManager::SortTeams()
 		}
 	}
 	//HP‚ª0‚Ì‚â‚Â‚ÍŒã‚ë‚É‰ñ‚·B
-	for (int i = m_monsterTeam.size() - 1; i >= 0; i--) {
+	for (int i = static_cast<int>(m_monsterTeam.size()) - 1; i >= 0; i--) {
 		for (int j = i; j < m_monsterTeam.size(); j++) {
 			if (m_monsterTeam[i]->GetStatusManager().GetStatus().HP <= 0) {
 				auto hoge = m_monsterTeam[i];
@@ -202,7 +202,7 @@ void BattleManager::SortTeams()
 			}
 		}
 	}
-	for (int i = m_monsterEnemy.size() - 1; i >= 0; i--) {
+	for (int i = static_cast<int>(m_monsterEnemy.size()) - 1; i >= 0; i--) {
 		for (int j = i; j < m_monsterEnemy.size(); j++) {
 			if (m_monsterEnemy[i]->GetStatusManager().GetStatus().HP <= 0) {
 				auto hoge = m_monsterEnemy[i];

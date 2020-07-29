@@ -25,27 +25,27 @@ int StatusManager::Monster_Buff(StatusBuff status, float pow, float time)
 	switch (status)
 	{
 	case en_buff_ATK:
-		m_status.ATK = m_statusBase.ATK * pow;
+		m_status.ATK = static_cast<int>(m_statusBase.ATK * pow);
 		res = m_status.ATK - m_statusBase.ATK;	//上昇値の計算。
 
 		break;
 	case en_buff_DEF:
-		m_status.DEF = m_statusBase.DEF * pow;
+		m_status.DEF = static_cast<int>(m_statusBase.DEF * pow);
 		res = m_status.DEF - m_statusBase.DEF;	//上昇値の計算。
 
 		break;
 	case en_buff_MAT:
-		m_status.MAT = m_statusBase.MAT * pow;
+		m_status.MAT = static_cast<int>(m_statusBase.MAT * pow);
 		res = m_status.MAT - m_statusBase.MAT;	//上昇値の計算。
 
 		break;
 	case en_buff_MDF:
-		m_status.MDF = m_statusBase.MDF * pow;
+		m_status.MDF = static_cast<int>(m_statusBase.MDF * pow);
 		res = m_status.MDF - m_statusBase.MDF;	//上昇値の計算。
 
 		break;
 	case en_buff_DEX:
-		m_status.DEX = m_statusBase.DEX * pow;
+		m_status.DEX = static_cast<int>(m_statusBase.DEX * pow);
 		res = m_status.DEX - m_statusBase.DEX;	//上昇値の計算。
 
 		break;

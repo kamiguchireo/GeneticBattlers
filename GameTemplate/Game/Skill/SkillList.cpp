@@ -124,10 +124,10 @@ SkillBase * SkillList::NewSkillBuff(int no)
 	return buffSkill;
 }
 
-SkillBase * SkillList::NewSkillMagic(int no)
-{
-	return nullptr;
-}
+//SkillBase * SkillList::NewSkillMagic(int no)
+//{
+//	return nullptr;
+//}
 
 
 ////ダブルアタック。
