@@ -114,6 +114,12 @@ namespace Engine {
 		float farPlaneZ;
 		CVector3 cameraUp;
 		cameraUp = g_camera3D.GetUp();
+		CVector3 cameraForward;
+		cameraForward = g_camera3D.GetForward();
+		CVector3 cameraRight;
+		cameraRight = g_camera3D.GetRight();
+		CVector3 cameraPos;
+		cameraPos = g_camera3D.GetPosition();
 		//カスケードシャドウの枚数分回す
 		for(int i = 0;i < CascadeShadow;i++)
 		{
@@ -143,24 +149,24 @@ namespace Engine {
 				t *= g_camera3D.GetAspect();
 
 				//近平面の中央座標を計算
-				auto nearPlaneCenterPos = g_camera3D.GetPosition() + g_camera3D.GetForward() * nearPlaneZ;
+				auto nearPlaneCenterPos = cameraPos + cameraForward * nearPlaneZ;
 				//手前右上の座標
-				v[0] = nearPlaneCenterPos + g_camera3D.GetRight() * t * nearPlaneZ + toUpperNear;
+				v[0] = nearPlaneCenterPos + cameraRight * t * nearPlaneZ + toUpperNear;
 				//手前右下の座標
 				v[1] = v[0] - toUpperNear * 2.0f;
 				//手前左上の座標
-				v[2] = nearPlaneCenterPos + g_camera3D.GetRight() * -t * nearPlaneZ + toUpperNear;
+				v[2] = nearPlaneCenterPos + cameraRight * -t * nearPlaneZ + toUpperNear;
 				//手前左下の座標
 				v[3] = v[2] - toUpperNear * 2.0f;
 
 				//遠平面の中央座標を計算
-				auto farPlaneCenterPos = g_camera3D.GetPosition() + g_camera3D.GetForward() * farPlaneZ;
+				auto farPlaneCenterPos = cameraPos + cameraForward * farPlaneZ;
 				//奥右上の座標
-				v[4] = farPlaneCenterPos + g_camera3D.GetRight() * t * farPlaneZ + toUpperFar;
+				v[4] = farPlaneCenterPos + cameraRight * t * farPlaneZ + toUpperFar;
 				//奥右下の座標
 				v[5] = v[4] - toUpperFar * 2.0f;
 				//奥左上の座標
-				v[6] = farPlaneCenterPos + g_camera3D.GetRight() * -t * farPlaneZ + toUpperFar;
+				v[6] = farPlaneCenterPos + cameraRight * -t * farPlaneZ + toUpperFar;
 				//奥左下の座標
 				v[7] = v[6] - toUpperFar * 2.0f;
 
@@ -204,19 +210,11 @@ namespace Engine {
 				far_z
 			);
 			CMatrix m_mat = CMatrix::Identity();
-			//m_mat.Mul(m_lightViewMatrix[i], proj);
-			//m_lightProMatrix[i] = m_mat;
-			//m_shadowCbEntity.mLVP[i] = m_mat;
 			m_lightProMatrix[i].Mul(m_lightViewMatrix[i], proj);
 			m_shadowCbEntity.mLVP[i] = m_lightProMatrix[i];
 			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ;
 			nearPlaneZ = farPlaneZ * 0.9f;		//ギリギリだと境界ができる
 		}
-		////ライトビュー行
-		//for (int i = 0; i < CascadeShadow; i++)
-		//{
-		//	m_lightViewMatrix[i] = CMatrix::Identity();
-		//}
 	}
 
 	void ShadowMap::RenderToShadowMap()
