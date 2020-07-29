@@ -14,13 +14,14 @@ SkillBase::~SkillBase()
 		//待機状態のアニメーションの再生。
 		m_user->AnimationIdle();
 	}
+	//DeleteGO(m_log);
 }
 
 bool SkillBase::Start()
 {
 	SkillSetting();
 
-	m_log = NewGO<SkillLog>(1,"sLog");
+	m_log = NewGO<SkillLog>(4,"sLog");
 	m_log->SetText(skillName);
 
 	return true;
@@ -72,7 +73,8 @@ int SkillBase::DamageCalcuration()
 	return damage;
 }
 
-const CVector3 SkillBase::GetEffectPos(int enPos) const
+
+const CVector3 SkillBase::CreateEffectPosition(int enPos) const
 {
 	CVector3 effectPos = CVector3::Zero();
 	switch (enPos)
@@ -91,5 +93,24 @@ const CVector3 SkillBase::GetEffectPos(int enPos) const
 	}
 
 	return effectPos;
+}
+const CQuaternion SkillBase::CreateEffectRotation(int enRot) const
+{
+	CQuaternion effectRot = CQuaternion::Identity();
+	switch (enRot)
+	{
+	case en_PosUser:
+		//使用者の少し上。
+		effectRot = m_user->GetRotation();
+		break;
+
+	case en_PosTarget:
+		//ターゲットの少し上。
+		effectRot = m_target->GetRotation();
+		break;
+	default:
+		break;
+	}
+	return effectRot;
 }
 

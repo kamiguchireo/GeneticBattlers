@@ -11,7 +11,13 @@ public:
 		m_skillText = text;
 	}
 
+	static SkillLog* GetInstance()
+	{
+		return m_instance;
+	}
+
 private:
+	static SkillLog* m_instance;
 	prefab::SpriteRender* m_sprite = nullptr;
 	prefab::FontRender* m_font = nullptr;
 

@@ -9,6 +9,7 @@
 #include "../NetScenes/NetScenes.h"
 #include "Fade.h"
 #include "GameCamera.h"
+#include "Skill/SkillLog.h"
 
 BattleScenes::BattleScenes()
 {
@@ -19,6 +20,8 @@ BattleScenes::~BattleScenes()
 {
 	DeleteGO(m_camera);
 	DeleteGO(m_resultSprite);
+	auto sLog = SkillLog::GetInstance();
+	DeleteGO(sLog);
 }
 
 bool BattleScenes::Start()
@@ -260,6 +263,7 @@ void BattleScenes::Update()
 		break;
 	}
 
+	//ここで呼んでるとゲームループできないんだが。
 	auto shadowMap = g_graphicsEngine->GetShadowMap();
 	shadowMap->Update(CVector3::AxisY()*1000.0f + CVector3::AxisX()*200.0f, CVector3::Zero());
 	shadowMap->SendShadowRecieverParamToGpu();

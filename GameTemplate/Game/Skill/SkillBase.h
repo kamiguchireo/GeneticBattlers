@@ -108,7 +108,8 @@ protected:
 	}
 	//エフェクトを再生する場所を決める。
 	//ローカル変数を返しているため参照渡しではだめ
-	const CVector3 GetEffectPos(int enPos) const;
+	const CVector3 CreateEffectPosition(int enPos) const;
+	const CQuaternion CreateEffectRotation(int enRot)const;
 
 	SkillLog* m_log = nullptr;
 	MonsterBase* m_user = nullptr;

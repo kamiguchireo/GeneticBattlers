@@ -6,7 +6,7 @@ void SkillBuff::SkillSetting()
 	//エフェクトの再生。
 	skillEffect = NewGO<prefab::CEffect>(0);
 	skillEffect->Play(L"Assets/effect/chant1.efk");
-	CVector3 effectPos = GetEffectPos(en_PosUser);
+	CVector3 effectPos = CreateEffectPosition(en_PosUser);
 	skillEffect->SetPosition(effectPos);
 	//skillEffect->SetScale(CVector3::One() * 50.0f);
 
@@ -28,7 +28,7 @@ void SkillBuff::Update()
 			{
 				skillEffect = NewGO<prefab::CEffect>(0);
 				skillEffect->Play(m_effectPaths[m_playEffectNum]);
-				CVector3 efPos = GetEffectPos(m_effectPosFlag[m_playEffectNum]);
+				CVector3 efPos = CreateEffectPosition(m_effectPosFlag[m_playEffectNum]);
 				skillEffect->SetPosition(efPos);
 			}
 			else
@@ -39,10 +39,13 @@ void SkillBuff::Update()
 				{
 					//メンバー全てをターゲットする。
 					m_target = list[i];
-					skillEffect = NewGO<prefab::CEffect>(0);
-					skillEffect->Play(m_effectPaths[m_playEffectNum]);
-					CVector3 efPos = GetEffectPos(m_effectPosFlag[m_playEffectNum]);
-					skillEffect->SetPosition(efPos);
+					if (!m_target->IsDeath())
+					{
+						skillEffect = NewGO<prefab::CEffect>(0);
+						skillEffect->Play(m_effectPaths[m_playEffectNum]);
+						CVector3 efPos = CreateEffectPosition(m_effectPosFlag[m_playEffectNum]);
+						skillEffect->SetPosition(efPos);
+					}
 				}
 			}
 
