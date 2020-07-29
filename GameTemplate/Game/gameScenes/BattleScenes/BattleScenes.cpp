@@ -33,7 +33,7 @@ bool BattleScenes::Start()
 		if (wcscmp(objData.name, L"testGround") == 0)
 		{
 			m_model.Init(L"Assets/modelData/testGround.cmo");
-			m_model.SetActiveDLFlag(1);
+			m_model.SetActiveDLFlag(0);
 			m_model.SetActiveRLFlag(0);
 			m_model.SetShadowReciever(true);
 			m_model.UpdateWorldMatrix(
