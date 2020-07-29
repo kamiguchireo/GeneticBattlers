@@ -72,7 +72,7 @@ int SkillBase::DamageCalcuration()
 	return damage;
 }
 
-const CVector3 & SkillBase::GetEffectPos(int enPos) const
+const CVector3 SkillBase::GetEffectPos(int enPos) const
 {
 	CVector3 effectPos = CVector3::Zero();
 	switch (enPos)

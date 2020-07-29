@@ -20,26 +20,56 @@ void SkillBuff::Update()
 		DeleteGO(this);
 		return;
 	}
+
 	if (!skillEffect->IsPlay()) {
-		//効果値。
-		int res = 0;
-		//バフをかける。
-		if (!m_isWide) {
-			//効果時間を計算。
-			int result = m_user->GetStatusManager().GetStatus().MAT * 5.0f;
-			res = m_target->Monster_Buff(m_status, skillPower, result);
-		}
-		else {	//全体にかける。
-			res = WideBuff();
-		}
+		if (m_effectPaths.size() > m_playEffectNum)
+		{
+			if (!m_isWide)
+			{
+				skillEffect = NewGO<prefab::CEffect>(0);
+				skillEffect->Play(m_effectPaths[m_playEffectNum]);
+				CVector3 efPos = GetEffectPos(m_effectPosFlag[m_playEffectNum]);
+				skillEffect->SetPosition(efPos);
+			}
+			else
+			{
+				auto list = m_target->GetTeamMenber();
 
-		//効果値を記録。
-		m_user->SetDamageResult(res);
-		//クールタイムの設定。
-		m_user->SetCoolTime(coolTime);
+				for (int i = 0; i < list.size(); i++)
+				{
+					//メンバー全てをターゲットする。
+					m_target = list[i];
+					skillEffect = NewGO<prefab::CEffect>(0);
+					skillEffect->Play(m_effectPaths[m_playEffectNum]);
+					CVector3 efPos = GetEffectPos(m_effectPosFlag[m_playEffectNum]);
+					skillEffect->SetPosition(efPos);
+				}
+			}
 
-		skillEffect = nullptr;
-		DeleteGO(this);
+			m_playEffectNum++;
+		}
+		else
+		{
+			//効果値。
+			int res = 0;
+			//バフをかける。
+			if (!m_isWide) {
+				//効果時間を計算。
+				int result = m_user->GetStatusManager().GetStatus().MAT * 5.0f;
+				res = m_target->Monster_Buff(m_status, skillPower, result);
+			}
+			else {	//全体にかける。
+				res = WideBuff();
+			}
+
+			//効果値を記録。
+			m_user->SetDamageResult(res);
+			//クールタイムの設定。
+			m_user->SetCoolTime(coolTime);
+
+			skillEffect = nullptr;
+			DeleteGO(this);
+		}
 	}
 }
 

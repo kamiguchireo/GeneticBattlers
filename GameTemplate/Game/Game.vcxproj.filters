@@ -469,6 +469,7 @@
     <ClInclude Include="Skill\SkillDataLoad.h">
       <Filter>skill</Filter>
     </ClInclude>
+    <ClInclude Include="SourceFile\Noncopyable.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
