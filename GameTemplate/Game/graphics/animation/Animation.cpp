@@ -62,7 +62,7 @@ void Animation::Init(Skeleton& skeleton, AnimationClip animClipList[], int numAn
 		ctr.Init(m_skeleton);
 	}
 
-	//Play(0);
+	Play(0);
 }
 
 /*!

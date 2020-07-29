@@ -61,7 +61,13 @@ bool Game::Start()
 	{
 		throw;
 	}
-	m_model.Init(L"Assets/modelData/unityChan.cmo");
+	result = m_skeleton2.Load(L"Assets/modelData/unityChan.tks");
+	if (result == false)
+	{
+		throw;
+	}
+
+	m_model.Init(L"Assets/modelData/unityChan.cmo",m_skeleton);
 	CVector3 m_pos = { 0.0f,0.0f,0.0f };
 	//m_model.UpdateWorldMatrix(m_pos, CQuaternion::Identity(), CVector3::One());
 	//CQuaternion m_ligdir2 = { 1.0f,.0f,0.0f,0.0f };
@@ -74,8 +80,8 @@ bool Game::Start()
 
 	m_skeleton.Update(m_model.GetWorldMatrix());
 	m_skeleton.GetChildBoneMat(L"Character1_Hips");
-	m_animation.Init(m_model, m_animClip, 1);
-	m_animation.Play(0);
+	m_animation.Init(m_skeleton, m_animClip, 2);
+	m_animation.Play(1);
 
 	////ƒ‚ƒfƒ‹2
 	//m_model2.Init(L"Assets/modelData/unityChan.cmo");
@@ -132,9 +138,9 @@ void Game::Update()
 	//m_model2.UpdateWorldMatrix(m_pos2, CQuaternion::Identity(), CVector3::One());
 
 	
-	//m_skeleton.Update(m_model.GetWorldMatrix());
+	m_skeleton.Update(m_model.GetWorldMatrix());
 	m_animation.Update(1.0f / 30.0f);
-	//m_skeleton.SendBoneMatrixArrayToGPU();
+	m_skeleton.SendBoneMatrixArrayToGPU();
 	
 	
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();

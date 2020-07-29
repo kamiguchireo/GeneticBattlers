@@ -3,6 +3,24 @@
  */
 #pragma once
 
+class MatAndBoneId {
+public:
+	//初期化
+	//i		ボーンID
+	//bindPose		バインドポーズの行列
+	//invBindPose		バインドポーズの逆行列
+	void SetMat(int i,CMatrix bindPose,CMatrix invBindPose)
+	{
+		m_boneId = i;
+		m_bindPose = bindPose;
+		m_invBindPose = invBindPose;
+	}
+private:
+	int				m_boneId = -1;		//ボーン番号。
+	CMatrix			m_bindPose = CMatrix::Identity();		//バインドポーズ。
+	CMatrix			m_invBindPose = CMatrix::Identity();	//バインドポーズの逆行列。
+};
+
 /*!
 *@brief	ボーン。
 */
@@ -30,6 +48,7 @@ public:
 		m_worldMatrix(bindPose),
 		m_boneId(boneId)
 	{
+		MandB.SetMat(boneId, bindPose, invBindPose);
 	}
 	/*!
 	 *@brief	ローカル行列を設定
@@ -132,6 +151,7 @@ private:
 	CVector3		m_scale = CVector3::One();				//!<このボーンの拡大率。最後にCalcWorldTRSを実行したときの結果が格納されている。
 	CQuaternion		m_rotation = CQuaternion::Identity();	//!<このボーンの回転。最後にCalcWorldTRSを実行したときの結果が格納されている。
 	std::vector<Bone*>	m_children;		//!<子供。
+	MatAndBoneId MandB;
 };
 /*!
  *@brief	スケルトン。
