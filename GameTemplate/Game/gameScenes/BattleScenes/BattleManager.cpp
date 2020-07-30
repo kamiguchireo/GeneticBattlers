@@ -15,6 +15,8 @@ BattleManager::~BattleManager()
 	for (auto p : m_monsterEnemy) {
 		DeleteGO(p);
 	}
+	//シャドウキャスター登録をクリア。
+	g_graphicsEngine->GetShadowMap()->CasterClear();
 }
 
 void BattleManager::BattleUpdate()
