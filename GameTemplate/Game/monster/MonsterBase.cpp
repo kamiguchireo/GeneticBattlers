@@ -58,9 +58,6 @@ void MonsterBase::Draw()
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
 
 	auto shadowMap = g_graphicsEngine->GetShadowMap();
-	//shadowMap->Update(CVector3::AxisY()*1000.0f, CVector3::Zero());
-	//shadowMap->SendShadowRecieverParamToGpu();
-	//shadowMap->RenderToShadowMap();
 	shadowMap->RegistShadowCaster(
 		&m_model
 	);

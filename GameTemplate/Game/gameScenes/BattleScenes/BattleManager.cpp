@@ -5,6 +5,8 @@
 
 BattleManager::BattleManager()
 {
+	m_monsterTeam.resize(job::enjob_Num);
+	m_monsterEnemy.resize(job::enjob_Num);
 }
 
 BattleManager::~BattleManager()
@@ -79,7 +81,24 @@ void BattleManager::MonsterAction()
 {
 	if (m_usingSkill == nullptr) {
 		m_monsterACT = m_monsterACTList.front();
-		SortTeams();
+
+		if (m_monsterACT.actMonster->IsDeath())
+		{
+			m_monsterACTList.erase(m_monsterACTList.begin());
+			m_monsterACT = { nullptr,false };		//初期化。
+
+			//誰も行動していないなら
+			if (m_monsterACTList.size() == 0) {
+				m_battleState = enState_ATB;
+			}
+			else {
+				m_battleState = enState_ACT;
+			}
+
+			return;
+		}
+
+		//SortTeams();
 
 		int skill, target;
 		//行動の決定。
