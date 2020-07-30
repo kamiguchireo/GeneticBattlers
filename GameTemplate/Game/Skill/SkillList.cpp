@@ -91,6 +91,7 @@ SkillBase * SkillList::NewSkillHeal(int no)
 
 	case 2:
 		healSkill->SetEffect(L"Assets/effect/heal.efk", en_PosTarget);
+		healSkill->SetIsWide(true);
 		break;
 
 	default:
