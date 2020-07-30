@@ -127,6 +127,11 @@ public:
 	/// <param name="ui">描画しているUIのポインタ。</param>
 	/// <returns>溜まり切ったかの判定。</returns>
 	bool AddATB(StatusUI* ui);
+
+	void ClearATB()
+	{
+		m_activeTime = 0.0f;
+	}
 	/// <summary>
 	/// ステートの更新処理。
 	/// </summary>

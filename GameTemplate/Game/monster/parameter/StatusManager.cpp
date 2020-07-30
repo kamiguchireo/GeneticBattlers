@@ -107,7 +107,6 @@ bool StatusManager::AddATB(StatusUI* ui)
 	ui->SetScaling(res);
 
 	if (m_activeTime > m_coolTime) {
-		m_activeTime = 0.0f;
 		return true;
 	}
 	return false;
@@ -131,12 +130,13 @@ void StatusManager::StateUpdate(StatusUI* ui)
 	}
 	else if (m_status.HP == 0) {
 		m_stateAI = en_state_Death;
-		m_activeTime = 0.0f;
+		ClearATB();
+		m_UI->SetScaling(0.0f);
 	}
 	//UI‚É”½‰fB
 	if (ui == nullptr) { return; }	//null‚¾‚Á‚½‚çˆ—‚ð‚µ‚È‚¢B
-	float res = m_activeTime / m_coolTime;
-	res = min(1.0f, res);
-	ui->SetScaling(res);
+	//float res = m_activeTime / m_coolTime;
+	//res = min(1.0f, res);
+	//ui->SetScaling(res);
 	ui->SetHPScaling(nowHP);
 }

@@ -71,6 +71,8 @@ void MonsterBase::Draw()
 //行動の評価。
 bool MonsterBase::ACTScoring()
 {
+	m_status.ClearATB();
+	m_UI->SetScaling(0.0f);
 	//もうちょいこの辺も切り離したいかなぁ
 	//評価の選択の処理。
 	if (g_pad[0].IsTrigger(enButtonRight)) {		
