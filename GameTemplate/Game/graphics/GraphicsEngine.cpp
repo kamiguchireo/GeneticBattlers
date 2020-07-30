@@ -224,8 +224,8 @@ void GraphicsEngine::RtSpInit()
 {
 	//メインとなるレンダリングターゲットを作成する。
 	m_mainRenderTarget.Create(
-		FRAME_BUFFER_W,
-		FRAME_BUFFER_H,
+		static_cast <unsigned int>(FRAME_BUFFER_W),
+		static_cast <unsigned int>(FRAME_BUFFER_H),
 		DXGI_FORMAT_R16G16B16A16_FLOAT
 	);
 
@@ -233,8 +233,8 @@ void GraphicsEngine::RtSpInit()
 	//フレームバッファにコピーするためのスプライトを初期化する
 	m_copyMainRtToFrameBufferSprite.Init(
 		m_mainRenderTarget.GetRenderTargetSRV(),
-		FRAME_BUFFER_W,
-		FRAME_BUFFER_H
+		static_cast <unsigned int>(FRAME_BUFFER_W),
+		static_cast <unsigned int>(FRAME_BUFFER_H)
 	);
 	m_copyMainRtToFrameBufferSprite.SetAlpha(1.0f);
 }
