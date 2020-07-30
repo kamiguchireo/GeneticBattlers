@@ -48,6 +48,10 @@ public:
 	/// </summary>
 	void GIUpdate();
 	/// <summary>
+	/// 新しい行動を追加
+	/// </summary>
+	void AddNewSkill();
+	/// <summary>
 	/// 行動を乱数で決定する。
 	/// </summary>
 	/// <param name="skill">決定したスキルを取得する。</param>

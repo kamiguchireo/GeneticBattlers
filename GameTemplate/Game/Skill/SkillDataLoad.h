@@ -1,5 +1,8 @@
 #pragma once
 
+static const int NOSKILL = -1;			//次のスキル番号なし。
+static const int MAX_NEXT_SIZE = 3;		//次のスキルのサイズ。
+
 typedef std::vector<int> NextSkills;
 struct SkillData
 {

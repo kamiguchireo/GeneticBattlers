@@ -160,7 +160,7 @@ public:
 	/// <param name="healing">回復量。</param>
 	/// <returns>回復できた量。</returns>
 	int Healing(int healing) {
-		if (!IsDeath()) return 0;		//死亡時は回復しない。
+		if (IsDeath()) return 0;		//死亡時は回復しない。
 		return m_status.Healing(healing);
 	};
 
