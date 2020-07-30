@@ -94,6 +94,11 @@ namespace Engine {
 		{
 			m_range = range;
 		}
+
+		void CasterClear()
+		{
+			m_shadowCasters.clear();
+		}
 	private:
 		struct SShadowCb {
 			CMatrix mLVP[3];
@@ -113,7 +118,7 @@ namespace Engine {
 		ConstantBuffer m_shadowCb;		//影を落とす時に使用する定数バッファ。
 		ID3D11ShaderResourceView* m_shadow = nullptr;
 		float maxheight = 500.0f;
-		CVector3 m_range = { 200.0f,400.0f,600.0f };
+		CVector3 m_range = { 1000.0f,2000.0f,3000.0f };
 		ID3D11RenderTargetView* oldRenderTargetView = nullptr;
 		ID3D11DepthStencilView* oldDepthStencilView = nullptr;
 		const int TexResolution = 2048;		//シャドウマップテクスチャの解像度
