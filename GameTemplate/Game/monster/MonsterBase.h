@@ -160,6 +160,7 @@ public:
 	/// <param name="healing">‰ñ•œ—ÊB</param>
 	/// <returns>‰ñ•œ‚Å‚«‚½—ÊB</returns>
 	int Healing(int healing) {
+		if (!IsDeath()) return 0;		//€–S‚Í‰ñ•œ‚µ‚È‚¢B
 		return m_status.Healing(healing);
 	};
 

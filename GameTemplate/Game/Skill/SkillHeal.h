@@ -17,6 +17,7 @@ public:
 	}
 
 private:
+	int WideHeal();
 	//prefab::CEffect* m_healEffect = nullptr;
 
 };
