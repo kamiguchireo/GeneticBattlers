@@ -89,6 +89,10 @@ SkillBase * SkillList::NewSkillHeal(int no)
 		healSkill->SetEffect(L"Assets/effect/healS.efk",en_PosTarget);
 		break;
 
+	case 2:
+		healSkill->SetEffect(L"Assets/effect/heal.efk", en_PosTarget);
+		break;
+
 	default:
 		DeleteGO(healSkill);
 		return nullptr;
@@ -114,6 +118,10 @@ SkillBase * SkillList::NewSkillBuff(int no)
 		buffSkill->SetStatusBuff(en_buff_DEF);
 		buffSkill->SetEffect(L"Assets/effect/BuffDef.efk", en_PosTarget);
 		buffSkill->SetIsWide(true);
+		break;
+	case 2:
+		buffSkill->SetStatusBuff(en_buff_ATK);
+		buffSkill->SetEffect(L"Assets/effect/BuffAtk.efk", en_PosTarget);
 		break;
 
 	default:
