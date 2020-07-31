@@ -1,8 +1,8 @@
 #include "stdafx.h"
 #include "SkillDataLoad.h"
 
-static const int NOSKILL = -1;
-static const int MAX_NEXT_SIZE = 3;
+//static const int NOSKILL = -1;
+//static const int MAX_NEXT_SIZE = 3;
 
 SkillDataLoad* SkillDataLoad::m_instance = nullptr;
 

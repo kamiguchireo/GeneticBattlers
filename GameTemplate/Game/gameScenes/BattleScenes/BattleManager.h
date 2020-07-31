@@ -8,6 +8,15 @@ struct ACTMonsterInfo {
 	bool isEnemy = false;
 };
 
+namespace job {
+	enum JOB {
+		enjob_Attacker,
+		enjob_Healer,
+		enjob_Supotter,
+		enjob_Num
+	};
+}
+
 class BattleManager
 {
 public:
@@ -17,14 +26,14 @@ public:
 	//戦闘処理。
 	void BattleUpdate();
 	//味方のチームをセット。
-	void PushBackTeams(MonsterBase* monster)
+	void PushBackTeams(MonsterBase* monster, job::JOB j)
 	{
-		m_monsterTeam.push_back(monster);
+		m_monsterTeam[j] = monster;
 	}
 	//敵のチームをセット。
-	void PushBackEnemys(MonsterBase* enemy)
+	void PushBackEnemys(MonsterBase* enemy, job::JOB j)
 	{
-		m_monsterEnemy.push_back(enemy);
+		m_monsterEnemy[j] = enemy;
 	}
 	//それぞれに味方チームを知らせる。
 	void SetTeams();

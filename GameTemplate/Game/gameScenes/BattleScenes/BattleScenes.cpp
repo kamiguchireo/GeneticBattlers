@@ -50,12 +50,13 @@ bool BattleScenes::Start()
 		{
 			MonsterBase* monster = NewGO<MonsterTeam1>(0);
 			Status hoge;
-			hoge.HP = rand() % 50 + 100;
-			hoge.ATK = rand() % 10 + 10;
-			hoge.DEF = rand() % 10 + 10;
-			hoge.MAT = rand() % 10 + 10;
-			hoge.MDF = rand() % 10 + 10;
-			hoge.DEX = rand() % 10 + 10;
+			hoge.HP = 130;
+			//hoge.HP = 1;
+			hoge.ATK = 30;
+			hoge.DEF = 10;
+			hoge.MAT = 5;
+			hoge.MDF = 10;
+			hoge.DEX = 10;
 			monster->SetStatus(hoge);
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
@@ -66,7 +67,7 @@ bool BattleScenes::Start()
 				auto& gi = monster->GetGIManager();
 				gi.Init(m_netScenes->GetAttakerData());
 			}
-			m_battleManager.PushBackEnemys(monster);
+			m_battleManager.PushBackEnemys(monster,job::enjob_Attacker);
 
 			CVector3 uipos = { objData.position.x / -2.5f - 50.0f,300.0f,0.0f };
 			monster->SetUIPos(uipos);
@@ -77,12 +78,13 @@ bool BattleScenes::Start()
 		{
 			MonsterBase* monster = NewGO<MonsterTeam1>(0);
 			Status hoge;
-			hoge.HP = rand() % 50 + 100;
-			hoge.ATK = rand() % 10 + 10;
-			hoge.DEF = rand() % 10 + 10;
-			hoge.MAT = rand() % 10 + 10;
-			hoge.MDF = rand() % 10 + 10;
-			hoge.DEX = rand() % 10 + 10;
+			hoge.HP = 130;
+			//hoge.HP = 1;
+			hoge.ATK = 5;
+			hoge.DEF = 15;
+			hoge.MAT = 20;
+			hoge.MDF = 15;
+			hoge.DEX = 15;
 			monster->SetStatus(hoge);
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
@@ -93,7 +95,7 @@ bool BattleScenes::Start()
 				auto& gi = monster->GetGIManager();
 				gi.Init(m_netScenes->GetSupporterData());
 			}
-			m_battleManager.PushBackEnemys(monster);
+			m_battleManager.PushBackEnemys(monster,job::enjob_Supotter);
 
 			CVector3 uipos = { objData.position.x / -2.5f - 50.0f,300.0f,0.0f };
 			monster->SetUIPos(uipos);
@@ -104,12 +106,19 @@ bool BattleScenes::Start()
 		{
 			MonsterBase* monster = NewGO<MonsterTeam1>(0);
 			Status hoge;
-			hoge.HP = rand() % 50 + 100;
-			hoge.ATK = rand() % 10 + 10;
-			hoge.DEF = rand() % 10 + 10;
-			hoge.MAT = rand() % 10 + 10;
-			hoge.MDF = rand() % 10 + 10;
-			hoge.DEX = rand() % 10 + 10;
+			hoge.HP = 130;
+			//hoge.HP = 1;
+			hoge.ATK = 5;
+			hoge.DEF = 10;
+			hoge.MAT = 30;
+			hoge.MDF = 20;
+			hoge.DEX = 10;
+			//hoge.HP = rand() % 50 + 100;
+			//hoge.ATK = rand() % 10 + 10;
+			//hoge.DEF = rand() % 10 + 10;
+			//hoge.MAT = rand() % 10 + 10;
+			//hoge.MDF = rand() % 10 + 10;
+			//hoge.DEX = rand() % 10 + 10;
 			monster->SetStatus(hoge);
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
@@ -120,7 +129,7 @@ bool BattleScenes::Start()
 				auto& gi = monster->GetGIManager();
 				gi.Init(m_netScenes->GetHealerData());
 			}
-			m_battleManager.PushBackEnemys(monster);
+			m_battleManager.PushBackEnemys(monster,job::enjob_Healer);
 
 			CVector3 uipos = { objData.position.x / -2.5f - 50.0f,300.0f,0.0f };
 			monster->SetUIPos(uipos);
@@ -142,7 +151,7 @@ bool BattleScenes::Start()
 			attacker->SetPosition(objData.position);
 			attacker->SetRotation(objData.rotation);
 			attacker->Init("Assets/AIData/Attacker.bin");
-			m_battleManager.PushBackTeams(attacker);
+			m_battleManager.PushBackTeams(attacker,job::enjob_Attacker);
 
 			return true;
 		}	
@@ -161,7 +170,7 @@ bool BattleScenes::Start()
 			healer->SetPosition(objData.position);
 			healer->SetRotation(objData.rotation);
 			healer->Init("Assets/AIData/Healer.bin");
-			m_battleManager.PushBackTeams(healer);
+			m_battleManager.PushBackTeams(healer,job::enjob_Healer);
 		
 			return true;
 		}
@@ -180,7 +189,7 @@ bool BattleScenes::Start()
 			support->SetPosition(objData.position);
 			support->SetRotation(objData.rotation);
 			support->Init("Assets/AIData/Supporter.bin");
-			m_battleManager.PushBackTeams(support);
+			m_battleManager.PushBackTeams(support,job::enjob_Supotter);
 		
 			return true;
 		}

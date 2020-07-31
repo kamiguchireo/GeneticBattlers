@@ -1,5 +1,16 @@
 #include "stdafx.h"
 #include "GIManager.h"
+#include "Skill/SkillDataLoad.h"
+
+const float SKILL_NEW_RATE = 0.3f;
+const float FIRST_RATE = 0.15f;
+const int MAX_TARGET_COUNT = 3;
+
+struct SkillRate
+{
+	int skillNo = 0;
+	float rate = 0.0f;
+};
 
 GIManager::GIManager()
 {
@@ -61,6 +72,7 @@ void GIManager::LoadDefault(const char * filePath)
 void GIManager::Save()
 {
 	GIUpdate();
+	AddNewSkill();
 
 	FILE* fp = fopen(m_AIPath, "wb");
 
@@ -86,7 +98,7 @@ void GIManager::GIUpdate()
 	std::vector<float> AIscoreList(AISize, 0.0f);		//行動ごとのスコア。
 	float sum = 0.0f;
 	//スコアを合計する。
-	for (auto res : m_actResList) {
+	for (auto& res : m_actResList) {
 		////評価されていない。
 		//if (!res.score)	continue;
 		//スコアを合計する。
@@ -106,7 +118,7 @@ void GIManager::GIUpdate()
 			AIData hoge;
 			hoge.skillNo = res.skillNo;
 			hoge.target = res.target;
-			hoge.rate = 3.0f;		//最初からある程度の確率を持たせておく。
+			hoge.rate = FIRST_RATE;		//最初からある程度の確率を持たせておく。
 			//配列に積む。
 			m_AI.push_back(hoge);
 			AIscoreList.push_back(static_cast<float>(res.damage));
@@ -129,6 +141,98 @@ void GIManager::GIUpdate()
 	//確率に戻す。
 	for (int i = 0; i < AISize; i++) {
 		m_AI[i].rate /= sum;
+	}
+}
+
+void GIManager::AddNewSkill()
+{
+	//スキルごとの使用率を計算。
+	std::vector<SkillRate> rateList;
+
+	for (auto& ai : m_AI)
+	{
+		int i = 0;
+		for (i = 0; i < rateList.size(); i++) {
+			//リストに存在する。
+			if (ai.skillNo == rateList[i].skillNo) {
+				rateList[i].rate += ai.rate;
+				break;
+			}
+		}
+		//存在しない。
+		if (i == rateList.size()) {
+			//リストに追加。
+			SkillRate hoge;
+			hoge.skillNo = ai.skillNo;
+			hoge.rate = ai.rate;
+			//配列に積む。
+			rateList.push_back(hoge);
+		}
+	}
+
+	//スキルごとの使用率が一定を超えているか？
+	std::vector<int> skillList;
+
+	for (auto& sr : rateList)
+	{
+		if (sr.rate > SKILL_NEW_RATE)
+		{
+			skillList.push_back(sr.skillNo);
+		}
+	}
+	//超えているものがない。中断。
+	if (skillList.size() == 0) return;
+
+	//スキルのデータを取得。
+	auto skillData = SkillDataLoad::GetInstance();
+	if (skillData == nullptr) return;
+
+	//追加するスキルを決める。
+	for (auto& No : skillList)
+	{
+		//スキルデータ取得。
+		SkillData data = skillData->GetSkillData(No);
+
+		int NextSkillSize = data.NextSkillNo.size();
+
+		//次のスキルはない。
+		if (NextSkillSize == 0) continue;
+
+		AIData newData;
+
+		//次のスキル探査。
+		//乱数。
+		int r = rand() % NextSkillSize;
+		newData.skillNo = data.NextSkillNo[r];
+
+		int i = 0;
+		for (i = 0; i < m_AI.size(); i++)
+		{
+			//同じスキルがすでにある。
+			if (newData.skillNo == m_AI[i].skillNo)	 break;
+		}
+		//中断。
+		if (i != m_AI.size()) continue;
+
+
+		//ターゲット決める。
+		newData.target = rand() % MAX_TARGET_COUNT;
+		//使用率を適当に持たせておく。
+		newData.rate = FIRST_RATE;		//半分くらいがちょうどいいかなぁ？
+		//行動リストに積む。
+		m_AI.push_back(newData);
+	}
+
+	//確率に戻す。
+	float sum = 0.0f;
+	for (auto&ai : m_AI)
+	{
+		sum += ai.rate;
+	}
+	sum = max(1.0f, sum);		//ゼロ割発生しないと思うけど回避。
+	for (auto&ai : m_AI)
+	{
+		ai.rate /= sum;
 	}
 }
 

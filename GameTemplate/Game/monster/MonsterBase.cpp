@@ -58,9 +58,6 @@ void MonsterBase::Draw()
 	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
 
 	auto shadowMap = g_graphicsEngine->GetShadowMap();
-	//shadowMap->Update(CVector3::AxisY()*1000.0f, CVector3::Zero());
-	//shadowMap->SendShadowRecieverParamToGpu();
-	//shadowMap->RenderToShadowMap();
 	shadowMap->RegistShadowCaster(
 		&m_model
 	);
@@ -74,6 +71,8 @@ void MonsterBase::Draw()
 //行動の評価。
 bool MonsterBase::ACTScoring()
 {
+	m_status.ClearATB();
+	m_UI->SetScaling(0.0f);
 	//もうちょいこの辺も切り離したいかなぁ
 	//評価の選択の処理。
 	if (g_pad[0].IsTrigger(enButtonRight)) {		

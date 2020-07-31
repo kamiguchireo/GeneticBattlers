@@ -11,6 +11,8 @@ public:
 
 	bool ACTScoring() 
 	{
+		m_status.ClearATB();
+		m_UI->SetScaling(0.0f);
 		DeleteGO("sLog");
 		return true; 
 	};
