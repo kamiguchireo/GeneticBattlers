@@ -12,12 +12,23 @@ public:
 	void SetMat(int i,CMatrix bindPose,CMatrix invBindPose)
 	{
 		m_boneId = i;
-		m_bindPose = bindPose;
+		m_BindPose = bindPose;
 		m_invBindPose = invBindPose;
+	}
+
+	void ChangeMat(CMatrix&bindPose, CMatrix&invBindPose)
+	{
+		bindPose = m_BindPose;
+		invBindPose = m_invBindPose;
+	}
+
+	int GetBoneId()const
+	{
+		return m_boneId;
 	}
 private:
 	int				m_boneId = -1;		//ボーン番号。
-	CMatrix			m_bindPose = CMatrix::Identity();		//バインドポーズ。
+	CMatrix			m_BindPose = CMatrix::Identity();		//バインドポーズ。
 	CMatrix			m_invBindPose = CMatrix::Identity();	//バインドポーズの逆行列。
 };
 
@@ -138,6 +149,18 @@ public:
 	*/
 	void CalcWorldTRS(CVector3& trans, CQuaternion& rot, CVector3& scale);
 	
+	void ChangeMatrix(MatAndBoneId mb)
+	{
+		if (m_boneId == mb.GetBoneId())
+		{
+			mb.ChangeMat(m_bindPose, m_invBindPose);
+		}
+	}
+
+	MatAndBoneId GetMandB()const
+	{
+		return MandB;
+	}
 private:
 
 	std::wstring	m_boneName;

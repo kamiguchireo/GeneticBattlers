@@ -95,6 +95,7 @@ namespace Engine {
 			m_range = range;
 		}
 
+		//キャスターが残ることによる次フレームのポインタ参照で例外スローされる場合は任意のタイミングで呼んでください
 		void CasterClear()
 		{
 			m_shadowCasters.clear();
