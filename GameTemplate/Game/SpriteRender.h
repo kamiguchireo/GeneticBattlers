@@ -20,6 +20,9 @@ namespace Engine {
 
 			//アップデート関数
 			void Update();
+
+			void Draw();
+
 			//セット関係
 			void SetPosition(CVector3 pos)
 			{
