@@ -25,7 +25,8 @@ private:
 	Skeleton m_skeleton2;			//ブレンディング用スケルトン
 	Animation m_animation;				//アニメーション。
 	Animation m_animation2;				//アニメーションブレンディング用
-	AnimationClip m_animClip[2];				//アニメーションクリップ。
+	AnimationClip m_animClip[1];				//アニメーションクリップ。
+	AnimationClip m_animClip2[1];
 	std::vector<Bone*> m_bone;
 };
 

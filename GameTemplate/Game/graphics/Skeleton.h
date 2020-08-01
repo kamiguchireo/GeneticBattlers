@@ -16,10 +16,14 @@ public:
 		m_invBindPose = invBindPose;
 	}
 
-	void ChangeMat(CMatrix&bindPose, CMatrix&invBindPose)
+	CMatrix GetBindPose()
 	{
-		bindPose = m_BindPose;
-		invBindPose = m_invBindPose;
+		return m_BindPose;
+	}
+
+	CMatrix GetInvBindPose()
+	{
+		return m_invBindPose;
 	}
 
 	int GetBoneId()const
@@ -149,18 +153,16 @@ public:
 	*/
 	void CalcWorldTRS(CVector3& trans, CQuaternion& rot, CVector3& scale);
 	
-	void ChangeMatrix(MatAndBoneId mb)
+	void ChangeMatrix(CMatrix localMat)
 	{
-		if (m_boneId == mb.GetBoneId())
-		{
-			mb.ChangeMat(m_bindPose, m_invBindPose);
-		}
+		m_localMatrix = localMat;
 	}
 
 	MatAndBoneId GetMandB()const
 	{
 		return MandB;
 	}
+
 private:
 
 	std::wstring	m_boneName;
@@ -256,6 +258,11 @@ public:
 	Bone* GetBone(int boneNo)
 	{
 		return m_bones[boneNo];
+	}
+
+	void ChangeMatrix(int i,CMatrix localMat)
+	{
+		m_bones[i]->ChangeMatrix(localMat);
 	}
 	/*!
 	*@brief	ボーン行列の配列をGPUに転送。

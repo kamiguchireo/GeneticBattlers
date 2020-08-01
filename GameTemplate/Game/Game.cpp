@@ -10,9 +10,9 @@ Game::Game()
 	
 	//アニメーションクリップの読み込み。
 	m_animClip[0].Load(L"Assets/animData/idle.tka");
-	m_animClip[1].Load(L"Assets/animData/run.tka");
+	m_animClip2[0].Load(L"Assets/animData/run.tka");
 	m_animClip[0].SetLoopFlag(true);
-	m_animClip[1].SetLoopFlag(true);
+	m_animClip2[0].SetLoopFlag(true);
 }
 
 
@@ -36,9 +36,6 @@ bool Game::Start()
 
 	m_model.Init(L"Assets/modelData/unityChan.cmo",m_skeleton);
 	CVector3 m_pos = { 0.0f,0.0f,0.0f };
-	//m_model.UpdateWorldMatrix(m_pos, CQuaternion::Identity(), CVector3::One());
-	//CQuaternion m_ligdir2 = { 1.0f,.0f,0.0f,0.0f };
-	//m_model.SetLightDir(m_ligdir2);
 	m_model.SetActiveDLFlag(0);
 	m_model.SetActiveRLFlag(1);
 	m_position = m_pos;
@@ -46,9 +43,11 @@ bool Game::Start()
 
 
 	m_skeleton.Update(m_model.GetWorldMatrix());
-	m_bone = (m_skeleton.GetChildBoneMat(L"Character1_Hips"));
+	m_bone = (m_skeleton2.GetChildBoneMat(L"Character1_Hips"));
 	m_animation.Init(m_skeleton, m_animClip, 2);
-	m_animation.Play(1);
+	m_animation2.Init(m_skeleton2, m_animClip2, 2);
+	m_animation.Play(0);
+	m_animation2.Play(0);
 
 	////モデル2
 	//m_model2.Init(L"Assets/modelData/DesertDragon.cmo");
@@ -60,8 +59,6 @@ bool Game::Start()
 	//m_model2.SetActiveDLFlag(1);
 	//m_model2.SetActiveRLFlag(1);
 
-
-
 	//モデル3
 	m_model3.Init(L"Assets/modelData/EngineGround.cmo");
 	CVector3 m_pos3 = { 0.0f,0.0f,0.0f };
@@ -72,17 +69,12 @@ bool Game::Start()
 	m_model3.SetActiveDLFlag(0);
 	m_model3.SetShadowReciever(true);
 	//m_position.y = 100.0f;
-	
-	//fr = NewGO<prefab::FontRender>(0);
-	//fr->SetText(L"aaaaaaaaaaaaaaaaaaaaaa");
-	//fr->SetPosition({ 0.0f, 0.0f });
-	//fr->SetPivot({0.5f, 0.5f });
+
 	return true;
 }
 
 void Game::Update()
 {
-	static float f = 0.5f;
 	if (GetAsyncKeyState(VK_UP))
 	{
 		m_position.z-=5.0f;
@@ -100,27 +92,23 @@ void Game::Update()
 		m_position.x+=5.0f;
 	}
 
-
 	//fr->SetScale(f);
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
 	//m_model2.UpdateWorldMatrix(m_pos2, CQuaternion::Identity(), CVector3::One()/3.0f);
-
-	
-	m_skeleton.Update(m_model.GetWorldMatrix());
 	m_animation.Update(1.0f / 30.0f);
+	m_animation2.Update(1.0f / 30.0f);
+	for (int i = 0; i < m_bone.size(); i++)
+	{
+		m_skeleton.ChangeMatrix(m_bone[i]->GetNo(),m_bone[i]->GetLocalMatrix());
+	}
+	m_skeleton.Update(m_model.GetWorldMatrix());
+
 	m_skeleton.SendBoneMatrixArrayToGPU();
-	
-	
+
+
+
 	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
 
-	if (GetAsyncKeyState('A'))
-	{
-		f += 0.01f;
-		m_position.y += 10.0f;
-		m_model.SetLightColor(f);
-		//m_shadowMap->SetMaxheight(500.0f);
-		//m_shadowMap->SetRange({ 400.0f,5000.0f,2000.0f });
-	}
 	m_shadowMap->Update({ 0.0f, 1000.0f, 0.0f },
 		{ 0.0f, 0.0f, 0.0f });
 	m_shadowMap->RegistShadowCaster(&m_model);
