@@ -84,14 +84,14 @@ bool Game::Start()
 	m_animation.Play(1);
 
 	////モデル2
-	m_model2.Init(L"Assets/modelData/DesertDragon.cmo");
-	m_model2.UpdateWorldMatrix(m_pos2, CQuaternion::Identity(), CVector3::One());
+	//m_model2.Init(L"Assets/modelData/DesertDragon.cmo");
+	//m_model2.UpdateWorldMatrix(m_pos2, CQuaternion::Identity(), CVector3::One());
 	//CVector4 m_ligCol = { 1.0f,1.0f,1.0f,1.0f };
 	//CQuaternion m_ligdir = { 0.707f,0.0f,1.0f,1.0f};
 	//m_model2.SetLightColor(m_ligCol);
 	//m_model2.SetLightDir(m_ligdir);
 	//m_model2.SetActiveDLFlag(1);
-	m_model2.SetActiveRLFlag(1);
+	//m_model2.SetActiveRLFlag(1);
 
 
 
@@ -136,7 +136,7 @@ void Game::Update()
 
 	//fr->SetScale(f);
 	m_model.UpdateWorldMatrix(m_position, CQuaternion::Identity(), CVector3::One());
-	m_model2.UpdateWorldMatrix(m_pos2, CQuaternion::Identity(), CVector3::One()/3.0f);
+	//m_model2.UpdateWorldMatrix(m_pos2, CQuaternion::Identity(), CVector3::One()/3.0f);
 
 	
 	m_skeleton.Update(m_model.GetWorldMatrix());
@@ -176,11 +176,11 @@ void Game::Update()
 	//);
 
 	//モデル2の通常のドロー
-	m_model2.Draw
-	(
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);
+	//m_model2.Draw
+	//(
+	//	g_camera3D.GetViewMatrix(),
+	//	g_camera3D.GetProjectionMatrix()
+	//);
 
 	////モデル3のドロー
 	//m_model3.Draw

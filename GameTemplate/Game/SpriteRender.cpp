@@ -25,7 +25,7 @@ namespace Engine {
 			);
 		}
 
-		void SpriteRender::PostRender(RenderContext&rc)
+		void SpriteRender::PostRender()
 		{
 			//if (m_isDraw3D == false)
 			//{

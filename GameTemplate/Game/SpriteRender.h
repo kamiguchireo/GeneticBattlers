@@ -50,7 +50,7 @@ namespace Engine {
 				m_sprite.SetIsAlpha(i);
 			}
 			//描画
-			void PostRender(RenderContext&rc)override final;
+			void PostRender()override final;
 		private:
 			bool m_isDraw3D = false;		//3D空間で描画する
 			ShaderResourceView m_texture;		//テクスチャ

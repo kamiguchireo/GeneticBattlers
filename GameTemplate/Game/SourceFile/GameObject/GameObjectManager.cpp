@@ -3,6 +3,17 @@
 
 namespace Engine {
 
+	void CGameObjectManager::PreRender()
+	{
+		for (GameObjectList objList : m_gameObjectListArray)
+		{
+			for (IGameObject*obj : objList)
+			{
+				obj->PreRenderWrapper();
+			}
+		}
+	}
+
 	void CGameObjectManager::Start()
 	{
 		for (GameObjectList objList : m_gameObjectListArray)
@@ -10,6 +21,7 @@ namespace Engine {
 			for (IGameObject*obj : objList)
 			{
 				obj->StartWrapper();
+
 			}
 		}
 	}
@@ -23,10 +35,31 @@ namespace Engine {
 				obj->UpdateWrapper();
 			}
 		}
-		ExecuteRender();
 		ExecuteDeleteGameObjects();
 	}
 
+	void CGameObjectManager::Draw()
+	{
+		for (GameObjectList objList : m_gameObjectListArray)
+		{
+			for (IGameObject*obj : objList)
+			{
+				obj->DrawWrapper();
+			}
+		}
+	}
+
+	void CGameObjectManager::PostRender()
+	{
+		for (GameObjectList objList : m_gameObjectListArray)
+		{
+			for (IGameObject*obj : objList)
+			{
+				obj->PostRenderWrapper();
+			}
+		}
+	}
+	
 	void CGameObjectManager::ExecuteDeleteGameObjects()
 	{
 		int preBufferNo = m_currentDeleteObjectBufferNo;
@@ -55,23 +88,6 @@ namespace Engine {
 		}
 	}
 
-	void CGameObjectManager::PostRender(RenderContext& rc)
-	{
-		for (GameObjectList objList : m_gameObjectListArray)
-		{
-			for (IGameObject*obj : objList)
-			{
-				obj->PostRenderWrapper(rc);
-			}
-		}
-	}
 
-	void CGameObjectManager::ExecuteRender()
-	{
-		RenderContext& renderContext = g_graphicsEngine->GetRenderContext();
-		//2D‚Ì•\Ž¦
-		//g_graphicsEngine->Execute2DDraw();
-		PostRender(renderContext);
-	}
 
 }

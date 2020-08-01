@@ -99,10 +99,6 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		unsigned int numViewport = 1;
 		d3dDeviceContext->RSGetViewports(&numViewport, &m_frameBufferViewports);
 
-
-		//ゲームオブジェクトマネージャーのStart関数
-		GameObjectManager().Start();
-
 		//レンダーターゲットの変更
 		g_graphicsEngine->ChangeRenderTarget
 		(
@@ -116,8 +112,8 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 		g_graphicsEngine->GetRT()->ClearRenderTarget(clearColor);
 
-		//ゲームオブジェクトマネージャーのUpdate関数
-		GameObjectManager().Update();
+		//ゲームオブジェクトマネージャー全体の更新関数
+		GameObjectManager().Thread();
 
 		//ポストエフェクトの描画
 		m_postEffect.Draw();

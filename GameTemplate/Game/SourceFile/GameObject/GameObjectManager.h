@@ -144,11 +144,27 @@ namespace Engine {
 		}
 
 	public:
+		//更新前描画
+		void PreRender();
+		//初期化
 		void Start();
+		//更新
 		void Update();
-		void PostRender(RenderContext& rc);
-		//描画処理の実行
-		void ExecuteRender();
+		//描画
+		void Draw();
+		//更新後描画
+		void PostRender();
+
+		//ゲームオブジェクトマネージャー全体の更新
+		void Thread()
+		{
+			PreRender();
+			Start();
+			Update();
+			Draw();
+			PostRender();
+		}
+
 	private:
 		//ゲームオブジェクトの削除を実行
 		void ExecuteDeleteGameObjects();

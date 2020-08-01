@@ -24,7 +24,7 @@ private:
 	//prefab::CEffect* effect = NewGO<prefab::CEffect>(0);		//エフェクトを作成。
 	//prefab::CSoundSource ss;		//サウンド
 	SkinModel m_model;		//モデル(ユニティちゃん)
-	SkinModel m_model2;	//モデル２(ユニティちゃん)
+	//SkinModel m_model2;	//モデル２(ユニティちゃん)
 	SkinModel m_model3;		//モデル３(地面)
 	RenderTarget m_shadowMapRT;		//シャドウマップを描画するレンダリングターゲット
 	CVector3 m_ligPos = { 0.0f,300.0f,0.0f };
