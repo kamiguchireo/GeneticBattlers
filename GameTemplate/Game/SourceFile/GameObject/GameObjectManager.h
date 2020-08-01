@@ -158,8 +158,8 @@ namespace Engine {
 		//ゲームオブジェクトマネージャー全体の更新
 		void Thread()
 		{
-			PreRender();
 			Start();
+			PreRender();
 			Update();
 			Draw();
 			PostRender();

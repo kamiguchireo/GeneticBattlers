@@ -119,7 +119,7 @@ namespace Engine {
 		ConstantBuffer m_shadowCb;		//影を落とす時に使用する定数バッファ。
 		ID3D11ShaderResourceView* m_shadow = nullptr;
 		float maxheight = 500.0f;
-		CVector3 m_range = { 1000.0f,2000.0f,3000.0f };
+		CVector3 m_range = { 500.0f,1000.0f,2000.0f };
 		ID3D11RenderTargetView* oldRenderTargetView = nullptr;
 		ID3D11DepthStencilView* oldDepthStencilView = nullptr;
 		const int TexResolution = 2048;		//シャドウマップテクスチャの解像度

@@ -38,11 +38,12 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
-	{		
+	{	
+		//ネットワークの更新
+		networkLogic.run();
+		
 		//カメラの更新。
 		g_camera3D.Update();
-
-		networkLogic.run();
 
 		//描画開始。
 		g_graphicsEngine->BegineRender();

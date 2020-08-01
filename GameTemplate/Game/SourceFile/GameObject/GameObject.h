@@ -47,18 +47,9 @@ namespace Engine {
 	//Render関数が実行された後で呼ばれる描画処理
 	virtual void PostRender() {}
 	public:
-		void PreRenderWrapper()
-		{
-			if (NextRenderStep == PreRenderStep)
-			{
-				PreRender();
-				NextRenderStep = StartStep;
-			}
-		}
-
 		void StartWrapper()
 		{
-			if (NextRenderStep == StartStep) 
+			if (NextRenderStep == StartStep)
 			{
 				if (!is_StartEnd)
 				{
@@ -67,8 +58,17 @@ namespace Engine {
 					}
 				}
 				//初期化処理完了。
-				NextRenderStep = UpdateStep;
+				NextRenderStep = PreRenderStep;
 
+			}
+		}
+
+		void PreRenderWrapper()
+		{
+			if (NextRenderStep == PreRenderStep)
+			{
+				PreRender();
+				NextRenderStep = UpdateStep;
 			}
 		}
 
@@ -145,12 +145,12 @@ namespace Engine {
 
 	private:
 	enum GameObjectStep {
-		PreRenderStep,
 		StartStep,
+		PreRenderStep,
 		UpdateStep,
 		DrawStep,
 		PostRenderStep
 	};
-	GameObjectStep NextRenderStep = PreRenderStep;		//ゲームオブジェクトマネージャー内で使う次に実行する実行ステップ
+	GameObjectStep NextRenderStep = StartStep;		//ゲームオブジェクトマネージャー内で使う次に実行する実行ステップ
 	};
 }
