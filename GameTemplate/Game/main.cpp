@@ -5,9 +5,7 @@
 #include "Game.h"
 #include "Fade.h"
 #include "gameScenes/TitleScene.h"
-#include "SourceFile/Sound/SoundEngine.h"
-#include "SourceFile/Light/DirectionLight.h"
-#include "SourceFile/graphic/PostEffect.h"
+#include "SourceFile/Engine.h"
 //photon
 #include "Photon/Common-cpp/inc/JString.h"
 #include "Network/SampleNetwork.h"
@@ -27,49 +25,24 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//ネットワークに接続
 	SampleNetwork networkLogic(appID, appVersion);
 	networkLogic.connect();
-
-	D3D11_VIEWPORT m_frameBufferViewports;			//フレームバッファのビューポート。
-	CVector3 m_sposition = { 0.0,0.0,5.0 };			//座標。
-	CQuaternion m_rotation = CQuaternion::Identity();			//!<回転。
-	CVector3 m_scale = CVector3::One();			//拡大率。
-	CVector2 m_pivot = Sprite::DEFAULT_PIVOT;	//ピボット。
-	ID3D11RenderTargetView* m_frameBufferRenderTargetView = nullptr;	//フレームバッファのレンダリングターゲットビュー。
-	ID3D11DepthStencilView* m_frameBufferDepthStencilView = nullptr;	//フレームバッファのデプスステンシルビュー。
-
-
-	//カメラを初期化。
-	g_camera3D.SetPosition({ 0.0f, 100.0f, 300.0f });
-	g_camera3D.SetTarget({ 0.0f, 100.0f, 0.0f });
-	g_camera3D.SetFar(10000.0f);
-
-	g_camera2D.SetPosition({ 0.0f, 0.0f, 0.0f });
-	g_camera2D.SetTarget({ 0.0f, 0.0f, 10.0f });
-	g_camera2D.SetFar(100.0f);
+	
+	EngineProcessing EP;		//エンジンの処理関係をまとめたクラス
+	EP.Init();
 
 	//Gameの生成。
 	//エンジンの実験してるので中身は触らないで
-	NewGO<Game>(0, nullptr);
+	//NewGO<Game>(0, nullptr);
 
 	//ここに必要なものはNewGOしていってください
-	//NewGO<TitleScene>(0, nullptr);
-	//NewGO<Fade>(1, "Fade");
-
-	//エフェクサーマネージャーの初期化
-	//コメントアウトしないで
-	g_graphicsEngine->managerInit();
-
-	//サウンド関係の初期化
-	//コメントアウトしないで
-	CSoundEngine se;
-	se.Init();
-
-	g_camera2D.Update2D();
-	PostEffect m_postEffect;		//ポストエフェクト
+	NewGO<TitleScene>(0, nullptr);
+	NewGO<Fade>(1, "Fade");
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
-	{
-		//i++;
+	{		
+		//カメラの更新。
+		g_camera3D.Update();
+
 		networkLogic.run();
 
 		//描画開始。
@@ -80,71 +53,35 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 			pad.Update();
 		}
 
-		//ポストエフェクトの更新
-		m_postEffect.Update();
-
 		//物理エンジンの更新。
 		g_physics.Update();
 
+		//エンジン内部処理の更新処理
+		EP.Update();
 
-		//フレームバッファののレンダリングターゲットをバックアップしておく。
-		auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-		d3dDeviceContext->OMGetRenderTargets(
-			1,
-			&m_frameBufferRenderTargetView,
-			&m_frameBufferDepthStencilView
-		);
+		////////////////////////////////////////////
+		/////ここからオフスクリーンレンダリング/////
+		////////////////////////////////////////////
 
-		//ビューポートもバックアップを取っておく。
-		unsigned int numViewport = 1;
-		d3dDeviceContext->RSGetViewports(&numViewport, &m_frameBufferViewports);
-
-		//レンダーターゲットの変更
-		g_graphicsEngine->ChangeRenderTarget
-		(
-			d3dDeviceContext,
-			g_graphicsEngine->GetRT()->GetRenderTargetView(),
-			g_graphicsEngine->GetRT()->GetDepthStensilView(),
-			&m_frameBufferViewports
-		);
-
-		//メインレンダリングターゲットをクリアする。
-		float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-		g_graphicsEngine->GetRT()->ClearRenderTarget(clearColor);
+		EP.ChangeRT();		//レンダリングターゲットを戻す
 
 		//ゲームオブジェクトマネージャー全体の更新関数
 		GameObjectManager().Thread();
 
-		//ポストエフェクトの描画
-		m_postEffect.Draw();
+		EP.PostEffectDraw();		//ポストエフェクトのDraw
 
-		//レンダーターゲットをもとに戻す
-		g_graphicsEngine->ChangeRenderTarget
-		(
-			d3dDeviceContext,
-			m_frameBufferRenderTargetView,
-			m_frameBufferDepthStencilView,
-			&m_frameBufferViewports
-		);
+		EP.ReturnRT();		//レンダリングターゲットを戻す
 
-		//作成したスプライトを表示する
-		g_graphicsEngine->GetSp()->Update(m_sposition, m_rotation, m_scale, m_pivot);
-		g_graphicsEngine->GetSp()->Draw
-		(
-			g_camera2D.GetViewMatrix(),
-			g_camera2D.GetProjectionMatrix()
-		);
+		////////////////////////////////////////////
+		///////オフスクリーンレンダリング終了///////
+		////////////////////////////////////////////
 
-		//レンダーターゲットとデプスステンシルの解放
-		m_frameBufferRenderTargetView->Release();
-		m_frameBufferDepthStencilView->Release();
+		EP.MainSpriteDraw();		//最終的に画面全体をスプライト化したものを描画
 		
-		//カメラの更新。
-		g_camera3D.Update();
-
 		//描画終了。
 		g_graphicsEngine->EndRender();
 	}
 
+	//ゲームループ終了時にネットワークから切断する
 	networkLogic.disconnect();
 }
