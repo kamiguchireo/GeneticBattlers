@@ -105,12 +105,12 @@ int GetCascadeIndex(float zInView)
 	for (int i = 0; i < NUM_SHADOW_MAP; i++) {
 		//if (zInView > shadowAreaDepthInViewSpaceNear[i])
 		{
-			if (zInView < shadowAreaDepthInViewSpace[i]) {
+			if (zInView <= shadowAreaDepthInViewSpace[i]) {
 				return i;
 			}
 		}
 	}
-	return 100;
+	return -1;
 }
 
 float CalcShadowPercent(Texture2D<float4> tex, float2 uv, float depth)
@@ -134,7 +134,7 @@ float CalcShadow(float3 worldPos, float zInView)
 		//使用するシャドウマップの番号を取得する。
 		int cascadeIndex = GetCascadeIndex(zInView);
 		
-		if (cascadeIndex == 100)
+		if (cascadeIndex == -1)
 		{
 			return 0;
 		}

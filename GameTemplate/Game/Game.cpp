@@ -5,21 +5,6 @@
 
 Game::Game()
 {	
-	////メインとなるレンダリングターゲットを作成する。
-	//m_mainRenderTarget.Create(
-	//	FRAME_BUFFER_W,
-	//	FRAME_BUFFER_H,
-	//	DXGI_FORMAT_R8G8B8A8_UNORM
-	//);
-
-	////メインレンダリングターゲットに描かれた絵を
-	////フレームバッファにコピーするためのスプライトを初期化する
-	//m_copyMainRtToFrameBufferSprite.Init(
-	//	m_mainRenderTarget.GetRenderTargetSRV(),
-	//	FRAME_BUFFER_W,
-	//	FRAME_BUFFER_H
-	//);
-
 	g_camera3D.SetPosition({ 0.0f, 100.0f, 500.0f });
 	g_camera3D.SetTarget({ 0.0f, 0.0f, 0.0f });
 	
@@ -38,24 +23,6 @@ Game::~Game()
 
 bool Game::Start()
 {
-
-	//スプライトを初期化
-	//m_spriteRender = NewGO<prefab::SpriteRender>(0,"sprite");
-	//m_spriteRender->Init(L"Assets/sprite/Good.dds", 400, 300);
-
-	//エフェクトを再生。
-	//effect->Play(L"Assets/effect/test.efk");
-	//CVector3 emitPos = CVector3::Zero();
-	//emitPos.y += 100.0f;
-	//effect->SetPosition(emitPos);
-	
-	//サウンドを再生
-	//ss.Init(L"Assets/sound/bgm_00.wav");
-	//ss.Play(false);
-
-	//モデル1
-	//m_model.Init(L"Assets/modelData/DesertDragon.cmo");
-
 	bool result = m_skeleton.Load(L"Assets/modelData/unityChan.tks");
 	if (result == false)
 	{
@@ -159,156 +126,6 @@ void Game::Update()
 	m_shadowMap->RegistShadowCaster(&m_model);
 	m_shadowMap->SendShadowRecieverParamToGpu();
 	m_shadowMap->RenderToShadowMap();
-	//Render();
-	////モデルのドロー
-	//m_model.Draw
-	//(
-	//	g_camera3D.GetViewMatrix(),
-	//	g_camera3D.GetProjectionMatrix(),
-	//	0
-	//);
-
-	////モデル2のシルエットのドロー
-	//m_model2.Draw
-	//(
-	//	g_camera3D.GetViewMatrix(),
-	//	g_camera3D.GetProjectionMatrix(),
-	//	1
-	//);
-
-	//モデル2の通常のドロー
-	//m_model2.Draw
-	//(
-	//	g_camera3D.GetViewMatrix(),
-	//	g_camera3D.GetProjectionMatrix()
-	//);
-
-	////モデル3のドロー
-	//m_model3.Draw
-	//(
-	//	g_camera3D.GetViewMatrix(),
-	//	g_camera3D.GetProjectionMatrix(),
-	//	0
-	//);
-
-	//if(GetAsyncKeyState(VK_UP))
-	//{
-		//エフェクトをNewGO
-		//effect = NewGO<prefab::CEffect>(0);
-		////エフェクトを再生。
-		//effect->Play(L"Assets/effect/test.efk");
-		//CVector3 emitPos = CVector3::Zero();
-		//emitPos.y += 100.0f;
-		//effect->SetPosition(emitPos);
-		//effect->SetScale({ 10.0f,10.0f,10.0f });
-	//}
-}
-
-void Game::UpdateShadowMap()
-{
-
-}
-
-//void Game::ForwordRender()
-//{
-//	//レンダリングターゲットをメインに変更する。
-//	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-//	g_graphicsEngine->ChangeRenderTarget(
-//		d3dDeviceContext, 
-//		&m_mainRenderTarget, 
-//		&m_frameBufferViewports
-//	);
-//	//メインレンダリングターゲットをクリアする。
-//	float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
-//	m_mainRenderTarget.ClearRenderTarget(clearColor);
-//}
-
-//void Game::PostRender()
-//{
-//	//レンダリングターゲットをフレームバッファに戻す
-//	auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-//	g_graphicsEngine->ChangeRenderTarget(
-//		d3dDeviceContext,
-//		oldRenderTargetView,
-//		oldDepthStencilView,
-//		&m_frameBufferViewports
-//	);
-//
-//	//スプライトにしていたものをドロー
-//	m_copyMainRtToFrameBufferSprite.Update(m_sposition, m_rotation, m_scale, m_pivot);
-//	m_copyMainRtToFrameBufferSprite.Draw
-//	(
-//		g_camera2D.GetViewMatrix(),
-//		g_camera2D.GetProjectionMatrix()
-//	);
-//
-//}
-void Game::Render()
-{
-	////描画開始
-	////シャドウマップにレンダリング
-	//auto d3dDeviceContext = g_graphicsEngine->GetD3DDeviceContext();
-	////現在のレンダリングターゲットをバックアップしておく
-	//d3dDeviceContext->OMGetRenderTargets
-	//(
-	//	1,
-	//	&oldRenderTargetView,
-	//	&oldDepthStencilView
-	//);
-	////ビューポートもバックアップを取っておく
-	//unsigned int numViewPort = 1;
-	//D3D11_VIEWPORT oldViewPorts;
-	//d3dDeviceContext->RSGetViewports(&numViewPort, &oldViewPorts);
-	
-
-
-	//シャドウマップにレンダリング
-	auto m_shadowMap = g_graphicsEngine->GetShadowMap();
-	m_shadowMap->RenderToShadowMap();
-
-	////デバイスコンテキストをもとに戻す
-	//d3dDeviceContext->OMSetRenderTargets
-	//(
-	//	1,
-	//	&oldRenderTargetView,
-	//	oldDepthStencilView
-	//);
-	//d3dDeviceContext->RSSetViewports
-	//(
-	//	numViewPort,
-	//	&oldViewPorts
-	//);
-	//
-	////レンダリングターゲットとデプスステンシルの参照カウンタを下す
-	//oldRenderTargetView->Release();
-	//oldDepthStencilView->Release();
-
-	//m_shadowMap->SendShadowRecieverParamToGpu();
-	//ForwordRender();
-
-
-	//PostRender();
-	
-	//通常レンダリング
-	//モデルのドロー
-	m_model.Draw
-	(
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix(),
-		enRenderMode_Normal
-		//g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
-		//g_graphicsEngine->GetShadowMap()->GetLightViewMatrix(0)
-	);
-
-	//モデル3のドロー
-	m_model3.Draw
-	(
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix(),
-		enRenderMode_Normal
-		//g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
-		//g_graphicsEngine->GetShadowMap()->GetLightViewMatrix(0)
-	);
 }
 
 void Game::Draw()

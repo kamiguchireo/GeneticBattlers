@@ -212,8 +212,8 @@ namespace Engine {
 			CMatrix m_mat = CMatrix::Identity();
 			m_lightProMatrix[i].Mul(m_lightViewMatrix[i], proj);
 			m_shadowCbEntity.mLVP[i] = m_lightProMatrix[i];
-			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ;
-			nearPlaneZ = farPlaneZ * 0.9f;		//ƒMƒŠƒMƒŠ‚¾‚Æ‹«ŠE‚ª‚Å‚«‚é
+			m_shadowCbEntity.shadowAreaDepthInViewSpace[i] = farPlaneZ*0.9f;
+			nearPlaneZ = farPlaneZ*0.85f;		//ƒMƒŠƒMƒŠ‚¾‚Æ‹«ŠE‚ª‚Å‚«‚é
 		}
 	}
 
