@@ -67,7 +67,10 @@ namespace Engine {
 		{
 			if (NextRenderStep == PreRenderStep)
 			{
-				PreRender();
+				if (!m_isDead)
+				{
+					PreRender();
+				}
 				NextRenderStep = UpdateStep;
 			}
 		}
@@ -76,7 +79,10 @@ namespace Engine {
 		{
 			if (NextRenderStep == UpdateStep)
 			{
-				Update();
+				if (!m_isDead)
+				{
+					Update();
+				}
 				NextRenderStep = DrawStep;
 			}
 		}
@@ -85,7 +91,10 @@ namespace Engine {
 		{
 			if (NextRenderStep == DrawStep)
 			{
-				Draw();
+				if (!m_isDead)
+				{
+					Draw();
+				}
 				NextRenderStep = PostRenderStep;
 			}
 		}
@@ -94,7 +103,10 @@ namespace Engine {
 		{
 			if (NextRenderStep == PostRenderStep)
 			{
-				PostRender();
+				if (!m_isDead)
+				{
+					PostRender();
+				}
 				NextRenderStep = PreRenderStep;
 			}
 		}
@@ -138,7 +150,7 @@ namespace Engine {
 		bool m_isRegistDeadList = false;	//!<死亡リストに積まれている。
 		bool m_isNewFromGameObjectManager;	//!<GameObjectManagerでnewされた
 		bool m_isRegist = false;			//!<GameObjectManagerに登録されているかどうか
-		bool m_isDead;						//!<死亡フラグ。
+		bool m_isDead = false;						//!<死亡フラグ。
 		bool m_isActive = true;				//Activeフラグ
 		std::list<std::function<void(SEventParam&eventParam)>> m_eventListeners;	//イベントリスナー
 		bool is_StartEnd = false;
