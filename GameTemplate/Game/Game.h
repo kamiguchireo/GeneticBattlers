@@ -15,6 +15,7 @@ public:
 	void Update();
 	void UpdateShadowMap();
 	void Render();
+	void Draw();
 	//void ForwordRender();
 	//void PostRender();
 	//ƒXƒPƒ‹ƒgƒ“‚Ì‰Šú‰»

@@ -158,7 +158,8 @@ void Game::Update()
 		{ 0.0f, 0.0f, 0.0f });
 	m_shadowMap->RegistShadowCaster(&m_model);
 	m_shadowMap->SendShadowRecieverParamToGpu();
-	Render();
+	m_shadowMap->RenderToShadowMap();
+	//Render();
 	////モデルのドロー
 	//m_model.Draw
 	//(
@@ -307,5 +308,25 @@ void Game::Render()
 		enRenderMode_Normal
 		//g_graphicsEngine->GetShadowMap()->GetLigthProjMatrix(0),
 		//g_graphicsEngine->GetShadowMap()->GetLightViewMatrix(0)
+	);
+}
+
+void Game::Draw()
+{
+	//通常レンダリング
+	//モデルのドロー
+	m_model.Draw
+	(
+		g_camera3D.GetViewMatrix(),
+		g_camera3D.GetProjectionMatrix(),
+		enRenderMode_Normal
+	);
+
+	//モデル3のドロー
+	m_model3.Draw
+	(
+		g_camera3D.GetViewMatrix(),
+		g_camera3D.GetProjectionMatrix(),
+		enRenderMode_Normal
 	);
 }

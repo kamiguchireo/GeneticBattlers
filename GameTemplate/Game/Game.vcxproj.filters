@@ -266,6 +266,7 @@
     <ClCompile Include="Skill\SkillDataLoad.cpp">
       <Filter>skill</Filter>
     </ClCompile>
+    <ClCompile Include="SourceFile\Engine.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -470,6 +471,7 @@
       <Filter>skill</Filter>
     </ClInclude>
     <ClInclude Include="SourceFile\Noncopyable.h" />
+    <ClInclude Include="SourceFile\Engine.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

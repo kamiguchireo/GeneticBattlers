@@ -99,6 +99,7 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="SourceFile\Engine.cpp" />
     <ClCompile Include="gameScenes\BattleScenes\BattleManager.cpp" />
     <ClCompile Include="gameScenes\NetScenes\NetSceneText.cpp" />
     <ClCompile Include="monster\parameter\GIManager.cpp" />
@@ -183,6 +184,7 @@
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="SourceFile\Engine.h" />
     <ClInclude Include="gameScenes\BattleScenes\BattleManager.h" />
     <ClInclude Include="gameScenes\NetScenes\NetSceneText.h" />
     <ClInclude Include="monster\parameter\GIManager.h" />
