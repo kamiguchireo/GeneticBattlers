@@ -1,6 +1,9 @@
 #pragma once
 #include "SourceFile/Sound/SoundEngine.h"
 #include "SourceFile/graphic/PostEffect.h"
+//photon
+#include "Photon/Common-cpp/inc/JString.h"
+#include "Network/SampleNetwork.h"
 
 namespace Engine {
 	class EngineProcessing :public Noncopyable
@@ -32,6 +35,7 @@ namespace Engine {
 
 		//最終的に画面に出すスプライトの描画
 		void MainSpriteDraw();
+
 	private:
 		CSoundEngine se;		//サウンドエンジン
 		PostEffect m_postEffect;		//ポストエフェクト

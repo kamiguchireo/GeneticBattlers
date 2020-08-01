@@ -91,4 +91,5 @@ namespace Engine {
 		float clearColor[] = { 0.0f, 0.0f, 0.0f, 1.0f };
 		g_graphicsEngine->GetRT()->ClearRenderTarget(clearColor);
 	}
+
 }
