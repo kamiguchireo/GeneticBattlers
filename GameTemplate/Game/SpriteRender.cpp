@@ -31,6 +31,8 @@ namespace Engine {
 		{
 			if (m_isDraw3D == false)
 			{
+				//スプライトの更新処理を呼び出す
+				//m_sprite.Update(m_position, m_rotation, m_scale, m_pivot);
 				//m_sprite.Draw(g_graphicsEngine->Get2DCamera().GetViewMatrix(), g_graphicsEngine->Get2DCamera().GetProjectionMatrix());
 			}
 		}
@@ -39,6 +41,8 @@ namespace Engine {
 		{
 			if (m_isDraw3D == false)
 			{
+				//スプライトの更新処理を呼び出す
+				m_sprite.Update(m_position, m_rotation, m_scale, m_pivot);
 				m_sprite.Draw(g_graphicsEngine->Get2DCamera().GetViewMatrix(), g_graphicsEngine->Get2DCamera().GetProjectionMatrix());
 			}
 		}

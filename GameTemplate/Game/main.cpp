@@ -34,7 +34,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//ここに必要なものはNewGOしていってください
 	NewGO<TitleScene>(0, nullptr);
-	NewGO<Fade>(1, "Fade");
+	NewGO<Fade>(3, "Fade");
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
