@@ -272,6 +272,12 @@ void BattleScenes::Update()
 		break;
 	}
 
+	////レベルの描画。
+	//m_level.Draw();
+}
+
+void BattleScenes::Draw()
+{
 	//ここで呼んでるとゲームループできないんだが。
 	auto shadowMap = g_graphicsEngine->GetShadowMap();
 	shadowMap->Update(CVector3::AxisY()*1000.0f + CVector3::AxisX()*200.0f, CVector3::Zero());
@@ -279,8 +285,6 @@ void BattleScenes::Update()
 	shadowMap->RenderToShadowMap();
 	//ステージを表示させる。
 	m_model.Draw(g_camera3D.GetViewMatrix(), g_camera3D.GetProjectionMatrix());
-	////レベルの描画。
-	//m_level.Draw();
 }
 
 void BattleScenes::InitMonster()

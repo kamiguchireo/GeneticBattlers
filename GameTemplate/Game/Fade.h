@@ -13,7 +13,7 @@ public:
 	/// 更新処理。
 	/// </summary>
 	void Update();
-	void PostRender(RenderContext& renderContext);
+	void PostRender();
 	/// <summary>
 	/// フェードインを開始する。
 	/// </summary>

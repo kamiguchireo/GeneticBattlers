@@ -12,6 +12,14 @@ MonsterBase::~MonsterBase()
 {
 }
 
+void MonsterBase::PreRender()
+{
+	auto shadowMap = g_graphicsEngine->GetShadowMap();
+	shadowMap->RegistShadowCaster(
+		&m_model
+	);
+}
+
 void MonsterBase::Update()
 {
 	switch (m_status.GetState())
@@ -32,10 +40,20 @@ void MonsterBase::Update()
 
 		break;
 	}
-	//描画処理。
-	Draw();
 	//アニメーションの更新処理。
 	m_animation.Update(1.0f / 30.0f);
+	//ワールド行列の更新。
+	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
+}
+
+void MonsterBase::Draw()
+{
+
+	//描画処理。
+	m_model.Draw(
+		g_camera3D.GetViewMatrix(),
+		g_camera3D.GetProjectionMatrix()
+	);
 }
 
 void MonsterBase::SetStatus(int hp, int atk, int def, int mat, int mdf, int dex)
@@ -52,21 +70,6 @@ void MonsterBase::SetStatus(int hp, int atk, int def, int mat, int mdf, int dex)
 	m_status.SetStatus(hoge);
 }
 
-void MonsterBase::Draw()
-{
-	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
-
-	auto shadowMap = g_graphicsEngine->GetShadowMap();
-	shadowMap->RegistShadowCaster(
-		&m_model
-	);
-	//描画処理。
-	m_model.Draw(
-		g_camera3D.GetViewMatrix(),
-		g_camera3D.GetProjectionMatrix()
-	);
-}
 
 //行動の評価。
 bool MonsterBase::ACTScoring()

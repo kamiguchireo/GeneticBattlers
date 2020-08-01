@@ -23,6 +23,7 @@ public:
 
 	bool Start();
 	void Update();
+	void Draw();
 	//モンスターの初期化。
 	void InitMonster();
 

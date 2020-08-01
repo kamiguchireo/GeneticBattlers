@@ -32,7 +32,9 @@ public:
 	/// </summary>
 	virtual ~MonsterBase();
 
+	void PreRender()override;
 	void Update()override;
+	void Draw()override;
 
 	//座標を取得。
 	const CVector3& GetPosition() const
@@ -90,7 +92,6 @@ public:
 	/// モデル関係の処理もクラス分けしたほうがいいんかなぁ？
 	/// </summary>
 
-	void Draw();			//描画処理とかをまとめたもの。
 	//魔法のアニメーションを再生。
 	void AnimationMagic()
 	{

@@ -49,7 +49,7 @@ void Fade::Update()
 	}
 }
 
-void Fade::PostRender(RenderContext & renderContext)
+void Fade::PostRender()
 {
 	if (m_currentAlpha > 0.0f) {
 		//m_sprite.SetMulColor({ 1.0,1.0,1.0,m_currentAlpha });
