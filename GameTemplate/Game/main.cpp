@@ -32,7 +32,7 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	//エンジンの実験してるので中身は触らないで
 	//NewGO<Game>(0, nullptr);
 
-	//ここに必要なものはNewGOしていってください
+	//ここに必要なものはNewGOしていってください	
 	NewGO<TitleScene>(0, nullptr);
 	NewGO<Fade>(3, "Fade");
 
