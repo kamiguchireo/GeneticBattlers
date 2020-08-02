@@ -30,11 +30,11 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 
 	//Gameの生成。
 	//エンジンの実験してるので中身は触らないで
-	NewGO<Game>(0, nullptr);
+	//NewGO<Game>(0, nullptr);
 
-	//ここに必要なものはNewGOしていってください
-	//NewGO<TitleScene>(0, nullptr);
-	//NewGO<Fade>(3, "Fade");
+	//ここに必要なものはNewGOしていってください	
+	NewGO<TitleScene>(0, nullptr);
+	NewGO<Fade>(3, "Fade");
 
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
