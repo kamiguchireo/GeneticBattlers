@@ -10,7 +10,7 @@ SkillBase::SkillBase()
 
 SkillBase::~SkillBase()
 {
-	if (!m_user->IsDead()) {
+	if (m_user != nullptr && !m_user->IsDead()) {
 		//待機状態のアニメーションの再生。
 		m_user->AnimationIdle();
 	}

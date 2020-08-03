@@ -19,6 +19,8 @@ void SkillBuff::SkillSetting()
 void SkillBuff::Update()
 {
 	if (m_target->IsDead()) {
+		m_target = nullptr;
+		m_user = nullptr;
 		DeleteGO(this);
 		return;
 	}

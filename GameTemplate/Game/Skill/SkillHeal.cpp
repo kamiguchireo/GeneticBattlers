@@ -17,6 +17,8 @@ void SkillHeal::SkillSetting()
 void SkillHeal::Update()
 {
 	if (m_target->IsDead()) {
+		m_target = nullptr;
+		m_user = nullptr;
 		DeleteGO(this);
 		return;
 	}
