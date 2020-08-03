@@ -65,6 +65,7 @@ namespace Engine {
 
 			//XV
 			void Update();
+			void PostRender() override;
 		private:
 			std::map<int, Effekseer::Effect*> m_resourceMap;
 			Effekseer::Effect*m_effect = nullptr;

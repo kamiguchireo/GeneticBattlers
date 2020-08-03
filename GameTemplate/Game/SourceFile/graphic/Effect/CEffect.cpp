@@ -65,6 +65,38 @@ namespace Engine {
 
 		void CEffect::Update()
 		{
+			//Effekseer::Matrix44 efCameraMat;
+			//g_camera3D.GetViewMatrix().CopyTo(efCameraMat);
+			//Effekseer::Matrix44 efProjMat;
+			//g_camera3D.GetProjectionMatrix().CopyTo(efProjMat);
+			////カメラ行列とプロジェクション行列を設定。
+			//g_graphicsEngine->GetEffekseerRender().SetCameraMatrix(efCameraMat);
+			//g_graphicsEngine->GetEffekseerRender().SetProjectionMatrix(efProjMat);
+
+			//g_graphicsEngine->GetEffekseerManager().Update();
+
+			CMatrix m_Trans, m_Rot, m_Scale, m_Base = CMatrix::Identity();
+			m_Trans.MakeTranslation(m_position);
+			m_Rot.MakeRotationFromQuaternion(m_rotation);
+			m_Scale.MakeScaling(m_scale);
+			m_Base.Mul(m_Scale, m_Rot);
+			m_Base.Mul(m_Base, m_Trans);
+			g_graphicsEngine->GetEffekseerManager().SetBaseMatrix(m_handle, m_Base);
+
+			//g_graphicsEngine->GetEffekseerRender().BeginRendering();
+			//g_graphicsEngine->GetEffekseerManager().Draw();
+			//g_graphicsEngine->GetEffekseerRender().EndRendering();
+
+			if (IsPlay() == false)
+			{
+				//再生完了したら終わる
+				DeleteGO(this);
+			}
+		}
+		void CEffect::PostRender()
+		{
+			//取り合えずPostRenderに置くことでエフェクトを再生できるようにした。
+			//tkEngineとは違うから直したかったらそっち参照。
 			Effekseer::Matrix44 efCameraMat;
 			g_camera3D.GetViewMatrix().CopyTo(efCameraMat);
 			Effekseer::Matrix44 efProjMat;
@@ -75,23 +107,9 @@ namespace Engine {
 
 			g_graphicsEngine->GetEffekseerManager().Update();
 
-			CMatrix m_Trans, m_Rot, m_Scale, m_Base = CMatrix::Identity();
-			m_Trans.MakeTranslation(m_position);
-			m_Rot.MakeRotationFromQuaternion(m_rotation);
-			m_Scale.MakeScaling(m_scale);
-			m_Base.Mul(m_Scale, m_Rot);
-			m_Base.Mul(m_Base, m_Trans);
-			g_graphicsEngine->GetEffekseerManager().SetBaseMatrix(m_handle, m_Base);
-
 			g_graphicsEngine->GetEffekseerRender().BeginRendering();
 			g_graphicsEngine->GetEffekseerManager().Draw();
 			g_graphicsEngine->GetEffekseerRender().EndRendering();
-
-			if (IsPlay() == false)
-			{
-				//再生完了したら終わる
-				DeleteGO(this);
-			}
 		}
 	}
 }
