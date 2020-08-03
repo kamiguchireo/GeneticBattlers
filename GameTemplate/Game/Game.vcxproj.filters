@@ -267,6 +267,9 @@
       <Filter>skill</Filter>
     </ClCompile>
     <ClCompile Include="SourceFile\Engine.cpp" />
+    <ClCompile Include="Skill\SkillDebuff.cpp">
+      <Filter>skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -472,6 +475,9 @@
     </ClInclude>
     <ClInclude Include="SourceFile\Noncopyable.h" />
     <ClInclude Include="SourceFile\Engine.h" />
+    <ClInclude Include="Skill\SkillDebuff.h">
+      <Filter>skill</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">

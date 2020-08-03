@@ -31,6 +31,7 @@ bool SkillDataLoad::Start()
 	LoadData("Assets/SkillData/AttackSkill.csv",en_Attack);
 	LoadData("Assets/SkillData/HealSkill.csv", en_Heal);
 	LoadData("Assets/SkillData/BuffSkill.csv", en_Buff);
+	LoadData("Assets/SkillData/DebuffSkill.csv", en_Debuff);
 
 	return true;
 }
@@ -71,6 +72,18 @@ SkillData SkillDataLoad::GetSkillBuff(int No)
 	return errorData;
 }
 
+SkillData SkillDataLoad::GetSkillDebuff(int No)
+{
+	if (No < m_debuffSkillList.size())
+	{
+		return m_debuffSkillList[No];
+	}
+	SkillData errorData;
+	errorData.Name = L"エラースキル";
+
+	return errorData;
+}
+
 SkillData SkillDataLoad::GetSkillData(int No)
 {
 	//スキルのタイプ、番号を調べる
@@ -80,13 +93,16 @@ SkillData SkillDataLoad::GetSkillData(int No)
 	switch (typeNum)
 	{
 	case SkillDataLoad::en_Attack:
-		retData = m_attackSkillList[skillNo];
+		retData = GetSkillAttack(skillNo);
 		break;
 	case SkillDataLoad::en_Heal:
-		retData = m_healSkillList[skillNo];
+		retData = GetSkillHeal(skillNo);
 		break;
 	case SkillDataLoad::en_Buff:
-		retData = m_buffSkillList[skillNo];
+		retData = GetSkillBuff(skillNo);;
+		break;
+	case SkillDataLoad::en_Debuff:
+		retData = GetSkillDebuff(skillNo);
 		break;
 	default:
 		retData.Name = L"エラースキル";
@@ -108,6 +124,9 @@ void SkillDataLoad::LoadData(const char * FilePath, EnSkillType skillType)
 		break;
 	case SkillDataLoad::en_Buff:
 		SList = &m_buffSkillList;
+		break;
+	case SkillDataLoad::en_Debuff:
+		SList = &m_debuffSkillList;
 		break;
 	default:
 		return;

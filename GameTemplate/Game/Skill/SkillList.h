@@ -17,6 +17,7 @@ public:
 	/// <remarks>０通常行動</remarks>
 	/// <remarks>１回復魔法</remarks>
 	/// <remarks>２バフ魔法</remarks>
+	/// <remarks>３デバフ魔法</remarks>
 	/// </param>
 	/// <param name="no">スキルナンバー</param>
 	/// <returns>スキルのデータ</returns>
@@ -31,6 +32,7 @@ private:
 	SkillBase* NewSkillAttack(int no);
 	SkillBase* NewSkillHeal(int no);
 	SkillBase* NewSkillBuff(int no);
+	SkillBase* NewSkillDebuff(int no);
 	//SkillBase* NewSkillMagic(int no);
 	static SkillList* m_instance;
 	SkillDataLoad* m_skillData = nullptr;

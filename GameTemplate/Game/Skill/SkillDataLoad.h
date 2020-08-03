@@ -31,6 +31,7 @@ public:
 	SkillData GetSkillAttack(int No);
 	SkillData GetSkillHeal(int No);
 	SkillData GetSkillBuff(int No);
+	SkillData GetSkillDebuff(int No);
 	//”Ô†‚©‚çƒXƒLƒ‹î•ñ‚ğæ“¾B
 	SkillData GetSkillData(int No);
 
@@ -40,6 +41,7 @@ private:
 		en_Attack,
 		en_Heal,
 		en_Buff,
+		en_Debuff,
 		en_SkillTypeNum
 	};
 	/// <summary>
@@ -55,5 +57,6 @@ private:
 	SkillDataList m_attackSkillList;
 	SkillDataList m_healSkillList;
 	SkillDataList m_buffSkillList;
+	SkillDataList m_debuffSkillList;
 };
 

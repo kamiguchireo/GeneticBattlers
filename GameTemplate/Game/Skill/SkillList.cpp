@@ -5,6 +5,7 @@
 #include "SkillHeal.h"
 #include "SkillBuff.h"
 #include "SkillMagic.h"
+#include "SkillDebuff.h"
 
 SkillList* SkillList::m_instance = nullptr;
 
@@ -124,13 +125,37 @@ SkillBase * SkillList::NewSkillBuff(int no)
 		buffSkill->SetStatusBuff(en_buff_ATK);
 		buffSkill->SetEffect(L"Assets/effect/BuffAtk.efk", en_PosTarget);
 		break;
-
 	default:
 		DeleteGO(buffSkill);
 		return nullptr;
 		break;
 	}
 	return buffSkill;
+}
+
+SkillBase * SkillList::NewSkillDebuff(int no)
+{
+	//デバフスキルの生成。
+	auto* debuffSkill = NewGO<SkillDebuff>(0);
+	//データ取得。
+	debuffSkill->InitSkill(m_skillData->GetSkillBuff(no));
+	switch (no)
+	{
+	case 0:
+		debuffSkill->SetStatusDebuff(en_buff_DEF);
+		debuffSkill->SetEffect(L"Assets/effect/DebuffDef.efk", en_PosTarget);
+		break;
+
+	case 1:
+		debuffSkill->SetStatusDebuff(en_buff_DEX);
+		debuffSkill->SetEffect(L"Assets/effect/DebuffDex.efk", en_PosTarget);
+		break;
+	default:
+		DeleteGO(debuffSkill);
+		return nullptr;
+		break;
+	}
+	return debuffSkill;
 }
 
 //SkillBase * SkillList::NewSkillMagic(int no)
