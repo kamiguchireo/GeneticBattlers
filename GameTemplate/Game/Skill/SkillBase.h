@@ -22,7 +22,7 @@ class SkillBase : public IGameObject
 {
 public:
 	SkillBase();
-	~SkillBase();
+	virtual ~SkillBase();
 	bool Start();
 	/*
 	ƒXƒLƒ‹‚Ìİ’è‚ğ‚·‚éB
