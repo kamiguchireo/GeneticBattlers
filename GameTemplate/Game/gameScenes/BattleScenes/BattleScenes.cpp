@@ -287,23 +287,3 @@ void BattleScenes::Draw()
 	m_model.Draw(g_camera3D.GetViewMatrix(), g_camera3D.GetProjectionMatrix());
 }
 
-void BattleScenes::InitMonster()
-{
-	const int MonsterNum = 3;
-
-	for (int i = 0; i < MonsterNum; i++) {
-		MonsterBase* monster = NewGO<MonsterTeam1>(0);
-		CVector3 pos(-50.0f + 50.0f*i, 0.0f, 0.0f);
-		Status hoge;
-		hoge.HP = rand() % 50 + 100;
-		//hoge.MP = rand() % 50 + 100;
-		hoge.ATK = rand() % 10 + 10;
-		hoge.DEF = rand() % 10 + 10;
-		hoge.MAT = rand() % 10 + 10;
-		hoge.MDF = rand() % 10 + 10;
-		hoge.DEX = rand() % 10 + 10;
-		monster->SetPosition(pos);
-		monster->SetStatus(hoge);
-	}
-}
-

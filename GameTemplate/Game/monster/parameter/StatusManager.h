@@ -147,7 +147,8 @@ private:
 	const float addTime = 1.0f / 144.0f * 4.0f;			//加算タイム。
 	float m_activeTime = 0.0f;							//アクティブタイム。
 	float m_coolTime = 30.0f;							//クールタイム。
-	float buffTimeList[en_buff_num] = { 0.0f };			//バフタイム。
+	float m_buffTimeList[en_buff_num] = { 0.0f };			//バフタイム。
+	float m_deBduffTimeList[en_buff_num] = { 0.0f };		//デバフタイム。作るかなぁ？
 
 	StatusUI* m_UI = nullptr;
 };

@@ -174,12 +174,6 @@ public:
 	/// <returns>効果値。</returns>
 	int Monster_Buff(StatusBuff status,float pow,float time);
 
-	//バフをリセットする。
-	void ResetBuff(int i) 
-	{
-		m_status.ResetBuff(i);
-	};
-
 	/// <summary>
 	/// スキルのターゲットを定める。
 	/// </summary>

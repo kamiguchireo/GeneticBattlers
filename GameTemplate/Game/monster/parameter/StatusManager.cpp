@@ -50,7 +50,7 @@ int StatusManager::Monster_Buff(StatusBuff status, float pow, float time)
 
 		break;
 	}
-	buffTimeList[status] = time;
+	m_buffTimeList[status] = time;
 
 	return res;
 }
@@ -58,7 +58,7 @@ int StatusManager::Monster_Buff(StatusBuff status, float pow, float time)
 void StatusManager::ResetBuff(int i)
 {
 	////効果時間があるなら中断。
-	//if (buffTimeList[i] > 0.0f) {
+	//if (m_buffTimeList[i] > 0.0f) {
 	//	return;
 	//}
 	//ステータスを元のステータスに戻す。
@@ -83,7 +83,7 @@ void StatusManager::ResetBuff(int i)
 		return;
 	}
 	//
-	buffTimeList[i] = 0.0f;
+	m_buffTimeList[i] = 0.0f;
 }
 
 bool StatusManager::AddATB(StatusUI* ui)
@@ -93,10 +93,10 @@ bool StatusManager::AddATB(StatusUI* ui)
 
 	m_activeTime += (float)m_status.DEX * addTime;
 	for (int i = 0; i < en_buff_num; i++) {
-		if (buffTimeList[i] == 0.0f) continue;
+		if (m_buffTimeList[i] == 0.0f) continue;
 
-		buffTimeList[i] -= addTime;
-		if (buffTimeList[i] < 0.0f) {
+		m_buffTimeList[i] -= addTime;
+		if (m_buffTimeList[i] < 0.0f) {
 			ResetBuff(i);
 		}
 	}
