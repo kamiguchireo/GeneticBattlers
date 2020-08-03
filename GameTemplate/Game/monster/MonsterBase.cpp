@@ -117,14 +117,26 @@ bool MonsterBase::ACTScoring()
 	return false;
 }
 
-int MonsterBase::Monster_Buff(StatusBuff status, float pow, float time)
+int MonsterBase::MonsterBuffAndDebuff(StatusBuff status, float pow, float time)
 {
 	if (IsDeath()) {
 		//死亡時はバフをかけられない。
 		return 0;
 	}
+	int res = 0;
 
-	return m_status.Monster_Buff(status,pow,time);
+	if (pow > 1.0f)
+	{
+		//倍率が1を超えているならバフ。
+		res = m_status.Monster_Buff(status, pow, time);
+	}
+	else
+	{
+		//超えていないならデバフ。
+		res = m_status.Monster_Debuff(status, pow, time);
+	}
+
+	return res;
 }
 
 void MonsterBase::SelectUseSkill(

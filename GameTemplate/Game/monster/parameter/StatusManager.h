@@ -117,9 +117,20 @@ public:
 	/// <param name="time">バフの効果時間。</param>
 	/// <returns>効果値。</returns>
 	int Monster_Buff(StatusBuff status, float pow, float time);
-
+	/// <summary>
+	/// デバフを掛ける。
+	/// </summary>
+	/// <param name="status">デバフをかけるステータス</param>
+	/// <param name="pow"></param>
+	/// <param name="time"></param>
+	/// <returns></returns>
+	int Monster_Debuff(StatusBuff status, float pow, float time);
+	//バフとデバフの値をステータスに合計する。
+	void SumBufAndDebuff(int status);
 	//バフをリセットする。
 	void ResetBuff(int i);
+	//デバフをリセットする。
+	void ResetDebuff(int i);
 
 	/// <summary>
 	/// アクティブタイムの加算。
@@ -148,7 +159,9 @@ private:
 	float m_activeTime = 0.0f;							//アクティブタイム。
 	float m_coolTime = 30.0f;							//クールタイム。
 	float m_buffTimeList[en_buff_num] = { 0.0f };			//バフタイム。
-	float m_deBduffTimeList[en_buff_num] = { 0.0f };		//デバフタイム。作るかなぁ？
+	int m_buffValues[en_buff_num] = { 0 };					//バフによる上昇値
+	float m_debuffTimeList[en_buff_num] = { 0.0f };			//デバフタイム。作るかなぁ？
+	int m_debuffValues[en_buff_num] = { 0 };				//デバフによる低下値
 
 	StatusUI* m_UI = nullptr;
 };

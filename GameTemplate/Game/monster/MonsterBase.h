@@ -172,7 +172,7 @@ public:
 	/// <param name="pow">バフの威力。</param>
 	/// <param name="time">バフの効果時間。</param>
 	/// <returns>効果値。</returns>
-	int Monster_Buff(StatusBuff status,float pow,float time);
+	int MonsterBuffAndDebuff(StatusBuff status,float pow,float time);
 
 	/// <summary>
 	/// スキルのターゲットを定める。

@@ -20,70 +20,135 @@ int StatusManager::Healing(int healing)
 int StatusManager::Monster_Buff(StatusBuff status, float pow, float time)
 {
 	int res = 0;
+	//倍率から1を引いておく。
+	pow -= 1.0f;
 
 	//バフをかける。
 	switch (status)
 	{
 	case en_buff_ATK:
-		m_status.ATK = static_cast<int>(m_statusBase.ATK * pow);
-		res = m_status.ATK - m_statusBase.ATK;	//上昇値の計算。
+		res = static_cast<int>(m_statusBase.ATK * pow);	//上昇値の計算。
+		m_buffValues[status] = res;
 
 		break;
 	case en_buff_DEF:
-		m_status.DEF = static_cast<int>(m_statusBase.DEF * pow);
-		res = m_status.DEF - m_statusBase.DEF;	//上昇値の計算。
+		res = static_cast<int>(m_statusBase.DEF * pow);	//上昇値の計算。
+		m_buffValues[status] = res;
 
 		break;
 	case en_buff_MAT:
-		m_status.MAT = static_cast<int>(m_statusBase.MAT * pow);
-		res = m_status.MAT - m_statusBase.MAT;	//上昇値の計算。
+		res = static_cast<int>(m_statusBase.MAT * pow);	//上昇値の計算。
+		m_buffValues[status] = res;
 
 		break;
 	case en_buff_MDF:
-		m_status.MDF = static_cast<int>(m_statusBase.MDF * pow);
-		res = m_status.MDF - m_statusBase.MDF;	//上昇値の計算。
+		res = static_cast<int>(m_statusBase.MDF * pow);	//上昇値の計算。
+		m_buffValues[status] = res;
 
 		break;
 	case en_buff_DEX:
-		m_status.DEX = static_cast<int>(m_statusBase.DEX * pow);
-		res = m_status.DEX - m_statusBase.DEX;	//上昇値の計算。
+		res = static_cast<int>(m_statusBase.DEX * pow);	//上昇値の計算。
+		m_buffValues[status] = res;
 
 		break;
 	}
+	//バフの効果時間を設定。
 	m_buffTimeList[status] = time;
+	//バフの効果を反映。
+	SumBufAndDebuff(status);
 
 	return res;
 }
 
-void StatusManager::ResetBuff(int i)
+int StatusManager::Monster_Debuff(StatusBuff status, float pow, float time)
 {
-	////効果時間があるなら中断。
-	//if (m_buffTimeList[i] > 0.0f) {
-	//	return;
-	//}
-	//ステータスを元のステータスに戻す。
-	switch (i)
+	int res = 0;
+	//倍率から1を引いておく。
+	pow -= 1.0f;
+
+	//バフをかける。
+	switch (status)
 	{
 	case en_buff_ATK:
-		m_status.ATK = m_statusBase.ATK;
+		res = static_cast<int>(m_statusBase.ATK * pow);//低下値の計算。
+		m_debuffValues[status] = res;
+
 		break;
 	case en_buff_DEF:
-		m_status.DEF = m_statusBase.DEF;
+		res = static_cast<int>(m_statusBase.DEF * pow);//低下値の計算。
+		m_debuffValues[status] = res;
+
 		break;
 	case en_buff_MAT:
-		m_status.MAT = m_statusBase.MAT;
+		res = static_cast<int>(m_statusBase.MAT * pow);//低下値の計算。
+		m_debuffValues[status] = res;
+
 		break;
 	case en_buff_MDF:
-		m_status.MDF = m_statusBase.MDF;
+		res = static_cast<int>(m_statusBase.MDF * pow);//低下値の計算。
+		m_debuffValues[status] = res;
+
 		break;
 	case en_buff_DEX:
-		m_status.DEX = m_statusBase.DEX;
+		res = static_cast<int>(m_statusBase.DEX * pow);//低下値の計算。
+		m_debuffValues[status] = res;
+
 		break;
-	default:
-		return;
 	}
-	//
+	//デバフの効果時間を設定。
+	m_debuffTimeList[status] = time;
+	//デバフの効果を反映。
+	SumBufAndDebuff(status);
+
+	//効果値の絶対値を取る。
+	res = abs(res);
+
+	return res;
+}
+
+void StatusManager::SumBufAndDebuff(int status)
+{
+	//バフとデバフを反映したステータスを出す。
+	switch (status)
+	{
+	case en_buff_ATK:
+		m_status.ATK = m_statusBase.ATK + m_buffValues[status] + m_debuffValues[status];
+		break;
+	case en_buff_DEF:
+		m_status.DEF = m_statusBase.DEF + m_buffValues[status] + m_debuffValues[status];
+		break;
+	case en_buff_MAT:
+		m_status.MAT = m_statusBase.MAT + m_buffValues[status] + m_debuffValues[status];
+		break;
+	case en_buff_MDF:
+		m_status.MDF = m_statusBase.MDF + m_buffValues[status] + m_debuffValues[status];
+		break;
+	case en_buff_DEX:
+		m_status.DEX = m_statusBase.DEX + m_buffValues[status] + m_debuffValues[status];
+		break;
+	}
+}
+
+void StatusManager::ResetBuff(int i)
+{
+	//バフによる上昇値を0にする
+	m_buffValues[i] = 0;
+	//バフの効果時間を0にする。
 	m_buffTimeList[i] = 0.0f;
+
+	//ステータスを元のステータスに戻す。(デバフがあるならそれも反映)
+	SumBufAndDebuff(i);
+}
+
+void StatusManager::ResetDebuff(int i)
+{
+	//デバフによる低下値を0にする
+	m_debuffValues[i] = 0;
+	//デバフの効果時間を0にする。
+	m_debuffTimeList[i] = 0;
+
+	//ステータスの低下を元に戻す。
+	SumBufAndDebuff(i);
 }
 
 bool StatusManager::AddATB(StatusUI* ui)
