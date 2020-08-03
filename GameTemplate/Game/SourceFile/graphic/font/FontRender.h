@@ -82,6 +82,7 @@ namespace Engine
 
 			bool Start();
 			void Update();
+			void PostRender()override;
 		private:
 			Font m_font;		//フォント
 			std::wstring m_text;		//テキスト。
