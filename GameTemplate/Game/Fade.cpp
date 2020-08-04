@@ -28,7 +28,7 @@ bool Fade::Start()
 
 void Fade::Update()
 {
-	const float FRAME_TIME = g_gameTime.GetFrameDeltaTime() * 1.5f;
+	const float FRAME_TIME = g_gameTime.GetFrameDeltaTime();
 	switch (m_state)
 	{
 	case enState_fadeIn:
