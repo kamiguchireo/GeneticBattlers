@@ -77,6 +77,16 @@ public:
 	{
 		m_rotation = rot;
 	}
+	//拡大率の設定。
+	void SetScale(const CVector3& scale)
+	{
+		m_scale = scale;
+	}
+	//敵か味方かの設定。デフォルトfalse(味方),true(敵)
+	void SetIsEnemy(bool flag = false)
+	{
+		m_isEnemy = flag;
+	}
 	//UIの位置を設定する。
 	void SetUIPos(const CVector3& pos)
 	{
@@ -129,12 +139,12 @@ public:
 	//アクティブタイム加算。
 	bool AddATB()
 	{
-		return m_status.AddATB(m_UI);
+		return m_status.AddATB();
 	}
 	//ステートのアップデート。
 	void StateUpdate()
 	{
-		m_status.StateUpdate(m_UI);
+		m_status.StateUpdate();
 	}
 
 	/// <summary>
@@ -213,6 +223,7 @@ protected:
 	AnimationClip m_animClip[en_anim_num];				//アニメーションクリップ。
 	CVector3 m_position = CVector3::Zero();				//座標。
 	CQuaternion m_rotation = CQuaternion::Identity();	//回転。
+	CVector3 m_scale = CVector3::One();					//拡大率。
 
 	StatusManager m_status;								//ステータス。
 
@@ -228,5 +239,6 @@ protected:
 	//UIを表示させる。
 	StatusUI* m_UI;
 	CVector3 m_UIpos = CVector3::Zero();
+	bool m_isEnemy = false;
 };
 

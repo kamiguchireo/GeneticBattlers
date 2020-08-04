@@ -13,20 +13,20 @@ Attacker::~Attacker()
 
 bool Attacker::Start()
 {
-	m_model.Init(L"Assets/modelData/testModel.cmo");
+	m_model.Init(L"Assets/modelData/DesertDragon.cmo");
 	m_model.SetActiveDLFlag(0);
 	m_model.SetActiveRLFlag(0);
 	
 	//アニメーションクリップの読み込み。
-	m_animClip[en_anim_Idle].Load(L"Assets/animData/TestIdle.tka");
+	m_animClip[en_anim_Idle].Load(L"Assets/animData/Dragon/D_Attack.tka");
 	m_animClip[en_anim_Idle].SetLoopFlag(true);
-	m_animClip[en_anim_Attack].Load(L"Assets/animData/TestAttack.tka");
+	m_animClip[en_anim_Attack].Load(L"Assets/animData/Dragon/D_Attack.tka");
 	m_animClip[en_anim_Attack].SetLoopFlag(false);
-	m_animClip[en_anim_Magic].Load(L"Assets/animData/TestMagic.tka");
+	m_animClip[en_anim_Magic].Load(L"Assets/animData/Dragon/D_Attack.tka");
 	m_animClip[en_anim_Magic].SetLoopFlag(false);
-	m_animClip[en_anim_Damage].Load(L"Assets/animData/TestDamage.tka");
+	m_animClip[en_anim_Damage].Load(L"Assets/animData/Dragon/D_Attack.tka");
 	m_animClip[en_anim_Damage].SetLoopFlag(false);
-	m_animClip[en_anim_Death].Load(L"Assets/animData/TestDeath.tka");
+	m_animClip[en_anim_Death].Load(L"Assets/animData/Dragon/D_Attack.tka");
 	m_animClip[en_anim_Death].SetLoopFlag(false);
 
 	//アニメーションの設定。
@@ -38,7 +38,8 @@ bool Attacker::Start()
 	
 	//UIを作る。
 	m_UI = NewGO<StatusUI>(0);
-	m_UI->SetPosition({ -50.0f,-250.0f,0.0f });
+	m_UI->SetPosition(m_UIpos);
+	if (m_isEnemy) m_UI->EnableEnemy();
 	m_status.SetUI(m_UI);
 
 	return true;

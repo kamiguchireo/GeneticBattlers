@@ -11,6 +11,12 @@
 #include "GameCamera.h"
 #include "Skill/SkillLog.h"
 
+namespace UIPOS
+{
+	CVector3 ATTAKER = { -50.0f,-250.0f,0.0f };
+	CVector3 ENEMY_ATTACKER = { -50.0f,300.0f,0.0f };
+}
+
 BattleScenes::BattleScenes()
 {
 
@@ -42,13 +48,13 @@ bool BattleScenes::Start()
 			m_model.UpdateWorldMatrix(
 				objData.position,
 				objData.rotation,
-				CVector3::One()
+				objData.scale
 			);
 			return true;
 		}
 		if (wcscmp(objData.name, L"EAttacker") == 0)
 		{
-			MonsterBase* monster = NewGO<MonsterTeam1>(0);
+			MonsterBase* monster = NewGO<Attacker>(0);
 			Status hoge;
 			hoge.HP = 130;
 			//hoge.HP = 1;
@@ -60,6 +66,7 @@ bool BattleScenes::Start()
 			monster->SetStatus(hoge);
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
+			monster->SetScale(objData.scale);
 			if (m_netScenes == nullptr){		//ネット通信でなければ。
 				monster->Init("Assets/AIData/DefaultData/AttackerDefault.bin");
 			}
@@ -69,8 +76,8 @@ bool BattleScenes::Start()
 			}
 			m_battleManager.PushBackEnemys(monster,job::enjob_Attacker);
 
-			CVector3 uipos = { objData.position.x / -2.5f - 50.0f,300.0f,0.0f };
-			monster->SetUIPos(uipos);
+			monster->SetUIPos(UIPOS::ENEMY_ATTACKER);
+			monster->SetIsEnemy(true);
 
 			return true;
 		}
@@ -88,6 +95,7 @@ bool BattleScenes::Start()
 			monster->SetStatus(hoge);
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
+			monster->SetScale(objData.scale);
 			if (m_netScenes == nullptr){		//ネット通信でなければ。
 				monster->Init("Assets/AIData/DefaultData/SupporterDefault.bin");
 			}
@@ -99,6 +107,7 @@ bool BattleScenes::Start()
 
 			CVector3 uipos = { objData.position.x / -2.5f - 50.0f,300.0f,0.0f };
 			monster->SetUIPos(uipos);
+			monster->SetIsEnemy(true);
 
 			return true;
 		}
@@ -122,6 +131,7 @@ bool BattleScenes::Start()
 			monster->SetStatus(hoge);
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
+			monster->SetScale(objData.scale);
 			if (m_netScenes == nullptr){		//ネット通信でなければ。
 				monster->Init("Assets/AIData/DefaultData/HealerDefault.bin");
 			}
@@ -133,6 +143,7 @@ bool BattleScenes::Start()
 
 			CVector3 uipos = { objData.position.x / -2.5f - 50.0f,300.0f,0.0f };
 			monster->SetUIPos(uipos);
+			monster->SetIsEnemy(true);
 
 			return true;
 		}
@@ -150,7 +161,9 @@ bool BattleScenes::Start()
 			attacker->SetStatus(hoge);
 			attacker->SetPosition(objData.position);
 			attacker->SetRotation(objData.rotation);
+			attacker->SetScale(objData.scale);
 			attacker->Init("Assets/AIData/Attacker.bin");
+			attacker->SetUIPos(UIPOS::ATTAKER);
 			m_battleManager.PushBackTeams(attacker,job::enjob_Attacker);
 
 			return true;
@@ -169,6 +182,7 @@ bool BattleScenes::Start()
 			healer->SetStatus(hoge);
 			healer->SetPosition(objData.position);
 			healer->SetRotation(objData.rotation);
+			healer->SetScale(objData.scale);
 			healer->Init("Assets/AIData/Healer.bin");
 			m_battleManager.PushBackTeams(healer,job::enjob_Healer);
 		
@@ -188,6 +202,7 @@ bool BattleScenes::Start()
 			support->SetStatus(hoge);
 			support->SetPosition(objData.position);
 			support->SetRotation(objData.rotation);
+			support->SetScale(objData.scale);
 			support->Init("Assets/AIData/Supporter.bin");
 			m_battleManager.PushBackTeams(support,job::enjob_Supotter);
 		

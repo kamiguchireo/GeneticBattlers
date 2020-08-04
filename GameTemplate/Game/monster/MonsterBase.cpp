@@ -43,7 +43,7 @@ void MonsterBase::Update()
 	//アニメーションの更新処理。
 	m_animation.Update(1.0f / 30.0f);
 	//ワールド行列の更新。
-	m_model.UpdateWorldMatrix(m_position, m_rotation, CVector3::One());
+	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }
 
 void MonsterBase::Draw()
@@ -74,6 +74,14 @@ void MonsterBase::SetStatus(int hp, int atk, int def, int mat, int mdf, int dex)
 //行動の評価。
 bool MonsterBase::ACTScoring()
 {
+	//敵だったら評価不要。
+	if (m_isEnemy)
+	{
+		m_status.ClearATB();
+		m_UI->SetScaling(0.0f);
+		DeleteGO("sLog");
+		return true;
+	}
 	m_status.ClearATB();
 	m_UI->SetScaling(0.0f);
 	//もうちょいこの辺も切り離したいかなぁ

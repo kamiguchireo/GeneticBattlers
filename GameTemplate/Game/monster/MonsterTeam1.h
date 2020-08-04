@@ -16,17 +16,6 @@ public:
 		DeleteGO("sLog");
 		return true; 
 	};
-	////AIデータを読み込みたい。
-	//void Init(const char* filePath)override 
-	//{
-	//	//デフォルトのデータのファイルを読み込む。
-	//	m_GIData.LoadDefault(GetDefaultDataPath());
-	//};
-
-	//void SetUIPos(const CVector3& pos)
-	//{
-	//	m_UIpos = pos;
-	//}
 
 private:
 	const char* GetDefaultDataPath()

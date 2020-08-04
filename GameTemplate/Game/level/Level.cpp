@@ -23,8 +23,8 @@ void Level::Init(const wchar_t* levelDataFilePath, Level::HookWhenBuildObjectFun
 		auto bone = skeleton.GetBone(i);
 		if (bone->GetParentId() == 0) {	//親がルートの場合だけマップチップを生成する。
 			LevelObjectData objData;
-			CVector3 scale;
-			bone->CalcWorldTRS(objData.position, objData.rotation, scale);
+			//CVector3 scale;
+			bone->CalcWorldTRS(objData.position, objData.rotation, objData.scale);
 			//3dsMaxとは軸が違うので、補正を入れる。
 			auto t = objData.position.y;
 			objData.position.y = objData.position.z;

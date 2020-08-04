@@ -137,7 +137,7 @@ public:
 	/// </summary>
 	/// <param name="ui">描画しているUIのポインタ。</param>
 	/// <returns>溜まり切ったかの判定。</returns>
-	bool AddATB(StatusUI* ui);
+	bool AddATB();
 
 	void ClearATB()
 	{
@@ -147,7 +147,7 @@ public:
 	/// ステートの更新処理。
 	/// </summary>
 	/// <param name="ui"></param>
-	void StateUpdate(StatusUI* ui);
+	void StateUpdate();
 
 private:
 	//	ステータス

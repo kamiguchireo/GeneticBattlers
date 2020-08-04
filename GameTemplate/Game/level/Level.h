@@ -9,6 +9,7 @@ class MapChip;
 struct LevelObjectData {
 	CVector3 position;		//<座標。
 	CQuaternion rotation;	//!<回転。
+	CVector3 scale;			//!<拡大率。
 	const wchar_t* name;	//!<名前。
 };
 /*!
