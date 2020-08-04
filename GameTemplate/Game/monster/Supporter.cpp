@@ -13,20 +13,20 @@ Supporter::~Supporter()
 
 bool Supporter::Start()
 {
-	m_model.Init(L"Assets/modelData/testModel.cmo");
+	m_model.Init(L"Assets/modelData/Barghest.cmo");
 	m_model.SetActiveDLFlag(0);
-	m_model.SetActiveRLFlag(0);
+	m_model.SetActiveRLFlag(1);
 	
 	//アニメーションクリップの読み込み。
-	m_animClip[en_anim_Idle].Load(L"Assets/animData/TestIdle.tka");
+	m_animClip[en_anim_Idle].Load(L"Assets/animData/Barghest/B_Idle.tka");
 	m_animClip[en_anim_Idle].SetLoopFlag(true);
-	m_animClip[en_anim_Attack].Load(L"Assets/animData/TestAttack.tka");
+	m_animClip[en_anim_Attack].Load(L"Assets/animData/Barghest/B_Attack.tka");
 	m_animClip[en_anim_Attack].SetLoopFlag(false);
-	m_animClip[en_anim_Magic].Load(L"Assets/animData/TestMagic.tka");
+	m_animClip[en_anim_Magic].Load(L"Assets/animData/Barghest/B_Angry.tka");
 	m_animClip[en_anim_Magic].SetLoopFlag(false);
-	m_animClip[en_anim_Damage].Load(L"Assets/animData/TestDamage.tka");
+	m_animClip[en_anim_Damage].Load(L"Assets/animData/Barghest/B_Damage.tka");
 	m_animClip[en_anim_Damage].SetLoopFlag(false);
-	m_animClip[en_anim_Death].Load(L"Assets/animData/TestDeath.tka");
+	m_animClip[en_anim_Death].Load(L"Assets/animData/Barghest/B_Death.tka");
 	m_animClip[en_anim_Death].SetLoopFlag(false);
 
 	//アニメーションの設定。

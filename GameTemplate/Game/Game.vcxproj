@@ -279,8 +279,10 @@
     <None Include="Assets\modelData\DesertDragon.FBX">
       <FileType>Document</FileType>
     </None>
+    <MeshContentTask Include="Assets\modelData\Barghest.fbx" />
     <MeshContentTask Include="Assets\modelData\DesertDragon2.fbx" />
     <MeshContentTask Include="Assets\modelData\EngineGround.FBX" />
+    <MeshContentTask Include="Assets\modelData\MountainDragon.fbx" />
     <MeshContentTask Include="Assets\modelData\testGround.fbx" />
     <MeshContentTask Include="Assets\modelData\testModel.fbx" />
     <None Include="Assets\modelData\unityChan.fbx">
