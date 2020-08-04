@@ -93,23 +93,23 @@ namespace Engine {
 				DeleteGO(this);
 			}
 		}
-		void CEffect::PostRender()
-		{
-			//取り合えずPostRenderに置くことでエフェクトを再生できるようにした。
-			//tkEngineとは違うから直したかったらそっち参照。
-			Effekseer::Matrix44 efCameraMat;
-			g_camera3D.GetViewMatrix().CopyTo(efCameraMat);
-			Effekseer::Matrix44 efProjMat;
-			g_camera3D.GetProjectionMatrix().CopyTo(efProjMat);
-			//カメラ行列とプロジェクション行列を設定。
-			g_graphicsEngine->GetEffekseerRender().SetCameraMatrix(efCameraMat);
-			g_graphicsEngine->GetEffekseerRender().SetProjectionMatrix(efProjMat);
+		//void CEffect::PostRender()
+		//{
+		//	//取り合えずPostRenderに置くことでエフェクトを再生できるようにした。
+		//	//tkEngineとは違うから直したかったらそっち参照。
+		//	Effekseer::Matrix44 efCameraMat;
+		//	g_camera3D.GetViewMatrix().CopyTo(efCameraMat);
+		//	Effekseer::Matrix44 efProjMat;
+		//	g_camera3D.GetProjectionMatrix().CopyTo(efProjMat);
+		//	//カメラ行列とプロジェクション行列を設定。
+		//	g_graphicsEngine->GetEffekseerRender().SetCameraMatrix(efCameraMat);
+		//	g_graphicsEngine->GetEffekseerRender().SetProjectionMatrix(efProjMat);
 
-			//g_graphicsEngine->GetEffekseerManager().Update(g_gameTime.GetFrameDeltaTime() * 60.0f);
+		//	//g_graphicsEngine->GetEffekseerManager().Update(g_gameTime.GetFrameDeltaTime() * 60.0f);
 
-			g_graphicsEngine->GetEffekseerRender().BeginRendering();
-			g_graphicsEngine->GetEffekseerManager().Draw();
-			g_graphicsEngine->GetEffekseerRender().EndRendering();
-		}
+		//	//g_graphicsEngine->GetEffekseerRender().BeginRendering();
+		//	//g_graphicsEngine->GetEffekseerManager().Draw();
+		//	//g_graphicsEngine->GetEffekseerRender().EndRendering();
+		//}
 	}
 }

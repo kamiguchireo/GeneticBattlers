@@ -76,6 +76,9 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		//ゲームオブジェクトマネージャー全体の更新関数
 		GameObjectManager().Thread();
 
+		//エフェクトのドロー
+		EP.EffectDraw();
+
 		EP.PostEffectDraw();		//ポストエフェクトのDraw
 
 		EP.ReturnRT();		//レンダリングターゲットを戻す

@@ -23,6 +23,8 @@ namespace Engine {
 		void Init();
 		//エンジン関係のアップデート
 		void Update();
+
+		void EffectDraw();
 		//ポストエフェクトの描画
 		void PostEffectDraw();
 
