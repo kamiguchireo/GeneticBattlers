@@ -68,6 +68,10 @@ public:
 		ResultData res = { damage,skill,target };
 		m_actResList.push_back(res);
 	}
+private:
+	static const float SKILL_NEW_RATE;
+	static const float FIRST_RATE;
+	static const int MAX_TARGET_COUNT;
 
 private:
 	//	AIデータ。

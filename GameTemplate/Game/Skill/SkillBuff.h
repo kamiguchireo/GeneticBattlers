@@ -21,6 +21,8 @@ public:
 		m_status = status;
 	}
 private:
+	const float BUFF_TIME = 100.0f;		//バフの効果時間。
+private:
 	/// <summary>
 	/// 全体にバフを掛ける
 	/// </summary>

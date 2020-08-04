@@ -2,9 +2,9 @@
 #include "GIManager.h"
 #include "Skill/SkillDataLoad.h"
 
-const float SKILL_NEW_RATE = 0.3f;
-const float FIRST_RATE = 0.15f;
-const int MAX_TARGET_COUNT = 3;
+const float GIManager::SKILL_NEW_RATE = 0.3f;		//追加スキルの初期使用比率。
+const float GIManager::FIRST_RATE = 0.15f;			//新規行動の初期比率。
+const int GIManager::MAX_TARGET_COUNT = 3;			//ターゲットの最大数。
 
 struct SkillRate
 {
@@ -193,7 +193,7 @@ void GIManager::AddNewSkill()
 		//スキルデータ取得。
 		SkillData data = skillData->GetSkillData(No);
 
-		int NextSkillSize = data.NextSkillNo.size();
+		int NextSkillSize = static_cast<int>(data.NextSkillNo.size());
 
 		//次のスキルはない。
 		if (NextSkillSize == 0) continue;

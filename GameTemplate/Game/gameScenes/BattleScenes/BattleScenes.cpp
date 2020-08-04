@@ -11,15 +11,13 @@
 #include "GameCamera.h"
 #include "Skill/SkillLog.h"
 
-namespace UIPOS
-{
-	CVector3 ATTAKER = { -50.0f,-250.0f,0.0f };
-	CVector3 HEALER = { 350.0f,-250.0f,0.0f };
-	CVector3 SUPPORTER = { -450.0f,-250.0f,0.0f };
-	CVector3 ENEMY_ATTACKER = { -50.0f,300.0f,0.0f };
-	CVector3 ENEMY_HEALER = { -450.0f,300.0f,0.0f };
-	CVector3 ENEMY_SUPPORTER = { 350.0f,300.0f,0.0f };
-}
+
+const CVector3 BattleScenes::ATTAKER = { -50.0f,-250.0f,0.0f };
+const CVector3 BattleScenes::HEALER = { 350.0f,-250.0f,0.0f };
+const CVector3 BattleScenes::SUPPORTER = { -450.0f,-250.0f,0.0f };
+const CVector3 BattleScenes::ENEMY_ATTACKER = { -50.0f,300.0f,0.0f };
+const CVector3 BattleScenes::ENEMY_HEALER = { -450.0f,300.0f,0.0f };
+const CVector3 BattleScenes::ENEMY_SUPPORTER = { 350.0f,300.0f,0.0f };
 
 BattleScenes::BattleScenes()
 {
@@ -78,7 +76,7 @@ bool BattleScenes::Start()
 				auto& gi = monster->GetGIManager();
 				gi.Init(m_netScenes->GetAttakerData());
 			}
-			monster->SetUIPos(UIPOS::ENEMY_ATTACKER);
+			monster->SetUIPos(ENEMY_ATTACKER);
 			monster->SetIsEnemy(true);
 
 			m_battleManager.PushBackEnemys(monster,job::enjob_Attacker);
@@ -107,7 +105,7 @@ bool BattleScenes::Start()
 				auto& gi = monster->GetGIManager();
 				gi.Init(m_netScenes->GetSupporterData());
 			}
-			monster->SetUIPos(UIPOS::ENEMY_SUPPORTER);
+			monster->SetUIPos(ENEMY_SUPPORTER);
 			monster->SetIsEnemy(true);
 
 			m_battleManager.PushBackEnemys(monster,job::enjob_Supotter);
@@ -143,7 +141,7 @@ bool BattleScenes::Start()
 				auto& gi = monster->GetGIManager();
 				gi.Init(m_netScenes->GetHealerData());
 			}
-			monster->SetUIPos(UIPOS::ENEMY_HEALER);
+			monster->SetUIPos(ENEMY_HEALER);
 			monster->SetIsEnemy(true);
 
 			m_battleManager.PushBackEnemys(monster,job::enjob_Healer);
@@ -167,7 +165,7 @@ bool BattleScenes::Start()
 			attacker->SetRotation(objData.rotation);
 			attacker->SetScale(objData.scale);
 			attacker->Init("Assets/AIData/Attacker.bin");
-			attacker->SetUIPos(UIPOS::ATTAKER);
+			attacker->SetUIPos(ATTAKER);
 			m_battleManager.PushBackTeams(attacker,job::enjob_Attacker);
 
 			return true;
@@ -188,7 +186,7 @@ bool BattleScenes::Start()
 			healer->SetRotation(objData.rotation);
 			healer->SetScale(objData.scale);
 			healer->Init("Assets/AIData/Healer.bin");
-			healer->SetUIPos(UIPOS::HEALER);
+			healer->SetUIPos(HEALER);
 			m_battleManager.PushBackTeams(healer,job::enjob_Healer);
 		
 			return true;
@@ -209,7 +207,7 @@ bool BattleScenes::Start()
 			support->SetRotation(objData.rotation);
 			support->SetScale(objData.scale);
 			support->Init("Assets/AIData/Supporter.bin");
-			support->SetUIPos(UIPOS::SUPPORTER);
+			support->SetUIPos(SUPPORTER);
 			m_battleManager.PushBackTeams(support,job::enjob_Supotter);
 		
 			return true;

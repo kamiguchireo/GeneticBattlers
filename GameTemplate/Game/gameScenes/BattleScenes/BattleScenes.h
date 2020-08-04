@@ -36,6 +36,16 @@ public:
 		battleCoolTime = 2.0f;
 		m_state = enState_Result;
 	}
+private:
+	/// <summary>
+	/// UIの座標たち。
+	/// </summary>
+	static const CVector3 ATTAKER;			//UI座標(Attaker)
+	static const CVector3 HEALER;			//UI座標(Healer)
+	static const CVector3 SUPPORTER;		//UI座標(Supporter)
+	static const CVector3 ENEMY_ATTACKER;	//UI座標(EnemyAttaker)
+	static const CVector3 ENEMY_HEALER;		//UI座標(EnemyHealer)
+	static const CVector3 ENEMY_SUPPORTER;	//UI座標(EnemySupporter)
 
 private:
 	//フェード切り替え
