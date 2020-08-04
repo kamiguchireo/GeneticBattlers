@@ -270,6 +270,7 @@
     <ClCompile Include="Skill\SkillDebuff.cpp">
       <Filter>skill</Filter>
     </ClCompile>
+    <ClCompile Include="StopWatch.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -478,6 +479,8 @@
     <ClInclude Include="Skill\SkillDebuff.h">
       <Filter>skill</Filter>
     </ClInclude>
+    <ClInclude Include="GameTime.h" />
+    <ClInclude Include="StopWatch.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\unityChan.fbx">
