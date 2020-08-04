@@ -152,6 +152,8 @@ namespace Engine {
 		void Update();
 		//描画
 		void Draw();
+		//エフェクトの描画
+		void EffectDraw();
 		//更新後描画
 		void PostRender();
 
@@ -162,6 +164,7 @@ namespace Engine {
 			PreRender();
 			Update();
 			Draw();
+			EffectDraw();
 			PostRender();
 		}
 

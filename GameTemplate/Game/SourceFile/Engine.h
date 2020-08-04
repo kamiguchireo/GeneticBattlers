@@ -24,7 +24,7 @@ namespace Engine {
 		//エンジン関係のアップデート
 		void Update();
 
-		void EffectDraw();
+		//void EffectDraw();
 		//ポストエフェクトの描画
 		void PostEffectDraw();
 
