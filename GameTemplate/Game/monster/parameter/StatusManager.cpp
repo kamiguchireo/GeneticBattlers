@@ -153,7 +153,7 @@ void StatusManager::ResetDebuff(int i)
 
 bool StatusManager::AddATB()
 {
-	const float addTime = g_gameTime.GetFrameDeltaTime() * 3.0f;
+	const float addTime = g_gameTime.GetFrameDeltaTime() * 2.0f;
 	//€–S‚Íˆ—‚ğ’†’f‚·‚éB
 	if (m_stateAI == en_state_Death) return false;
 
