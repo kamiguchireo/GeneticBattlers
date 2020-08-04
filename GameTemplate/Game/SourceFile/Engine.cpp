@@ -24,7 +24,10 @@ namespace Engine {
 	{
 		//ポストエフェクトの更新
 		m_postEffect.Update();
+		//エフェクトマネージャーの更新
+		g_graphicsEngine->GetEffekseerManager().Update(g_gameTime.GetFrameDeltaTime() * 60.0f);
 	}
+
 
 	void EngineProcessing::PostEffectDraw()
 	{
