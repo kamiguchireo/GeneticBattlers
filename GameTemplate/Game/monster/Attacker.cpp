@@ -13,7 +13,7 @@ Attacker::~Attacker()
 
 bool Attacker::Start()
 {
-	m_model.Init(L"Assets/modelData/DesertDragon.cmo");
+	m_model.Init(L"Assets/modelData/DesertDragon2.cmo");
 	m_model.SetActiveDLFlag(0);
 	m_model.SetActiveRLFlag(0);
 	

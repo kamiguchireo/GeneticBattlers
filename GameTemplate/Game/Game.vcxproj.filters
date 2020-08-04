@@ -483,9 +483,6 @@
     <ClInclude Include="StopWatch.h" />
   </ItemGroup>
   <ItemGroup>
-    <MeshContentTask Include="Assets\modelData\unityChan.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\testModel.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
@@ -495,7 +492,9 @@
     <MeshContentTask Include="Assets\modelData\EngineGround.FBX">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\DesertDragon.FBX" />
+    <MeshContentTask Include="Assets\modelData\DesertDragon2.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
   </ItemGroup>
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\Bad.png">
@@ -552,5 +551,13 @@
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\modelData\DesertDragon.FBX">
+      <Filter>Assets\modelData</Filter>
+    </None>
+    <None Include="Assets\modelData\unityChan.fbx">
+      <Filter>Assets\modelData</Filter>
+    </None>
   </ItemGroup>
 </Project>
