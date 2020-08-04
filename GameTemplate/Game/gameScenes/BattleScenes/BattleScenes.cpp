@@ -14,7 +14,11 @@
 namespace UIPOS
 {
 	CVector3 ATTAKER = { -50.0f,-250.0f,0.0f };
+	CVector3 HEALER = { 350.0f,-250.0f,0.0f };
+	CVector3 SUPPORTER = { -450.0f,-250.0f,0.0f };
 	CVector3 ENEMY_ATTACKER = { -50.0f,300.0f,0.0f };
+	CVector3 ENEMY_HEALER = { -450.0f,300.0f,0.0f };
+	CVector3 ENEMY_SUPPORTER = { 350.0f,300.0f,0.0f };
 }
 
 BattleScenes::BattleScenes()
@@ -74,16 +78,16 @@ bool BattleScenes::Start()
 				auto& gi = monster->GetGIManager();
 				gi.Init(m_netScenes->GetAttakerData());
 			}
-			m_battleManager.PushBackEnemys(monster,job::enjob_Attacker);
-
 			monster->SetUIPos(UIPOS::ENEMY_ATTACKER);
 			monster->SetIsEnemy(true);
+
+			m_battleManager.PushBackEnemys(monster,job::enjob_Attacker);
 
 			return true;
 		}
 		if (wcscmp(objData.name, L"EBuff") == 0)
 		{
-			MonsterBase* monster = NewGO<MonsterTeam1>(0);
+			MonsterBase* monster = NewGO<Supporter>(0);
 			Status hoge;
 			hoge.HP = 130;
 			//hoge.HP = 1;
@@ -103,17 +107,17 @@ bool BattleScenes::Start()
 				auto& gi = monster->GetGIManager();
 				gi.Init(m_netScenes->GetSupporterData());
 			}
+			monster->SetUIPos(UIPOS::ENEMY_SUPPORTER);
+			monster->SetIsEnemy(true);
+
 			m_battleManager.PushBackEnemys(monster,job::enjob_Supotter);
 
-			CVector3 uipos = { objData.position.x / -2.5f - 50.0f,300.0f,0.0f };
-			monster->SetUIPos(uipos);
-			monster->SetIsEnemy(true);
 
 			return true;
 		}
 		if (wcscmp(objData.name, L"EHealer") == 0)
 		{
-			MonsterBase* monster = NewGO<MonsterTeam1>(0);
+			MonsterBase* monster = NewGO<Healer>(0);
 			Status hoge;
 			hoge.HP = 130;
 			//hoge.HP = 1;
@@ -139,11 +143,11 @@ bool BattleScenes::Start()
 				auto& gi = monster->GetGIManager();
 				gi.Init(m_netScenes->GetHealerData());
 			}
+			monster->SetUIPos(UIPOS::ENEMY_HEALER);
+			monster->SetIsEnemy(true);
+
 			m_battleManager.PushBackEnemys(monster,job::enjob_Healer);
 
-			CVector3 uipos = { objData.position.x / -2.5f - 50.0f,300.0f,0.0f };
-			monster->SetUIPos(uipos);
-			monster->SetIsEnemy(true);
 
 			return true;
 		}
@@ -184,6 +188,7 @@ bool BattleScenes::Start()
 			healer->SetRotation(objData.rotation);
 			healer->SetScale(objData.scale);
 			healer->Init("Assets/AIData/Healer.bin");
+			healer->SetUIPos(UIPOS::HEALER);
 			m_battleManager.PushBackTeams(healer,job::enjob_Healer);
 		
 			return true;
@@ -204,6 +209,7 @@ bool BattleScenes::Start()
 			support->SetRotation(objData.rotation);
 			support->SetScale(objData.scale);
 			support->Init("Assets/AIData/Supporter.bin");
+			support->SetUIPos(UIPOS::SUPPORTER);
 			m_battleManager.PushBackTeams(support,job::enjob_Supotter);
 		
 			return true;
