@@ -30,8 +30,6 @@ namespace Engine {
 
 	void EngineProcessing::EffectDraw()
 	{
-		//取り合えずPostRenderに置くことでエフェクトを再生できるようにした。
-		//tkEngineとは違うから直したかったらそっち参照。
 		Effekseer::Matrix44 efCameraMat;
 		g_camera3D.GetViewMatrix().CopyTo(efCameraMat);
 		Effekseer::Matrix44 efProjMat;
