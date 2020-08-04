@@ -41,7 +41,7 @@ void MonsterBase::Update()
 		break;
 	}
 	//アニメーションの更新処理。
-	m_animation.Update(1.0f / 30.0f);
+	m_animation.Update(g_gameTime.GetFrameDeltaTime() * 2.0f);
 	//ワールド行列の更新。
 	m_model.UpdateWorldMatrix(m_position, m_rotation, m_scale);
 }

@@ -253,7 +253,7 @@ void BattleScenes::Update()
 		break;
 
 	case enState_Result:
-		battleCoolTime -= 1.0f / 72.0f;
+		battleCoolTime -= g_gameTime.GetFrameDeltaTime();
 		if (battleCoolTime > 0.0f) {
 			break;
 		}

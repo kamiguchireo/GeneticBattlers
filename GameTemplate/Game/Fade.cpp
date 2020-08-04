@@ -28,17 +28,18 @@ bool Fade::Start()
 
 void Fade::Update()
 {
+	const float FRAME_TIME = g_gameTime.GetFrameDeltaTime() * 1.5f;
 	switch (m_state)
 	{
 	case enState_fadeIn:
-		m_currentAlpha -= 2.0f * 1.0f / 144.0f;
+		m_currentAlpha -= FRAME_TIME;
 		if (m_currentAlpha <= 0.0f) {
 			m_currentAlpha = 0.0f;
 			m_state = enState_idle;
 		}
 		break;
 	case enState_fadeOut:
-		m_currentAlpha += 2.0f * 1.0f / 144.0f;
+		m_currentAlpha += FRAME_TIME;
 		if (m_currentAlpha >= 1.0f) {
 			m_currentAlpha = 1.0f;
 			m_state = enState_idle;

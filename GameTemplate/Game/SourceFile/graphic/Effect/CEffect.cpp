@@ -105,7 +105,7 @@ namespace Engine {
 			g_graphicsEngine->GetEffekseerRender().SetCameraMatrix(efCameraMat);
 			g_graphicsEngine->GetEffekseerRender().SetProjectionMatrix(efProjMat);
 
-			g_graphicsEngine->GetEffekseerManager().Update();
+			g_graphicsEngine->GetEffekseerManager().Update(g_gameTime.GetFrameDeltaTime() * 60.0f);
 
 			g_graphicsEngine->GetEffekseerRender().BeginRendering();
 			g_graphicsEngine->GetEffekseerManager().Draw();
