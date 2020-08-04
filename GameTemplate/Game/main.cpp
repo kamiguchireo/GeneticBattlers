@@ -5,10 +5,14 @@
 #include "Fade.h"
 #include "gameScenes/TitleScene.h"
 #include "SourceFile/Engine.h"
+//ゲームの時間関係
+#include "StopWatch.h"
+#include "GameTime.h"
 //photon
 #include "Photon/Common-cpp/inc/JString.h"
 #include "Network/SampleNetwork.h"
 
+GameTime g_gameTime;
 ///////////////////////////////////////////////////////////////////
 // ウィンドウプログラムのメイン関数。
 ///////////////////////////////////////////////////////////////////
@@ -36,9 +40,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 	NewGO<TitleScene>(0, nullptr);
 	NewGO<Fade>(10, "Fade");
 
+	StopWatch sw;
 	//ゲームループ。
 	while (DispatchWindowMessage() == true)
 	{	
+		//ストップウォッチの計測開始
+		sw.Start();
+
 		//ネットワークの更新
 		networkLogic.run();
 		
@@ -80,6 +88,13 @@ int WINAPI wWinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPWSTR lpCmdLi
 		
 		//描画終了。
 		g_graphicsEngine->EndRender();
+
+		//ストップウォッチの計測終了
+		sw.Stop();
+
+		//このフレームにかかった時間を記憶しておく
+		g_gameTime.PushFrameDeltaTime(sw.GetElapsed());
+		float f = g_gameTime.GetFPS();
 	}
 
 	//ゲームループ終了時にネットワークから切断する

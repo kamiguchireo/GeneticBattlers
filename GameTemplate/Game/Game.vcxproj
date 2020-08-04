@@ -179,12 +179,14 @@
     </ClCompile>
     <ClCompile Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.cpp" />
     <ClCompile Include="monster\Supporter.cpp" />
+    <ClCompile Include="StopWatch.cpp" />
     <ClCompile Include="system\system.cpp" />
     <ClCompile Include="SourceFile\graphic\GPUBuffer\VertexBuffer.cpp" />
     <ClCompile Include="gameScenes\TitleScene.cpp" />
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameTime.h" />
     <ClInclude Include="Skill\SkillDebuff.h" />
     <ClInclude Include="SourceFile\Engine.h" />
     <ClInclude Include="gameScenes\BattleScenes\BattleManager.h" />
@@ -266,6 +268,7 @@
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.h" />
     <ClInclude Include="monster\Supporter.h" />
+    <ClInclude Include="StopWatch.h" />
     <ClInclude Include="system\system.h" />
     <ClInclude Include="gameScenes\TitleScene.h" />
     <ClInclude Include="util\Util.h" />
