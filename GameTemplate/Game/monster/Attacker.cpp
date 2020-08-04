@@ -22,7 +22,7 @@ bool Attacker::Start()
 	m_animClip[en_anim_Idle].SetLoopFlag(true);
 	m_animClip[en_anim_Attack].Load(L"Assets/animData/Dragon/D_Attack.tka");
 	m_animClip[en_anim_Attack].SetLoopFlag(false);
-	m_animClip[en_anim_Magic].Load(L"Assets/animData/Dragon/D_Attack.tka");
+	m_animClip[en_anim_Magic].Load(L"Assets/animData/Dragon/D_Fire.tka");
 	m_animClip[en_anim_Magic].SetLoopFlag(false);
 	m_animClip[en_anim_Damage].Load(L"Assets/animData/Dragon/D_Damage.tka");
 	m_animClip[en_anim_Damage].SetLoopFlag(false);
