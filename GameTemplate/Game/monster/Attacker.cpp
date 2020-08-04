@@ -18,15 +18,15 @@ bool Attacker::Start()
 	m_model.SetActiveRLFlag(0);
 	
 	//アニメーションクリップの読み込み。
-	m_animClip[en_anim_Idle].Load(L"Assets/animData/Dragon/D_Attack.tka");
+	m_animClip[en_anim_Idle].Load(L"Assets/animData/Dragon/D_Idle.tka");
 	m_animClip[en_anim_Idle].SetLoopFlag(true);
 	m_animClip[en_anim_Attack].Load(L"Assets/animData/Dragon/D_Attack.tka");
 	m_animClip[en_anim_Attack].SetLoopFlag(false);
 	m_animClip[en_anim_Magic].Load(L"Assets/animData/Dragon/D_Attack.tka");
 	m_animClip[en_anim_Magic].SetLoopFlag(false);
-	m_animClip[en_anim_Damage].Load(L"Assets/animData/Dragon/D_Attack.tka");
+	m_animClip[en_anim_Damage].Load(L"Assets/animData/Dragon/D_Damage.tka");
 	m_animClip[en_anim_Damage].SetLoopFlag(false);
-	m_animClip[en_anim_Death].Load(L"Assets/animData/Dragon/D_Attack.tka");
+	m_animClip[en_anim_Death].Load(L"Assets/animData/Dragon/D_Death.tka");
 	m_animClip[en_anim_Death].SetLoopFlag(false);
 
 	//アニメーションの設定。
