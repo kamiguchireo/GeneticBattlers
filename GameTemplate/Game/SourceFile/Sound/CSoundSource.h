@@ -28,6 +28,12 @@ namespace Engine {
 			//isLoop		ループ再生フラグ
 			void Play(bool isLoop);
 
+			//ボリュームを設定
+			void SetVolume(float vol)
+			{
+				m_sourceVoice->SetVolume(vol);
+			}
+
 			//更新
 			void Update();
 
