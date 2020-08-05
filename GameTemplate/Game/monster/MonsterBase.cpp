@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "MonsterBase.h"
 #include "Skill/SkillList.h"
-
+#include "Skill/SkillLog.h"
 
 MonsterBase::MonsterBase()
 {
@@ -74,22 +74,28 @@ void MonsterBase::SetStatus(int hp, int atk, int def, int mat, int mdf, int dex)
 //行動の評価。
 bool MonsterBase::ACTScoring()
 {
+	m_status.ClearATB();
+	m_UI->SetScaling(0.0f);
 	//敵だったら評価不要。
 	if (m_isEnemy)
 	{
-		m_status.ClearATB();
-		m_UI->SetScaling(0.0f);
-		DeleteGO("sLog");
+		//スキルログを消す。
+		auto sLog = SkillLog::GetInstance();
+		DeleteGO(sLog);
 		return true;
 	}
-	m_status.ClearATB();
-	m_UI->SetScaling(0.0f);
 	//もうちょいこの辺も切り離したいかなぁ
 	//評価の選択の処理。
-	if (g_pad[0].IsTrigger(enButtonRight)) {		
+	if (g_pad[0].IsTrigger(enButtonRight)) {
+		auto cursor = NewGO<prefab::CSoundSource>(0);
+		cursor->Init(L"Assets/sound/cursor/cursor2.wav");
+		cursor->Play(false);
 		m_scoringFlag = 1;
 	}
 	if (g_pad[0].IsTrigger(enButtonLeft)) {
+		auto cursor = NewGO<prefab::CSoundSource>(0);
+		cursor->Init(L"Assets/sound/cursor/cursor2.wav");
+		cursor->Play(false);
 		m_scoringFlag = 0;
 	}
 	switch (m_scoringFlag)
@@ -115,9 +121,16 @@ bool MonsterBase::ACTScoring()
 		default:
 			break;
 		}
+
+		auto decision = NewGO<prefab::CSoundSource>(0);
+		decision->Init(L"Assets/sound/cursor/decision17.wav");
+		decision->Play(false);
+
 		m_UI->ScoreReset();
 		m_scoringFlag = 0;
-		DeleteGO("sLog");
+		//スキルログを消す。
+		auto sLog = SkillLog::GetInstance();
+		DeleteGO(sLog);
 
 		return true;
 	}
