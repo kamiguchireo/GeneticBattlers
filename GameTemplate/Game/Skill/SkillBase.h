@@ -65,6 +65,10 @@ public:
 	{
 		return m_skillNo;
 	}
+	bool GetIsPlay()
+	{
+		return m_isPlay;
+	}
 	//スキルの設定
 	virtual void SkillSetting() = 0;
 
@@ -125,5 +129,6 @@ protected:
 	float accuracy = 1.0f;	//命中率
 	int m_skillNo = 0;
 	bool m_isWide = false;	//全体効果か？
+	bool m_isPlay = true;	//再生中か？
 };
 

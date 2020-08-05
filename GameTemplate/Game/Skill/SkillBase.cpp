@@ -24,6 +24,8 @@ bool SkillBase::Start()
 	m_log = NewGO<SkillLog>(4,"sLog");
 	m_log->SetText(skillName);
 
+	m_isPlay = true;
+
 	return true;
 }
 

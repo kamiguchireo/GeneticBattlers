@@ -23,6 +23,7 @@ void SkillAttack::Update()
 	if (m_target->IsDead()) {
 		m_target = nullptr;
 		m_user = nullptr;
+		m_isPlay = false;
 		DeleteGO(this);
 		return;
 	}
@@ -47,6 +48,7 @@ void SkillAttack::Update()
 			//クールタイムの設定。
 			m_user->SetCoolTime(coolTime);
 
+			m_isPlay = false;
 			skillEffect = nullptr;
 			DeleteGO(this);
 		}

@@ -229,7 +229,7 @@ protected:
 
 	//	AIデータ。
 	GAManager m_GAData;									//行動テーブルのデータ。
-	ACTResullt m_actRes;								//行動のリザルト。
+	ACTResullt m_actRes = { 0,0,0 };								//行動のリザルト。
 	int m_scoringFlag = 0;								//評価のフラグ。
 
 	//	ポインタとか。

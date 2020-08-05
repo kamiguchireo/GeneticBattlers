@@ -19,6 +19,7 @@ void SkillBuff::Update()
 	if (m_target->IsDead()) {
 		m_target = nullptr;
 		m_user = nullptr;
+		m_isPlay = false;
 		DeleteGO(this);
 		return;
 	}
@@ -55,6 +56,7 @@ void SkillBuff::Update()
 		}
 		else
 		{
+			m_isPlay = false;
 			//効果値。
 			int res = 0;
 			//バフをかける。
@@ -72,6 +74,7 @@ void SkillBuff::Update()
 			//クールタイムの設定。
 			m_user->SetCoolTime(coolTime);
 
+			m_isPlay = false;
 			skillEffect = nullptr;
 			DeleteGO(this);
 		}

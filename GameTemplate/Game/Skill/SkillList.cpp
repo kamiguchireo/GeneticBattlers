@@ -46,6 +46,10 @@ SkillBase * SkillList::NewSkillData(int table, int no)
 		useSkill = NewSkillBuff(no);
 		break;
 
+	case 3:
+		useSkill = NewSkillDebuff(no);
+		break;
+
 	default:
 		break;
 	}
@@ -138,7 +142,7 @@ SkillBase * SkillList::NewSkillDebuff(int no)
 	//デバフスキルの生成。
 	auto* debuffSkill = NewGO<SkillDebuff>(0);
 	//データ取得。
-	debuffSkill->InitSkill(m_skillData->GetSkillBuff(no));
+	debuffSkill->InitSkill(m_skillData->GetSkillDebuff(no));
 	switch (no)
 	{
 	case 0:

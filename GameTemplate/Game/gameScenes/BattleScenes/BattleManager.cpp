@@ -132,7 +132,7 @@ void BattleManager::MonsterAction()
 		}
 	}
 	//行動が終わったらステート切り替え。
-	if (m_usingSkill->IsDead()) {
+	else if (!m_usingSkill->GetIsPlay()) {
 		//全員のタイムゲージを加算していく。
 		for (int i = 0; i < m_monsterTeam.size(); i++)
 		{

@@ -180,6 +180,7 @@ void MonsterBase::SelectUseSkill(
 		{
 			//攻撃系スキルか
 		case 0:
+		case 3:
 			//ターゲットが死亡していなければ。
 			if (!e_team[targetNo]->IsDeath()) {
 				flag = true;
@@ -200,7 +201,9 @@ void MonsterBase::SelectUseSkill(
 		}
 
 	}
-
+	//行動記録。
+	m_actRes.skillNo = skillNo;
+	m_actRes.target = targetNo;
 	//決定したものを受け渡す。
 	skill = skillNo;
 	target = targetNo;
