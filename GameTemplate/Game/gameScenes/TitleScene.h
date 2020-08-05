@@ -11,8 +11,9 @@ public:
 	void Update();
 
 private:
-	void SelectMenu();
-	void DrawMenu();
+	void SelectMenu();		//メニュー選択。
+	void DrawMenu();		//メニューのα値の描画。
+	void SoundCursor();		//カーソル音を単発再生する。
 private:
 	//フェード切り替え。
 	enum State {
