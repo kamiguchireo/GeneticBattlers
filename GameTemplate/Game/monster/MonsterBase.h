@@ -2,7 +2,7 @@
 //#include "Skill/SkillBase.h"
 #include "parameter/StatusManager.h"
 #include "parameter/StatusUI.h"
-#include "parameter/GIManager.h"
+#include "parameter/GAManager.h"
 
 struct Status;
 
@@ -55,7 +55,7 @@ public:
 	{
 		return m_teamMenber;
 	}
-	GIManager& GetGIManager()
+	GAManager& GetGIManager()
 	{
 		return m_GIData;
 	}
@@ -228,7 +228,7 @@ protected:
 	StatusManager m_status;								//ステータス。
 
 	//	AIデータ。
-	GIManager m_GIData;									//行動テーブルのデータ。
+	GAManager m_GIData;									//行動テーブルのデータ。
 	ACTResullt m_actRes;								//行動のリザルト。
 	int m_scoringFlag = 0;								//評価のフラグ。
 

@@ -1,8 +1,6 @@
 #include "stdafx.h"
 #include "SkillBuff.h"
 
-const float BUFF_TIME = 100.0f;
-
 void SkillBuff::SkillSetting()
 {
 	//エフェクトの再生。

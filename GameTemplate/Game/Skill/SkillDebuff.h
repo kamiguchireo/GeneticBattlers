@@ -22,7 +22,8 @@ public:
 	{
 		m_status = status;
 	}
-
+private:
+	const float DEBUFF_TIME = 100.0f;		//ƒfƒoƒt‚ÌŒø‰ÊŽžŠÔ
 private:
 	int WideDebuff();
 

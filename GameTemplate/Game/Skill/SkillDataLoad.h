@@ -1,7 +1,7 @@
 #pragma once
 
-static const int NOSKILL = -1;			//次のスキル番号なし。
-static const int MAX_NEXT_SIZE = 3;		//次のスキルのサイズ。
+//static const int NOSKILL = -1;			//次のスキル番号なし。
+//static const int MAX_NEXT_SIZE = 3;		//次のスキルのサイズ。
 
 typedef std::vector<int> NextSkills;
 struct SkillData
@@ -34,7 +34,9 @@ public:
 	SkillData GetSkillDebuff(int No);
 	//番号からスキル情報を取得。
 	SkillData GetSkillData(int No);
-
+private:
+	const int NOSKILL = -1;			//次のスキル番号なし。
+	//const int MAX_NEXT_SIZE = 3;	//次のスキルのサイズ。
 private:
 	enum EnSkillType
 	{

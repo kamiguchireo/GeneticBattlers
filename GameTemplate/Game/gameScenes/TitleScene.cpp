@@ -36,6 +36,7 @@ bool TitleScene::Start()
 	m_menuSprite[enMenu_Net]->Init(L"Assets/sprite/MultiBattle.dds", 400, 100);
 	m_menuSprite[enMenu_Net]->SetPosition({ 0.0f,-200.0f,4.0f });
 
+
 	//メニューの乗算カラー初期化。
 	for (int i = 0; i < enMenu_Num; i++)
 	{
@@ -70,6 +71,11 @@ void TitleScene::Update()
 		//Aボタンでシーン切り替え。
 		if (g_pad[0].IsTrigger(enButtonA))
 		{
+			//決定音を単発再生。
+			auto sound = NewGO<prefab::CSoundSource>(0, "cursor");
+			sound->Init(L"Assets/sound/cursor/decision17.wav");
+			sound->Play(false);
+
 			m_fade->StartFadeOut();
 			m_state = enState_inGame;	//Aボタンが押されたらステートを切り替える。
 		}
@@ -97,12 +103,16 @@ void TitleScene::SelectMenu()
 	//メニューの選択。
 	if (g_pad[0].IsTrigger(enButtonDown))
 	{
+		SoundCursor();
+
 		m_menuNum++;
 		//最大まで行ったら元に戻る。
 		m_menuNum %= enMenu_Num;
 	}
 	else if (g_pad[0].IsTrigger(enButtonUp))
 	{
+		SoundCursor();
+
 		m_menuNum--;
 		//最小まで行ったら最大に
 		m_menuNum += enMenu_Num;
@@ -121,4 +131,12 @@ void TitleScene::DrawMenu()
 			m_menuSprite[i]->SetMulColor(m_colorGray);
 		}
 	}
+}
+
+void TitleScene::SoundCursor()
+{
+	//カーソル音を単発再生。
+	auto sound = NewGO<prefab::CSoundSource>(0, "cursor");
+	sound->Init(L"Assets/sound/cursor/cursor2.wav");
+	sound->Play(false);
 }

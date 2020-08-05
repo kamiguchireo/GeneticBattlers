@@ -62,7 +62,7 @@ public:
 	{
 		return m_Tabelelist[enAI_Healer];
 	}
-	//アタッカーのデータを取得。
+	//サポートのデータを取得。
 	const AIDataTable& GetSupporterData()const
 	{
 		return m_Tabelelist[enAI_Supporter];

@@ -244,9 +244,6 @@
     <ClCompile Include="monster\parameter\StatusUI.cpp">
       <Filter>monster\parameter</Filter>
     </ClCompile>
-    <ClCompile Include="monster\parameter\GIManager.cpp">
-      <Filter>monster\parameter</Filter>
-    </ClCompile>
     <ClCompile Include="gameScenes\TitleScene.cpp">
       <Filter>gameScenes</Filter>
     </ClCompile>
@@ -271,6 +268,9 @@
       <Filter>skill</Filter>
     </ClCompile>
     <ClCompile Include="StopWatch.cpp" />
+    <ClCompile Include="monster\parameter\GAManager.cpp">
+      <Filter>monster\parameter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -452,9 +452,6 @@
     <ClInclude Include="monster\parameter\StatusUI.h">
       <Filter>monster\parameter</Filter>
     </ClInclude>
-    <ClInclude Include="monster\parameter\GIManager.h">
-      <Filter>monster\parameter</Filter>
-    </ClInclude>
     <ClInclude Include="gameScenes\TitleScene.h">
       <Filter>gameScenes</Filter>
     </ClInclude>
@@ -481,6 +478,9 @@
     </ClInclude>
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="StopWatch.h" />
+    <ClInclude Include="monster\parameter\GAManager.h">
+      <Filter>monster\parameter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\testModel.fbx">
@@ -493,6 +493,12 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\DesertDragon2.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\Barghest.fbx">
+      <Filter>Assets\modelData</Filter>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\MountainDragon.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>

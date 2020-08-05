@@ -1,6 +1,5 @@
 #include "stdafx.h"
 #include "SkillDebuff.h"
-const float DEBUFF_TIME = 100.0f;
 
 void SkillDebuff::SkillSetting()
 {
