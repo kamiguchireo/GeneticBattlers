@@ -55,9 +55,9 @@ public:
 	{
 		return m_teamMenber;
 	}
-	GAManager& GetGIManager()
+	GAManager& GetGAManager()
 	{
-		return m_GIData;
+		return m_GAData;
 	}
 	//ステータスの設定。
 	//正直ファイルからロードしたい。
@@ -228,7 +228,7 @@ protected:
 	StatusManager m_status;								//ステータス。
 
 	//	AIデータ。
-	GAManager m_GIData;									//行動テーブルのデータ。
+	GAManager m_GAData;									//行動テーブルのデータ。
 	ACTResullt m_actRes;								//行動のリザルト。
 	int m_scoringFlag = 0;								//評価のフラグ。
 

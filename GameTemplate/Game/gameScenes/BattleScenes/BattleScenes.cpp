@@ -73,8 +73,8 @@ bool BattleScenes::Start()
 				monster->Init("Assets/AIData/DefaultData/AttackerDefault.bin");
 			}
 			else {		//通信しているなら。
-				auto& gi = monster->GetGIManager();
-				gi.Init(m_netScenes->GetAttakerData());
+				auto& ga = monster->GetGAManager();
+				ga.Init(m_netScenes->GetAttakerData());
 			}
 			monster->SetUIPos(ENEMY_ATTACKER);
 			monster->SetIsEnemy(true);
@@ -102,8 +102,8 @@ bool BattleScenes::Start()
 				monster->Init("Assets/AIData/DefaultData/SupporterDefault.bin");
 			}
 			else {		//通信しているなら。
-				auto& gi = monster->GetGIManager();
-				gi.Init(m_netScenes->GetSupporterData());
+				auto& ga = monster->GetGAManager();
+				ga.Init(m_netScenes->GetSupporterData());
 			}
 			monster->SetUIPos(ENEMY_SUPPORTER);
 			monster->SetIsEnemy(true);
@@ -138,8 +138,8 @@ bool BattleScenes::Start()
 				monster->Init("Assets/AIData/DefaultData/HealerDefault.bin");
 			}
 			else {		//通信しているなら。
-				auto& gi = monster->GetGIManager();
-				gi.Init(m_netScenes->GetHealerData());
+				auto& ga = monster->GetGAManager();
+				ga.Init(m_netScenes->GetHealerData());
 			}
 			monster->SetUIPos(ENEMY_HEALER);
 			monster->SetIsEnemy(true);

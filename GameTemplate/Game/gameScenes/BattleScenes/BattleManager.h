@@ -50,7 +50,7 @@ public:
 	{
 		//全員分の記録を行う。
 		for (auto p : m_monsterTeam) {
-			auto GI = p->GetGIManager();
+			auto GI = p->GetGAManager();
 			GI.Save();
 		}
 	}
