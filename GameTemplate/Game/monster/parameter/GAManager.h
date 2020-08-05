@@ -16,13 +16,13 @@ struct ResultData {
 	int target = 0;
 };
 
-class GIManager
+class GAManager
 {
 public:
-	GIManager();
-	~GIManager();
+	GAManager();
+	~GAManager();
 	/// <summary>
-	/// ファイルパスからGIをロードする。
+	/// ファイルパスからGAをロードする。
 	/// </summary>
 	/// <param name="filePath">ファイルパス。</param>
 	bool Load(const char* filePath);
@@ -40,13 +40,13 @@ public:
 		m_AI = copy;
 	}
 	/// <summary>
-	/// GIを記録する。
+	/// GAを記録する。
 	/// </summary>
 	void Save();
 	/// <summary>
-	/// GIの更新を行う。
+	/// GAの更新を行う。
 	/// </summary>
-	void GIUpdate();
+	void GAUpdate();
 	/// <summary>
 	/// 新しい行動を追加
 	/// </summary>

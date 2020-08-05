@@ -1,10 +1,10 @@
 #include "stdafx.h"
-#include "GIManager.h"
+#include "GAManager.h"
 #include "Skill/SkillDataLoad.h"
 
-const float GIManager::SKILL_NEW_RATE = 0.3f;		//追加スキルの初期使用比率。
-const float GIManager::FIRST_RATE = 0.15f;			//新規行動の初期比率。
-const int GIManager::MAX_TARGET_COUNT = 3;			//ターゲットの最大数。
+const float GAManager::SKILL_NEW_RATE = 0.3f;		//追加スキルの初期使用比率。
+const float GAManager::FIRST_RATE = 0.15f;			//新規行動の初期比率。
+const int GAManager::MAX_TARGET_COUNT = 3;			//ターゲットの最大数。
 
 struct SkillRate
 {
@@ -12,15 +12,15 @@ struct SkillRate
 	float rate = 0.0f;
 };
 
-GIManager::GIManager()
+GAManager::GAManager()
 {
 }
 
-GIManager::~GIManager()
+GAManager::~GAManager()
 {
 }
 
-bool GIManager::Load(const char * filePath)
+bool GAManager::Load(const char * filePath)
 {
 	//ファイルパスをコピーしておく。
 	strcpy(m_AIPath, filePath);
@@ -47,7 +47,7 @@ bool GIManager::Load(const char * filePath)
 	return true;
 }
 
-void GIManager::LoadDefault(const char * filePath)
+void GAManager::LoadDefault(const char * filePath)
 {
 	FILE* fp = fopen(filePath, "rb");
 	if (fp == nullptr) {
@@ -69,9 +69,9 @@ void GIManager::LoadDefault(const char * filePath)
 	fclose(fp);
 }
 
-void GIManager::Save()
+void GAManager::Save()
 {
-	GIUpdate();
+	GAUpdate();
 	AddNewSkill();
 
 	FILE* fp = fopen(m_AIPath, "wb");
@@ -90,9 +90,9 @@ void GIManager::Save()
 	fclose(fp);
 }
 
-void GIManager::GIUpdate()
+void GAManager::GAUpdate()
 {
-	//GIを用いて行動AIの確率の更新。?
+	//GAを用いて行動AIの確率の更新。?
 	const int listSize = static_cast<const int>(m_actResList.size());
 	int AISize = static_cast<int>(m_AI.size());
 	std::vector<float> AIscoreList(AISize, 0.0f);		//行動ごとのスコア。
@@ -144,7 +144,7 @@ void GIManager::GIUpdate()
 	}
 }
 
-void GIManager::AddNewSkill()
+void GAManager::AddNewSkill()
 {
 	//スキルごとの使用率を計算。
 	std::vector<SkillRate> rateList;
@@ -236,7 +236,7 @@ void GIManager::AddNewSkill()
 	}
 }
 
-void GIManager::ActionDicide(int& skill, int& target)
+void GAManager::ActionDicide(int& skill, int& target)
 {
 	//突然変異的な
 	int pMutation = rand() % 100;
