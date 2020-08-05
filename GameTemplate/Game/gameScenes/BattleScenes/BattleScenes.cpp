@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "BattleScenes.h"
 #include "monster/MonsterBase.h"
-#include "monster/MonsterTeam1.h"
+//#include "monster/MonsterTeam1.h"
 #include "monster/Attacker.h"
 #include "monster/Healer.h"
 #include "monster/Supporter.h"
