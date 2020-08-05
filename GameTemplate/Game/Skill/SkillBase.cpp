@@ -66,7 +66,7 @@ int SkillBase::DamageCalcuration()
 	//0‚ğ‰º‰ñ‚ç‚È‚¢‚æ‚¤‚É‚·‚éB
 	damage = max(damage, 0);
 
-	if (accuracy * 100 < rand() % 101){
+	if (accuracy * 100 < g_random.GetRandomInt() % 101){
 		damage = 0;
 	}
 

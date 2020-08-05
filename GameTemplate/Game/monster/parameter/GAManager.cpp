@@ -202,7 +202,8 @@ void GAManager::AddNewSkill()
 
 		//次のスキル探査。
 		//乱数。
-		int r = rand() % NextSkillSize;
+		//int r = rand() % NextSkillSize;
+		int r = g_random.GetRandomInt() % NextSkillSize;
 		newData.skillNo = data.NextSkillNo[r];
 
 		int i = 0;
@@ -216,6 +217,8 @@ void GAManager::AddNewSkill()
 
 
 		//ターゲット決める。
+		//newData.target = rand() % MAX_TARGET_COUNT;
+		newData.target = g_random.GetRandomInt() % MAX_TARGET_COUNT;
 		newData.target = rand() % MAX_TARGET_COUNT;
 		//使用率を適当に持たせておく。
 		newData.rate = FIRST_RATE;		//半分くらいがちょうどいいかなぁ？
@@ -239,18 +242,21 @@ void GAManager::AddNewSkill()
 void GAManager::ActionDicide(int& skill, int& target)
 {
 	//突然変異的な
-	int pMutation = rand() % 100;
+	//int pMutation = rand() % 100;
+	int pMutation = g_random.GetRandomInt() % 100;
 	//100分の１の確率。
 	if (pMutation == 0) {
 		//ランダムに数字を入れる。
-		int actNum = rand() % m_AI.size();
+		//int actNum = rand() % m_AI.size();
+		int actNum = g_random.GetRandomInt() % m_AI.size();
 		skill = m_AI[actNum].skillNo;
 		target = m_AI[actNum].target;
 
 		//関数を抜ける。
 		return;
 	}
-	int res = rand() % 100;	//適当な乱数。
+	//int res = rand() % 100;	//適当な乱数。
+	int res = g_random.GetRandomInt() % 100;	//適当な乱数。
 	float sum = 0;
 
 	//行動テーブルをもとに行動させる。

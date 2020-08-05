@@ -11,7 +11,6 @@
 #include "GameCamera.h"
 #include "Skill/SkillLog.h"
 
-
 const CVector3 BattleScenes::ATTAKER = { -50.0f,-250.0f,0.0f };
 const CVector3 BattleScenes::HEALER = { 350.0f,-250.0f,0.0f };
 const CVector3 BattleScenes::SUPPORTER = { -450.0f,-250.0f,0.0f };
@@ -232,7 +231,7 @@ bool BattleScenes::Start()
 
 void BattleScenes::Update()
 {
-	rand();
+	//rand();
 	switch (m_state)
 	{
 	case enState_FadeIn:

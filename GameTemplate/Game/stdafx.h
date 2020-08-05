@@ -51,6 +51,7 @@
 #include "SourceFile/graphic/Effect/CEffect.h"
 #include "SourceFile/Sound/CSoundSource.h"
 #include "GameTime.h"
+#include "CRandom.h"
 
 #include <xaudio2.h>
 #include <xaudio2fx.h>

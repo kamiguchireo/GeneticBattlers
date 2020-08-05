@@ -271,6 +271,7 @@
     <ClCompile Include="monster\parameter\GAManager.cpp">
       <Filter>monster\parameter</Filter>
     </ClCompile>
+    <ClCompile Include="CRandom.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -481,6 +482,7 @@
     <ClInclude Include="monster\parameter\GAManager.h">
       <Filter>monster\parameter</Filter>
     </ClInclude>
+    <ClInclude Include="CRandom.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\testModel.fbx">

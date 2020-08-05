@@ -99,6 +99,7 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CRandom.cpp" />
     <ClCompile Include="Skill\SkillDebuff.cpp" />
     <ClCompile Include="SourceFile\Engine.cpp" />
     <ClCompile Include="gameScenes\BattleScenes\BattleManager.cpp" />
@@ -186,6 +187,7 @@
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="CRandom.h" />
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="Skill\SkillDebuff.h" />
     <ClInclude Include="SourceFile\Engine.h" />
