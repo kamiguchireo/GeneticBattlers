@@ -4,15 +4,7 @@
 void SkillAttack::SkillSetting()
 {
 	//エフェクトの再生。
-	skillEffect = NewGO<prefab::CEffect>(0);
-	skillEffect->Play(m_effectPaths[m_playEffectNum]);
-	CVector3 effectPos = CreateEffectPosition(m_effectPosFlag[m_playEffectNum]);
-	skillEffect->SetPosition(effectPos);
-	CQuaternion effectRot = CreateEffectRotation(m_effectPosFlag[m_playEffectNum]);
-	skillEffect->SetRotation(m_user->GetRotation());
-	//skillEffect->SetScale(CVector3::One() * 20.0f);
-
-	m_playEffectNum++;
+	PlaySkill();
 
 	//アニメーションの再生。
 	m_user->AnimationAttack();
@@ -28,14 +20,9 @@ void SkillAttack::Update()
 		return;
 	}
 	if (!skillEffect->IsPlay()) {
-		if (m_effectPaths.size() > m_playEffectNum)
+		if (m_playSkillPaths.m_effectPaths.size() > m_playEffectNum)
 		{
-			skillEffect = NewGO<prefab::CEffect>(0);
-			skillEffect->Play(m_effectPaths[m_playEffectNum]);
-			CVector3 efPos = CreateEffectPosition(m_effectPosFlag[m_playEffectNum]);
-			skillEffect->SetPosition(efPos);
-
-			m_playEffectNum++;
+			PlaySkill();
 		}
 		else
 		{

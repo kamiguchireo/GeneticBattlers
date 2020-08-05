@@ -18,6 +18,17 @@ enum EffectPos
 	en_PosTarget
 };
 
+typedef const wchar_t* SkillPath;
+namespace Skill 
+{
+	struct PlaySkillPaths
+	{
+		std::vector<SkillPath> m_effectPaths;
+		std::vector<SkillPath> m_soundPaths;
+		std::vector<int> m_effectPosFlag;
+	};
+}
+
 class SkillBase : public IGameObject
 {
 public:
@@ -50,10 +61,16 @@ public:
 		m_target = target;
 	}
 	//再生するエフェクトのファイルパスを設定する。
-	void SetEffect(const wchar_t* path,int enPos)
+	void SetEffect(const wchar_t* path,int enPos, const wchar_t* sound = nullptr)
 	{
-		m_effectPaths.push_back(path);
-		m_effectPosFlag.push_back(enPos);
+		m_playSkillPaths.m_effectPaths.push_back(path);
+		m_playSkillPaths.m_effectPosFlag.push_back(enPos);
+		SetSound(sound);
+	}
+	//再生するサウンドのファイルパスを設定する。
+	void SetSound(const wchar_t* path)
+	{
+		m_playSkillPaths.m_soundPaths.push_back(path);
 	}
 	//スキルが全体効果か？
 	void SetIsWide(bool isFlag = false)
@@ -115,13 +132,14 @@ protected:
 	const CVector3 CreateEffectPosition(int enPos) const;
 	const CQuaternion CreateEffectRotation(int enRot)const;
 
+	//エフェクト、サウンドの再生。
+	void PlaySkill();
+
 	SkillLog* m_log = nullptr;
 	MonsterBase* m_user = nullptr;
 	MonsterBase* m_target = nullptr;
 	prefab::CEffect* skillEffect = nullptr;	//行動のエフェクト。
-	typedef const wchar_t* EffectPath;
-	std::vector<EffectPath> m_effectPaths;
-	std::vector<int> m_effectPosFlag;
+	Skill::PlaySkillPaths m_playSkillPaths;
 	int m_playEffectNum = 0;
 	wchar_t skillName[30];
 	float skillPower = 1.0f;

@@ -4,11 +4,7 @@
 void SkillBuff::SkillSetting()
 {
 	//エフェクトの再生。
-	skillEffect = NewGO<prefab::CEffect>(0);
-	skillEffect->Play(L"Assets/effect/chant1.efk");
-	CVector3 effectPos = CreateEffectPosition(en_PosUser);
-	skillEffect->SetPosition(effectPos);
-	//skillEffect->SetScale(CVector3::One() * 50.0f);
+	PlaySkill();
 
 	//アニメーションの再生。
 	m_user->AnimationMagic();
@@ -25,34 +21,9 @@ void SkillBuff::Update()
 	}
 
 	if (!skillEffect->IsPlay()) {
-		if (m_effectPaths.size() > m_playEffectNum)
+		if (m_playSkillPaths.m_effectPaths.size() > m_playEffectNum)
 		{
-			if (!m_isWide)
-			{
-				skillEffect = NewGO<prefab::CEffect>(0);
-				skillEffect->Play(m_effectPaths[m_playEffectNum]);
-				CVector3 efPos = CreateEffectPosition(m_effectPosFlag[m_playEffectNum]);
-				skillEffect->SetPosition(efPos);
-			}
-			else
-			{
-				auto list = m_target->GetTeamMenber();
-
-				for (int i = 0; i < list.size(); i++)
-				{
-					//メンバー全てをターゲットする。
-					m_target = list[i];
-					if (!m_target->IsDeath())
-					{
-						skillEffect = NewGO<prefab::CEffect>(0);
-						skillEffect->Play(m_effectPaths[m_playEffectNum]);
-						CVector3 efPos = CreateEffectPosition(m_effectPosFlag[m_playEffectNum]);
-						skillEffect->SetPosition(efPos);
-					}
-				}
-			}
-
-			m_playEffectNum++;
+			PlaySkill();
 		}
 		else
 		{

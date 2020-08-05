@@ -116,3 +116,45 @@ const CQuaternion SkillBase::CreateEffectRotation(int enRot) const
 	return effectRot;
 }
 
+void SkillBase::PlaySkill()
+{
+	if (!m_isWide)
+	{
+		skillEffect = NewGO<prefab::CEffect>(0);
+		skillEffect->Play(m_playSkillPaths.m_effectPaths[m_playEffectNum]);
+		CVector3 efPos = CreateEffectPosition(m_playSkillPaths.m_effectPosFlag[m_playEffectNum]);
+		skillEffect->SetPosition(efPos);
+		CQuaternion effectRot = CreateEffectRotation(m_playSkillPaths.m_effectPosFlag[m_playEffectNum]);
+		skillEffect->SetRotation(effectRot);
+	}
+	else
+	{
+		auto list = m_target->GetTeamMenber();
+
+		for (int i = 0; i < list.size(); i++)
+		{
+			//メンバー全てをターゲットする。
+			m_target = list[i];
+			if (!m_target->IsDeath())
+			{
+				skillEffect = NewGO<prefab::CEffect>(0);
+				skillEffect->Play(m_playSkillPaths.m_effectPaths[m_playEffectNum]);
+				CVector3 efPos = CreateEffectPosition(m_playSkillPaths.m_effectPosFlag[m_playEffectNum]);
+				skillEffect->SetPosition(efPos);
+				CQuaternion effectRot = CreateEffectRotation(m_playSkillPaths.m_effectPosFlag[m_playEffectNum]);
+				skillEffect->SetRotation(effectRot);
+			}
+		}
+	}
+	if (m_playSkillPaths.m_soundPaths[m_playEffectNum] != nullptr)
+	{
+		wchar_t path[256];
+		wcscpy(path,m_playSkillPaths.m_soundPaths[m_playEffectNum]);
+		auto sound = NewGO<prefab::CSoundSource>(0);
+		sound->Init(path);
+		sound->Play(false);
+	}
+
+	m_playEffectNum++;
+}
+
