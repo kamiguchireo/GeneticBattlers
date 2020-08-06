@@ -156,14 +156,7 @@ public:
 	/// </summary>
 	/// <param name="damage">ダメージ量。</param>
 	/// <returns>入ったダメージ量。</returns>
-	int Damage(int damage)
-	{
-		if (m_status.IsDeath()) return 0;
-		//アニメーション。
-		m_animation.Play(en_anim_Damage, 0.3f);
-
-		return m_status.Damage(damage);
-	}
+	int Damage(int damage);
 
 	/// <summary>
 	/// HPを回復させる。

@@ -116,7 +116,7 @@ bool BattleScenes::Start()
 		{
 			MonsterBase* monster = NewGO<Healer>(0);
 			Status hoge;
-			hoge.HP = 130;
+			hoge.HP = 90;
 			//hoge.HP = 1;
 			hoge.ATK = 5;
 			hoge.DEF = 10;
@@ -154,7 +154,7 @@ bool BattleScenes::Start()
 			Status hoge;
 			hoge.HP = 130;
 			//hoge.HP = 1;
-			hoge.ATK = 300;
+			hoge.ATK = 30;
 			hoge.DEF = 10;
 			hoge.MAT = 5;
 			hoge.MDF = 10;
@@ -173,7 +173,7 @@ bool BattleScenes::Start()
 		{
 			MonsterBase* healer = NewGO<Healer>(0);
 			Status hoge;
-			hoge.HP = 130;
+			hoge.HP = 90;
 			//hoge.HP = 1;
 			hoge.ATK = 5;
 			hoge.DEF = 10;

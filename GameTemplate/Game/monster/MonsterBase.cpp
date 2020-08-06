@@ -138,6 +138,20 @@ bool MonsterBase::ACTScoring()
 	return false;
 }
 
+int MonsterBase::Damage(int damage)
+{
+	//死亡時はダメージ無し。
+	if (m_status.IsDeath()) return 0;
+	//アニメーション。
+	m_animation.Play(en_anim_Damage, 0.3f);
+
+	auto sound = NewGO<prefab::CSoundSource>(0);
+	sound->Init(L"Assets/sound/battle/slap1.wav");
+	sound->Play(false);
+
+	return m_status.Damage(damage);
+}
+
 int MonsterBase::MonsterBuffAndDebuff(StatusBuff status, float pow, float time)
 {
 	if (IsDeath()) {
@@ -169,18 +183,44 @@ void MonsterBase::SelectUseSkill(
 	int targetNo = 0;	//取得した番号を記録する。
 
 	bool flag = false;
+	//行動をテーブルから決定。
+	m_GAData.ActionDicide(skillNo, targetNo);
+	//スキルの選択。
+	int skillTable = (int)(skillNo / 100);
+
+	switch (skillTable)
+	{
+		//攻撃系スキルか
+	case 0:
+	case 3:
+		//ターゲットが死亡していなければ。
+		if (!e_team[targetNo]->IsDeath()) {
+			flag = true;
+		}
+		break;
+
+		//味方に使用するスキルか
+	case 1:
+	case 2:
+		//ターゲットが死亡していなければ。
+		if (!m_team[targetNo]->IsDeath()) {
+			flag = true;
+		}
+		break;
+
+	default:
+		break;
+	}
+
 	//ターゲットが定まるまで回す。
 	while (!flag) {
-		//行動をテーブルから決定。
-		m_GAData.ActionDicide(skillNo, targetNo);
-		//スキルの選択。
-		int skillTable = (int)(skillNo / 100);
 
 		switch (skillTable)
 		{
 			//攻撃系スキルか
 		case 0:
 		case 3:
+			targetNo = g_random.GetRandomInt() % static_cast<int>(e_team.size());
 			//ターゲットが死亡していなければ。
 			if (!e_team[targetNo]->IsDeath()) {
 				flag = true;
@@ -190,6 +230,7 @@ void MonsterBase::SelectUseSkill(
 			//味方に使用するスキルか
 		case 1:
 		case 2:
+			targetNo = g_random.GetRandomInt() % static_cast<int>(m_team.size());
 			//ターゲットが死亡していなければ。
 			if (!m_team[targetNo]->IsDeath()) {
 				flag = true;
