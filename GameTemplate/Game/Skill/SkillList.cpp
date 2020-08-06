@@ -92,19 +92,19 @@ SkillBase * SkillList::NewSkillHeal(int no)
 	{
 	case 0:
 		//healSkill->InitSkill(L"ヒール", 0.7f, 30.0f, 1.0f, 100);
-		healSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser);
-		healSkill->SetEffect(L"Assets/effect/heal.efk",en_PosTarget);
+		healSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
+		healSkill->SetEffect(L"Assets/effect/heal.efk",en_PosTarget,L"Assets/sound/battle/magic-status-cure1.wav");
 		break;
 
 	case 1:
 		//healSkill->InitSkill(L"ハイヒール", 1.3f, 50.0f, 1.0f, 101);
-		healSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser);
-		healSkill->SetEffect(L"Assets/effect/healS.efk",en_PosTarget);
+		healSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
+		healSkill->SetEffect(L"Assets/effect/healS.efk",en_PosTarget, L"Assets/sound/battle/magic-status-cure1.wav");
 		break;
 
 	case 2:
-		healSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser);
-		healSkill->SetEffect(L"Assets/effect/heal.efk", en_PosTarget);
+		healSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
+		healSkill->SetEffect(L"Assets/effect/heal.efk", en_PosTarget, L"Assets/sound/battle/magic-status-cure1.wav");
 		healSkill->SetIsWide(true);
 		break;
 
@@ -125,21 +125,21 @@ SkillBase * SkillList::NewSkillBuff(int no)
 	case 0:
 		//buffSkill->InitSkill(L"スクルト", 2.0f, 50.0f, 1.0f, 200);
 		buffSkill->SetStatusBuff(en_buff_DEF);
-		buffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser);
-		buffSkill->SetEffect(L"Assets/effect/BuffDef.efk", en_PosTarget);
+		buffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
+		buffSkill->SetEffect(L"Assets/effect/BuffDef.efk", en_PosTarget,L"Assets/sound/battle/aura1.wav");
 		break;
 
 	case 1:
 		//buffSkill->InitSkill(L"スカラ", 1.5f, 60.0f, 1.0f, 201);
 		buffSkill->SetStatusBuff(en_buff_DEF);
-		buffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser);
-		buffSkill->SetEffect(L"Assets/effect/BuffDef.efk", en_PosTarget);
+		buffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
+		buffSkill->SetEffect(L"Assets/effect/BuffDef.efk", en_PosTarget, L"Assets/sound/battle/aura1.wav");
 		buffSkill->SetIsWide(true);
 		break;
 	case 2:
 		buffSkill->SetStatusBuff(en_buff_ATK);
-		buffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser);
-		buffSkill->SetEffect(L"Assets/effect/BuffAtk.efk", en_PosTarget);
+		buffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
+		buffSkill->SetEffect(L"Assets/effect/BuffAtk.efk", en_PosTarget, L"Assets/sound/battle/aura1.wav");
 		break;
 	default:
 		DeleteGO(buffSkill);
@@ -159,13 +159,13 @@ SkillBase * SkillList::NewSkillDebuff(int no)
 	{
 	case 0:
 		debuffSkill->SetStatusDebuff(en_buff_DEF);
-		debuffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser);
+		debuffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
 		debuffSkill->SetEffect(L"Assets/effect/DebuffDef.efk", en_PosTarget);
 		break;
 
 	case 1:
 		debuffSkill->SetStatusDebuff(en_buff_DEX);
-		debuffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser);
+		debuffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
 		debuffSkill->SetEffect(L"Assets/effect/DebuffDex.efk", en_PosTarget);
 		break;
 	default:
