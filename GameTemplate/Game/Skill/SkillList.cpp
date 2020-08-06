@@ -160,13 +160,13 @@ SkillBase * SkillList::NewSkillDebuff(int no)
 	case 0:
 		debuffSkill->SetStatusDebuff(en_buff_DEF);
 		debuffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
-		debuffSkill->SetEffect(L"Assets/effect/DebuffDef.efk", en_PosTarget);
+		debuffSkill->SetEffect(L"Assets/effect/DebuffDef.efk", en_PosTarget, L"Assets/sound/battle/magic-gravity1.wav");
 		break;
 
 	case 1:
 		debuffSkill->SetStatusDebuff(en_buff_DEX);
 		debuffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
-		debuffSkill->SetEffect(L"Assets/effect/DebuffDex.efk", en_PosTarget);
+		debuffSkill->SetEffect(L"Assets/effect/DebuffDex.efk", en_PosTarget, L"Assets/sound/battle/magic-gravity1.wav");
 		break;
 	default:
 		DeleteGO(debuffSkill);
