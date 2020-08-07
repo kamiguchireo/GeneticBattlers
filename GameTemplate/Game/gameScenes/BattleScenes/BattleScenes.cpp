@@ -25,6 +25,7 @@ BattleScenes::BattleScenes()
 
 BattleScenes::~BattleScenes()
 {
+	DeleteGO(m_battleManager);
 	DeleteGO(m_camera);
 	DeleteGO(m_resultSprite);
 	auto sLog = SkillLog::GetInstance();
@@ -35,6 +36,8 @@ bool BattleScenes::Start()
 {
 	//ネットシーンのポインタ取得。
 	m_netScenes = NetScenes::GetInstance();
+	//戦闘管理用クラス作成。
+	m_battleManager = NewGO<BattleManager>(1);
 
 	//カスケードシャドウの範囲指定。
 	g_graphicsEngine->GetShadowMap()->SetRange({ 1000.0f,2000.0f,3000.0f });
@@ -80,7 +83,7 @@ bool BattleScenes::Start()
 			monster->SetUIPos(ENEMY_ATTACKER);
 			monster->SetIsEnemy(true);
 
-			m_battleManager.PushBackEnemys(monster,job::enjob_Attacker);
+			m_battleManager->PushBackEnemys(monster,job::enjob_Attacker);
 
 			return true;
 		}
@@ -109,7 +112,7 @@ bool BattleScenes::Start()
 			monster->SetUIPos(ENEMY_SUPPORTER);
 			monster->SetIsEnemy(true);
 
-			m_battleManager.PushBackEnemys(monster,job::enjob_Supotter);
+			m_battleManager->PushBackEnemys(monster,job::enjob_Supotter);
 
 
 			return true;
@@ -145,7 +148,7 @@ bool BattleScenes::Start()
 			monster->SetUIPos(ENEMY_HEALER);
 			monster->SetIsEnemy(true);
 
-			m_battleManager.PushBackEnemys(monster,job::enjob_Healer);
+			m_battleManager->PushBackEnemys(monster,job::enjob_Healer);
 
 
 			return true;
@@ -167,7 +170,7 @@ bool BattleScenes::Start()
 			attacker->SetScale(objData.scale);
 			attacker->Init("Assets/AIData/Attacker.bin");
 			attacker->SetUIPos(ATTAKER);
-			m_battleManager.PushBackTeams(attacker,job::enjob_Attacker);
+			m_battleManager->PushBackTeams(attacker,job::enjob_Attacker);
 
 			return true;
 		}	
@@ -188,7 +191,7 @@ bool BattleScenes::Start()
 			healer->SetScale(objData.scale);
 			healer->Init("Assets/AIData/Healer.bin");
 			healer->SetUIPos(HEALER);
-			m_battleManager.PushBackTeams(healer,job::enjob_Healer);
+			m_battleManager->PushBackTeams(healer,job::enjob_Healer);
 		
 			return true;
 		}
@@ -209,7 +212,7 @@ bool BattleScenes::Start()
 			support->SetScale(objData.scale);
 			support->Init("Assets/AIData/Supporter.bin");
 			support->SetUIPos(SUPPORTER);
-			m_battleManager.PushBackTeams(support,job::enjob_Supotter);
+			m_battleManager->PushBackTeams(support,job::enjob_Supotter);
 		
 			return true;
 		}
@@ -217,9 +220,8 @@ bool BattleScenes::Start()
 
 		return false;
 		});
-	
-	m_battleManager.SetTeams();
-	m_battleManager.SetScenePointa(this);
+	m_battleManager->SetScenePointa(this);
+	m_battleManager->SetIsBattle(false);
 	//カメラ。
 	m_camera = NewGO<GameCamera>(0);
 	//bgm
@@ -247,14 +249,17 @@ void BattleScenes::Update()
 			m_bgmVol += g_gameTime.GetFrameDeltaTime();
 			m_bgmVol = min(1.0f, m_bgmVol);
 		}
-		if (!m_fade->IsFade())	m_state = enState_Battle;
+		if (!m_fade->IsFade()) {
+			m_state = enState_Battle;
+			//戦闘開始。
+			m_battleManager->SetIsBattle(true);
+		}
 		break;
 	case enState_Battle:
-		//戦闘の更新処理をさせる。
-		m_battleManager.BattleUpdate();
-
 		if (g_pad[0].IsTrigger(enButtonStart)) 
 		{
+			//戦闘中断。
+			m_battleManager->SetIsBattle(true);
 			//フェードさせる。
 			m_state = enState_FadeOut; 
 			m_fade->StartFadeOut();
@@ -283,7 +288,7 @@ void BattleScenes::Update()
 		if (g_pad[0].IsTrigger(enButtonA))
 		{
 			//戦闘後処理。
-			m_battleManager.SaveData();		//行動データの更新と保存。
+			m_battleManager->SaveData();		//行動データの更新と保存。
 
 			//フェードさせる。
 			m_state = enState_FadeOut;

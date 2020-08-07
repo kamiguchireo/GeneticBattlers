@@ -21,8 +21,16 @@ BattleManager::~BattleManager()
 	g_graphicsEngine->GetShadowMap()->CasterClear();
 }
 
-void BattleManager::BattleUpdate()
+bool BattleManager::Start()
 {
+	SetTeams();
+
+	return true;
+}
+
+void BattleManager::Update()
+{
+	if (!m_isBattle) return;
 	switch (m_battleState)
 	{
 	case enState_ATB:
@@ -171,10 +179,12 @@ void BattleManager::MonsterScoring()
 		if (myDeath == m_monsterTeam.size()) {
 			//バトルシーンに対してステートの変化と勝敗判定を渡す
 			m_scenes->SetBattleResult(false);
+			SetIsBattle(false);
 			return;
 		}
 		else if (eneDeath == m_monsterEnemy.size()) {
 			m_scenes->SetBattleResult(true);
+			SetIsBattle(false);
 			return;
 		}
 

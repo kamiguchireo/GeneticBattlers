@@ -17,14 +17,15 @@ namespace job {
 	};
 }
 
-class BattleManager
+class BattleManager:public IGameObject
 {
 public:
 	BattleManager();
 	~BattleManager();
 
-	//戦闘処理。
-	void BattleUpdate();
+	bool Start();
+	void Update();
+
 	//味方のチームをセット。
 	void PushBackTeams(MonsterBase* monster, job::JOB j)
 	{
@@ -53,6 +54,10 @@ public:
 			auto GI = p->GetGAManager();
 			GI.Save();
 		}
+	}
+	void SetIsBattle(bool flag)
+	{
+		m_isBattle = flag;
 	}
 
 private:
@@ -88,5 +93,6 @@ private:
 	SkillList skillList;							//!<スキルリスト。
 	SkillBase* m_usingSkill = nullptr;				//現在使用中のスキル。
 	BattleState m_battleState = enState_ATB;
+	bool m_isBattle = false;
 };
 

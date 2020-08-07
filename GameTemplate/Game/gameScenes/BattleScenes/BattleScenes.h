@@ -59,9 +59,9 @@ private:
 	NetScenes* m_netScenes = nullptr;
 	SceneState m_state = enState_FadeIn;
 	Level m_level;
-	BattleManager m_battleManager;
-
 	SkinModel m_model;						//!<ステージのモデル。
+
+	BattleManager* m_battleManager = nullptr;	//戦闘管理用クラス。
 	GameCamera* m_camera = nullptr;			//!<ゲームカメラ。
 	prefab::SpriteRender* m_resultSprite = nullptr;	//!<リザルト用のスプライトレンダー。
 	prefab::CSoundSource* m_bgm = nullptr;	//!<サウンドソース。
