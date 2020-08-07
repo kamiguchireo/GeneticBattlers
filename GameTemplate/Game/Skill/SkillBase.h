@@ -101,6 +101,8 @@ public:
 	virtual bool IsMagic() = 0;
 	//攻撃スキルかどうか。
 	virtual bool IsAttack() = 0;
+private:
+	static const float SKILL_SOUND_VOL;
 protected:
 	//スキルの名前を設定。
 	void SetSkillName(const wchar_t* name)

@@ -82,6 +82,7 @@ void TitleScene::Update()
 			auto sound = NewGO<prefab::CSoundSource>(0, "cursor");
 			sound->Init(L"Assets/sound/cursor/decision17.wav");
 			sound->Play(false);
+			sound->SetVolume(SOUND_VOL);
 
 			m_fade->StartFadeOut();
 			m_state = enState_inGame;	//Aボタンが押されたらステートを切り替える。
@@ -107,7 +108,7 @@ void TitleScene::Update()
 			DeleteGO(this);
 		}
 	}
-	m_bgm->SetVolume(m_bgmVol);
+	m_bgm->SetVolume(m_bgmVol * SOUND_VOL);
 }
 
 void TitleScene::SelectMenu()
@@ -151,4 +152,5 @@ void TitleScene::SoundCursor()
 	auto sound = NewGO<prefab::CSoundSource>(0, "cursor");
 	sound->Init(L"Assets/sound/cursor/cursor2.wav");
 	sound->Play(false);
+	sound->SetVolume(SOUND_VOL);
 }

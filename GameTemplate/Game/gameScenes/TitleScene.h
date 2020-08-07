@@ -37,5 +37,6 @@ private:
 	prefab::SpriteRender* m_menuSprite[enMenu_Num] = { nullptr };	//選択肢用のスプライト。
 	const static CVector3 m_colorGray;					//グレー色。
 	float m_bgmVol = 0.0f;
+	const float SOUND_VOL = 0.6f;
 };
 

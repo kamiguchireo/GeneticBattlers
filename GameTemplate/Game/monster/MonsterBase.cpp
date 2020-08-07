@@ -3,6 +3,8 @@
 #include "Skill/SkillList.h"
 #include "Skill/SkillLog.h"
 
+const float MonsterBase::SOUND_VOL = 0.6f;
+
 MonsterBase::MonsterBase()
 {
 }
@@ -90,12 +92,16 @@ bool MonsterBase::ACTScoring()
 		auto cursor = NewGO<prefab::CSoundSource>(0);
 		cursor->Init(L"Assets/sound/cursor/cursor2.wav");
 		cursor->Play(false);
+		cursor->SetVolume(SOUND_VOL);
+
 		m_scoringFlag = 1;
 	}
 	if (g_pad[0].IsTrigger(enButtonLeft)) {
 		auto cursor = NewGO<prefab::CSoundSource>(0);
 		cursor->Init(L"Assets/sound/cursor/cursor2.wav");
 		cursor->Play(false);
+		cursor->SetVolume(SOUND_VOL);
+
 		m_scoringFlag = 0;
 	}
 	switch (m_scoringFlag)
@@ -125,6 +131,7 @@ bool MonsterBase::ACTScoring()
 		auto decision = NewGO<prefab::CSoundSource>(0);
 		decision->Init(L"Assets/sound/cursor/decision17.wav");
 		decision->Play(false);
+		decision->SetVolume(SOUND_VOL);
 
 		m_UI->ScoreReset();
 		m_scoringFlag = 0;
@@ -147,7 +154,9 @@ int MonsterBase::Damage(int damage)
 
 	auto sound = NewGO<prefab::CSoundSource>(0);
 	sound->Init(L"Assets/sound/battle/slap1.wav");
+	sound->SetVolume(0.6f);
 	sound->Play(false);
+	sound->SetVolume(SOUND_VOL);
 
 	return m_status.Damage(damage);
 }

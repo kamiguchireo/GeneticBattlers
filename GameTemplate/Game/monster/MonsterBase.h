@@ -194,6 +194,8 @@ public:
 	/// </summary>
 	/// <param name="filePath">ファイルパス。</param>
 	void Init(const char* filePath);
+private:
+	static const float SOUND_VOL;
 
 protected:
 	/// <summary>

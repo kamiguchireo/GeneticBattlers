@@ -3,6 +3,8 @@
 #include "SkillLog.h"
 #include "SkillDataLoad.h"
 
+const float SkillBase::SKILL_SOUND_VOL = 0.6f;
+
 SkillBase::SkillBase()
 {
 }
@@ -157,6 +159,7 @@ void SkillBase::PlaySkill()
 		wcscpy(path,m_playSkillPaths.m_soundPaths[m_playEffectNum]);
 		m_sound = NewGO<prefab::CSoundSource>(0);
 		m_sound->Init(path);
+		m_sound->SetVolume(SKILL_SOUND_VOL);
 		m_sound->Play(false);
 	}
 

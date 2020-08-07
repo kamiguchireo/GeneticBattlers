@@ -313,7 +313,7 @@ void BattleScenes::Update()
 		break;
 	}
 
-	m_bgm->SetVolume(m_bgmVol);
+	m_bgm->SetVolume(m_bgmVol*SOUND_VOL);
 	////ƒŒƒxƒ‹‚Ì•`‰æB
 	//m_level.Draw();
 }
