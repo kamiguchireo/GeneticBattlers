@@ -64,6 +64,8 @@ private:
 	SkinModel m_model;						//!<ステージのモデル。
 	GameCamera* m_camera = nullptr;			//!<ゲームカメラ。
 	prefab::SpriteRender* m_resultSprite = nullptr;	//!<リザルト用のスプライトレンダー。
+	prefab::CSoundSource* m_bgm = nullptr;	//!<サウンドソース。
+	float m_bgmVol = 0.0f;
 	float battleCoolTime = 0.0f;			//!<クールタイム。
 	bool m_isWin = false;					//!<勝利フラグ。
 	bool m_isSprite = false;				//!<スプライトが表示されたか。

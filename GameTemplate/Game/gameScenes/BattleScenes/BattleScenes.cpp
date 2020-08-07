@@ -36,12 +36,14 @@ bool BattleScenes::Start()
 	//ネットシーンのポインタ取得。
 	m_netScenes = NetScenes::GetInstance();
 
+	//カスケードシャドウの範囲指定。
 	g_graphicsEngine->GetShadowMap()->SetRange({ 1000.0f,2000.0f,3000.0f });
 
 	//レベル。
 	m_level.Init(L"Assets/level/BattleStage.tkl",[&](LevelObjectData& objData) {
 		if (wcscmp(objData.name, L"testGround") == 0)
 		{
+			//背景モデル。
 			m_model.Init(L"Assets/modelData/testGround.cmo");
 			m_model.SetActiveDLFlag(0);
 			m_model.SetActiveRLFlag(0);
@@ -220,6 +222,12 @@ bool BattleScenes::Start()
 	m_battleManager.SetScenePointa(this);
 	//カメラ。
 	m_camera = NewGO<GameCamera>(0);
+	//bgm
+	m_bgm = NewGO<prefab::CSoundSource>(0);
+	m_bgm->Init(L"Assets/sound/bgm/bgm_battle.wav");
+	m_bgm->Play(true);
+	m_bgm->SetVolume(m_bgmVol);
+
 	//フェード。
 	m_fade = Fade::GetInstance();
 	m_fade->StartFadeIn();
@@ -235,6 +243,10 @@ void BattleScenes::Update()
 	switch (m_state)
 	{
 	case enState_FadeIn:
+		if (m_bgmVol < 1.0f); {
+			m_bgmVol += g_gameTime.GetFrameDeltaTime();
+			m_bgmVol = min(1.0f, m_bgmVol);
+		}
 		if (!m_fade->IsFade())	m_state = enState_Battle;
 		break;
 	case enState_Battle:
@@ -281,6 +293,11 @@ void BattleScenes::Update()
 		break;
 
 	case enState_FadeOut:
+		//bgmのフェードアウト。
+		if (m_bgmVol > 0.0f); {
+			m_bgmVol -= g_gameTime.GetFrameDeltaTime();
+			m_bgmVol = max(0.0f, m_bgmVol);
+		}
 		if (!m_fade->IsFade())
 		{
 			//フェードが終わるとタイトルに戻る。
@@ -290,6 +307,7 @@ void BattleScenes::Update()
 		break;
 	}
 
+	m_bgm->SetVolume(m_bgmVol);
 	////レベルの描画。
 	//m_level.Draw();
 }
