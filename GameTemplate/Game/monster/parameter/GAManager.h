@@ -5,9 +5,9 @@
 //!<target		ターゲット番号。
 //!<rate		使用頻度。
 struct AIData {
-	int skillNo = 0;
-	int target = 0;
-	float rate = 0.0f;
+	int skillNo = 0;		//ここは固定値
+	int target = 0;			//ここも固定値
+	float rate = 0.0f;		//ここが遺伝子として変化する
 };
 
 struct ResultData {
@@ -46,7 +46,7 @@ public:
 	/// <summary>
 	/// GAの更新を行う。
 	/// </summary>
-	void GAUpdate();
+	void AIUpdate();
 	/// <summary>
 	/// 新しい行動を追加
 	/// </summary>

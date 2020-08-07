@@ -71,7 +71,7 @@ void GAManager::LoadDefault(const char * filePath)
 
 void GAManager::Save()
 {
-	GAUpdate();
+	AIUpdate();
 	AddNewSkill();
 
 	FILE* fp = fopen(m_AIPath, "wb");
@@ -90,9 +90,9 @@ void GAManager::Save()
 	fclose(fp);
 }
 
-void GAManager::GAUpdate()
+void GAManager::AIUpdate()
 {
-	//GAを用いて行動AIの確率の更新。?
+	//行動評価による行動AIの確率の更新。
 	const int listSize = static_cast<const int>(m_actResList.size());
 	int AISize = static_cast<int>(m_AI.size());
 	std::vector<float> AIscoreList(AISize, 0.0f);		//行動ごとのスコア。
