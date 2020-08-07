@@ -14,6 +14,11 @@ SkillBase::~SkillBase()
 		//待機状態のアニメーションの再生。
 		m_user->AnimationIdle();
 	}
+	if (m_sound!=nullptr)
+	{
+		DeleteGO(m_sound);
+	}
+
 	//DeleteGO(m_log);
 }
 
@@ -120,12 +125,12 @@ void SkillBase::PlaySkill()
 {
 	if (!m_isWide)
 	{
-		skillEffect = NewGO<prefab::CEffect>(0);
-		skillEffect->Play(m_playSkillPaths.m_effectPaths[m_playEffectNum]);
+		m_skillEffect = NewGO<prefab::CEffect>(0);
+		m_skillEffect->Play(m_playSkillPaths.m_effectPaths[m_playEffectNum]);
 		CVector3 efPos = CreateEffectPosition(m_playSkillPaths.m_effectPosFlag[m_playEffectNum]);
-		skillEffect->SetPosition(efPos);
+		m_skillEffect->SetPosition(efPos);
 		CQuaternion effectRot = CreateEffectRotation(m_playSkillPaths.m_effectPosFlag[m_playEffectNum]);
-		skillEffect->SetRotation(effectRot);
+		m_skillEffect->SetRotation(effectRot);
 	}
 	else
 	{
@@ -137,12 +142,12 @@ void SkillBase::PlaySkill()
 			m_target = list[i];
 			if (!m_target->IsDeath())
 			{
-				skillEffect = NewGO<prefab::CEffect>(0);
-				skillEffect->Play(m_playSkillPaths.m_effectPaths[m_playEffectNum]);
+				m_skillEffect = NewGO<prefab::CEffect>(0);
+				m_skillEffect->Play(m_playSkillPaths.m_effectPaths[m_playEffectNum]);
 				CVector3 efPos = CreateEffectPosition(m_playSkillPaths.m_effectPosFlag[m_playEffectNum]);
-				skillEffect->SetPosition(efPos);
+				m_skillEffect->SetPosition(efPos);
 				CQuaternion effectRot = CreateEffectRotation(m_playSkillPaths.m_effectPosFlag[m_playEffectNum]);
-				skillEffect->SetRotation(effectRot);
+				m_skillEffect->SetRotation(effectRot);
 			}
 		}
 	}
@@ -150,9 +155,9 @@ void SkillBase::PlaySkill()
 	{
 		wchar_t path[256];
 		wcscpy(path,m_playSkillPaths.m_soundPaths[m_playEffectNum]);
-		auto sound = NewGO<prefab::CSoundSource>(0);
-		sound->Init(path);
-		sound->Play(false);
+		m_sound = NewGO<prefab::CSoundSource>(0);
+		m_sound->Init(path);
+		m_sound->Play(false);
 	}
 
 	m_playEffectNum++;

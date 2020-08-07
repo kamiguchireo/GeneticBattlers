@@ -19,7 +19,7 @@ void SkillAttack::Update()
 		DeleteGO(this);
 		return;
 	}
-	if (!skillEffect->IsPlay()) {
+	if (!m_skillEffect->IsPlay()) {
 		if (m_playSkillPaths.m_effectPaths.size() > m_playEffectNum)
 		{
 			PlaySkill();
@@ -36,7 +36,8 @@ void SkillAttack::Update()
 			m_user->SetCoolTime(coolTime);
 
 			m_isPlay = false;
-			skillEffect = nullptr;
+			m_skillEffect = nullptr;
+			m_sound = nullptr;
 			DeleteGO(this);
 		}
 	}

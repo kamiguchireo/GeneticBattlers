@@ -185,18 +185,18 @@ SkillBase * SkillList::NewSkillDebuff(int no)
 ////ダブルアタック。
 //bool DoubleAttack::UseSkill(MonsterBase * attack, MonsterBase * target)
 //{
-//	if (skillEffect == nullptr) {
+//	if (m_skillEffect == nullptr) {
 //		//エフェクトの再生。
-//		skillEffect = NewGO<prefab::CEffect>(0);
-//		skillEffect->Play(L"Assets/effect/test.efk");
-//		skillEffect->SetPosition(attack->GetPosition() + CVector3::AxisY()*20.0f);
+//		m_skillEffect = NewGO<prefab::CEffect>(0);
+//		m_skillEffect->Play(L"Assets/effect/test.efk");
+//		m_skillEffect->SetPosition(attack->GetPosition() + CVector3::AxisY()*20.0f);
 //		CQuaternion qRot;
 //		qRot.SetRotationDeg(CVector3::AxisY(), 90.0f);
 //		qRot.Multiply(attack->GetRotation());
-//		skillEffect->SetRotation(qRot);
-//		skillEffect->SetScale(CVector3::One() * 20.0f);
+//		m_skillEffect->SetRotation(qRot);
+//		m_skillEffect->SetScale(CVector3::One() * 20.0f);
 //	}
-//	else if (!skillEffect->IsPlay()) {
+//	else if (!m_skillEffect->IsPlay()) {
 //		int res = 0;
 //		//ダメージの計算。
 //		int damage = DamageCalcuration();
@@ -210,7 +210,7 @@ SkillBase * SkillList::NewSkillDebuff(int no)
 //		//クールタイムの設定。
 //		attack->SetCoolTime(coolTime);
 //
-//		skillEffect = nullptr;
+//		m_skillEffect = nullptr;
 //
 //		return true;
 //	}

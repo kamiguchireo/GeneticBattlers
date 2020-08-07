@@ -138,7 +138,8 @@ protected:
 	SkillLog* m_log = nullptr;
 	MonsterBase* m_user = nullptr;
 	MonsterBase* m_target = nullptr;
-	prefab::CEffect* skillEffect = nullptr;	//行動のエフェクト。
+	prefab::CEffect* m_skillEffect = nullptr;	//行動のエフェクト。
+	prefab::CSoundSource* m_sound = nullptr;//スキルのサウンド。
 	Skill::PlaySkillPaths m_playSkillPaths;
 	int m_playEffectNum = 0;
 	wchar_t skillName[30];

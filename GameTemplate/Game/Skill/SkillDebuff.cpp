@@ -20,7 +20,7 @@ void SkillDebuff::Update()
 		return;
 	}
 
-	if (!skillEffect->IsPlay()) {
+	if (!m_skillEffect->IsPlay()) {
 		if (m_playSkillPaths.m_effectPaths.size() > m_playEffectNum)
 		{
 			PlaySkill();
@@ -45,7 +45,8 @@ void SkillDebuff::Update()
 			m_user->SetCoolTime(coolTime);
 
 			m_isPlay = false;
-			skillEffect = nullptr;
+			m_skillEffect = nullptr;
+			m_sound = nullptr;
 			DeleteGO(this);
 		}
 	}
