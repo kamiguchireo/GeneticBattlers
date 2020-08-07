@@ -24,7 +24,7 @@ bool TitleScene::Start()
 {
 	//タイトルのスプライト。
 	m_sprite = NewGO<prefab::SpriteRender>(1);
-	m_sprite->Init(L"Assets/sprite/PreTitle.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
+	m_sprite->Init(L"Assets/sprite/GeneticBattlers.dds", FRAME_BUFFER_W, FRAME_BUFFER_H);
 
 	//メニューのスプライト。
 	m_menuSprite[enMenu_Single] = NewGO<prefab::SpriteRender>(2);	//一人プレイ。

@@ -568,4 +568,9 @@
       <Filter>Assets\modelData</Filter>
     </None>
   </ItemGroup>
+  <ItemGroup>
+    <Image Include="Assets\sprite\GeneticBattlers.png">
+      <Filter>Assets\sprite</Filter>
+    </Image>
+  </ItemGroup>
 </Project>

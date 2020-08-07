@@ -339,6 +339,9 @@
     <ImageContentTask Include="Assets\sprite\CPUBattle.png" />
     <ImageContentTask Include="Assets\sprite\MultiBattle.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\GeneticBattlers.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />
