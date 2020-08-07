@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "BattleScenes.h"
+#include "BattleManager.h"
 #include "monster/MonsterBase.h"
 //#include "monster/MonsterTeam1.h"
 #include "monster/Attacker.h"

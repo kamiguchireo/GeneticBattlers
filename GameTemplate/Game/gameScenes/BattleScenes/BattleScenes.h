@@ -1,13 +1,14 @@
 #pragma once
 #include "Skill/SkillList.h"
 #include "level/Level.h"
-#include "BattleManager.h"
+//#include "BattleManager.h"
 
 class MonsterBase;
 class MonsterTeam1;
 class Fade;
 class GameCamera;
 class NetScenes;
+class BattleManager;
 
 class BattleScenes : public IGameObject
 {

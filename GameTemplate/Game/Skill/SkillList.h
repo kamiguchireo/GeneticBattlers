@@ -1,6 +1,6 @@
 #pragma once
 #include "Skill/SkillBase.h"
-#include "monster/MonsterBase.h"
+//#include "monster/MonsterBase.h"
 
 class SkillDataLoad;
 
