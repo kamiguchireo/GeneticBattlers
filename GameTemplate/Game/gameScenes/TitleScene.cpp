@@ -12,13 +12,12 @@ TitleScene::TitleScene()
 
 TitleScene::~TitleScene()
 {
-	if (m_sprite != nullptr)
-	{
-		DeleteGO(m_sprite);
-	}
+	DeleteGO(m_sprite);
+	DeleteGO(m_bgm);
 	for (auto sp : m_menuSprite) {
 		DeleteGO(sp);
 	}
+
 }
 
 bool TitleScene::Start()
@@ -36,6 +35,10 @@ bool TitleScene::Start()
 	m_menuSprite[enMenu_Net]->Init(L"Assets/sprite/MultiBattle.dds", 400, 100);
 	m_menuSprite[enMenu_Net]->SetPosition({ 0.0f,-200.0f,4.0f });
 
+	m_bgm = NewGO<prefab::CSoundSource>(0);
+	m_bgm->Init(L"Assets/sound/bgm/bgm_title.wav");
+	m_bgm->Play(true);
+	m_bgm->SetVolume(m_bgmVol);
 
 	//メニューの乗算カラー初期化。
 	for (int i = 0; i < enMenu_Num; i++)
@@ -61,6 +64,10 @@ void TitleScene::Update()
 	switch (m_state)
 	{
 	case enState_inTitle:
+		if (m_bgmVol < 1.0f); {
+			m_bgmVol += g_gameTime.GetFrameDeltaTime();
+			m_bgmVol = min(1.0f, m_bgmVol);
+		}
 		if (!m_fade->IsFade())
 			m_state = enState_idle;		//フェードインが終わればステートを切り替える。
 		break;
@@ -81,6 +88,10 @@ void TitleScene::Update()
 		}
 		break;
 	case enState_inGame:
+		if (m_bgmVol > 0.0f); {
+			m_bgmVol -= g_gameTime.GetFrameDeltaTime();
+			m_bgmVol = max(0.0f, m_bgmVol);
+		}
 		if (!m_fade->IsFade())
 		{
 			//ゲーム遷移。
@@ -96,6 +107,7 @@ void TitleScene::Update()
 			DeleteGO(this);
 		}
 	}
+	m_bgm->SetVolume(m_bgmVol);
 }
 
 void TitleScene::SelectMenu()

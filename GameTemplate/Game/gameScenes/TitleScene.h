@@ -32,8 +32,10 @@ private:
 	int m_menuNum = enMenu_Single;			//メニュー選択番号。
 	Fade* m_fade = nullptr;					//フェードのポインタ。
 	prefab::SpriteRender* m_sprite = nullptr;	//スプライトレンダー。
+	prefab::CSoundSource* m_bgm = nullptr;		//サウンドソース。
 
 	prefab::SpriteRender* m_menuSprite[enMenu_Num] = { nullptr };	//選択肢用のスプライト。
 	const static CVector3 m_colorGray;					//グレー色。
+	float m_bgmVol = 0.0f;
 };
 
