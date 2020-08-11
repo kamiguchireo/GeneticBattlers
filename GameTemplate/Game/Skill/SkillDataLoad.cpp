@@ -149,11 +149,13 @@ void SkillDataLoad::LoadData(const char * FilePath, EnSkillType skillType)
 		SkillData loadData;
 		char skillName[64];
 		char nextNoBuffer[128];
-		sscanf(text, "%[^,],%f,%f,%f,%d,%s",
+		sscanf(text, "%[^,],%f,%f,%f,%d,%d,%d,%s",
 			skillName,				//名前。
 			&loadData.Power,		//威力。
 			&loadData.CoolTime,		//クールタイム。
 			&loadData.HitRate,		//命中率。
+			&loadData.targetNum,	//攻撃対象数。
+			&loadData.StatusChange,	//ステータス変化。
 			&loadData.SkillNo,		//スキル番号
 			nextNoBuffer			//次のスキル番号。
 		);

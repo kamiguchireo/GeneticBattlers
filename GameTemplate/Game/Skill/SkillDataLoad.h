@@ -6,12 +6,14 @@
 typedef std::vector<int> NextSkills;
 struct SkillData
 {
-	std::wstring Name;
-	float Power = 0.0f;
-	float CoolTime = 0.0f;
-	float HitRate = 0.0f;
-	int SkillNo = 0;
-	NextSkills NextSkillNo;
+	std::wstring Name;			//!<スキル名。
+	float Power = 0.0f;			//!<威力。
+	float CoolTime = 0.0f;		//!<クールタイム。
+	float HitRate = 0.0f;		//!<命中率
+	int targetNum = 0;			//!<攻撃対象数。
+	int StatusChange = -1;		//!<ステータス変化。
+	int SkillNo = 0;			//!<スキル番号
+	NextSkills NextSkillNo;		//!<次のスキル番号
 };
 
 typedef std::vector<SkillData> SkillDataList;
@@ -34,6 +36,8 @@ public:
 	SkillData GetSkillDebuff(int No);
 	//番号からスキル情報を取得。
 	SkillData GetSkillData(int No);
+
+	static const int MAX_TARGETS_MEMBER = 3;
 private:
 	const int NOSKILL = -1;			//次のスキル番号なし。
 	//const int MAX_NEXT_SIZE = 3;	//次のスキルのサイズ。

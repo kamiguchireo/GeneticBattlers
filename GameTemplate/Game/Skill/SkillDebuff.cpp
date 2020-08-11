@@ -52,6 +52,30 @@ void SkillDebuff::Update()
 	}
 }
 
+void SkillDebuff::SetStatusChange(int status)
+{
+	switch (status)
+	{
+	case en_buff_ATK:
+		SetStatusDebuff(en_buff_ATK);
+		break;
+	case en_buff_DEF:
+		SetStatusDebuff(en_buff_DEF);
+		break;
+	case en_buff_MAT:
+		SetStatusDebuff(en_buff_MAT);
+		break;
+	case en_buff_MDF:
+		SetStatusDebuff(en_buff_MDF);
+		break;
+	case en_buff_DEX:
+		SetStatusDebuff(en_buff_DEX);
+		break;
+	default:
+		break;
+	}
+}
+
 int SkillDebuff::WideDebuff()
 {
 	//チームメンバーを取得。

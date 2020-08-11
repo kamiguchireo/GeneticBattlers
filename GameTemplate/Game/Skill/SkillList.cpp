@@ -105,7 +105,6 @@ SkillBase * SkillList::NewSkillHeal(int no)
 	case 2:
 		healSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
 		healSkill->SetEffect(L"Assets/effect/heal.efk", en_PosTarget, L"Assets/sound/battle/magic-status-cure1.wav");
-		healSkill->SetIsWide(true);
 		break;
 
 	default:
@@ -134,7 +133,6 @@ SkillBase * SkillList::NewSkillBuff(int no)
 		buffSkill->SetStatusBuff(en_buff_DEF);
 		buffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
 		buffSkill->SetEffect(L"Assets/effect/BuffDef.efk", en_PosTarget, L"Assets/sound/battle/aura1.wav");
-		buffSkill->SetIsWide(true);
 		break;
 	case 2:
 		buffSkill->SetStatusBuff(en_buff_ATK);

@@ -18,6 +18,8 @@ public:
 		return true;
 	}
 
+	void SetStatusChange(int status)override;
+
 	void SetStatusDebuff(StatusBuff status)
 	{
 		m_status = status;

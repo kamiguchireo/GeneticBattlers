@@ -124,6 +124,8 @@ protected:
 	{
 		accuracy = acc;
 	}
+	//ステータス変化を設定。
+	virtual void SetStatusChange(int status) {};
 	//スキル番号を設定する。
 	void SetSkillNo(int no)
 	{

@@ -53,6 +53,30 @@ void SkillBuff::Update()
 	}
 }
 
+void SkillBuff::SetStatusChange(int status)
+{
+	switch (status)
+	{
+	case en_buff_ATK:
+		SetStatusBuff(en_buff_ATK);
+		break;
+	case en_buff_DEF:
+		SetStatusBuff(en_buff_DEF);
+		break;
+	case en_buff_MAT:
+		SetStatusBuff(en_buff_MAT);
+		break;
+	case en_buff_MDF:
+		SetStatusBuff(en_buff_MDF);
+		break;
+	case en_buff_DEX:
+		SetStatusBuff(en_buff_DEX);
+		break;
+	default:
+		break;
+	}
+}
+
 int SkillBuff::WideBuff()
 {
 	//チームメンバーを取得。

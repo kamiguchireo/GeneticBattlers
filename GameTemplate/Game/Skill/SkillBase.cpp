@@ -51,6 +51,11 @@ void SkillBase::InitSkill(SkillData data)
 	SetSkillPower(data.Power);
 	SetCoolTime(data.CoolTime);
 	SetAccuracy(data.HitRate);
+	if (data.targetNum == SkillDataLoad::MAX_TARGETS_MEMBER)
+	{
+		SetIsWide(true);
+	}
+	SetStatusChange(data.StatusChange);
 	SetSkillNo(data.SkillNo);
 }
 

@@ -15,7 +15,7 @@ public:
 	{
 		return false;
 	}
-
+	void SetStatusChange(int status)override;
 	void SetStatusBuff(StatusBuff status)
 	{
 		m_status = status;
