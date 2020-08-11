@@ -201,45 +201,45 @@ void BattleManager::MonsterScoring()
 	}
 }
 
-void BattleManager::SortTeams()
-{
-	//現在HPの低い方から順番にソート。
-	//これ戦闘の処理のほうでやったほうがいい気がするなぁ
-	for (int i = 0; i < m_monsterTeam.size(); i++) {
-		for (int j = i; j < m_monsterTeam.size(); j++) {
-			if (m_monsterTeam[i]->GetStatusManager().GetStatus().HP > m_monsterTeam[j]->GetStatusManager().GetStatus().HP) {
-				auto hoge = m_monsterTeam[i];
-				m_monsterTeam[i] = m_monsterTeam[j];
-				m_monsterTeam[j] = hoge;
-			}
-		}
-	}
-	for (int i = 0; i < m_monsterEnemy.size(); i++) {
-		for (int j = i; j < m_monsterEnemy.size(); j++) {
-			if (m_monsterEnemy[i]->GetStatusManager().GetStatus().HP > m_monsterEnemy[j]->GetStatusManager().GetStatus().HP) {
-				auto hoge = m_monsterEnemy[i];
-				m_monsterEnemy[i] = m_monsterEnemy[j];
-				m_monsterEnemy[j] = hoge;
-			}
-		}
-	}
-	//HPが0のやつは後ろに回す。
-	for (int i = static_cast<int>(m_monsterTeam.size()) - 1; i >= 0; i--) {
-		for (int j = i; j < m_monsterTeam.size(); j++) {
-			if (m_monsterTeam[i]->GetStatusManager().GetStatus().HP <= 0) {
-				auto hoge = m_monsterTeam[i];
-				m_monsterTeam[i] = m_monsterTeam[j];
-				m_monsterTeam[j] = hoge;
-			}
-		}
-	}
-	for (int i = static_cast<int>(m_monsterEnemy.size()) - 1; i >= 0; i--) {
-		for (int j = i; j < m_monsterEnemy.size(); j++) {
-			if (m_monsterEnemy[i]->GetStatusManager().GetStatus().HP <= 0) {
-				auto hoge = m_monsterEnemy[i];
-				m_monsterEnemy[i] = m_monsterEnemy[j];
-				m_monsterEnemy[j] = hoge;
-			}
-		}
-	}
-}
+//void BattleManager::SortTeams()
+//{
+//	//現在HPの低い方から順番にソート。
+//	//これ戦闘の処理のほうでやったほうがいい気がするなぁ
+//	for (int i = 0; i < m_monsterTeam.size(); i++) {
+//		for (int j = i; j < m_monsterTeam.size(); j++) {
+//			if (m_monsterTeam[i]->GetStatusManager().GetStatus().HP > m_monsterTeam[j]->GetStatusManager().GetStatus().HP) {
+//				auto hoge = m_monsterTeam[i];
+//				m_monsterTeam[i] = m_monsterTeam[j];
+//				m_monsterTeam[j] = hoge;
+//			}
+//		}
+//	}
+//	for (int i = 0; i < m_monsterEnemy.size(); i++) {
+//		for (int j = i; j < m_monsterEnemy.size(); j++) {
+//			if (m_monsterEnemy[i]->GetStatusManager().GetStatus().HP > m_monsterEnemy[j]->GetStatusManager().GetStatus().HP) {
+//				auto hoge = m_monsterEnemy[i];
+//				m_monsterEnemy[i] = m_monsterEnemy[j];
+//				m_monsterEnemy[j] = hoge;
+//			}
+//		}
+//	}
+//	//HPが0のやつは後ろに回す。
+//	for (int i = static_cast<int>(m_monsterTeam.size()) - 1; i >= 0; i--) {
+//		for (int j = i; j < m_monsterTeam.size(); j++) {
+//			if (m_monsterTeam[i]->GetStatusManager().GetStatus().HP <= 0) {
+//				auto hoge = m_monsterTeam[i];
+//				m_monsterTeam[i] = m_monsterTeam[j];
+//				m_monsterTeam[j] = hoge;
+//			}
+//		}
+//	}
+//	for (int i = static_cast<int>(m_monsterEnemy.size()) - 1; i >= 0; i--) {
+//		for (int j = i; j < m_monsterEnemy.size(); j++) {
+//			if (m_monsterEnemy[i]->GetStatusManager().GetStatus().HP <= 0) {
+//				auto hoge = m_monsterEnemy[i];
+//				m_monsterEnemy[i] = m_monsterEnemy[j];
+//				m_monsterEnemy[j] = hoge;
+//			}
+//		}
+//	}
+//}

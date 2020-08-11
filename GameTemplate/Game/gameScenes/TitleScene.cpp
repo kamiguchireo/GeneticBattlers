@@ -64,7 +64,7 @@ void TitleScene::Update()
 	switch (m_state)
 	{
 	case enState_inTitle:
-		if (m_bgmVol < 1.0f); {
+		if (m_bgmVol < 1.0f) {
 			m_bgmVol += g_gameTime.GetFrameDeltaTime();
 			m_bgmVol = min(1.0f, m_bgmVol);
 		}
@@ -89,7 +89,7 @@ void TitleScene::Update()
 		}
 		break;
 	case enState_inGame:
-		if (m_bgmVol > 0.0f); {
+		if (m_bgmVol > 0.0f) {
 			m_bgmVol -= g_gameTime.GetFrameDeltaTime();
 			m_bgmVol = max(0.0f, m_bgmVol);
 		}

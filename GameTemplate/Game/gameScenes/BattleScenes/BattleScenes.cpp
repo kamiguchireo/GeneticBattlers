@@ -246,7 +246,7 @@ void BattleScenes::Update()
 	switch (m_state)
 	{
 	case enState_FadeIn:
-		if (m_bgmVol < 1.0f); {
+		if (m_bgmVol < 1.0f) {
 			m_bgmVol += g_gameTime.GetFrameDeltaTime();
 			m_bgmVol = min(1.0f, m_bgmVol);
 		}
@@ -300,7 +300,7 @@ void BattleScenes::Update()
 
 	case enState_FadeOut:
 		//bgmのフェードアウト。
-		if (m_bgmVol > 0.0f); {
+		if (m_bgmVol > 0.0f) {
 			m_bgmVol -= g_gameTime.GetFrameDeltaTime();
 			m_bgmVol = max(0.0f, m_bgmVol);
 		}
