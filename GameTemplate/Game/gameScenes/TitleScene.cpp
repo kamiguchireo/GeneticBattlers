@@ -51,6 +51,7 @@ bool TitleScene::Start()
 		}
 	}
 
+	m_state = enState_inTitle;
 	//フェードの処理。
 	m_fade = Fade::GetInstance();
 	m_fade->StartFadeIn();
