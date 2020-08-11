@@ -31,10 +31,8 @@ void SkillHeal::Update()
 			int res = 0;
 			if (!m_isWide)
 			{
-				//回復量の計算。
-				int result = static_cast<int>(m_user->GetStatusManager().GetStatus().MAT * skillPower);
-				res = m_target->Healing(result);
-
+				//回復。
+				res = m_calculator.SkillCalculation(m_user->GetStatusManager(), m_target->GetStatusManager(), m_skillNo);
 			}
 			else
 			{
@@ -42,8 +40,8 @@ void SkillHeal::Update()
 			}
 			//効果値を記録。
 			m_user->SetDamageResult(res);
-			//クールタイムの設定。
-			m_user->SetCoolTime(coolTime);
+			////クールタイムの設定。
+			//m_user->SetCoolTime(coolTime);
 
 			m_isPlay = false;
 			m_skillEffect = nullptr;
@@ -55,17 +53,15 @@ void SkillHeal::Update()
 
 int SkillHeal::WideHeal()
 {
-	//回復量の計算
-	float result = static_cast<float>(m_user->GetStatusManager().GetStatus().MAT * skillPower);
 	//チームメンバーを取得。
 	auto list = m_target->GetTeamMenber();
 
 	int res = 0;
 	for (int i = 0; i < list.size(); i++) {
-		//全体にバフをかける。
-		res += list[i]->Healing(static_cast<int>(result));
+		//回復。
+		res = m_calculator.SkillCalculation(m_user->GetStatusManager(), list[i]->GetStatusManager(), m_skillNo);
 	}
-	res /= static_cast<int>(list.size());		//上昇値の平均をとる。
+	res /= static_cast<int>(list.size());		//平均をとる。
 
 	return res;
 }

@@ -27,13 +27,13 @@ void SkillAttack::Update()
 		else
 		{
 			//ダメージを与える。
-			int damage = DamageCalcuration();
-			int res = m_target->Damage(damage);
+			int res = m_calculator.SkillCalculation(m_user->GetStatusManager(), m_target->GetStatusManager(), m_skillNo);
+			m_target->Damage(res);
 
 			//効果値を記録。
 			m_user->SetDamageResult(res);
-			//クールタイムの設定。
-			m_user->SetCoolTime(coolTime);
+			////クールタイムの設定。
+			//m_user->SetCoolTime(coolTime);
 
 			m_isPlay = false;
 			m_skillEffect = nullptr;

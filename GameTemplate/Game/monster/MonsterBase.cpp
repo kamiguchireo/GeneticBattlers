@@ -145,20 +145,33 @@ bool MonsterBase::ACTScoring()
 	return false;
 }
 
-int MonsterBase::Damage(int damage)
+void MonsterBase::Damage(int damage)
 {
 	//死亡時はダメージ無し。
-	if (m_status.IsDeath()) return 0;
-	//アニメーション。
-	m_animation.Play(en_anim_Damage, 0.3f);
+	if (m_status.IsDeath()) return;
 
-	auto sound = NewGO<prefab::CSoundSource>(0);
-	sound->Init(L"Assets/sound/battle/slap1.wav");
-	sound->SetVolume(0.6f);
-	sound->Play(false);
-	sound->SetVolume(SOUND_VOL);
+	//ダメージがあるならアニメーション。
+	if (damage > 0)
+	{
+		//アニメーション。
+		m_animation.Play(en_anim_Damage, 0.3f);
 
-	return m_status.Damage(damage);
+		auto sound = NewGO<prefab::CSoundSource>(0);
+		sound->Init(L"Assets/sound/battle/slap1.wav");
+		sound->SetVolume(0.6f);
+		sound->Play(false);
+		sound->SetVolume(SOUND_VOL);
+	}
+	else
+	{
+		//ダメージがないなら。
+		auto sound = NewGO<prefab::CSoundSource>(0);
+		sound->Init(L"Assets/sound/battle/punch-swing1.wav");
+		sound->SetVolume(1.0f);
+		sound->Play(false);
+		sound->SetVolume(SOUND_VOL);
+	}
+
 }
 
 int MonsterBase::MonsterBuffAndDebuff(StatusBuff status, float pow, float time)

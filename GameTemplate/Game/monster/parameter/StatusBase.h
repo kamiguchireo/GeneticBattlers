@@ -23,6 +23,7 @@ enum StatusBuff {
 	en_buff_MAT,
 	en_buff_MDF,
 	en_buff_DEX,
+	en_buff_NONE,
 	en_buff_num
 };
 

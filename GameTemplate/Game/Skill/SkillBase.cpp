@@ -39,18 +39,18 @@ bool SkillBase::Start()
 void SkillBase::InitSkill(const wchar_t * name, float power, float time, float hitRate, int no)
 {
 	SetSkillName(name);
-	SetSkillPower(power);
-	SetCoolTime(time);
-	SetAccuracy(hitRate);
+	//SetSkillPower(power);
+	//SetCoolTime(time);
+	//SetAccuracy(hitRate);
 	SetSkillNo(no);
 }
 
 void SkillBase::InitSkill(SkillData data)
 {
 	SetSkillName(data.Name.c_str());
-	SetSkillPower(data.Power);
-	SetCoolTime(data.CoolTime);
-	SetAccuracy(data.HitRate);
+	//SetSkillPower(data.Power);
+	//SetCoolTime(data.CoolTime);
+	//SetAccuracy(data.HitRate);
 	if (data.targetNum == SkillDataLoad::MAX_TARGETS_MEMBER)
 	{
 		SetIsWide(true);
@@ -59,33 +59,33 @@ void SkillBase::InitSkill(SkillData data)
 	SetSkillNo(data.SkillNo);
 }
 
-int SkillBase::DamageCalcuration()
-{
-	//ダメージ計算を行う。
-	int damage = 0;
-	int Attack, Defence;
-
-	//魔法攻撃かどうか。
-	if (!IsMagic()) {
-		Attack = m_user->GetStatusManager().GetStatus().ATK;
-		Defence = m_target->GetStatusManager().GetStatus().DEF;
-	}
-	else {
-		Attack = m_user->GetStatusManager().GetStatus().MAT;
-		Defence = m_target->GetStatusManager().GetStatus().MDF;
-	}
-	
-	//ダメージ計算式。
-	damage = (int)((float)(Attack - Defence / 2) * skillPower);
-	//0を下回らないようにする。
-	damage = max(damage, 0);
-
-	if (accuracy * 100 < g_random.GetRandomInt() % 101){
-		damage = 0;
-	}
-
-	return damage;
-}
+//int SkillBase::DamageCalcuration()
+//{
+//	//ダメージ計算を行う。
+//	int damage = 0;
+//	int Attack, Defence;
+//
+//	//魔法攻撃かどうか。
+//	if (!IsMagic()) {
+//		Attack = m_user->GetStatusManager().GetStatus().ATK;
+//		Defence = m_target->GetStatusManager().GetStatus().DEF;
+//	}
+//	else {
+//		Attack = m_user->GetStatusManager().GetStatus().MAT;
+//		Defence = m_target->GetStatusManager().GetStatus().MDF;
+//	}
+//	
+//	//ダメージ計算式。
+//	damage = (int)((float)(Attack - Defence / 2) * skillPower);
+//	//0を下回らないようにする。
+//	damage = max(damage, 0);
+//
+//	if (accuracy * 100 < g_random.GetRandomInt() % 101){
+//		damage = 0;
+//	}
+//
+//	return damage;
+//}
 
 
 const CVector3 SkillBase::CreateEffectPosition(int enPos) const

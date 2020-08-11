@@ -3,6 +3,8 @@
 //static const int NOSKILL = -1;			//次のスキル番号なし。
 //static const int MAX_NEXT_SIZE = 3;		//次のスキルのサイズ。
 
+enum StatusBuff;
+
 typedef std::vector<int> NextSkills;
 struct SkillData
 {
@@ -11,7 +13,7 @@ struct SkillData
 	float CoolTime = 0.0f;		//!<クールタイム。
 	float HitRate = 0.0f;		//!<命中率
 	int targetNum = 0;			//!<攻撃対象数。
-	int StatusChange = -1;		//!<ステータス変化。
+	StatusBuff StatusChange;	//!<ステータス変化。
 	int SkillNo = 0;			//!<スキル番号
 	NextSkills NextSkillNo;		//!<次のスキル番号
 };

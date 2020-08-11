@@ -46,9 +46,9 @@ public:
 		return m_rotation;
 	}
 	//ステータスを取得。
-	const StatusManager& GetStatusManager() const
+	StatusManager* GetStatusManager()
 	{
-		return m_status;
+		return &m_status;
 	}
 	//チームメンバーリストを取得。
 	const std::vector<MonsterBase*>& GetTeamMenber()const
@@ -152,21 +152,20 @@ public:
 	/// </summary>
 
 	/// <summary>
-	/// ダメージを与える。
+	/// ダメージのアニメーションor回避。
 	/// </summary>
 	/// <param name="damage">ダメージ量。</param>
-	/// <returns>入ったダメージ量。</returns>
-	int Damage(int damage);
+	void Damage(int damage);
 
-	/// <summary>
-	/// HPを回復させる。
-	/// </summary>
-	/// <param name="healing">回復量。</param>
-	/// <returns>回復できた量。</returns>
-	int Healing(int healing) {
-		if (IsDeath()) return 0;		//死亡時は回復しない。
-		return m_status.Healing(healing);
-	};
+	///// <summary>
+	///// HPを回復させる。
+	///// </summary>
+	///// <param name="healing">回復量。</param>
+	///// <returns>回復できた量。</returns>
+	//int Healing(int healing) {
+	//	if (IsDeath()) return 0;		//死亡時は回復しない。
+	//	return m_status.Healing(healing);
+	//};
 
 	/// <summary>
 	/// バフをかける。

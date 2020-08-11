@@ -2,7 +2,7 @@
 
 struct Status;
 
-class StatusBase;
+class CStatusBase;
 class SkillDataLoad;
 
 /// <summary>
@@ -15,15 +15,16 @@ public:
 	SkillCalculator();
 	~SkillCalculator();
 
-	int SkillCalculation(Status& user, Status& target,int SkillNo);
-	int SkillCalculation(Status&user, std::vector<Status&>targets, int SkillNo);
+	int SkillCalculation(CStatusBase* user, CStatusBase* target,int SkillNo);
+	int SkillCalculation(CStatusBase* user, std::vector<CStatusBase*> targets, int SkillNo);
 
 private:
-	int AttackCalculation(Status& user, Status& target, int SkillNo);
-	int HealCalculation(Status& user, Status& target, int SkillNo);
-	int BuffCalculation(Status& user, Status& target, int SkillNo);
-	int DebuffCalculation(Status& user, Status& target, int SkillNo);
+	int AttackCalculation(CStatusBase* user, CStatusBase* target, int SkillNo);
+	int HealCalculation(CStatusBase* user, CStatusBase* target, int SkillNo);
+	int BuffCalculation(CStatusBase* user, CStatusBase* target, int SkillNo);
+	int DebuffCalculation(CStatusBase* user, CStatusBase* target, int SkillNo);
 
 	SkillDataLoad* m_skillData = nullptr;
+	const float BUFF_TIME = 100.0f;		//ステータス変化の基本効果時間。
 };
 

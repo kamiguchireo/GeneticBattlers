@@ -5,13 +5,14 @@
 
 SkillCalculator::SkillCalculator()
 {
+	m_skillData = SkillDataLoad::GetInstance();
 }
 
 SkillCalculator::~SkillCalculator()
 {
 }
 
-int SkillCalculator::SkillCalculation(Status & user, Status & target, int SkillNo)
+int SkillCalculator::SkillCalculation(CStatusBase* user, CStatusBase* target, int SkillNo)
 {
 	int res = 0;	//効果値。
 	int type = static_cast<int>(SkillNo / 100);
@@ -32,10 +33,14 @@ int SkillCalculator::SkillCalculation(Status & user, Status & target, int SkillN
 	default:
 		break;
 	}
+	//スキル情報取得。
+	SkillData skillInfo = m_skillData->GetSkillData(SkillNo);
+	//クールタイムの設定。
+	user->SetCoolTime(skillInfo.CoolTime);
 	return res;
 }
 
-int SkillCalculator::SkillCalculation(Status & user, std::vector<Status&> targets, int SkillNo)
+int SkillCalculator::SkillCalculation(CStatusBase* user, std::vector<CStatusBase*> targets, int SkillNo)
 {
 	int res = 0;
 
@@ -47,23 +52,56 @@ int SkillCalculator::SkillCalculation(Status & user, std::vector<Status&> target
 	return res;
 }
 
-int SkillCalculator::AttackCalculation(Status & user, Status & target, int SkillNo)
+int SkillCalculator::AttackCalculation(CStatusBase* user, CStatusBase* target, int SkillNo)
 {
-	return 0;
+	SkillData skillInfo = m_skillData->GetSkillData(SkillNo);
+	//ダメージ計算を行う。
+	int damage = 0;
+
+	int Attack = user->GetStatus().ATK;
+	int Defence = target->GetStatus().DEF;
+
+	//ダメージ計算式。
+	damage = (int)((float)(Attack - Defence / 2) * skillInfo.Power);
+	//0を下回らないようにする。
+	damage = max(damage, 0);
+
+	if (skillInfo.HitRate * 100 < g_random.GetRandomInt() % 100 + 1) {
+		damage = 0;
+	}
+	else
+	{
+		//回避されなかった。
+		damage = target->Damage(damage);
+	}
+
+	return damage;
 }
 
-int SkillCalculator::HealCalculation(Status & user, Status & target, int SkillNo)
+int SkillCalculator::HealCalculation(CStatusBase* user, CStatusBase* target, int SkillNo)
 {
-	return 0;
+	SkillData skillInfo = m_skillData->GetSkillData(SkillNo);
+	//回復量の計算。
+	int res = static_cast<int>(user->GetStatus().MAT * skillInfo.Power);
+	res = target->Healing(res);
+	return res;
 }
 
-int SkillCalculator::BuffCalculation(Status & user, Status & target, int SkillNo)
+int SkillCalculator::BuffCalculation(CStatusBase* user, CStatusBase* target, int SkillNo)
 {
-	return 0;
+	SkillData skillInfo = m_skillData->GetSkillData(SkillNo);
+	//バフの効果時間。
+	float Time = BUFF_TIME + static_cast<float>(user->GetStatus().MAT) * (3.0f);
+	int res = target->Monster_Buff(skillInfo.StatusChange, skillInfo.Power, Time);
+	return res;
 }
 
-int SkillCalculator::DebuffCalculation(Status & user, Status & target, int SkillNo)
+int SkillCalculator::DebuffCalculation(CStatusBase* user, CStatusBase* target, int SkillNo)
 {
-	return 0;
+	SkillData skillInfo = m_skillData->GetSkillData(SkillNo);
+	//デバフの効果時間。
+	float Time = BUFF_TIME + static_cast<float>(user->GetStatus().MAT) * (3.0f);
+	int res = target->Monster_Debuff(skillInfo.StatusChange, skillInfo.Power, Time);
+	return res;
 }
 

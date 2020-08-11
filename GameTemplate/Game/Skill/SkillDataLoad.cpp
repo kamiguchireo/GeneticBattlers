@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "SkillDataLoad.h"
+#include "monster/parameter/StatusBase.h"
 
 static const int MAX_NEXT_SIZE = 3;		//次のスキルのサイズ。
 
@@ -149,16 +150,42 @@ void SkillDataLoad::LoadData(const char * FilePath, EnSkillType skillType)
 		SkillData loadData;
 		char skillName[64];
 		char nextNoBuffer[128];
+		int StatusType = 0;
 		sscanf(text, "%[^,],%f,%f,%f,%d,%d,%d,%s",
 			skillName,				//名前。
 			&loadData.Power,		//威力。
 			&loadData.CoolTime,		//クールタイム。
 			&loadData.HitRate,		//命中率。
 			&loadData.targetNum,	//攻撃対象数。
-			&loadData.StatusChange,	//ステータス変化。
+			&StatusType,			//ステータス変化。
 			&loadData.SkillNo,		//スキル番号
 			nextNoBuffer			//次のスキル番号。
 		);
+		//ステータス変化。
+		switch (StatusType)
+		{
+		case en_buff_ATK:
+			loadData.StatusChange = en_buff_ATK;
+			break;
+		case en_buff_DEF:
+			loadData.StatusChange = en_buff_DEF;
+			break;
+		case en_buff_MAT:
+			loadData.StatusChange = en_buff_MAT;
+			break;
+		case en_buff_MDF:
+			loadData.StatusChange = en_buff_MDF;
+			break;
+		case en_buff_DEX:
+			loadData.StatusChange = en_buff_DEX;
+			break;
+		case -1:
+			loadData.StatusChange = en_buff_NONE;
+			break;
+		default:
+			break;
+		}
+
 		//スキル名をワイド型文字列にする。思ってたよりもメンドイ処理だなぁ
 		int in_length = static_cast<int>(strlen(skillName));
 		int out_length = MultiByteToWideChar(CP_ACP, 0 , skillName, in_length, 0, 0);  
