@@ -272,6 +272,9 @@
     <ClCompile Include="monster\parameter\StatusBase.cpp">
       <Filter>monster\parameter</Filter>
     </ClCompile>
+    <ClCompile Include="Skill\SkillCalculator.cpp">
+      <Filter>skill</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -482,6 +485,9 @@
     <ClInclude Include="CRandom.h" />
     <ClInclude Include="monster\parameter\StatusBase.h">
       <Filter>monster\parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="Skill\SkillCalculator.h">
+      <Filter>skill</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

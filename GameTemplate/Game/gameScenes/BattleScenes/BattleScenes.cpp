@@ -291,6 +291,10 @@ void BattleScenes::Update()
 			//戦闘後処理。
 			m_battleManager->SaveData();		//行動データの更新と保存。
 
+			////戦闘シーンの削除。
+			//DeleteGO(m_battleManager);
+			//m_battleManager = nullptr;
+
 			//フェードさせる。
 			m_state = enState_FadeOut;
 			m_fade->StartFadeOut();

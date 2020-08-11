@@ -18,8 +18,8 @@ SkillList::SkillList()
 	}
 
 	m_instance = this;
-
-	m_skillData = NewGO<SkillDataLoad>(0);
+	NewGO<SkillDataLoad>(0);
+	m_skillData = SkillDataLoad::GetInstance();
 }
 
 SkillList::~SkillList()

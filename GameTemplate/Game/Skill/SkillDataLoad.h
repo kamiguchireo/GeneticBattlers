@@ -16,6 +16,15 @@ struct SkillData
 	NextSkills NextSkillNo;		//!<次のスキル番号
 };
 
+enum EnSkillType
+{
+	en_Attack,
+	en_Heal,
+	en_Buff,
+	en_Debuff,
+	en_SkillTypeNum
+};
+
 typedef std::vector<SkillData> SkillDataList;
 
 class SkillDataLoad : public IGameObject
@@ -42,14 +51,6 @@ private:
 	const int NOSKILL = -1;			//次のスキル番号なし。
 	//const int MAX_NEXT_SIZE = 3;	//次のスキルのサイズ。
 private:
-	enum EnSkillType
-	{
-		en_Attack,
-		en_Heal,
-		en_Buff,
-		en_Debuff,
-		en_SkillTypeNum
-	};
 	/// <summary>
 	/// ファイルからデータを読み込む。
 	/// </summary>

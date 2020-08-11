@@ -91,16 +91,16 @@ SkillData SkillDataLoad::GetSkillData(int No)
 	SkillData retData;
 	switch (typeNum)
 	{
-	case SkillDataLoad::en_Attack:
+	case en_Attack:
 		retData = GetSkillAttack(skillNo);
 		break;
-	case SkillDataLoad::en_Heal:
+	case en_Heal:
 		retData = GetSkillHeal(skillNo);
 		break;
-	case SkillDataLoad::en_Buff:
+	case en_Buff:
 		retData = GetSkillBuff(skillNo);;
 		break;
-	case SkillDataLoad::en_Debuff:
+	case en_Debuff:
 		retData = GetSkillDebuff(skillNo);
 		break;
 	default:
@@ -115,16 +115,16 @@ void SkillDataLoad::LoadData(const char * FilePath, EnSkillType skillType)
 	SkillDataList* SList;
 	switch (skillType)
 	{
-	case SkillDataLoad::en_Attack:
+	case en_Attack:
 		SList = &m_attackSkillList;
 		break;
-	case SkillDataLoad::en_Heal:
+	case en_Heal:
 		SList = &m_healSkillList;
 		break;
-	case SkillDataLoad::en_Buff:
+	case en_Buff:
 		SList = &m_buffSkillList;
 		break;
-	case SkillDataLoad::en_Debuff:
+	case en_Debuff:
 		SList = &m_debuffSkillList;
 		break;
 	default:

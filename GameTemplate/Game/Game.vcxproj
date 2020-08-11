@@ -100,6 +100,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CRandom.cpp" />
+    <ClCompile Include="Skill\SkillCalculator.cpp" />
     <ClCompile Include="Skill\SkillDebuff.cpp" />
     <ClCompile Include="SourceFile\Engine.cpp" />
     <ClCompile Include="gameScenes\BattleScenes\BattleManager.cpp" />
@@ -189,6 +190,7 @@
   <ItemGroup>
     <ClInclude Include="CRandom.h" />
     <ClInclude Include="GameTime.h" />
+    <ClInclude Include="Skill\SkillCalculator.h" />
     <ClInclude Include="Skill\SkillDebuff.h" />
     <ClInclude Include="SourceFile\Engine.h" />
     <ClInclude Include="gameScenes\BattleScenes\BattleManager.h" />
