@@ -137,7 +137,7 @@ void SkillDataLoad::LoadData(const char * FilePath, EnSkillType skillType)
 		//読み込み失敗。
 #ifdef _DEBUG
 		char message[256];
-		sprintf(message, "binデータの読み込みに失敗しました。%s\n", FilePath);
+		sprintf(message, "csvデータの読み込みに失敗しました。%s\n", FilePath);
 		OutputDebugStringA(message);
 #endif		
 		return;

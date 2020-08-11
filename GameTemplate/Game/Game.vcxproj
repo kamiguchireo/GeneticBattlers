@@ -135,7 +135,6 @@
     <ClCompile Include="ConstantBuffer.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="Network\Listener.cpp" />
-    <ClCompile Include="monster\MonsterTeam1.cpp" />
     <ClCompile Include="Network\SampleNetwork.cpp" />
     <ClCompile Include="ShaderResourceView.cpp" />
     <ClCompile Include="Skill\SkillBase.cpp" />
@@ -174,6 +173,7 @@
     <ClCompile Include="SpriteRender.cpp" />
     <ClCompile Include="monster\parameter\StatusUI.cpp" />
     <ClCompile Include="monster\parameter\StatusManager.cpp" />
+    <ClCompile Include="monster\parameter\StatusBase.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
@@ -226,7 +226,6 @@
     <ClInclude Include="ConstantBuffer.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Network\Listener.h" />
-    <ClInclude Include="monster\MonsterTeam1.h" />
     <ClInclude Include="Network\SampleNetwork.h" />
     <ClInclude Include="ShaderResourceView.h" />
     <ClInclude Include="Skill\SkillBase.h" />
@@ -267,6 +266,7 @@
     <ClInclude Include="SpriteRender.h" />
     <ClInclude Include="monster\parameter\StatusUI.h" />
     <ClInclude Include="monster\parameter\StatusManager.h" />
+    <ClInclude Include="monster\parameter\StatusBase.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="SourceFile\graphic\GPUBuffer\StructuredBuffer.h" />
     <ClInclude Include="monster\Supporter.h" />

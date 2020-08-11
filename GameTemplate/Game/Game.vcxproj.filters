@@ -235,9 +235,6 @@
     <ClCompile Include="monster\Attacker.cpp">
       <Filter>monster</Filter>
     </ClCompile>
-    <ClCompile Include="monster\MonsterTeam1.cpp">
-      <Filter>monster</Filter>
-    </ClCompile>
     <ClCompile Include="monster\parameter\StatusManager.cpp">
       <Filter>monster\parameter</Filter>
     </ClCompile>
@@ -272,6 +269,9 @@
       <Filter>monster\parameter</Filter>
     </ClCompile>
     <ClCompile Include="CRandom.cpp" />
+    <ClCompile Include="monster\parameter\StatusBase.cpp">
+      <Filter>monster\parameter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -444,9 +444,6 @@
     <ClInclude Include="monster\Attacker.h">
       <Filter>monster</Filter>
     </ClInclude>
-    <ClInclude Include="monster\MonsterTeam1.h">
-      <Filter>monster</Filter>
-    </ClInclude>
     <ClInclude Include="monster\parameter\StatusManager.h">
       <Filter>monster\parameter</Filter>
     </ClInclude>
@@ -483,6 +480,9 @@
       <Filter>monster\parameter</Filter>
     </ClInclude>
     <ClInclude Include="CRandom.h" />
+    <ClInclude Include="monster\parameter\StatusBase.h">
+      <Filter>monster\parameter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\testModel.fbx">
@@ -556,6 +556,7 @@
     <ImageContentTask Include="Assets\sprite\MultiBattle.png">
       <Filter>Assets\sprite</Filter>
     </ImageContentTask>
+    <ImageContentTask Include="Assets\sprite\GeneticBattlers.png" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />
@@ -567,10 +568,5 @@
     <None Include="Assets\modelData\unityChan.fbx">
       <Filter>Assets\modelData</Filter>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\sprite\GeneticBattlers.png">
-      <Filter>Assets\sprite</Filter>
-    </Image>
   </ItemGroup>
 </Project>
