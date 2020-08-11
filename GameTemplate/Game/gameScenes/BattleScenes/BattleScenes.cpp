@@ -260,7 +260,7 @@ void BattleScenes::Update()
 		if (g_pad[0].IsTrigger(enButtonStart)) 
 		{
 			//戦闘中断。
-			m_battleManager->SetIsBattle(true);
+			m_battleManager->SetIsBattle(false);
 			//フェードさせる。
 			m_state = enState_FadeOut; 
 			m_fade->StartFadeOut();
