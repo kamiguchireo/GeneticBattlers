@@ -16,9 +16,9 @@ public:
 	//ƒ‹[ƒ€‚É’N‚©‚ªQ‰Á‚µ‚½‚çjoinRoomEventAction‚ªŒÄ‚Î‚ê‚Ü‚·
 	void joinRoomEventAction(int playerNr, const ExitGames::Common::JVector<int>& playernrs, const ExitGames::LoadBalancing::Player& player)
 	{
-		if (playernrs.getSize() == 2)
+		if (playernrs.getSize() >= 3)
 		{
-			//NetScenes::GetInstance()->SetStateSend();
+			NetScenes::GetInstance()->SwitchError();
 		}
 	}
 	void leaveRoomEventAction(int playerNr, bool isInactive) 
