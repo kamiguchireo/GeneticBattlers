@@ -281,8 +281,18 @@
     <ClCompile Include="monster\parameter\AIManager.cpp">
       <Filter>monster\parameter</Filter>
     </ClCompile>
-    <ClCompile Include="monster\MonsterData.cpp" />
-    <ClCompile Include="monster\parameter\AIBase.cpp" />
+    <ClCompile Include="monster\MonsterData.cpp">
+      <Filter>monster</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\parameter\AIBase.cpp">
+      <Filter>monster\parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\parameter\AISimpleManager.cpp">
+      <Filter>monster\parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\parameter\StatusSimpleManager.cpp">
+      <Filter>monster\parameter</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -500,8 +510,18 @@
     <ClInclude Include="monster\parameter\AIManager.h">
       <Filter>monster\parameter</Filter>
     </ClInclude>
-    <ClInclude Include="monster\MonsterData.h" />
-    <ClInclude Include="monster\parameter\AIBase.h" />
+    <ClInclude Include="monster\MonsterData.h">
+      <Filter>monster</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\parameter\AIBase.h">
+      <Filter>monster\parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\parameter\AISimpleManager.h">
+      <Filter>monster\parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\parameter\StatusSimpleManager.h">
+      <Filter>monster\parameter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\testModel.fbx">

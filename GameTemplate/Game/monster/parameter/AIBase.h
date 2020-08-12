@@ -25,7 +25,14 @@ public:
 	{
 		m_AI = copy;
 	}
+	/// <summary>
+	/// 行動を乱数で決定する。
+	/// </summary>
+	/// <param name="skill">決定したスキルを取得する。</param>
+	/// <param name="target">決定したターゲットを取得する。</param>
+	void ActionDicide(int& skill, int& target);
 
+protected:
 	//使用率の数値を確率にする。
 	void RateCalc();
 
