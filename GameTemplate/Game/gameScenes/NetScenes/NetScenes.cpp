@@ -6,16 +6,6 @@
 #include "../TitleScene.h"
 #include "../BattleScenes/BattleScenes.h"
 
-////行動テーブルのデータ。
-////!<skillNo		スキル番号。
-////!<target		ターゲット番号。
-////!<rate		使用頻度。
-//struct AIData {
-//	int skillNo = 0;
-//	int target = 0;
-//	float rate = 0.0f;
-//};
-
 NetScenes* NetScenes::m_instance = nullptr;
 
 NetScenes::NetScenes()
@@ -78,10 +68,6 @@ void NetScenes::Update()
 		break;
 
 	case enState_SendGI:
-		m_net->SendEvent(enState_SendStatus);		//イベント切り替え。
-		break;
-
-	case enState_SendStatus:
 		m_net->SendEvent(enState_Exit);				//イベント切り替え。
 		break;
 
@@ -144,14 +130,8 @@ void NetScenes::SwitchEvent(int type)
 		}
 		break;
 
-	case enState_SendStatus:
-		if (m_state == enState_SendGI){					//現在ステートが意図してないときは無視。
-			SetStateSendStatus();	//GIデータの送信。
-		}
-		break;
-
 	case enState_Exit:
-		if (m_state != enState_SendStatus) return;		//現在ステートが意図してないときは無視。
+		if (m_state != enState_SendGI) return;		//現在ステートが意図してないときは無視。
 		m_state = enState_Exit;
 		if (m_text != nullptr)
 		{
@@ -202,15 +182,6 @@ void NetScenes::SetStateSendGI()
 {
 	SendData();
 	m_state = enState_SendGI;
-	if (m_text != nullptr)
-	{
-		m_text->SetState(m_state);
-	}
-}
-
-void NetScenes::SetStateSendStatus()
-{
-	m_state = enState_SendStatus;
 	if (m_text != nullptr)
 	{
 		m_text->SetState(m_state);

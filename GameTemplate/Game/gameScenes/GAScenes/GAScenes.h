@@ -1,9 +1,10 @@
 #pragma once
 
-class StatusBase;
 class SkillCalculator;
-class AIManager;
 class SkillDataLoad;
+class MonsterData;
+
+typedef std::vector<MonsterData> MonsterList;
 
 class GAScenes:public IGameObject
 {
@@ -15,5 +16,7 @@ public:
 private:
 	prefab::SpriteRender* m_sprite = nullptr;
 	prefab::FontRender* m_font = nullptr;
+	MonsterList m_members;
+	MonsterList m_enemys;
 };
 

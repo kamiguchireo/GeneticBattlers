@@ -48,9 +48,6 @@ void NetSceneText::SetState(NetState state)
 	case enState_SendGI:
 		m_fontRender->SetText(L"GAデータの通信中。");
 		break;
-	case enState_SendStatus:
-		m_fontRender->SetText(L"ステータスデータの通信中。");
-		break;
 	case enState_Exit:
 		m_fontRender->SetText(L"通信が完了しました。");
 		break;

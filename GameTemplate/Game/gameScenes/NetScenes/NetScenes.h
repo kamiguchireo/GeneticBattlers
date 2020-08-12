@@ -10,10 +10,9 @@ struct AIData;
 enum NetState {
 	enState_Idle,		//通信待機状態。
 	enState_SendGI,		//GIの送信。
-	enState_SendStatus,	//ステータスの送信。
 	enState_Exit,		//通信終了。
 	enState_Brake,		//通信の中断。
-	enState_SceneChange,	//フェードアウトする。
+	enState_SceneChange,//フェードアウトする。
 	enState_Battle,		//戦闘シーンに移行した。
 	enState_Error		//通信エラー。
 };
@@ -49,7 +48,6 @@ public:
 	//ステートの変更。
 	void SetStateIdle();		//待機状態。
 	void SetStateSendGI();		//GIデータを送る。
-	void SetStateSendStatus();	//ステータスデータを送る。
 
 	typedef std::vector<AIData> AIDataTable;			//行動テーブル。
 	//アタッカーのデータを取得。
