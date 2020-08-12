@@ -8,7 +8,7 @@ bool StatusManager::AddATB()
 	//死亡時は処理を中断する。
 	if (m_stateAI == en_state_Death) return false;
 	//バフの効果時間減少。
-	m_activeTime += (float)m_status.DEX * addTime;
+	m_activeTime += static_cast<float>(m_status.DEX) * addTime;
 	for (int i = 0; i < en_buff_num; i++) {
 		if (m_buffTimeList[i] == 0.0f) continue;
 
@@ -41,7 +41,7 @@ bool StatusManager::AddATB()
 void StatusManager::StateUpdate()
 {
 	//現在HP/最大HPの割合からステートを変化させる。
-	float nowHP = (float)m_status.HP / (float)m_statusBase.HP;
+	float nowHP = static_cast<float>(m_status.HP) / static_cast<float>(m_statusBase.HP);
 	//ステートの変更。
 	if (2.0f / 3.0f < nowHP) {
 		m_stateAI = en_state_Good;

@@ -120,7 +120,7 @@ bool MonsterBase::ACTScoring()
 		switch (m_scoringFlag)
 		{
 		case 0:
-			m_GAData.PushBackResult(m_actRes.damage,m_actRes.skillNo,m_actRes.target);
+			m_AIData.PushBackResult(m_actRes.damage,m_actRes.skillNo,m_actRes.target);
 			break;
 		case 1:
 			break;
@@ -206,7 +206,7 @@ void MonsterBase::SelectUseSkill(
 
 	bool flag = false;
 	//行動をテーブルから決定。
-	m_GAData.ActionDicide(skillNo, targetNo);
+	m_AIData.ActionDicide(skillNo, targetNo);
 	//スキルの選択。
 	int skillTable = (int)(skillNo / 100);
 
@@ -275,9 +275,9 @@ void MonsterBase::SelectUseSkill(
 void MonsterBase::Init(const char * filePath)
 {
 	//ファイルパスから読み込めないければ。
-	if (!m_GAData.Load(filePath)) {
+	if (!m_AIData.Load(filePath)) {
 		//デフォルトのデータのファイルを読み込む。
-		m_GAData.LoadDefault(GetDefaultDataPath());
+		m_AIData.LoadDefault(GetDefaultDataPath());
 	}
 }
 

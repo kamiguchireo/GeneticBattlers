@@ -57,7 +57,7 @@ public:
 	}
 	AIManager& GetGAManager()
 	{
-		return m_GAData;
+		return m_AIData;
 	}
 	//ステータスの設定。
 	//正直ファイルからロードしたい。
@@ -222,7 +222,7 @@ protected:
 	StatusManager m_status;								//ステータス。
 
 	//	AIデータ。
-	AIManager m_GAData;									//行動テーブルのデータ。
+	AIManager m_AIData;									//行動テーブルのデータ。
 	ACTResullt m_actRes = { 0,0,0 };					//行動のリザルト。
 	int m_scoringFlag = 0;								//評価のフラグ。
 

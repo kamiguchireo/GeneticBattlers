@@ -130,7 +130,7 @@ public:
 	/// アクティブタイムの加算。
 	/// </summary>
 	/// <returns>溜まり切ったかの判定。</returns>
-	virtual bool AddATB();
+	virtual bool AddATB() = 0;
 
 	void ClearATB()
 	{

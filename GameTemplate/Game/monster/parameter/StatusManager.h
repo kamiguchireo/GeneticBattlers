@@ -22,7 +22,7 @@ public:
 	/// ステートの更新処理。
 	/// </summary>
 	/// <param name="ui"></param>
-	void StateUpdate();
+	void StateUpdate()override;
 
 private:
 	StatusUI* m_UI = nullptr;
