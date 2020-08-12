@@ -73,6 +73,9 @@
     <Filter Include="Assets\sprite\preset">
       <UniqueIdentifier>{4ee41ae8-bfec-49ec-9a2d-bd93b297129b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="gameScenes\GAScenes">
+      <UniqueIdentifier>{c640e27c-40eb-4026-8f09-d3f753dbc124}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="math\Vector.cpp">
@@ -265,9 +268,6 @@
       <Filter>skill</Filter>
     </ClCompile>
     <ClCompile Include="StopWatch.cpp" />
-    <ClCompile Include="monster\parameter\GAManager.cpp">
-      <Filter>monster\parameter</Filter>
-    </ClCompile>
     <ClCompile Include="CRandom.cpp" />
     <ClCompile Include="monster\parameter\StatusBase.cpp">
       <Filter>monster\parameter</Filter>
@@ -275,6 +275,14 @@
     <ClCompile Include="Skill\SkillCalculator.cpp">
       <Filter>skill</Filter>
     </ClCompile>
+    <ClCompile Include="gameScenes\GAScenes\GAScenes.cpp">
+      <Filter>gameScenes\GAScenes</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\parameter\AIManager.cpp">
+      <Filter>monster\parameter</Filter>
+    </ClCompile>
+    <ClCompile Include="monster\MonsterData.cpp" />
+    <ClCompile Include="monster\parameter\AIBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -479,9 +487,6 @@
     </ClInclude>
     <ClInclude Include="GameTime.h" />
     <ClInclude Include="StopWatch.h" />
-    <ClInclude Include="monster\parameter\GAManager.h">
-      <Filter>monster\parameter</Filter>
-    </ClInclude>
     <ClInclude Include="CRandom.h" />
     <ClInclude Include="monster\parameter\StatusBase.h">
       <Filter>monster\parameter</Filter>
@@ -489,6 +494,14 @@
     <ClInclude Include="Skill\SkillCalculator.h">
       <Filter>skill</Filter>
     </ClInclude>
+    <ClInclude Include="gameScenes\GAScenes\GAScenes.h">
+      <Filter>gameScenes\GAScenes</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\parameter\AIManager.h">
+      <Filter>monster\parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="monster\MonsterData.h" />
+    <ClInclude Include="monster\parameter\AIBase.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\testModel.fbx">

@@ -1,14 +1,5 @@
 #pragma once
-
-//行動テーブルのデータ。
-//!<skillNo		スキル番号。
-//!<target		ターゲット番号。
-//!<rate		使用頻度。
-struct AIData {
-	int skillNo = 0;		//ここは固定値
-	int target = 0;			//ここも固定値
-	float rate = 0.0f;		//ここが遺伝子として変化する
-};
+#include "AIBase.h"
 
 struct ResultData {
 	int damage = 0;
@@ -16,11 +7,17 @@ struct ResultData {
 	int target = 0;
 };
 
-class GAManager
+struct SkillRate
+{
+	int skillNo = 0;
+	float rate = 0.0f;
+};
+
+class AIManager : public AIBase
 {
 public:
-	GAManager();
-	~GAManager();
+	AIManager();
+	~AIManager();
 	/// <summary>
 	/// ファイルパスからGAをロードする。
 	/// </summary>
@@ -32,19 +29,11 @@ public:
 	/// <param name="filePath">デフォルトの数値の入ったファイルパス。</param>
 	void LoadDefault(const char* filePath);
 	/// <summary>
-	/// 通信で取得したデータを取り込む。
-	/// </summary>
-	/// <param name="copy">行動データ。</param>
-	void Init(const std::vector<AIData>& copy)
-	{
-		m_AI = copy;
-	}
-	/// <summary>
 	/// GAを記録する。
 	/// </summary>
 	void Save();
 	/// <summary>
-	/// GAの更新を行う。
+	/// AIの更新を行う。
 	/// </summary>
 	void AIUpdate();
 	/// <summary>
@@ -69,14 +58,17 @@ public:
 		m_actResList.push_back(res);
 	}
 private:
+	//スキルごとの使用率を計算する。
+	void SkillRateCalc();
+
+private:
 	static const float SKILL_NEW_RATE;
 	static const float FIRST_RATE;
 	static const int MAX_TARGET_COUNT;
 
 private:
-	//	AIデータ。
-	std::vector<AIData> m_AI;							//AIデータ。
 	char m_AIPath[128];									//AIデータのファイルパス。
 	std::vector<ResultData> m_actResList;				//行動のリザルトの可変長配列。
+	std::vector<SkillRate> m_skillRateList;				//スキルごとの使用率。
 };
 

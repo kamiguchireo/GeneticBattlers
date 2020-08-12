@@ -1,26 +1,21 @@
 #include "stdafx.h"
-#include "GAManager.h"
+#include "AIManager.h"
 #include "Skill/SkillDataLoad.h"
 
-const float GAManager::SKILL_NEW_RATE = 0.3f;		//追加スキルの初期使用比率。
-const float GAManager::FIRST_RATE = 0.15f;			//新規行動の初期比率。
-const int GAManager::MAX_TARGET_COUNT = 3;			//ターゲットの最大数。
+const float AIManager::SKILL_NEW_RATE = 0.3f;		//追加スキルの初期使用比率。
+const float AIManager::FIRST_RATE = 0.15f;			//新規行動の初期比率。
+const int AIManager::MAX_TARGET_COUNT = 3;			//ターゲットの最大数。
 
-struct SkillRate
-{
-	int skillNo = 0;
-	float rate = 0.0f;
-};
 
-GAManager::GAManager()
+AIManager::AIManager()
 {
 }
 
-GAManager::~GAManager()
+AIManager::~AIManager()
 {
 }
 
-bool GAManager::Load(const char * filePath)
+bool AIManager::Load(const char * filePath)
 {
 	//ファイルパスをコピーしておく。
 	strcpy(m_AIPath, filePath);
@@ -47,7 +42,7 @@ bool GAManager::Load(const char * filePath)
 	return true;
 }
 
-void GAManager::LoadDefault(const char * filePath)
+void AIManager::LoadDefault(const char * filePath)
 {
 	FILE* fp = fopen(filePath, "rb");
 	if (fp == nullptr) {
@@ -69,7 +64,7 @@ void GAManager::LoadDefault(const char * filePath)
 	fclose(fp);
 }
 
-void GAManager::Save()
+void AIManager::Save()
 {
 	AIUpdate();
 	AddNewSkill();
@@ -90,7 +85,7 @@ void GAManager::Save()
 	fclose(fp);
 }
 
-void GAManager::AIUpdate()
+void AIManager::AIUpdate()
 {
 	//行動評価による行動AIの確率の更新。
 	const int listSize = static_cast<const int>(m_actResList.size());
@@ -132,48 +127,23 @@ void GAManager::AIUpdate()
 		AIscoreList[i] /= sum;
 	}
 
-	sum = 0.0f;
 	//行動の評価を反映する。
 	for (int i = 0; i < AISize; i++) {
 		m_AI[i].rate = m_AI[i].rate * 10.0f + AIscoreList[i];
-		sum += m_AI[i].rate;
 	}
-	//確率に戻す。
-	for (int i = 0; i < AISize; i++) {
-		m_AI[i].rate /= sum;
-	}
+	//使用率を確率に直す。
+	RateCalc();
 }
 
-void GAManager::AddNewSkill()
+void AIManager::AddNewSkill()
 {
 	//スキルごとの使用率を計算。
-	std::vector<SkillRate> rateList;
-
-	for (auto& ai : m_AI)
-	{
-		int i = 0;
-		for (i = 0; i < rateList.size(); i++) {
-			//リストに存在する。
-			if (ai.skillNo == rateList[i].skillNo) {
-				rateList[i].rate += ai.rate;
-				break;
-			}
-		}
-		//存在しない。
-		if (i == rateList.size()) {
-			//リストに追加。
-			SkillRate hoge;
-			hoge.skillNo = ai.skillNo;
-			hoge.rate = ai.rate;
-			//配列に積む。
-			rateList.push_back(hoge);
-		}
-	}
+	SkillRateCalc();
 
 	//スキルごとの使用率が一定を超えているか？
 	std::vector<int> skillList;
 
-	for (auto& sr : rateList)
+	for (auto& sr : m_skillRateList)
 	{
 		if (sr.rate > SKILL_NEW_RATE)
 		{
@@ -202,60 +172,48 @@ void GAManager::AddNewSkill()
 
 		//次のスキル探査。
 		//乱数。
-		//int r = rand() % NextSkillSize;
 		int r = g_random.GetRandomInt() % NextSkillSize;
 		newData.skillNo = data.NextSkillNo[r];
 
 		int i = 0;
-		for (i = 0; i < m_AI.size(); i++)
+		for (i = 0; i < m_skillRateList.size(); i++)
 		{
 			//同じスキルがすでにある。
-			if (newData.skillNo == m_AI[i].skillNo)	 break;
+			if (newData.skillNo == m_skillRateList[i].skillNo)	 break;
 		}
 		//中断。
-		if (i != m_AI.size()) continue;
+		if (i != m_skillRateList.size()) continue;
 
-
-		//ターゲット決める。
-		//newData.target = rand() % MAX_TARGET_COUNT;
-		newData.target = g_random.GetRandomInt() % MAX_TARGET_COUNT;
-		newData.target = rand() % MAX_TARGET_COUNT;
-		//使用率を適当に持たせておく。
-		newData.rate = FIRST_RATE;		//半分くらいがちょうどいいかなぁ？
-		//行動リストに積む。
-		m_AI.push_back(newData);
+		for (int j = 0; j < MAX_TARGET_COUNT; j++)
+		{
+			//ターゲット決める。
+			newData.target = j;
+			//使用率を適当に持たせておく。
+			newData.rate = FIRST_RATE / MAX_TARGET_COUNT;		//半分くらいがちょうどいいかなぁ？
+			//行動リストに積む。
+			m_AI.push_back(newData);
+		}
 	}
 
 	//確率に戻す。
-	float sum = 0.0f;
-	for (auto&ai : m_AI)
-	{
-		sum += ai.rate;
-	}
-	sum = max(1.0f, sum);		//ゼロ割発生しないと思うけど回避。
-	for (auto&ai : m_AI)
-	{
-		ai.rate /= sum;
-	}
+	RateCalc();
 }
 
-void GAManager::ActionDicide(int& skill, int& target)
+void AIManager::ActionDicide(int& skill, int& target)
 {
-	//突然変異的な
-	//int pMutation = rand() % 100;
-	int pMutation = g_random.GetRandomInt() % 100;
-	//100分の１の確率。
-	if (pMutation == 0) {
-		//ランダムに数字を入れる。
-		//int actNum = rand() % m_AI.size();
-		int actNum = g_random.GetRandomInt() % m_AI.size();
-		skill = m_AI[actNum].skillNo;
-		target = m_AI[actNum].target;
+	////突然変異的な
+	//int pMutation = g_random.GetRandomInt() % 100;
+	////100分の１の確率。
+	//if (pMutation == 0) {
+	//	//ランダムに数字を入れる。
+	//	//int actNum = rand() % m_AI.size();
+	//	int actNum = g_random.GetRandomInt() % m_AI.size();
+	//	skill = m_AI[actNum].skillNo;
+	//	target = m_AI[actNum].target;
+	//	//関数を抜ける。
+	//	return;
+	//}
 
-		//関数を抜ける。
-		return;
-	}
-	//int res = rand() % 100;	//適当な乱数。
 	int res = g_random.GetRandomInt() % 100;	//適当な乱数。
 	float sum = 0;
 
@@ -266,6 +224,34 @@ void GAManager::ActionDicide(int& skill, int& target)
 			skill = m_AI[i].skillNo;
 			target = m_AI[i].target;
 			break;
+		}
+	}
+}
+
+void AIManager::SkillRateCalc()
+{
+	//リストを空にしておく。
+	m_skillRateList.clear();
+
+	//スキルごとの使用率を計算。
+	for (auto& ai : m_AI)
+	{
+		int i = 0;
+		for (i = 0; i < m_skillRateList.size(); i++) {
+			//リストに存在する。
+			if (ai.skillNo == m_skillRateList[i].skillNo) {
+				m_skillRateList[i].rate += ai.rate;
+				break;
+			}
+		}
+		//存在しない。
+		if (i == m_skillRateList.size()) {
+			//リストに追加。
+			SkillRate hoge;
+			hoge.skillNo = ai.skillNo;
+			hoge.rate = ai.rate;
+			//配列に積む。
+			m_skillRateList.push_back(hoge);
 		}
 	}
 }

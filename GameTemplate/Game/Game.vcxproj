@@ -99,13 +99,16 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="monster\parameter\AIBase.cpp" />
     <ClCompile Include="CRandom.cpp" />
+    <ClCompile Include="gameScenes\GAScenes\GAScenes.cpp" />
+    <ClCompile Include="monster\MonsterData.cpp" />
     <ClCompile Include="Skill\SkillCalculator.cpp" />
     <ClCompile Include="Skill\SkillDebuff.cpp" />
     <ClCompile Include="SourceFile\Engine.cpp" />
     <ClCompile Include="gameScenes\BattleScenes\BattleManager.cpp" />
     <ClCompile Include="gameScenes\NetScenes\NetSceneText.cpp" />
-    <ClCompile Include="monster\parameter\GAManager.cpp" />
+    <ClCompile Include="monster\parameter\AIManager.cpp" />
     <ClCompile Include="Skill\SkillDataLoad.cpp" />
     <ClCompile Include="Skill\SkillBuff.cpp" />
     <ClCompile Include="Skill\SkillHeal.cpp" />
@@ -188,14 +191,17 @@
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="monster\parameter\AIBase.h" />
     <ClInclude Include="CRandom.h" />
     <ClInclude Include="GameTime.h" />
+    <ClInclude Include="gameScenes\GAScenes\GAScenes.h" />
+    <ClInclude Include="monster\MonsterData.h" />
     <ClInclude Include="Skill\SkillCalculator.h" />
     <ClInclude Include="Skill\SkillDebuff.h" />
     <ClInclude Include="SourceFile\Engine.h" />
     <ClInclude Include="gameScenes\BattleScenes\BattleManager.h" />
     <ClInclude Include="gameScenes\NetScenes\NetSceneText.h" />
-    <ClInclude Include="monster\parameter\GAManager.h" />
+    <ClInclude Include="monster\parameter\AIManager.h" />
     <ClInclude Include="Skill\SkillDataLoad.h" />
     <ClInclude Include="Skill\SkillBuff.h" />
     <ClInclude Include="Skill\SkillHeal.h" />
