@@ -18,7 +18,11 @@ public:
 	{
 		if (playernrs.getSize() >= 3)
 		{
-			NetScenes::GetInstance()->SwitchError();
+			auto p = NetScenes::GetInstance();
+			if (p != nullptr)
+			{
+				p->SwitchError();
+			}
 		}
 	}
 	void leaveRoomEventAction(int playerNr, bool isInactive) 
@@ -92,18 +96,18 @@ public:
 			//ExitGames::Common::Hashtable hash = ExitGames::Common::ValueObject <ExitGames::Common::Hashtable>(eventContent).getDataCopy();
 			//auto i = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)1))).getDataCopy();
 			//float f = (ExitGames::Common::ValueObject<nByte>(hash.getValue((nByte)2))).getDataCopy();
-
-			int list = (ExitGames::Common::ValueObject<int>(hashData.getValue((nByte)1))).getDataCopy();
-			int skill = (ExitGames::Common::ValueObject<int>(hashData.getValue((nByte)2))).getDataCopy();
-			int target = (ExitGames::Common::ValueObject<int>(hashData.getValue((nByte)3))).getDataCopy();
-			float rate = (ExitGames::Common::ValueObject<float>(hashData.getValue((nByte)4))).getDataCopy();
-			NetScenes::GetInstance()->PushBackData(list,skill,target,rate);
+			
+			auto p = NetScenes::GetInstance();
+			if (p != nullptr)
+			{
+				int list = (ExitGames::Common::ValueObject<int>(hashData.getValue((nByte)1))).getDataCopy();
+				int skill = (ExitGames::Common::ValueObject<int>(hashData.getValue((nByte)2))).getDataCopy();
+				int target = (ExitGames::Common::ValueObject<int>(hashData.getValue((nByte)3))).getDataCopy();
+				float rate = (ExitGames::Common::ValueObject<float>(hashData.getValue((nByte)4))).getDataCopy();
+				p->PushBackData(list, skill, target, rate);
+			}
 		}
 		break;
-		case 5:		//ステータスデータの取得。とりあえず準備段階。
-		{
-
-		}
 		default:
 		{
 			// have a look at demo_typeSupport inside the C++ client SDKs for example code on how to send and receive more fancy data types

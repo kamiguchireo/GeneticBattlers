@@ -46,7 +46,7 @@ void NetSceneText::SetState(NetState state)
 		m_fontRender->SetText(L"待機中。");
 		break;
 	case enState_SendGI:
-		m_fontRender->SetText(L"GAデータの通信中。");
+		m_fontRender->SetText(L"AIデータの通信中。");
 		break;
 	case enState_Exit:
 		m_fontRender->SetText(L"通信が完了しました。");
