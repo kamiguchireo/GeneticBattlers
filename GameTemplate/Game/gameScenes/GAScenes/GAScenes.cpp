@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "GAScenes.h"
-#include "monster/MonsterData.h"
 
+//const int GAScenes::GENETICS_NUM = 100;
 
 GAScenes::GAScenes()
 {

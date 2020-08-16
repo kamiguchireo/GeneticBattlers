@@ -293,6 +293,9 @@
     <ClCompile Include="monster\parameter\StatusSimpleManager.cpp">
       <Filter>monster\parameter</Filter>
     </ClCompile>
+    <ClCompile Include="gameScenes\BattleScenes\AIResouce.cpp">
+      <Filter>gameScenes\BattleScenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -521,6 +524,9 @@
     </ClInclude>
     <ClInclude Include="monster\parameter\StatusSimpleManager.h">
       <Filter>monster\parameter</Filter>
+    </ClInclude>
+    <ClInclude Include="gameScenes\BattleScenes\AIResouce.h">
+      <Filter>gameScenes\BattleScenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

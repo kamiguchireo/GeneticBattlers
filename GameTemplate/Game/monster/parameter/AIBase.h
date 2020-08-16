@@ -25,6 +25,11 @@ public:
 	{
 		m_AI = copy;
 	}
+	//AIî•ñ‚ğæ“¾B
+	const std::vector<AIData>& GetAIData()
+	{
+		return m_AI;
+	}
 	/// <summary>
 	/// s“®‚ğ—”‚ÅŒˆ’è‚·‚éB
 	/// </summary>

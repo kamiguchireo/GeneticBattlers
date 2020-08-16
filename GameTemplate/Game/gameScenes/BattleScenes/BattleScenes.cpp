@@ -6,6 +6,7 @@
 #include "monster/Attacker.h"
 #include "monster/Healer.h"
 #include "monster/Supporter.h"
+#include "AIResouce.h"
 #include "../TitleScene.h"
 #include "../NetScenes/NetScenes.h"
 #include "Fade.h"
@@ -40,6 +41,14 @@ bool BattleScenes::Start()
 	//戦闘管理用クラス作成。
 	m_battleManager = NewGO<BattleManager>(1);
 
+	//敵の情報を記録するクラス。
+	AIResouce* aiResouse = AIResouce::GetInstance();
+	if (aiResouse == nullptr)
+	{
+		aiResouse = NewGO<AIResouce>(0);
+	}	
+	aiResouse->ClearData();
+
 	//カスケードシャドウの範囲指定。
 	g_graphicsEngine->GetShadowMap()->SetRange({ 1000.0f,2000.0f,3000.0f });
 
@@ -64,7 +73,6 @@ bool BattleScenes::Start()
 			MonsterBase* monster = NewGO<Attacker>(0);
 			Status hoge;
 			hoge.HP = 130;
-			//hoge.HP = 1;
 			hoge.ATK = 30;
 			hoge.DEF = 10;
 			hoge.MAT = 5;
@@ -81,6 +89,8 @@ bool BattleScenes::Start()
 				auto& ga = monster->GetGAManager();
 				ga.Init(m_netScenes->GetAttakerData());
 			}
+			//情報記録。
+			aiResouse->SetAttaker(monster->GetGAManager().GetAIData());
 			monster->SetUIPos(ENEMY_ATTACKER);
 			monster->SetIsEnemy(true);
 
@@ -110,6 +120,8 @@ bool BattleScenes::Start()
 				auto& ga = monster->GetGAManager();
 				ga.Init(m_netScenes->GetSupporterData());
 			}
+			//情報記録。
+			aiResouse->SetSupporter(monster->GetGAManager().GetAIData());
 			monster->SetUIPos(ENEMY_SUPPORTER);
 			monster->SetIsEnemy(true);
 
@@ -146,6 +158,8 @@ bool BattleScenes::Start()
 				auto& ga = monster->GetGAManager();
 				ga.Init(m_netScenes->GetHealerData());
 			}
+			//情報記録。
+			aiResouse->SetHealer(monster->GetGAManager().GetAIData());
 			monster->SetUIPos(ENEMY_HEALER);
 			monster->SetIsEnemy(true);
 
