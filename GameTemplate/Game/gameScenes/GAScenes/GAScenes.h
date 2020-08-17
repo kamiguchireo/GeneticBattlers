@@ -13,7 +13,12 @@ class EvaluationCalculator;
 
 typedef std::vector<AIData> AITable;		//AI情報。
 typedef std::vector<AITable> AITableList;	//AI情報テーブル。
-typedef std::vector<AITableList> AIGenetics;//AI情報テーブルで構成される遺伝子情報。さすがにこれは深すぎるかなぁ？
+struct Genetic
+{
+	AITableList genetic;		//遺伝子となるAI情報テーブル。
+	int winRate = 0;			//評価値となる勝率(%)。
+};
+typedef std::vector<Genetic> AIGenetics;//AI情報テーブルで構成される遺伝子情報。さすがにこれは深すぎるかなぁ？
 
 class GAScenes:public IGameObject
 {
@@ -28,10 +33,14 @@ private:
 	//初期遺伝子を作成する。
 	void FirstGenesCreate();
 	//勝率を測定。
+	void CalcWinRate();
+	//評価値でソートを行う。
+	void SortGenes();
 
 	/// <summary>
 	/// １．勝率の測定処理。つまりは戦闘処理を行うクラスが必要なのでは...
 	///		ここで遺伝子を確率に直しておかないとですねぇ
+	///		んで計測結果を記録する関数と評価値でソートする関数が必要ですねぇ 終わりかなぁ
 	/// ２．交叉の処理。
 	/// ３．突然変異の処理。
 	/// </summary>
@@ -47,8 +56,6 @@ private:
 	AITable m_myAI[en_JobNum];		//元となるAIのデータ。
 	AITable m_enemyAI[en_JobNum];	//敵のAIデータ。
 	AIGenetics m_currentGenetics;	//現行世代の遺伝子。
-	//AITableList m_currentGenetics[en_JobNum];	//現行世代の遺伝子。
-	std::vector<int> m_winRate;				//勝率。
 	int m_actionNum = 0;		//遺伝子の構成データ数。
 };
 

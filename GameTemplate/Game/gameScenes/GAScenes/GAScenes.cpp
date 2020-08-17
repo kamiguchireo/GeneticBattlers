@@ -21,6 +21,7 @@ GAScenes::GAScenes()
 		m_enemyAI[en_Supporter] = aiResouce->GetSupporter();
 		DeleteGO(aiResouce);
 	}
+	m_evaluationCalc = NewGO<EvaluationCalculator>(0);
 }
 
 GAScenes::~GAScenes()
@@ -33,7 +34,6 @@ GAScenes::~GAScenes()
 
 bool GAScenes::Start()
 {
-	m_evaluationCalc = NewGO<EvaluationCalculator>(0);
 	//行動の数を記録。
 	m_actionNum = 0;
 	for (auto& ai : m_myAI)
@@ -42,6 +42,10 @@ bool GAScenes::Start()
 	}
 	//初期遺伝子をたくさん作成。
 	FirstGenesCreate();
+	//評価値を計算する。
+	CalcWinRate();
+	//評価値でソート。
+	SortGenes();
 
 	return true;
 }
@@ -82,7 +86,7 @@ void GAScenes::FirstGenesCreate()
 	tables[en_Supporter] = m_myAI[en_Supporter];
 
 	//確率変動のないデータを記録。
-	m_currentGenetics.push_back(tables);
+	m_currentGenetics.push_back({ tables,0 });
 	//遺伝子の数を行動の数±5%の数まで増やす。
 	for (auto& job: tables)		//ジョブ事に回す。
 	{
@@ -97,7 +101,7 @@ void GAScenes::FirstGenesCreate()
 				job[i].rate = rate + RATE_CHANGE * (j + 1);
 
 				//現行遺伝子に記録する。
-				m_currentGenetics.push_back(tables);
+				m_currentGenetics.push_back({ tables,0 });
 
 				//確率を-に変動させる。
 				job[i].rate = rate - RATE_CHANGE * (j + 1);
@@ -105,7 +109,7 @@ void GAScenes::FirstGenesCreate()
 				if (job[i].rate > 0.0f)
 				{
 					//現行遺伝子に記録する。
-					m_currentGenetics.push_back(tables);
+					m_currentGenetics.push_back({ tables,0 });
 				}
 			}
 
@@ -113,6 +117,26 @@ void GAScenes::FirstGenesCreate()
 			job[i].rate = rate;
 		}
 	}
+}
+
+void GAScenes::CalcWinRate()
+{
+	//遺伝子の数。
+	int genesSize = m_currentGenetics.size();
+
+	//遺伝子毎の勝率計算。
+	for (int i = 0; i < genesSize; i++)
+	{
+		int rate = m_evaluationCalc->Calculation(m_currentGenetics[i].genetic);
+		m_currentGenetics[i].winRate = rate;
+	}
+}
+
+void GAScenes::SortGenes()
+{
+	//現行遺伝子のソートを行う。
+	std::sort(m_currentGenetics.begin(), m_currentGenetics.end(),
+		[](const Genetic& a, const Genetic& b) {return a.winRate < b.winRate; });
 }
 
 
