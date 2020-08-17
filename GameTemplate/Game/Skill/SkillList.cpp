@@ -18,15 +18,19 @@ SkillList::SkillList()
 	}
 
 	m_instance = this;
-	NewGO<SkillDataLoad>(0);
+	//ƒXƒLƒ‹î•ñ‚ğ“Ç‚İ‚ŞB
 	m_skillData = SkillDataLoad::GetInstance();
+	if (m_skillData == nullptr)
+	{
+		m_skillData = NewGO<SkillDataLoad>(0);
+	}
 }
 
 SkillList::~SkillList()
 {
 	m_instance = nullptr;
 
-	DeleteGO(m_skillData);
+	//DeleteGO(m_skillData);
 }
 
 SkillBase * SkillList::NewSkillData(int table, int no)

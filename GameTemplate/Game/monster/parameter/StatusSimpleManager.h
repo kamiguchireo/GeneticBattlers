@@ -14,7 +14,14 @@ public:
 	//アクティブタイムを進める。
 	bool AddATB() override;
 
+	//状態更新。
 	void StateUpdate() override;
+
+	//ステータスを元に戻す。
+	void ResetStatus()
+	{
+		m_status = m_statusBase;
+	}
 
 private:
 

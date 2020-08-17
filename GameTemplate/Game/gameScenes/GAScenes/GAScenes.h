@@ -1,6 +1,15 @@
 #pragma once
 #include "monster/MonsterData.h"
 
+enum Job
+{
+	en_Attacker,
+	en_Healer,
+	en_Supporter,
+	en_JobNum
+};
+
+class EvaluationCalculator;
 
 typedef std::vector<AIData> AITable;		//AI情報。
 typedef std::vector<AITable> AITableList;	//AI情報テーブル。
@@ -31,16 +40,10 @@ private:
 	static const int GENETICS_NUM = 100;
 	static const float RATE_CHANGE;		//初期遺伝子生成時の確率変動幅
 	static const int CHANGE_NUM;		//確率変動で作る数。
-	enum Job
-	{
-		en_Attacker,
-		en_Healer,
-		en_Supporter,
-		en_JobNum
-	};
 
 	prefab::SpriteRender* m_sprite = nullptr;
 	prefab::FontRender* m_font = nullptr;
+	EvaluationCalculator* m_evaluationCalc = nullptr;
 	AITable m_myAI[en_JobNum];		//元となるAIのデータ。
 	AITable m_enemyAI[en_JobNum];	//敵のAIデータ。
 	AIGenetics m_currentGenetics;	//現行世代の遺伝子。

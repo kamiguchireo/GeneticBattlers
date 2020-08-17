@@ -296,7 +296,9 @@
     <ClCompile Include="gameScenes\BattleScenes\AIResouce.cpp">
       <Filter>gameScenes\BattleScenes</Filter>
     </ClCompile>
-    <ClCompile Include="gameScenes\GAScenes\EvaluationCalculator.cpp" />
+    <ClCompile Include="gameScenes\GAScenes\EvaluationCalculator.cpp">
+      <Filter>gameScenes\GAScenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -529,7 +531,9 @@
     <ClInclude Include="gameScenes\BattleScenes\AIResouce.h">
       <Filter>gameScenes\BattleScenes</Filter>
     </ClInclude>
-    <ClInclude Include="gameScenes\GAScenes\EvaluationCalculator.h" />
+    <ClInclude Include="gameScenes\GAScenes\EvaluationCalculator.h">
+      <Filter>gameScenes\GAScenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\testModel.fbx">

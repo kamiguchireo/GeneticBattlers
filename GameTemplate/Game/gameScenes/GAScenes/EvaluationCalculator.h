@@ -4,21 +4,61 @@
 class SkillCalculator;
 class SkillDataLoad;
 
-typedef std::vector<MonsterData> MonsterList;
+typedef std::vector<MonsterData*> MonsterList;
+
+struct MonsterInfo
+{
+	MonsterData* actionMonster = nullptr;
+	bool IsEnemy = false;
+};
 
 /// <summary>
 /// 評価値計算機
 /// </summary>
 
-class EvaluationCalculator
+class EvaluationCalculator : public IGameObject
 {
 public:
 	EvaluationCalculator();
 	~EvaluationCalculator();
 
-private:
-	MonsterList m_members;
-	MonsterList m_enemys;
+	/// <summary>
+	/// 勝率を計算する。
+	/// </summary>
+	/// <param name="table">1つの遺伝子</param>
+	/// <returns>勝率(%)</returns>
+	int Calculation(AITableList& table);
 
+private:
+	bool Battle();
+
+	void ActiveTime();
+
+	//行動を行う。
+	void Action();
+	//行動を決定する。
+	void DisideSkill(int& skill, int& target);
+	//ターゲットリスト作成。
+	void SetTargetList(int skill);
+	/// <summary>
+	/// 状態を更新する。
+	/// </summary>
+	/// <param name="isWin">戦闘勝利か？</param>
+	/// <returns>戦闘が終わったかどうか。</returns>
+	bool MonsterStateUpdate(bool& isWin);
+
+
+	const int LOOP_NUMBER = 100;	//勝率測定の戦闘回数。
+
+	//MonsterList m_members;
+	//MonsterList m_enemys;
+	MonsterData m_members[en_JobNum];
+	MonsterData m_enemys[en_JobNum];
+
+	MonsterInfo monsterACT;			//現在行動中モンスターの情報。
+	MonsterList m_targetList;
+	std::vector<MonsterInfo> m_actionList;
+	SkillCalculator* m_skillCalc = nullptr;
+	SkillDataLoad* m_skillData = nullptr;
 };
 

@@ -48,6 +48,8 @@ public:
 	//番号からスキル情報を取得。
 	SkillData GetSkillData(int No);
 
+	static bool IsAttackSkill(int No);
+
 	static const int MAX_TARGETS_MEMBER = 3;
 private:
 	const int NOSKILL = -1;			//次のスキル番号なし。

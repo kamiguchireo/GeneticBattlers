@@ -111,6 +111,29 @@ SkillData SkillDataLoad::GetSkillData(int No)
 	return retData;
 }
 
+bool SkillDataLoad::IsAttackSkill(int No)
+{
+	No /= 100;
+	switch (No)
+	{
+	case en_Attack:		//攻撃スキル。
+		return true;
+		break;
+	case en_Heal:		//ヒールスキル。
+		return false;
+		break;
+	case en_Buff:		//バフスキル。
+		return false;
+		break;
+	case en_Debuff:		//デバフスキル。
+		return true;
+		break;
+	default:
+		break;
+	}
+	return false;
+}
+
 void SkillDataLoad::LoadData(const char * FilePath, EnSkillType skillType)
 {
 	SkillDataList* SList;

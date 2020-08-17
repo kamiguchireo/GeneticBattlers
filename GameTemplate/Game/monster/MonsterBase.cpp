@@ -58,19 +58,19 @@ void MonsterBase::Draw()
 	);
 }
 
-void MonsterBase::SetStatus(int hp, int atk, int def, int mat, int mdf, int dex)
-{
-	Status hoge;
-	hoge.HP = hp;
-	//hoge.MP = mp;
-	hoge.ATK = atk;
-	hoge.DEF = def;
-	hoge.MAT = mat;
-	hoge.MDF = mdf;
-	hoge.DEX = dex;
-	//設定。
-	m_status.SetStatus(hoge);
-}
+//void MonsterBase::SetStatus(int hp, int atk, int def, int mat, int mdf, int dex)
+//{
+//	Status hoge;
+//	hoge.HP = hp;
+//	//hoge.MP = mp;
+//	hoge.ATK = atk;
+//	hoge.DEF = def;
+//	hoge.MAT = mat;
+//	hoge.MDF = mdf;
+//	hoge.DEX = dex;
+//	//設定。
+//	m_status.SetStatus(hoge);
+//}
 
 
 //行動の評価。

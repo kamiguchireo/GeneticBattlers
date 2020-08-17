@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "GAScenes.h"
 #include "../BattleScenes/AIResouce.h"
+#include "EvaluationCalculator.h"
 
 const float GAScenes::RATE_CHANGE = 0.01f;	//初期遺伝子生成のための確率変動率。
 const int GAScenes::CHANGE_NUM = 5;	//確率変動で作る数。
@@ -24,15 +25,20 @@ GAScenes::GAScenes()
 
 GAScenes::~GAScenes()
 {
+	if (m_evaluationCalc != nullptr)
+	{
+		DeleteGO(m_evaluationCalc);
+	}
 }
 
 bool GAScenes::Start()
 {
+	m_evaluationCalc = NewGO<EvaluationCalculator>(0);
 	//行動の数を記録。
 	m_actionNum = 0;
 	for (auto& ai : m_myAI)
 	{
-		m_actionNum += ai.size();
+		m_actionNum += static_cast<int>(ai.size());
 	}
 	//初期遺伝子をたくさん作成。
 	FirstGenesCreate();
