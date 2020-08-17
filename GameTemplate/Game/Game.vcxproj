@@ -99,6 +99,7 @@
     </MeshContentTask>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="gameScenes\GAScenes\EvaluationCalculator.cpp" />
     <ClCompile Include="gameScenes\BattleScenes\AIResouce.cpp" />
     <ClCompile Include="monster\parameter\AISimpleManager.cpp" />
     <ClCompile Include="monster\parameter\AIBase.cpp" />
@@ -194,6 +195,7 @@
     <ClCompile Include="SourceFile\Sound\WaveFile.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="gameScenes\GAScenes\EvaluationCalculator.h" />
     <ClInclude Include="gameScenes\BattleScenes\AIResouce.h" />
     <ClInclude Include="monster\parameter\AISimpleManager.h" />
     <ClInclude Include="monster\parameter\AIBase.h" />

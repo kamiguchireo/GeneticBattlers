@@ -11,7 +11,9 @@ public:
 	AISimpleManager();
 	~AISimpleManager();
 
+	void SetAIData(std::vector<AIData>& copy);
 
+private:
 
 };
 

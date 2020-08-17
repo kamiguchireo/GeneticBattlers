@@ -29,6 +29,14 @@ public:
 	/// <param name="filePath">デフォルトの数値の入ったファイルパス。</param>
 	void LoadDefault(const char* filePath);
 	/// <summary>
+	/// AIデータのコピーを行う。
+	/// </summary>
+	/// <param name="copy">行動データ。</param>
+	void SetAIData(const std::vector<AIData>& copy)
+	{
+		m_AI = copy;
+	}
+	/// <summary>
 	/// GAを記録する。
 	/// </summary>
 	void Save();

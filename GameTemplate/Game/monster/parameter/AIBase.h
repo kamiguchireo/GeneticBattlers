@@ -17,14 +17,6 @@ public:
 	AIBase();
 	virtual ~AIBase();
 
-	/// <summary>
-	/// AIデータのコピーを行う。
-	/// </summary>
-	/// <param name="copy">行動データ。</param>
-	void Init(const std::vector<AIData>& copy)
-	{
-		m_AI = copy;
-	}
 	//AI情報を取得。
 	const std::vector<AIData>& GetAIData()
 	{

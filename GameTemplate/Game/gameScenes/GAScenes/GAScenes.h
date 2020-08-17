@@ -1,10 +1,7 @@
 #pragma once
 #include "monster/MonsterData.h"
 
-class SkillCalculator;
-class SkillDataLoad;
 
-typedef std::vector<MonsterData*> MonsterList;
 typedef std::vector<AIData> AITable;		//AI情報。
 typedef std::vector<AITable> AITableList;	//AI情報テーブル。
 typedef std::vector<AITableList> AIGenetics;//AI情報テーブルで構成される遺伝子情報。さすがにこれは深すぎるかなぁ？
@@ -24,7 +21,7 @@ private:
 	//勝率を測定。
 
 	/// <summary>
-	/// １．勝率の測定処理。
+	/// １．勝率の測定処理。つまりは戦闘処理を行うクラスが必要なのでは...
 	///		ここで遺伝子を確率に直しておかないとですねぇ
 	/// ２．交叉の処理。
 	/// ３．突然変異の処理。
@@ -44,8 +41,6 @@ private:
 
 	prefab::SpriteRender* m_sprite = nullptr;
 	prefab::FontRender* m_font = nullptr;
-	MonsterList m_members;
-	MonsterList m_enemys;
 	AITable m_myAI[en_JobNum];		//元となるAIのデータ。
 	AITable m_enemyAI[en_JobNum];	//敵のAIデータ。
 	AIGenetics m_currentGenetics;	//現行世代の遺伝子。

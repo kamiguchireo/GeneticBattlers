@@ -55,7 +55,7 @@ public:
 	{
 		return m_teamMenber;
 	}
-	AIManager& GetGAManager()
+	AIManager& GetAIManager()
 	{
 		return m_AIData;
 	}
