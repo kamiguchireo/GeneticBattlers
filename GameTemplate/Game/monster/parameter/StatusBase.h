@@ -54,6 +54,13 @@ public:
 		m_statusBase = status;
 		m_status = m_statusBase;
 	}
+	//ステータス(アタッカー用)
+	void StatusAttaker();
+	//ステータス(ヒーラー用)
+	void StatusHealer();
+	//ステータス(ヒーラー用)
+	void StatusSupporter();
+
 	//ステータスを取得。
 	const Status& GetStatus() const
 	{

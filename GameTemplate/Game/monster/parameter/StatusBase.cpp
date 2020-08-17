@@ -1,6 +1,52 @@
 #include "stdafx.h"
 #include "StatusBase.h"
 
+namespace JOB_Status
+{
+	const Status ATTAKER =
+	{
+		130,		//HP
+		30,			//ATK
+		10,			//DEF
+		5,			//MAT
+		10,			//MDF
+		10			//DEX
+	};
+	const Status HEALER =
+	{
+		90,			//HP
+		5,			//ATK
+		10,			//DEF
+		30,			//MAT
+		20,			//MDF
+		10			//DEX
+	};
+	const Status SUPPOTER =
+	{
+		130,		//HP
+		5,			//ATK
+		15,			//DEF
+		20,			//MAT
+		15,			//MDF
+		15			//DEX
+	};
+}
+
+void CStatusBase::StatusAttaker()
+{
+	SetStatus(JOB_Status::ATTAKER);
+}
+
+void CStatusBase::StatusHealer()
+{
+	SetStatus(JOB_Status::HEALER);
+}
+
+void CStatusBase::StatusSupporter()
+{
+	SetStatus(JOB_Status::SUPPOTER);
+}
+
 int CStatusBase::Healing(int healing)
 {
 	int res = healing;

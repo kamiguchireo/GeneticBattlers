@@ -59,14 +59,15 @@ public:
 	{
 		return m_AIData;
 	}
-	//ステータスの設定。
-	//正直ファイルからロードしたい。
-	void SetStatus(int hp, int atk, int def, int mat, int mdf, int dex);
-	//ステータスの設定。(ステータス構造体ver)。
-	void SetStatus(const Status& status)
-	{
-		m_status.SetStatus(status);
-	}
+	////ステータスの設定。
+	////正直ファイルからロードしたい。
+	//void SetStatus(int hp, int atk, int def, int mat, int mdf, int dex);
+	////ステータスの設定。(ステータス構造体ver)。
+	//void SetStatus(const Status& status)
+	//{
+	//	m_status.SetStatus(status);
+	//}
+
 	//座標の設定。
 	void SetPosition(const CVector3& pos)
 	{

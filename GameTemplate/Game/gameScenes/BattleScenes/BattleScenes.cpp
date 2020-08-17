@@ -71,14 +71,7 @@ bool BattleScenes::Start()
 		if (wcscmp(objData.name, L"EAttacker") == 0)
 		{
 			MonsterBase* monster = NewGO<Attacker>(0);
-			Status hoge;
-			hoge.HP = 130;
-			hoge.ATK = 30;
-			hoge.DEF = 10;
-			hoge.MAT = 5;
-			hoge.MDF = 10;
-			hoge.DEX = 10;
-			monster->SetStatus(hoge);
+			monster->GetStatusManager()->StatusAttaker();
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
 			monster->SetScale(objData.scale);
@@ -101,15 +94,7 @@ bool BattleScenes::Start()
 		if (wcscmp(objData.name, L"EBuff") == 0)
 		{
 			MonsterBase* monster = NewGO<Supporter>(0);
-			Status hoge;
-			hoge.HP = 130;
-			//hoge.HP = 1;
-			hoge.ATK = 5;
-			hoge.DEF = 15;
-			hoge.MAT = 20;
-			hoge.MDF = 15;
-			hoge.DEX = 15;
-			monster->SetStatus(hoge);
+			monster->GetStatusManager()->StatusSupporter();
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
 			monster->SetScale(objData.scale);
@@ -133,21 +118,7 @@ bool BattleScenes::Start()
 		if (wcscmp(objData.name, L"EHealer") == 0)
 		{
 			MonsterBase* monster = NewGO<Healer>(0);
-			Status hoge;
-			hoge.HP = 90;
-			//hoge.HP = 1;
-			hoge.ATK = 5;
-			hoge.DEF = 10;
-			hoge.MAT = 30;
-			hoge.MDF = 20;
-			hoge.DEX = 10;
-			//hoge.HP = rand() % 50 + 100;
-			//hoge.ATK = rand() % 10 + 10;
-			//hoge.DEF = rand() % 10 + 10;
-			//hoge.MAT = rand() % 10 + 10;
-			//hoge.MDF = rand() % 10 + 10;
-			//hoge.DEX = rand() % 10 + 10;
-			monster->SetStatus(hoge);
+			monster->GetStatusManager()->StatusHealer();
 			monster->SetPosition(objData.position);
 			monster->SetRotation(objData.rotation);
 			monster->SetScale(objData.scale);
@@ -170,16 +141,8 @@ bool BattleScenes::Start()
 		}
 		if (wcscmp(objData.name, L"Attacker") == 0)
 		{
-			MonsterBase* attacker = NewGO<Attacker>(0);
-			Status hoge;
-			hoge.HP = 130;
-			//hoge.HP = 1;
-			hoge.ATK = 30;
-			hoge.DEF = 10;
-			hoge.MAT = 5;
-			hoge.MDF = 10;
-			hoge.DEX = 10;
-			attacker->SetStatus(hoge);
+			MonsterBase* attacker = NewGO<Attacker>(0); 
+			attacker->GetStatusManager()->StatusAttaker();
 			attacker->SetPosition(objData.position);
 			attacker->SetRotation(objData.rotation);
 			attacker->SetScale(objData.scale);
@@ -192,15 +155,7 @@ bool BattleScenes::Start()
 		if (wcscmp(objData.name, L"Healer") == 0)
 		{
 			MonsterBase* healer = NewGO<Healer>(0);
-			Status hoge;
-			hoge.HP = 90;
-			//hoge.HP = 1;
-			hoge.ATK = 5;
-			hoge.DEF = 10;
-			hoge.MAT = 30;
-			hoge.MDF = 20;
-			hoge.DEX = 10;
-			healer->SetStatus(hoge);
+			healer->GetStatusManager()->StatusHealer();
 			healer->SetPosition(objData.position);
 			healer->SetRotation(objData.rotation);
 			healer->SetScale(objData.scale);
@@ -213,15 +168,7 @@ bool BattleScenes::Start()
 		if (wcscmp(objData.name, L"Buff") == 0)
 		{
 			MonsterBase* support = NewGO<Supporter>(0);
-			Status hoge;
-			hoge.HP = 130;
-			//hoge.HP = 1;
-			hoge.ATK = 5;
-			hoge.DEF = 15;
-			hoge.MAT = 20;
-			hoge.MDF = 15;
-			hoge.DEX = 15;
-			support->SetStatus(hoge);
+			support->GetStatusManager()->StatusSupporter();
 			support->SetPosition(objData.position);
 			support->SetRotation(objData.rotation);
 			support->SetScale(objData.scale);
