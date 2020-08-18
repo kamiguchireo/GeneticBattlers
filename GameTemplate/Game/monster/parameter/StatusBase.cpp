@@ -14,7 +14,7 @@ namespace JOB_Status
 	};
 	const Status HEALER =
 	{
-		90,			//HP
+		130,		//HP
 		5,			//ATK
 		10,			//DEF
 		30,			//MAT

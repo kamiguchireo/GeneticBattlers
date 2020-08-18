@@ -62,7 +62,7 @@ private:
 private:		//定数。
 	static const float RATE_CHANGE;		//初期遺伝子生成時の確率変動幅
 	static const int CHANGE_NUM;		//確率変動で作る数。
-	const int SELECT_ELETE = 20;		//選択するエリートの数。
+	const int SELECT_ELETE = 15;		//選択するエリートの数。
 	const int MAX_GENERATION = 50;		//繰り返す世代数。
 	const float MUTATION_RATE = 0.05;	//突然変異の確率。
 
@@ -89,5 +89,6 @@ private:		//メンバ変数。
 	int m_geneSize = 0;		//遺伝子のサイズ。
 	int m_currentGenerationNum = 0;		//世代数。
 	int m_maxWinRate = 0;		//最高遺伝子の勝率。
+	float m_aveWinRate = 0.0f;
 };
 

@@ -11,7 +11,7 @@ StatusSimpleManager::~StatusSimpleManager()
 
 bool StatusSimpleManager::AddATB()
 {
-	const float addTime = 1.0f;
+	const float addTime = 2.0f;
 	//死亡時は処理を中断する。
 	if (m_stateAI == en_state_Death) return false;
 	//バフの効果時間減少。

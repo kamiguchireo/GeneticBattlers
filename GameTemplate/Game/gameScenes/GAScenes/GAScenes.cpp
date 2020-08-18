@@ -16,6 +16,9 @@ GAScenes::GAScenes()
 	LoadAIData("Assets/AIData/Attacker.bin", m_myAI[en_Attacker]);
 	LoadAIData("Assets/AIData/Healer.bin", m_myAI[en_Healer]);
 	LoadAIData("Assets/AIData/Supporter.bin", m_myAI[en_Supporter]);
+	//LoadAIData("Assets/AIData/DefaultData/AttackerDefault.bin", m_myAI[en_Attacker]);
+	//LoadAIData("Assets/AIData/DefaultData/HealerDefault.bin", m_myAI[en_Healer]);
+	//LoadAIData("Assets/AIData/DefaultData/SupporterDefault.bin", m_myAI[en_Supporter]);
 
 	auto aiResouce = AIResouce::GetInstance();
 	if (aiResouce != nullptr)
@@ -66,11 +69,11 @@ bool GAScenes::Start()
 	m_fontWinRate->SetPivot({ 0.5f,0.5f });
 	m_fontWinRate->SetPosition({ 0.0f,-200.0f });
 	wchar_t generationText[64];
-	swprintf(generationText, L"第%3d世代", m_currentGenerationNum);
+	swprintf(generationText, L"準備中。", m_currentGenerationNum);
 	m_fontGeneration->SetText(generationText);
 
 	wchar_t winRateText[64];
-	swprintf(winRateText, L"最高勝率%3d%", m_maxWinRate);
+	swprintf(winRateText, L"最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate, m_aveWinRate);
 	m_fontWinRate->SetText(winRateText);
 
 	m_fade = Fade::GetInstance();
@@ -102,13 +105,13 @@ void GAScenes::Update()
 		m_fontGeneration->SetText(generationText);
 
 		wchar_t winRateText[64];
-		swprintf(winRateText, L"最高勝率%3d%", m_maxWinRate);
+		swprintf(winRateText, L"最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate, m_aveWinRate);
 		m_fontWinRate->SetText(winRateText);
 
 		m_sceneState = en_GA;
 		break;
 	case GAScenes::en_GA:
-		if (m_currentGenerationNum <= MAX_GENERATION)
+		if (m_currentGenerationNum < MAX_GENERATION)
 		{
 			GeneSelection();	//淘汰。
 			GenesCrossover();	//交叉。
@@ -120,7 +123,7 @@ void GAScenes::Update()
 			m_fontGeneration->SetText(generationText);
 
 			wchar_t winRateText[64];
-			swprintf(winRateText, L"最高勝率%3d%", m_maxWinRate);
+			swprintf(winRateText, L"最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate,m_aveWinRate);
 			m_fontWinRate->SetText(winRateText);
 		}
 		else
@@ -243,6 +246,14 @@ void GAScenes::SortGenes()
 
 	//一番優秀な遺伝子の勝率を記録。
 	m_maxWinRate = (*m_currentGenetics.begin()).winRate;
+	//平均勝率でも。
+	float sum = 0.0f;
+	for (auto& gene : m_currentGenetics)
+	{
+		sum += gene.winRate;
+	}
+	m_aveWinRate = sum / m_currentGenetics.size();
+
 	//世代数+1
 	m_currentGenerationNum++;
 }

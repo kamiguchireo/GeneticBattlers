@@ -274,8 +274,8 @@ void BattleScenes::Update()
 		if (!m_fade->IsFade())
 		{
 			//フェードが終わるとタイトルに戻る。
-			NewGO<TitleScene>(0, nullptr);
-			//NewGO<GAScenes>(0, nullptr);
+			//NewGO<TitleScene>(0, nullptr);
+			NewGO<GAScenes>(0, nullptr);
 			DeleteGO(this);
 		}
 		break;

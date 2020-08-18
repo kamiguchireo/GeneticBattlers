@@ -50,7 +50,7 @@ private:
 	bool MonsterStateUpdate(bool& isWin);
 
 
-	const int LOOP_NUMBER = 50;	//Ÿ—¦‘ª’è‚Ìí“¬‰ñ”B
+	const int LOOP_NUMBER = 20;	//Ÿ—¦‘ª’è‚Ìí“¬‰ñ”B
 
 	//MonsterList m_members;
 	//MonsterList m_enemys;
