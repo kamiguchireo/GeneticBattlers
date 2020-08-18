@@ -4,6 +4,7 @@
 #include "EvaluationCalculator.h"
 #include "Fade.h"
 #include "../TitleScene.h"
+#include "GASceneUI.h"
 
 using namespace GA;
 
@@ -33,6 +34,7 @@ GAScenes::GAScenes()
 	m_evaluationCalc->SetEnemyAI(m_enemyAI[en_Attacker], en_Attacker);
 	m_evaluationCalc->SetEnemyAI(m_enemyAI[en_Healer], en_Healer);
 	m_evaluationCalc->SetEnemyAI(m_enemyAI[en_Supporter], en_Supporter);
+	m_ui = NewGO<GASceneUI>(1);
 }
 
 GAScenes::~GAScenes()
@@ -41,9 +43,7 @@ GAScenes::~GAScenes()
 	{
 		DeleteGO(m_evaluationCalc);
 	}
-	DeleteGO(m_sprite);
-	DeleteGO(m_fontGeneration);
-	DeleteGO(m_fontWinRate);
+	DeleteGO(m_ui);
 }
 
 bool GAScenes::Start()
@@ -54,27 +54,10 @@ bool GAScenes::Start()
 	{
 		m_geneSize += static_cast<int>(ai.size());
 	}
-	//背景画像。
-	m_sprite = NewGO<prefab::SpriteRender>(0);
-	m_sprite->Init(
-		L"Assets/sprite/BackWindow.dds",
-		FRAME_BUFFER_W,
-		FRAME_BUFFER_H
-	);
-	//フォント。
-	m_fontGeneration = NewGO<prefab::FontRender>(0);
-	m_fontGeneration->SetPivot({ 0.5f,0.5f });
-	m_fontGeneration->SetPosition({ 0.0f,200.0f });
-	m_fontWinRate = NewGO<prefab::FontRender>(0);
-	m_fontWinRate->SetPivot({ 0.5f,0.5f });
-	m_fontWinRate->SetPosition({ 0.0f,-200.0f });
-	wchar_t generationText[64];
-	swprintf(generationText, L"準備中。", m_currentGenerationNum);
-	m_fontGeneration->SetText(generationText);
 
-	wchar_t winRateText[64];
-	swprintf(winRateText, L"最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate, m_aveWinRate);
-	m_fontWinRate->SetText(winRateText);
+	//初期遺伝子をたくさん作成。
+	FirstGenesCreate();
+	m_currentCalcSize = m_currentGenetics.size();		//現在の遺伝子数を記録。
 
 	m_fade = Fade::GetInstance();
 	m_fade->StartFadeIn();
@@ -90,89 +73,57 @@ void GAScenes::Update()
 	case GAScenes::en_FadeIn:
 		if (!m_fade->IsFade())
 		{
-			m_sceneState = en_FirstGeneric;
+			m_sceneState = en_Calc;		//計算を始める。
 		}
 		break;
-	case GAScenes::en_FirstGeneric:
-		//初期遺伝子をたくさん作成。
-		FirstGenesCreate();
-
-		m_currentCalcSize = m_currentGenetics.size();
-
-		////評価値を計算する。
-		//CalcWinRate();
-		////評価値でソート。
-		//SortGenes();
-		//wchar_t generationText[64];
-		//swprintf(generationText, L"第%3d世代", m_currentGenerationNum);
-		//m_fontGeneration->SetText(generationText);
-
-		//wchar_t winRateText[64];
-		//swprintf(winRateText, L"最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate, m_aveWinRate);
-		//m_fontWinRate->SetText(winRateText);
-
-		m_sceneState = en_Calc;
-		break;
-	case GAScenes::en_GA:
+	case GAScenes::en_GA:		//世代を進める。
 		if (m_currentGenerationNum < MAX_GENERATION)
 		{
 			GeneSelection();	//淘汰。
 			GenesCrossover();	//交叉。
 			Mutation();			//突然変異。
-
-			m_currentCalcSize = m_currentGenetics.size();
+			m_currentCalcSize = m_currentGenetics.size();	//現在の遺伝子数を記録。
 
 			//CalcWinRate();		//評価。クソ遅い。
 			//SortGenes();		//ソート。
 
-			//wchar_t generationText[64];
-			//swprintf(generationText, L"第%3d世代", m_currentGenerationNum);
-			//m_fontGeneration->SetText(generationText);
+			//テキスト変更。
+			m_ui->SetWinRate(m_currentGenerationNum, m_maxWinRate, m_aveWinRate);
 
-			//wchar_t winRateText[64];
-			//swprintf(winRateText, L"最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate,m_aveWinRate);
-			//m_fontWinRate->SetText(winRateText);
-			m_sceneState = en_Calc;
+			m_sceneState = en_Calc;		//評価計算に移る。
 		}
 		else
 		{
-			wchar_t generationText[64];
-			swprintf(generationText, L"終了しました。\nAボタンでタイトルに戻ります。");
-			m_fontGeneration->SetText(generationText);
-			m_sceneState = en_End;
+			//テキスト変更。
+			m_ui->EndWinRate(m_maxWinRate, m_aveWinRate);
+
+			m_sceneState = en_End;		//GAが終わった。
 		}
 		break;
-	case GAScenes::en_Calc:
-		if (m_currentCalc < m_currentCalcSize)
+	case GAScenes::en_Calc:		//計算を毎フレーム行う。
+		if (m_currentCalc < m_currentCalcSize)		//計算途中か？
 		{
-			CalcWinRate();
+			CalcWinRate();	//計算を毎フレーム行ってもらう。
 		}
 		else
 		{
-			SortGenes();
-			wchar_t generationText[64];
-			swprintf(generationText, L"第%3d世代", m_currentGenerationNum);
-			m_fontGeneration->SetText(generationText);
-
-			wchar_t winRateText[64];
-			swprintf(winRateText, L"最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate, m_aveWinRate);
-			m_fontWinRate->SetText(winRateText);
+			SortGenes();		//評価値でソート。
 
 			m_currentCalc = 0;
-			m_sceneState = en_GA;
+			m_sceneState = en_GA;		//遺伝子を変更する。
 		}
-
 		break;
-	case GAScenes::en_End:
+	case GAScenes::en_End:		//終了。Aボタン待ち。
 		if (g_pad[0].IsTrigger(enButtonA))
 		{
 			m_sceneState = en_FadeOut;
 			m_fade->StartFadeOut();
 		}
 		break;
-	case GAScenes::en_FadeOut:
+	case GAScenes::en_FadeOut:	
 		if (!m_fade->IsFade())	//フェードアウトが終わった。
 		{
+			//フェードアウト後タイトルへ。
 			DeleteGO(this);
 			NewGO<TitleScene>(0, nullptr);
 		}
@@ -258,7 +209,8 @@ void GAScenes::CalcWinRate()
 	//	m_currentGenetics[i].winRate  = m_evaluationCalc->Calculation(m_currentGenetics[i].genetic);
 	//}
 
-	//遺伝子毎の勝率計算。
+	//遺伝子毎の勝率計算。これ一回で50ミリ秒くらい最低でもかかってない？
+	//1フレーム１回で多少マシになるかなぁくらい。
 	m_currentGenetics[m_currentCalc].winRate  = m_evaluationCalc->Calculation(m_currentGenetics[m_currentCalc].genetic);
 	
 	m_currentCalc++;
@@ -394,27 +346,6 @@ void GAScenes::GeneMutation(AITable & _table)
 		}
 
 	}
-
-	////要素ごと判定メンドイ。
-	//float pRate = MUTATION_RATE * AISize;
-
-	////1を超えているなら確定でどこかを変動。
-	//while (pRate > 1.0f)
-	//{
-	//	int point = g_random.GetRandomInt() % AISize;
-	//	float changeRange = 0.01f * (g_random.GetRandomInt() % 5 - 2);		//変動させる値を決める。
-	//	_table[point].rate += changeRange;
-
-	//	pRate -= 1.0f;
-	//}
-	////確率での変動。
-	//if (pRate > (g_random.GetRandomInt() % 100) / 100)
-	//{
-	//	int point = g_random.GetRandomInt() % AISize;
-	//	float changeRange = 0.01f * (g_random.GetRandomInt() % 5 - 2);		//変動させる値を決める。
-	//	_table[point].rate += changeRange;
-	//}
-
 }
 
 

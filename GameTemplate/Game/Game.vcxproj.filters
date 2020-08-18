@@ -299,6 +299,7 @@
     <ClCompile Include="gameScenes\GAScenes\EvaluationCalculator.cpp">
       <Filter>gameScenes\GAScenes</Filter>
     </ClCompile>
+    <ClCompile Include="gameScenes\GAScenes\GASceneUI.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="math\Vector.h">
@@ -534,6 +535,7 @@
     <ClInclude Include="gameScenes\GAScenes\EvaluationCalculator.h">
       <Filter>gameScenes\GAScenes</Filter>
     </ClInclude>
+    <ClInclude Include="gameScenes\GAScenes\GASceneUI.h" />
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\testModel.fbx">

@@ -1,6 +1,10 @@
 #pragma once
 #include "monster/MonsterData.h"
 
+class EvaluationCalculator;
+class Fade;
+class GASceneUI;
+
 namespace GA {
 	enum Job
 	{
@@ -19,9 +23,6 @@ namespace GA {
 	};
 	typedef std::vector<Genetic> GeneticsList;//AI情報テーブルで構成される遺伝子情報。さすがにこれは深すぎるかなぁ？
 }
-
-class EvaluationCalculator;
-class Fade;
 
 class GAScenes:public IGameObject
 {
@@ -76,10 +77,8 @@ private:		//定数。
 	};
 
 private:		//メンバ変数。
-	prefab::SpriteRender* m_sprite = nullptr;			//背景画像。
-	prefab::FontRender* m_fontGeneration = nullptr;		//フォント
-	prefab::FontRender* m_fontWinRate = nullptr;		//フォント
 	Fade* m_fade = nullptr;		//フェードクラス。
+	GASceneUI* m_ui = nullptr;	//UI管理クラス。
 	Scene m_sceneState = en_FadeIn;
 
 	EvaluationCalculator* m_evaluationCalc = nullptr;

@@ -101,6 +101,7 @@
   <ItemGroup>
     <ClCompile Include="gameScenes\GAScenes\EvaluationCalculator.cpp" />
     <ClCompile Include="gameScenes\BattleScenes\AIResouce.cpp" />
+    <ClCompile Include="gameScenes\GAScenes\GASceneUI.cpp" />
     <ClCompile Include="monster\parameter\AISimpleManager.cpp" />
     <ClCompile Include="monster\parameter\AIBase.cpp" />
     <ClCompile Include="CRandom.cpp" />
@@ -197,6 +198,7 @@
   <ItemGroup>
     <ClInclude Include="gameScenes\GAScenes\EvaluationCalculator.h" />
     <ClInclude Include="gameScenes\BattleScenes\AIResouce.h" />
+    <ClInclude Include="gameScenes\GAScenes\GASceneUI.h" />
     <ClInclude Include="monster\parameter\AISimpleManager.h" />
     <ClInclude Include="monster\parameter\AIBase.h" />
     <ClInclude Include="CRandom.h" />
