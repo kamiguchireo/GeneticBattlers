@@ -70,6 +70,7 @@ private:		//定数。
 		en_FadeIn,
 		en_FirstGeneric,
 		en_GA,
+		en_Calc,
 		en_End,
 		en_FadeOut
 	};
@@ -88,7 +89,9 @@ private:		//メンバ変数。
 	GA::GeneticsList m_eliteGenetics;		//エリート遺伝子のリスト。
 	int m_geneSize = 0;		//遺伝子のサイズ。
 	int m_currentGenerationNum = 0;		//世代数。
-	int m_maxWinRate = 0;		//最高遺伝子の勝率。
-	float m_aveWinRate = 0.0f;
+	int m_maxWinRate = 0;		//最高遺伝子の勝率(%)。
+	float m_aveWinRate = 0.0f;	//現行世代の平均勝率(%)。
+	int m_currentCalc = 0;		//現在評価中の遺伝子。
+	int m_currentCalcSize = 0;	//現在評価中の世代のサイズ。
 };
 

@@ -96,19 +96,22 @@ void GAScenes::Update()
 	case GAScenes::en_FirstGeneric:
 		//初期遺伝子をたくさん作成。
 		FirstGenesCreate();
-		//評価値を計算する。
-		CalcWinRate();
-		//評価値でソート。
-		SortGenes();
-		wchar_t generationText[64];
-		swprintf(generationText, L"第%3d世代", m_currentGenerationNum);
-		m_fontGeneration->SetText(generationText);
 
-		wchar_t winRateText[64];
-		swprintf(winRateText, L"最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate, m_aveWinRate);
-		m_fontWinRate->SetText(winRateText);
+		m_currentCalcSize = m_currentGenetics.size();
 
-		m_sceneState = en_GA;
+		////評価値を計算する。
+		//CalcWinRate();
+		////評価値でソート。
+		//SortGenes();
+		//wchar_t generationText[64];
+		//swprintf(generationText, L"第%3d世代", m_currentGenerationNum);
+		//m_fontGeneration->SetText(generationText);
+
+		//wchar_t winRateText[64];
+		//swprintf(winRateText, L"最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate, m_aveWinRate);
+		//m_fontWinRate->SetText(winRateText);
+
+		m_sceneState = en_Calc;
 		break;
 	case GAScenes::en_GA:
 		if (m_currentGenerationNum < MAX_GENERATION)
@@ -116,15 +119,20 @@ void GAScenes::Update()
 			GeneSelection();	//淘汰。
 			GenesCrossover();	//交叉。
 			Mutation();			//突然変異。
-			CalcWinRate();		//評価。クソ遅い。
-			SortGenes();		//ソート。
-			wchar_t generationText[64];
-			swprintf(generationText, L"第%3d世代", m_currentGenerationNum);
-			m_fontGeneration->SetText(generationText);
 
-			wchar_t winRateText[64];
-			swprintf(winRateText, L"最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate,m_aveWinRate);
-			m_fontWinRate->SetText(winRateText);
+			m_currentCalcSize = m_currentGenetics.size();
+
+			//CalcWinRate();		//評価。クソ遅い。
+			//SortGenes();		//ソート。
+
+			//wchar_t generationText[64];
+			//swprintf(generationText, L"第%3d世代", m_currentGenerationNum);
+			//m_fontGeneration->SetText(generationText);
+
+			//wchar_t winRateText[64];
+			//swprintf(winRateText, L"最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate,m_aveWinRate);
+			//m_fontWinRate->SetText(winRateText);
+			m_sceneState = en_Calc;
 		}
 		else
 		{
@@ -133,6 +141,27 @@ void GAScenes::Update()
 			m_fontGeneration->SetText(generationText);
 			m_sceneState = en_End;
 		}
+		break;
+	case GAScenes::en_Calc:
+		if (m_currentCalc < m_currentCalcSize)
+		{
+			CalcWinRate();
+		}
+		else
+		{
+			SortGenes();
+			wchar_t generationText[64];
+			swprintf(generationText, L"第%3d世代", m_currentGenerationNum);
+			m_fontGeneration->SetText(generationText);
+
+			wchar_t winRateText[64];
+			swprintf(winRateText, L"最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate, m_aveWinRate);
+			m_fontWinRate->SetText(winRateText);
+
+			m_currentCalc = 0;
+			m_sceneState = en_GA;
+		}
+
 		break;
 	case GAScenes::en_End:
 		if (g_pad[0].IsTrigger(enButtonA))
@@ -220,14 +249,19 @@ void GAScenes::FirstGenesCreate()
 
 void GAScenes::CalcWinRate()
 {
-	//遺伝子の数。
-	int genesSize = m_currentGenetics.size();
+	////遺伝子の数。
+	//int genesSize = m_currentGenetics.size();
+
+	////遺伝子毎の勝率計算。
+	//for (int i = 0; i < genesSize; i++)
+	//{
+	//	m_currentGenetics[i].winRate  = m_evaluationCalc->Calculation(m_currentGenetics[i].genetic);
+	//}
 
 	//遺伝子毎の勝率計算。
-	for (int i = 0; i < genesSize; i++)
-	{
-		m_currentGenetics[i].winRate  = m_evaluationCalc->Calculation(m_currentGenetics[i].genetic);
-	}
+	m_currentGenetics[m_currentCalc].winRate  = m_evaluationCalc->Calculation(m_currentGenetics[m_currentCalc].genetic);
+	
+	m_currentCalc++;
 }
 
 void GAScenes::SortGenes()
