@@ -33,6 +33,7 @@ BattleScenes::~BattleScenes()
 	DeleteGO(m_resultSprite);
 	auto sLog = SkillLog::GetInstance();
 	DeleteGO(sLog);
+	DeleteGO(m_bgm);
 }
 
 bool BattleScenes::Start()
