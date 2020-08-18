@@ -27,7 +27,7 @@ public:
 	/// </summary>
 	/// <param name="table">1つの遺伝子</param>
 	/// <returns>勝率(%)</returns>
-	int Calculation(AITableList& table);
+	int Calculation(GA::AITableList& table);
 
 private:
 	bool Battle();
@@ -52,8 +52,8 @@ private:
 
 	//MonsterList m_members;
 	//MonsterList m_enemys;
-	MonsterData m_members[en_JobNum];
-	MonsterData m_enemys[en_JobNum];
+	MonsterData m_members[GA::en_JobNum];
+	MonsterData m_enemys[GA::en_JobNum];
 
 	MonsterInfo monsterACT;			//現在行動中モンスターの情報。
 	MonsterList m_targetList;

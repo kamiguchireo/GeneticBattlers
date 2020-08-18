@@ -3,6 +3,8 @@
 #include "Skill/SkillCalculator.h"
 #include "Skill/SkillDataLoad.h"
 
+using namespace GA;
+
 EvaluationCalculator::EvaluationCalculator()
 {
 	//味方のステータス設定。

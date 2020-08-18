@@ -8,6 +8,7 @@
 #include "monster/Supporter.h"
 #include "AIResouce.h"
 #include "../TitleScene.h"
+#include "../GAScenes/GAScenes.h"
 #include "../NetScenes/NetScenes.h"
 #include "Fade.h"
 #include "GameCamera.h"
@@ -273,6 +274,7 @@ void BattleScenes::Update()
 		{
 			//フェードが終わるとタイトルに戻る。
 			NewGO<TitleScene>(0, nullptr);
+			//NewGO<GAScenes>(0, nullptr);
 			DeleteGO(this);
 		}
 		break;
