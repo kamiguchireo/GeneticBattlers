@@ -22,6 +22,8 @@ public:
 	EvaluationCalculator();
 	~EvaluationCalculator();
 
+	void SetEnemyAI(GA::AITable& ai, GA::Job job);
+
 	/// <summary>
 	/// 勝率を計算する。
 	/// </summary>
@@ -48,7 +50,7 @@ private:
 	bool MonsterStateUpdate(bool& isWin);
 
 
-	const int LOOP_NUMBER = 100;	//勝率測定の戦闘回数。
+	const int LOOP_NUMBER = 50;	//勝率測定の戦闘回数。
 
 	//MonsterList m_members;
 	//MonsterList m_enemys;

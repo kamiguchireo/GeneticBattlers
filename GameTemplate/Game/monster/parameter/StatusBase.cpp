@@ -6,7 +6,7 @@ namespace JOB_Status
 	const Status ATTAKER =
 	{
 		130,		//HP
-		30,			//ATK
+		50,			//ATK
 		10,			//DEF
 		5,			//MAT
 		10,			//MDF

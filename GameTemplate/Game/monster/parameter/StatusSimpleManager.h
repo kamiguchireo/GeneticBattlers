@@ -21,6 +21,7 @@ public:
 	void ResetStatus()
 	{
 		m_status = m_statusBase;
+		m_IsDeath = false;
 	}
 
 private:

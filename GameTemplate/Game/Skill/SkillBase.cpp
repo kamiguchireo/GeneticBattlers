@@ -16,7 +16,7 @@ SkillBase::~SkillBase()
 		//待機状態のアニメーションの再生。
 		m_user->AnimationIdle();
 	}
-	if (m_sound!=nullptr)
+	if (m_sound!=nullptr&&!m_sound->IsPlaying())
 	{
 		DeleteGO(m_sound);
 	}

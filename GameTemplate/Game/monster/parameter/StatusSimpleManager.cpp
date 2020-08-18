@@ -11,7 +11,7 @@ StatusSimpleManager::~StatusSimpleManager()
 
 bool StatusSimpleManager::AddATB()
 {
-	const float addTime = 1.0f / 30.0f;
+	const float addTime = 1.0f;
 	//Ž€–SŽž‚Íˆ—‚ð’†’f‚·‚éB
 	if (m_stateAI == en_state_Death) return false;
 	//ƒoƒt‚ÌŒø‰ÊŽžŠÔŒ¸­B
@@ -35,6 +35,7 @@ bool StatusSimpleManager::AddATB()
 	}
 
 	if (m_activeTime > m_coolTime) {
+		m_activeTime -= m_coolTime;
 		return true;
 	}
 	return false;

@@ -27,6 +27,10 @@ GAScenes::GAScenes()
 		DeleteGO(aiResouce);
 	}
 	m_evaluationCalc = NewGO<EvaluationCalculator>(0);
+	//敵のAIを設定しておく。
+	m_evaluationCalc->SetEnemyAI(m_enemyAI[en_Attacker], en_Attacker);
+	m_evaluationCalc->SetEnemyAI(m_enemyAI[en_Healer], en_Healer);
+	m_evaluationCalc->SetEnemyAI(m_enemyAI[en_Supporter], en_Supporter);
 }
 
 GAScenes::~GAScenes()
@@ -68,7 +72,7 @@ bool GAScenes::Start()
 	m_fontWinRate->SetPivot({ 0.5f,0.5f });
 	m_fontWinRate->SetPosition({ 0.0f,-200.0f });
 	wchar_t generationText[64];
-	swprintf(generationText, L"代%3d世代", m_currentGenerationNum);
+	swprintf(generationText, L"第%3d世代", m_currentGenerationNum);
 	m_fontGeneration->SetText(generationText);
 
 	wchar_t winRateText[64];
@@ -98,10 +102,10 @@ void GAScenes::Update()
 			GeneSelection();	//淘汰。
 			GenesCrossover();	//交叉。
 			//突然変異。
-			CalcWinRate();		//評価。
+			CalcWinRate();		//評価。クソ遅い。
 			SortGenes();		//ソート。
 			wchar_t generationText[64];
-			swprintf(generationText, L"代%3d世代", m_currentGenerationNum);
+			swprintf(generationText, L"第%3d世代", m_currentGenerationNum);
 			m_fontGeneration->SetText(generationText);
 
 			wchar_t winRateText[64];
@@ -255,7 +259,7 @@ void GAScenes::GenesCrossover()
 		{
 			GeneSwap(
 				crossGenes1[i].genetic[j],						//i番目の遺伝子
-				crossGenes2[i + 1 % crossSize].genetic[j]		//i+1番目の遺伝子
+				crossGenes2[(i + 1) % crossSize].genetic[j]		//i+1番目の遺伝子
 			);
 		}
 	}
@@ -284,9 +288,10 @@ void GAScenes::GeneSwap(AITable & _t1, AITable & _t2)
 	//サイズが違う。
 	if (_t1.size() != _t2.size()) return;
 	////配列のサイズ。
-	//int maxSize = _t1.size();
+	int maxSize = _t1.size();
 	//交叉する場所を決める。
-	int pMax = g_random.GetRandomInt() % _t1.size();
+	int pMax = g_random.GetRandomInt() % maxSize;
+	pMax = min(pMax + 5, (maxSize-1));	//ある程度数値を持たせておく。0割り回避も含む。
 	int pMin = g_random.GetRandomInt() % pMax;
 	//交叉。
 	for (int i = pMin; i <= pMax; i++)

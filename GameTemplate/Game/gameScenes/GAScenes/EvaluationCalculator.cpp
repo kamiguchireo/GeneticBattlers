@@ -34,6 +34,11 @@ EvaluationCalculator::~EvaluationCalculator()
 	DeleteGO(m_skillData);
 }
 
+void EvaluationCalculator::SetEnemyAI(GA::AITable & ai, GA::Job job)
+{
+	m_enemys[job].GetAIManager().SetAIData(ai);
+}
+
 int EvaluationCalculator::Calculation(AITableList & table)
 {
 	//AIをセット。
@@ -61,7 +66,7 @@ int EvaluationCalculator::Calculation(AITableList & table)
 		}
 	}
 
-	return winCount;
+	return static_cast<int>(static_cast<float>(winCount) / LOOP_NUMBER * 100);
 }
 
 bool EvaluationCalculator::Battle()

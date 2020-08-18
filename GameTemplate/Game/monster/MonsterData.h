@@ -6,7 +6,7 @@
 /// GA用のモンスターデータ管理クラス
 /// </summary>
 
-class MonsterData : public IGameObject
+class MonsterData
 {
 public:
 	MonsterData();
