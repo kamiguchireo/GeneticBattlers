@@ -40,6 +40,7 @@ GAScenes::~GAScenes()
 	}
 	DeleteGO(m_sprite);
 	DeleteGO(m_fontGeneration);
+	DeleteGO(m_fontWinRate);
 }
 
 bool GAScenes::Start()
@@ -124,6 +125,9 @@ void GAScenes::Update()
 		}
 		else
 		{
+			wchar_t generationText[64];
+			swprintf(generationText, L"終了しました。\nAボタンでタイトルに戻ります。");
+			m_fontGeneration->SetText(generationText);
 			m_sceneState = en_End;
 		}
 		break;
