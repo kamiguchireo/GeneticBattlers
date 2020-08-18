@@ -7,9 +7,8 @@
 
 using namespace GA;
 
-const int GAScenes::END_GENERATION = 100;	//何世代まで続けるか。
-const float GAScenes::RATE_CHANGE = 0.01f;	//初期遺伝子生成のための確率変動率。
-const int GAScenes::CHANGE_NUM = 5;	//確率変動で作る数。
+const float GAScenes::RATE_CHANGE = 0.03f;	//初期遺伝子生成のための確率変動率。
+const int GAScenes::CHANGE_NUM = 2;	//確率変動で作る数。
 
 GAScenes::GAScenes()
 {
@@ -51,12 +50,6 @@ bool GAScenes::Start()
 	{
 		m_geneSize += static_cast<int>(ai.size());
 	}
-	//初期遺伝子をたくさん作成。
-	FirstGenesCreate();
-	//評価値を計算する。
-	CalcWinRate();
-	//評価値でソート。
-	SortGenes();
 	//背景画像。
 	m_sprite = NewGO<prefab::SpriteRender>(0);
 	m_sprite->Init(
@@ -93,15 +86,32 @@ void GAScenes::Update()
 	case GAScenes::en_FadeIn:
 		if (!m_fade->IsFade())
 		{
-			m_sceneState = en_GA;
+			m_sceneState = en_FirstGeneric;
 		}
+		break;
+	case GAScenes::en_FirstGeneric:
+		//初期遺伝子をたくさん作成。
+		FirstGenesCreate();
+		//評価値を計算する。
+		CalcWinRate();
+		//評価値でソート。
+		SortGenes();
+		wchar_t generationText[64];
+		swprintf(generationText, L"第%3d世代", m_currentGenerationNum);
+		m_fontGeneration->SetText(generationText);
+
+		wchar_t winRateText[64];
+		swprintf(winRateText, L"最高勝率%3d%", m_maxWinRate);
+		m_fontWinRate->SetText(winRateText);
+
+		m_sceneState = en_GA;
 		break;
 	case GAScenes::en_GA:
 		if (m_currentGenerationNum <= MAX_GENERATION)
 		{
 			GeneSelection();	//淘汰。
 			GenesCrossover();	//交叉。
-			//突然変異。
+			Mutation();			//突然変異。
 			CalcWinRate();		//評価。クソ遅い。
 			SortGenes();		//ソート。
 			wchar_t generationText[64];
@@ -215,9 +225,17 @@ void GAScenes::CalcWinRate()
 
 void GAScenes::SortGenes()
 {
+	//エリートも現行世代に含める。
+	for (auto&elite : m_eliteGenetics)
+	{
+		m_currentGenetics.push_back(elite);
+	}
+	//エリートをクリア
+	m_eliteGenetics.clear();
+
 	//現行遺伝子のソートを行う。
 	std::sort(m_currentGenetics.begin(), m_currentGenetics.end(),
-		[](const Genetic& a, const Genetic& b) {return a.winRate < b.winRate; });
+		[](const Genetic& a, const Genetic& b) {return a.winRate > b.winRate; });
 
 	//一番優秀な遺伝子の勝率を記録。
 	m_maxWinRate = (*m_currentGenetics.begin()).winRate;
@@ -265,10 +283,6 @@ void GAScenes::GenesCrossover()
 	}
 
 	//現行世代に記録していく。評価値は0に戻しておく。
-	for (auto&elite : m_eliteGenetics)
-	{
-		m_currentGenetics.push_back({ elite.genetic,0 });
-	}
 	for (auto&cross1 : crossGenes1)
 	{
 		m_currentGenetics.push_back({ cross1.genetic,0 });
@@ -278,7 +292,6 @@ void GAScenes::GenesCrossover()
 		m_currentGenetics.push_back({ cross2.genetic,0 });
 	}
 	//データをクリア。
-	m_eliteGenetics.clear();
 	crossGenes1.clear();
 	crossGenes2.clear();
 }
@@ -299,6 +312,59 @@ void GAScenes::GeneSwap(AITable & _t1, AITable & _t2)
 		//確率を交換。
 		std::swap(_t1[i].rate, _t2[i].rate);
 	}
+
+}
+
+void GAScenes::Mutation()
+{
+	//突然変異を行っていく。
+	for (auto& gene : m_currentGenetics)
+	{
+		for (int i = 0; i < en_JobNum; i++)		//ロール毎に行う。
+		{
+			GeneMutation(gene.genetic[i]);
+		}
+	}
+}
+
+void GAScenes::GeneMutation(AITable & _table)
+{
+	//配列の大きさ。
+	int AISize = _table.size();
+
+	for (auto& ai : _table)
+	{	
+		//確率での変動。
+		if (MUTATION_RATE > (static_cast<float>((g_random.GetRandomInt() % 100)) / 100))
+		{
+			int changeRange = static_cast<int>(g_random.GetRandomInt()) % 5 - 2;
+			float changeRate = 0.05f * static_cast<float>(changeRange);		//変動させる値を決める。
+			ai.rate += changeRate;
+
+			ai.rate = max(0.0f, ai.rate);		//0より低くはならない。
+		}
+
+	}
+
+	////要素ごと判定メンドイ。
+	//float pRate = MUTATION_RATE * AISize;
+
+	////1を超えているなら確定でどこかを変動。
+	//while (pRate > 1.0f)
+	//{
+	//	int point = g_random.GetRandomInt() % AISize;
+	//	float changeRange = 0.01f * (g_random.GetRandomInt() % 5 - 2);		//変動させる値を決める。
+	//	_table[point].rate += changeRange;
+
+	//	pRate -= 1.0f;
+	//}
+	////確率での変動。
+	//if (pRate > (g_random.GetRandomInt() % 100) / 100)
+	//{
+	//	int point = g_random.GetRandomInt() % AISize;
+	//	float changeRange = 0.01f * (g_random.GetRandomInt() % 5 - 2);		//変動させる値を決める。
+	//	_table[point].rate += changeRange;
+	//}
 
 }
 

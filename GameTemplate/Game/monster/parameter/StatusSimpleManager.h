@@ -21,6 +21,8 @@ public:
 	void ResetStatus()
 	{
 		m_status = m_statusBase;
+		m_activeTime = 0.0f;
+		m_coolTime = 30.0f;
 		m_IsDeath = false;
 	}
 

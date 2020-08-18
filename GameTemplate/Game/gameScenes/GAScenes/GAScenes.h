@@ -43,10 +43,12 @@ private:
 	void GeneSelection(); 
 	//交叉の処理。
 	void GenesCrossover();
-	//交叉の処理。
+	//確率を交叉させる。。
 	void GeneSwap(GA::AITable& _t1, GA::AITable& _t2);
 	//突然変異の処理。
 	void Mutation();
+	//AIの確率を変動させる
+	void GeneMutation(GA::AITable & _table);
 
 	/// <summary>
 	/// １．勝率の測定処理。つまりは戦闘処理を行うクラスが必要なのでは...
@@ -58,14 +60,15 @@ private:
 
 
 private:		//定数。
-	static const int END_GENERATION;	//何世代まで続けるか。
 	static const float RATE_CHANGE;		//初期遺伝子生成時の確率変動幅
 	static const int CHANGE_NUM;		//確率変動で作る数。
-	const int SELECT_ELETE = 30;		//選択するエリートの数。
-	const int MAX_GENERATION = 100;
+	const int SELECT_ELETE = 20;		//選択するエリートの数。
+	const int MAX_GENERATION = 100;		//繰り返す世代数。
+	const float MUTATION_RATE = 0.05;	//突然変異の確率。
 
 	enum Scene {
 		en_FadeIn,
+		en_FirstGeneric,
 		en_GA,
 		en_End,
 		en_FadeOut

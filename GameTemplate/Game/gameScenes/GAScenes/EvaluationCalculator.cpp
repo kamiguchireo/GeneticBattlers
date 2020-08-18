@@ -169,12 +169,32 @@ void EvaluationCalculator::Action()
 
 void EvaluationCalculator::DisideSkill(int& skill,int& target)
 {
-	bool ActionFlag = true;
+	bool ActionFlag = false;
 
+	//行動の決定。
+	monsterACT.actionMonster->GetAIManager().ActionDicide(skill, target);
+	//ターゲットの死亡確認。
+	if (monsterACT.IsEnemy) {		//敵の行動選択。
+		if (m_skillData->IsAttackSkill(skill)) {
+			ActionFlag = m_members[target].GetStatusManager()->IsDeath();
+		}
+		else {
+			ActionFlag = m_enemys[target].GetStatusManager()->IsDeath();
+		}
+	}
+	else {							//味方の行動選択。
+		if (m_skillData->IsAttackSkill(skill)) {
+			ActionFlag = m_enemys[target].GetStatusManager()->IsDeath();
+		}
+		else {
+			ActionFlag = m_members[target].GetStatusManager()->IsDeath();
+		}
+	}
+	//ターゲットが死亡しているなら。
 	while (ActionFlag)
 	{
-		//行動の決定。
-		monsterACT.actionMonster->GetAIManager().ActionDicide(skill, target);
+		//ランダムでターゲットを変更する。
+		target = g_random.GetRandomInt() % en_JobNum;
 		//ターゲットの死亡確認。
 		if (monsterACT.IsEnemy) {		//敵の行動選択。
 			if (m_skillData->IsAttackSkill(skill)) {
