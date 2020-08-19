@@ -14,12 +14,12 @@ const int GAScenes::CHANGE_NUM = 2;	//初期確率変動で作る数。
 GAScenes::GAScenes()
 {
 	//データ読み込み。
-	LoadAIData("Assets/AIData/Attacker.bin", m_myAI[en_Attacker]);
-	LoadAIData("Assets/AIData/Healer.bin", m_myAI[en_Healer]);
-	LoadAIData("Assets/AIData/Supporter.bin", m_myAI[en_Supporter]);
-	//LoadAIData("Assets/AIData/DefaultData/AttackerDefault.bin", m_myAI[en_Attacker]);
-	//LoadAIData("Assets/AIData/DefaultData/HealerDefault.bin", m_myAI[en_Healer]);
-	//LoadAIData("Assets/AIData/DefaultData/SupporterDefault.bin", m_myAI[en_Supporter]);
+	//LoadAIData("Assets/AIData/Attacker.bin", m_myAI[en_Attacker]);
+	//LoadAIData("Assets/AIData/Healer.bin", m_myAI[en_Healer]);
+	//LoadAIData("Assets/AIData/Supporter.bin", m_myAI[en_Supporter]);
+	LoadAIData("Assets/AIData/DefaultData/AttackerDefault.bin", m_myAI[en_Attacker]);
+	LoadAIData("Assets/AIData/DefaultData/HealerDefault.bin", m_myAI[en_Healer]);
+	LoadAIData("Assets/AIData/DefaultData/SupporterDefault.bin", m_myAI[en_Supporter]);
 
 	auto aiResouce = AIResouce::GetInstance();
 	if (aiResouce != nullptr)

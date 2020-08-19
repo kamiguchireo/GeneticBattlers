@@ -1,6 +1,7 @@
 #pragma once
 class GASceneUI : public IGameObject
 {
+	typedef std::list<prefab::SpriteRender*> LineList;
 public:
 	GASceneUI();
 	~GASceneUI();
@@ -26,20 +27,26 @@ public:
 	{
 		m_endGenerationNum = gene;
 	}
-
+private:	//メンバ関数。
+	//スプライト追加。
+	void AddGraphLine();
+	//ラインを描く。
+	void DrawLine(LineList& lineList);
 
 private:		//定数。
 	const float GRAPH_W = 640.0f;
 	const float GRAPH_H = 360.0f;
 	float m_wideRange = 0.0f;		//一世代ごとの横の間隔。
+	const float PIXEL_SIZE = 3.0f;
+	const CVector2 LINE_PIVOT = { 0.0f,0.5f };
 
 private:
 	prefab::SpriteRender* m_sprite = nullptr;			//背景画像。
 	prefab::SpriteRender* m_graph = nullptr;			//ゲージ
 	prefab::SpriteRender* m_maxWinLine = nullptr;			//最大勝率スプライト
 	prefab::SpriteRender* m_aveWinLine = nullptr;			//平均勝率スプライト
-	std::list<prefab::SpriteRender*> m_maxWinLineList;		//最大勝率折れ線グラフ
-	std::list<prefab::SpriteRender*> m_aveWinLineList;		//平均勝率折れ線グラフ
+	LineList m_maxWinLineList;		//最大勝率折れ線グラフ
+	LineList m_aveWinLineList;		//平均勝率折れ線グラフ
 	prefab::FontRender* m_fontGeneration = nullptr;		//フォント
 	prefab::FontRender* m_fontWinRate = nullptr;		//フォント
 

@@ -52,6 +52,16 @@ namespace Engine {
 			{
 				m_sprite.SetIsAlpha(i);
 			}
+
+			const CVector3& GetPosition()const
+			{
+				return m_position;
+			}
+			const CVector3& GetScale()const
+			{
+				return m_scale;
+			}
+
 			//•`‰æ
 			void PostRender()override final;
 		private:
