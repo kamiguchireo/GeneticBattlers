@@ -39,14 +39,15 @@ void EvaluationCalculator::SetEnemyAI(GA::AITable & ai, GA::Job job)
 	m_enemys[job].GetAIManager().SetAIData(ai);
 }
 
-int EvaluationCalculator::Calculation(AITableList & table)
+Evaluation EvaluationCalculator::Calculation(AITableList & table)
 {
 	//AIをセット。
 	m_members[en_Attacker].GetAIManager().SetAIData(table[en_Attacker]);
 	m_members[en_Healer].GetAIManager().SetAIData(table[en_Healer]);
 	m_members[en_Supporter].GetAIManager().SetAIData(table[en_Supporter]);
 
-	int winCount = 0;
+	int winCount = 0;		//勝利回数計測。
+	m_actionCount = 0;		//行動回数初期化。
 
 	for (int i = 0; i < LOOP_NUMBER; i++)
 	{
@@ -66,7 +67,11 @@ int EvaluationCalculator::Calculation(AITableList & table)
 		}
 	}
 
-	return static_cast<int>(static_cast<float>(winCount) / LOOP_NUMBER * 100);
+	Evaluation ret;
+	//勝率記録。
+	ret.winRate = static_cast<int>(static_cast<float>(winCount) / LOOP_NUMBER * 100);
+	ret.actionCount = m_actionCount;
+	return ret;
 }
 
 bool EvaluationCalculator::Battle()
@@ -112,10 +117,6 @@ void EvaluationCalculator::ActiveTime()
 
 void EvaluationCalculator::Action()
 {
-	if (m_skillData == nullptr)
-	{
-		m_skillData = SkillDataLoad::GetInstance();
-	}
 
 	monsterACT = m_actionList.front();
 
@@ -128,7 +129,10 @@ void EvaluationCalculator::Action()
 		return;
 	}
 
-	//SortTeams();
+	if (m_skillData == nullptr)
+	{
+		m_skillData = SkillDataLoad::GetInstance();
+	}
 
 	int skill, target;
 	//行動決定の処理。
@@ -161,7 +165,12 @@ void EvaluationCalculator::Action()
 			skill
 		);
 	}
-
+	//敵の行動カウント。
+	if (monsterACT.IsEnemy)
+	{
+		m_actionCount++;
+	}
+	//m_actionCount++;
 	//行動終了。
 	m_actionList.erase(m_actionList.begin());
 	monsterACT = { nullptr,false };		//初期化。

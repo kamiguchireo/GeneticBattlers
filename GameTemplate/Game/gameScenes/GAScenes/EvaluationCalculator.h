@@ -29,7 +29,7 @@ public:
 	/// </summary>
 	/// <param name="table">1Ç¬ÇÃà‚ì`éq</param>
 	/// <returns>èüó¶(%)</returns>
-	int Calculation(GA::AITableList& table);
+	GA::Evaluation Calculation(GA::AITableList& table);
 
 private:
 	bool Battle();
@@ -62,5 +62,6 @@ private:
 	std::vector<MonsterInfo> m_actionList;
 	SkillCalculator* m_skillCalc = nullptr;
 	SkillDataLoad* m_skillData = nullptr;
+	int m_actionCount = 0;
 };
 

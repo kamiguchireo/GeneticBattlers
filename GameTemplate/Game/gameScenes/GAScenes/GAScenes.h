@@ -16,10 +16,15 @@ namespace GA {
 
 	typedef std::vector<AIData> AITable;		//AI情報。
 	typedef std::vector<AITable> AITableList;	//AI情報テーブル。
+	struct Evaluation	//評価値構造体
+	{
+		int winRate = 0;			//勝率
+		int actionCount = 0;		//敵の行動回数。
+	};
 	struct Genetic
 	{
 		AITableList genetic;		//遺伝子となるAI情報テーブル。
-		int winRate = 0;			//評価値となる勝率(%)。
+		Evaluation result;			//評価値。
 	};
 	typedef std::vector<Genetic> GeneticsList;//AI情報テーブルで構成される遺伝子情報。さすがにこれは深すぎるかなぁ？
 }
@@ -34,6 +39,8 @@ public:
 private:
 	//データを読み込む。
 	void LoadAIData(const char* filePath, GA::AITable& ai);
+	//完成したAIデータを記録する。
+	void SaveAIData(const char* filePath, GA::AITable& ai);
 	//初期遺伝子を作成する。
 	void FirstGenesCreate();
 	//勝率を測定。

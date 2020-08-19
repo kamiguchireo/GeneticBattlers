@@ -157,6 +157,10 @@ void GAScenes::LoadAIData(const char * filePath, AITable & ai)
 	fclose(fp);
 }
 
+void GAScenes::SaveAIData(const char * filePath, GA::AITable & ai)
+{
+}
+
 void GAScenes::FirstGenesCreate()
 {
 	//初期AIをコピー
@@ -213,7 +217,7 @@ void GAScenes::CalcWinRate()
 
 	//遺伝子毎の勝率計算。これ一回で50ミリ秒くらい最低でもかかってない？
 	//1フレーム１回で多少マシになるかなぁくらい。
-	m_currentGenetics[m_currentCalc].winRate  = m_evaluationCalc->Calculation(m_currentGenetics[m_currentCalc].genetic);
+	m_currentGenetics[m_currentCalc].result  = m_evaluationCalc->Calculation(m_currentGenetics[m_currentCalc].genetic);
 	
 	m_currentCalc++;
 }
@@ -230,15 +234,26 @@ void GAScenes::SortGenes()
 
 	//現行遺伝子のソートを行う。
 	std::sort(m_currentGenetics.begin(), m_currentGenetics.end(),
-		[](const Genetic& a, const Genetic& b) {return a.winRate > b.winRate; });
+		[](const Genetic& a, const Genetic& b) {
+			if (a.result.winRate > b.result.winRate)
+			{
+				return true;
+			}
+			else if (a.result.winRate == b.result.winRate)
+			{
+				return a.result.actionCount < b.result.actionCount;
+			}
+			return false;
+		}
+	);
 
 	//一番優秀な遺伝子の勝率を記録。
-	m_maxWinRate = (*m_currentGenetics.begin()).winRate;
+	m_maxWinRate = (*m_currentGenetics.begin()).result.winRate;
 	//平均勝率でも。
 	float sum = 0.0f;
 	for (auto& gene : m_currentGenetics)
 	{
-		sum += gene.winRate;
+		sum += gene.result.winRate;
 	}
 	m_aveWinRate = sum / m_currentGenetics.size();
 
