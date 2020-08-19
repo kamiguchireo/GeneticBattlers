@@ -79,7 +79,7 @@ void GASceneUI::SetWinRate(int generation, int maxR, float aveR)
 	swprintf(winRateText, L"Œ»İ‚ÌŸ—¦\nÅ‚Ÿ—¦%3d“ : •½‹ÏŸ—¦%3.2f“", m_maxWinRate, m_aveWinRate);
 	m_fontWinRate->SetText(winRateText);
 	//ƒOƒ‰ƒt‚ğ’Ç‰Á‚·‚éB
-	//AddGraphLine();
+	AddGraphLine();
 }
 
 void GASceneUI::EndWinRate(int maxR, float aveR)
