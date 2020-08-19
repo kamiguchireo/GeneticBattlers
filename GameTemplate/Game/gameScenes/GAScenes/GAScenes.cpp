@@ -17,9 +17,6 @@ GAScenes::GAScenes()
 	LoadAIData("Assets/AIData/Attacker.bin", m_myAI[en_Attacker]);
 	LoadAIData("Assets/AIData/Healer.bin", m_myAI[en_Healer]);
 	LoadAIData("Assets/AIData/Supporter.bin", m_myAI[en_Supporter]);
-	//LoadAIData("Assets/AIData/DefaultData/AttackerDefault.bin", m_myAI[en_Attacker]);
-	//LoadAIData("Assets/AIData/DefaultData/HealerDefault.bin", m_myAI[en_Healer]);
-	//LoadAIData("Assets/AIData/DefaultData/SupporterDefault.bin", m_myAI[en_Supporter]);
 
 	auto aiResouce = AIResouce::GetInstance();
 	if (aiResouce != nullptr)
@@ -28,6 +25,10 @@ GAScenes::GAScenes()
 		m_enemyAI[en_Healer] = aiResouce->GetHealer();
 		m_enemyAI[en_Supporter] = aiResouce->GetSupporter();
 		DeleteGO(aiResouce);
+	}
+	else
+	{
+		m_isError = true;
 	}
 	m_evaluationCalc = NewGO<EvaluationCalculator>(0);
 	//敵のAIを設定しておく。
@@ -75,7 +76,14 @@ void GAScenes::Update()
 	case GAScenes::en_FadeIn:
 		if (!m_fade->IsFade())
 		{
-			m_sceneState = en_Calc;		//計算を始める。
+			//読み込み失敗。
+			if (m_isError) {
+				m_ui->SetErrorMasage();
+				m_sceneState = en_End;		//終了。
+			}
+			else {
+				m_sceneState = en_Calc;		//計算を始める。
+			}
 		}
 		break;
 	case GAScenes::en_GA:		//世代を進める。
@@ -118,6 +126,15 @@ void GAScenes::Update()
 	case GAScenes::en_End:		//終了。Aボタン待ち。
 		if (g_pad[0].IsTrigger(enButtonA))
 		{
+			//正常に終了できたら。
+			if (!m_isError)
+			{
+				//記録。
+				SaveAIData("Assets/AIData/Attacker.bin", m_currentGenetics.front().genetic[en_Attacker]);
+				SaveAIData("Assets/AIData/Healer.bin", m_currentGenetics.front().genetic[en_Healer]);
+				SaveAIData("Assets/AIData/Supporter.bin", m_currentGenetics.front().genetic[en_Supporter]);
+			}
+
 			m_sceneState = en_FadeOut;
 			m_fade->StartFadeOut();
 		}
@@ -145,6 +162,7 @@ void GAScenes::LoadAIData(const char * filePath, AITable & ai)
 		sprintf(message, "binデータの読み込みに失敗しました。%s\n", filePath);
 		OutputDebugStringA(message);
 #endif
+		m_isError = true;
 		return;
 	}
 
@@ -159,6 +177,26 @@ void GAScenes::LoadAIData(const char * filePath, AITable & ai)
 
 void GAScenes::SaveAIData(const char * filePath, GA::AITable & ai)
 {
+	FILE* fp = fopen(filePath, "wb");
+
+	if (fp == nullptr) {
+		return;
+	}
+
+	for (auto& data : ai)
+	{
+		AIData hoge = data;
+		fwrite(&hoge, sizeof(AIData), 1, fp);
+	}
+
+	////データを書き込んでいく。
+	//while (ai.size() != 0) {
+	//	AIData hoge = ai.front();
+	//	ai.erase(ai.begin());
+	//	fwrite(&hoge, sizeof(AIData), 1, fp);
+	//}
+
+	fclose(fp);
 }
 
 void GAScenes::FirstGenesCreate()

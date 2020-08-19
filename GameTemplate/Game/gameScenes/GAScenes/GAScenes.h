@@ -99,5 +99,6 @@ private:		//メンバ変数。
 	float m_aveWinRate = 0.0f;	//現行世代の平均勝率(%)。
 	int m_currentCalc = 0;		//現在評価中の遺伝子。
 	int m_currentCalcSize = 0;	//現在評価中の世代のサイズ。
+	bool m_isError = false;		//読み込みエラーが発生したらtrue。
 };
 

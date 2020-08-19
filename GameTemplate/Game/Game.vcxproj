@@ -296,15 +296,24 @@
     <ClInclude Include="SourceFile\Sound\WaveFile.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Assets\modelData\DesertDragon.FBX">
+    <MeshContentTask Include="Assets\modelData\Barghest.fbx">
       <FileType>Document</FileType>
-    </None>
-    <MeshContentTask Include="Assets\modelData\Barghest.fbx" />
-    <MeshContentTask Include="Assets\modelData\DesertDragon2.fbx" />
-    <MeshContentTask Include="Assets\modelData\EngineGround.FBX" />
-    <MeshContentTask Include="Assets\modelData\MountainDragon.fbx" />
-    <MeshContentTask Include="Assets\modelData\testGround.fbx" />
-    <MeshContentTask Include="Assets\modelData\testModel.fbx" />
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\DesertDragon2.fbx">
+      <FileType>Document</FileType>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\EngineGround.FBX">
+      <FileType>Document</FileType>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\MountainDragon.fbx">
+      <FileType>Document</FileType>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\testGround.fbx">
+      <FileType>Document</FileType>
+    </MeshContentTask>
+    <MeshContentTask Include="Assets\modelData\testModel.fbx">
+      <FileType>Document</FileType>
+    </MeshContentTask>
     <None Include="Assets\modelData\unityChan.fbx">
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
@@ -366,6 +375,11 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\AveWinRatePixel.png" />
     <ImageContentTask Include="Assets\sprite\MaxWinRatePixel.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\modelData\DesertDragon.FBX">
+      <FileType>Document</FileType>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -27,6 +27,8 @@ public:
 	{
 		m_endGenerationNum = gene;
 	}
+	//エラーが起きた。
+	void SetErrorMasage();
 private:	//メンバ関数。
 	//スプライト追加。
 	void AddGraphLine();
@@ -55,5 +57,7 @@ private:
 	int m_maxWinRate = 0;		//最高遺伝子の勝率(%)。
 	float m_aveWinRate = 0.0f;	//現行世代の平均勝率(%)。
 	float m_currentProgress = 0.0f;	//現行世代の評価計算率。
+
+	bool m_isError = false;
 };
 

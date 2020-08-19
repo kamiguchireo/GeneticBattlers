@@ -50,7 +50,7 @@ bool GASceneUI::Start()
 	m_fontGeneration->SetText(generationText);
 
 	wchar_t winRateText[64];
-	swprintf(winRateText, L"現在の勝率\n最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate, m_aveWinRate);
+	swprintf(winRateText, L"現在の勝率\n最高勝率%3d％ : 平均勝率%.2f％", m_maxWinRate, m_aveWinRate);
 	m_fontWinRate->SetText(winRateText);
 
 	//1世代ごとの横幅を記録。
@@ -66,6 +66,7 @@ void GASceneUI::Update()
 
 void GASceneUI::SetWinRate(int generation, int maxR, float aveR)
 {
+	if (m_isError)return;
 	//値をコピーしておく。
 	m_currentGenerationNum = generation;
 	m_maxWinRate = maxR;
@@ -76,7 +77,7 @@ void GASceneUI::SetWinRate(int generation, int maxR, float aveR)
 	m_fontGeneration->SetText(generationText);
 	//勝率表示。
 	wchar_t winRateText[64];
-	swprintf(winRateText, L"現在の勝率\n最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate, m_aveWinRate);
+	swprintf(winRateText, L"現在の勝率\n最高勝率%3d％ : 平均勝率%.2f％", m_maxWinRate, m_aveWinRate);
 	m_fontWinRate->SetText(winRateText);
 	//グラフを追加する。
 	AddGraphLine();
@@ -84,6 +85,7 @@ void GASceneUI::SetWinRate(int generation, int maxR, float aveR)
 
 void GASceneUI::EndWinRate(int maxR, float aveR)
 {
+	if (m_isError)return;
 	//値コピー。
 	m_maxWinRate = maxR;
 	m_aveWinRate = aveR;
@@ -93,12 +95,25 @@ void GASceneUI::EndWinRate(int maxR, float aveR)
 	m_fontGeneration->SetText(generationText);
 	//勝率表示。
 	wchar_t winRateText[64];
-	swprintf(winRateText, L"現在の勝率\n最高勝率%3d％ : 平均勝率%3.2f％", m_maxWinRate, m_aveWinRate);
+	swprintf(winRateText, L"現在の勝率\n最高勝率%3d％ : 平均勝率%.2f％", m_maxWinRate, m_aveWinRate);
 	m_fontWinRate->SetText(winRateText);
 	//現行世代加算。
 	m_currentGenerationNum++;
 	//グラフを追加する。
 	AddGraphLine();
+}
+
+void GASceneUI::SetErrorMasage()
+{
+	//終了表示。
+	wchar_t generationText[64];
+	swprintf(generationText, L"エラーが発生しました。\nAボタンで戻ります。");
+	m_fontGeneration->SetText(generationText);
+	//勝率表示。
+	wchar_t winRateText[64];
+	swprintf(winRateText, L"現在の勝率\n最高勝率%3d％ : 平均勝率%.2f％", m_maxWinRate, m_aveWinRate);
+	m_fontWinRate->SetText(winRateText);
+	m_isError = true;
 }
 
 void GASceneUI::AddGraphLine()
