@@ -360,6 +360,13 @@
   <ItemGroup>
     <ImageContentTask Include="Assets\sprite\GeneticBattlers.png" />
   </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\Graph.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageContentTask Include="Assets\sprite\AveWinRatePixel.png" />
+    <ImageContentTask Include="Assets\sprite\MaxWinRatePixel.png" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
     <Import Project="$(VCTargetsPath)\BuildCustomizations\ImageContentTask.targets" />

@@ -9,7 +9,7 @@
 using namespace GA;
 
 const float GAScenes::RATE_CHANGE = 0.03f;	//初期遺伝子生成のための確率変動率。
-const int GAScenes::CHANGE_NUM = 2;	//確率変動で作る数。
+const int GAScenes::CHANGE_NUM = 2;	//初期確率変動で作る数。
 
 GAScenes::GAScenes()
 {
@@ -34,7 +34,9 @@ GAScenes::GAScenes()
 	m_evaluationCalc->SetEnemyAI(m_enemyAI[en_Attacker], en_Attacker);
 	m_evaluationCalc->SetEnemyAI(m_enemyAI[en_Healer], en_Healer);
 	m_evaluationCalc->SetEnemyAI(m_enemyAI[en_Supporter], en_Supporter);
+	//UIを表示するクラス作成。
 	m_ui = NewGO<GASceneUI>(1);
+	m_ui->SetEndGeneration(MAX_GENERATION);
 }
 
 GAScenes::~GAScenes()
@@ -59,7 +61,7 @@ bool GAScenes::Start()
 	FirstGenesCreate();
 	m_currentCalcSize = m_currentGenetics.size();		//現在の遺伝子数を記録。
 
-	m_fade = Fade::GetInstance();
+	m_fade = Fade::GetInstance();		//フェードクラス取得。
 	m_fade->StartFadeIn();
 	m_sceneState = en_FadeIn;
 
