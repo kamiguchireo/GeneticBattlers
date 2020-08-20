@@ -26,14 +26,18 @@ void SkillAttack::Update()
 		}
 		else
 		{
-			//ダメージを与える。
-			int res = m_calculator.SkillCalculation(m_user->GetStatusManager(), m_target->GetStatusManager(), m_skillNo);
-			m_target->Damage(res);
+			int res = 0;
+			if (!m_isWide) {
+				//ダメージを与える。
+				res = m_calculator.SkillCalculation(m_user->GetStatusManager(), m_target->GetStatusManager(), m_skillNo);
+				m_target->Damage(res);
+			}
+			else {	//全体にかける。
+				res = WideAttack();
+			}
 
 			//効果値を記録。
 			m_user->SetDamageResult(res);
-			////クールタイムの設定。
-			//m_user->SetCoolTime(coolTime);
 
 			m_isPlay = false;
 			m_skillEffect = nullptr;
@@ -41,4 +45,22 @@ void SkillAttack::Update()
 			DeleteGO(this);
 		}
 	}
+}
+
+int SkillAttack::WideAttack()
+{
+	//チームメンバーを取得。
+	auto list = m_target->GetTeamMenber();
+
+	int res = 0;
+	for (int i = 0; i < list.size(); i++) {
+		int damage = m_calculator.SkillCalculation(m_user->GetStatusManager(), list[i]->GetStatusManager(), m_skillNo);
+		if (!m_target->IsDeath()) {
+			m_target->Damage(damage);		//死亡していないならダメージ演出。
+		}
+		res += damage;
+	}
+	res /= static_cast<int>(list.size());		//上昇値の平均をとる。
+
+	return res;
 }

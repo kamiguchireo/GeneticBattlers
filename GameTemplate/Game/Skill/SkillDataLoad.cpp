@@ -174,9 +174,10 @@ void SkillDataLoad::LoadData(const char * FilePath, EnSkillType skillType)
 		char skillName[64];
 		char nextNoBuffer[128];
 		int StatusType = 0;
-		sscanf(text, "%[^,],%f,%f,%f,%d,%d,%d,%s",
+		sscanf(text, "%[^,],%f,%d,%f,%f,%d,%d,%d,%s",
 			skillName,				//名前。
 			&loadData.Power,		//威力。
+			&loadData.useMP,			//消費MP
 			&loadData.CoolTime,		//クールタイム。
 			&loadData.HitRate,		//命中率。
 			&loadData.targetNum,	//攻撃対象数。

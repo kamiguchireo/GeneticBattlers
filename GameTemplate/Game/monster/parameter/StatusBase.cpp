@@ -6,6 +6,7 @@ namespace JOB_Status
 	const Status ATTAKER =
 	{
 		130,		//HP
+		20,			//MP
 		50,			//ATK
 		10,			//DEF
 		5,			//MAT
@@ -15,6 +16,7 @@ namespace JOB_Status
 	const Status HEALER =
 	{
 		130,		//HP
+		20,			//MP
 		5,			//ATK
 		10,			//DEF
 		30,			//MAT
@@ -24,6 +26,7 @@ namespace JOB_Status
 	const Status SUPPOTER =
 	{
 		130,		//HP
+		20,			//MP
 		5,			//ATK
 		15,			//DEF
 		20,			//MAT
@@ -60,6 +63,16 @@ int CStatusBase::Healing(int healing)
 	}
 
 	return res;
+}
+
+bool CStatusBase::UseMP(const int mp)
+{
+	if (m_status.MP >= mp)
+	{
+		m_status.MP -= mp;
+		return true;
+	}
+	return false;
 }
 
 int CStatusBase::Monster_Buff(StatusBuff status, float pow, float time)

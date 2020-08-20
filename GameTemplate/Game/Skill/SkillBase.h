@@ -91,14 +91,6 @@ public:
 	//スキルの設定
 	virtual void SkillSetting() = 0;
 
-	///// <summary>
-	///// ダメージ計算。
-	///// </summary>
-	///// <param name="attack">攻撃するキャラ。</param>
-	///// <param name="target">ターゲットのキャラ。</param>
-	///// <returns>ダメージ量。</returns>
-	//int DamageCalcuration();
-
 	//魔法かどうか。
 	virtual bool IsMagic() = 0;
 	//攻撃スキルかどうか。
@@ -111,21 +103,6 @@ protected:
 	{
 		swprintf_s(skillName, name);
 	}
-	////スキルの威力(倍率)を設定
-	//void SetSkillPower(float power)
-	//{
-	//	skillPower = power;
-	//}
-	////クールタイムを設定する。
-	//void SetCoolTime(float time)
-	//{
-	//	coolTime = time;
-	//}
-	////命中率を設定する。
-	//void SetAccuracy(float acc)
-	//{
-	//	accuracy = acc;
-	//}
 
 	//ステータス変化を設定する。
 	virtual void SetStatusChange(int status) {};
@@ -152,9 +129,6 @@ protected:
 
 	SkillCalculator m_calculator;
 	wchar_t skillName[30];
-	//float skillPower = 1.0f;
-	//float coolTime = 0.0f;	//クールタイム
-	//float accuracy = 1.0f;	//命中率
 	int m_skillNo = 0;
 	bool m_isWide = false;	//全体効果か？
 	bool m_isPlay = true;	//再生中か？

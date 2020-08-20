@@ -10,6 +10,7 @@ struct SkillData
 {
 	std::wstring Name;			//!<スキル名。
 	float Power = 0.0f;			//!<威力。
+	int	useMP = 0;				//!<消費MP。
 	float CoolTime = 0.0f;		//!<クールタイム。
 	float HitRate = 0.0f;		//!<命中率
 	int targetNum = 0;			//!<攻撃対象数。

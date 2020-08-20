@@ -16,5 +16,6 @@ public:
 		return true;
 	}
 private:
+	int WideAttack();
 };
 

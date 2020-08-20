@@ -7,8 +7,8 @@
 /// 魔法攻撃力はINTだとint型と間違えそうだからMATとした。
 /// </remarks>
 struct Status {
-	int HP = 0,
-		//MP		= 0,
+	int HP	= 0,
+		MP	= 0,
 		ATK = 0,
 		DEF = 0,
 		MAT = 0,
@@ -109,6 +109,12 @@ public:
 	/// <param name="healing">回復量。</param>
 	/// <returns>回復できた量。</returns>
 	int Healing(int healing);
+	/// <summary>
+	/// MPを使う
+	/// </summary>
+	/// <param name="mp">消費MP</param>
+	/// <returns>MPが足りているか。</returns>
+	bool UseMP(const int mp);
 
 	/// <summary>
 	/// バフをかける。

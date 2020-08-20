@@ -26,12 +26,22 @@ SkillBase::~SkillBase()
 
 bool SkillBase::Start()
 {
-	SkillSetting();
 
 	m_log = NewGO<SkillLog>(4,"sLog");
 	m_log->SetText(skillName);
-
-	m_isPlay = true;
+	if (!m_calculator.IsAvailableSkill(m_user->GetStatusManager(),m_skillNo))
+	{
+		//MPが足りていない
+		m_log->SetMPShortage(true);
+		DeleteGO(this);
+		m_isPlay = false;
+	}
+	else
+	{
+		//MPが足りている。
+		SkillSetting();
+		m_isPlay = true;
+	}
 
 	return true;
 }
@@ -48,9 +58,6 @@ void SkillBase::InitSkill(const wchar_t * name, float power, float time, float h
 void SkillBase::InitSkill(SkillData data)
 {
 	SetSkillName(data.Name.c_str());
-	//SetSkillPower(data.Power);
-	//SetCoolTime(data.CoolTime);
-	//SetAccuracy(data.HitRate);
 	if (data.targetNum == SkillDataLoad::MAX_TARGETS_MEMBER)
 	{
 		SetIsWide(true);
@@ -58,35 +65,6 @@ void SkillBase::InitSkill(SkillData data)
 	SetStatusChange(data.StatusChange);
 	SetSkillNo(data.SkillNo);
 }
-
-//int SkillBase::DamageCalcuration()
-//{
-//	//ダメージ計算を行う。
-//	int damage = 0;
-//	int Attack, Defence;
-//
-//	//魔法攻撃かどうか。
-//	if (!IsMagic()) {
-//		Attack = m_user->GetStatusManager().GetStatus().ATK;
-//		Defence = m_target->GetStatusManager().GetStatus().DEF;
-//	}
-//	else {
-//		Attack = m_user->GetStatusManager().GetStatus().MAT;
-//		Defence = m_target->GetStatusManager().GetStatus().MDF;
-//	}
-//	
-//	//ダメージ計算式。
-//	damage = (int)((float)(Attack - Defence / 2) * skillPower);
-//	//0を下回らないようにする。
-//	damage = max(damage, 0);
-//
-//	if (accuracy * 100 < g_random.GetRandomInt() % 101){
-//		damage = 0;
-//	}
-//
-//	return damage;
-//}
-
 
 const CVector3 SkillBase::CreateEffectPosition(int enPos) const
 {

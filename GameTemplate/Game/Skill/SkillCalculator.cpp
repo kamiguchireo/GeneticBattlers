@@ -14,27 +14,27 @@ SkillCalculator::~SkillCalculator()
 
 int SkillCalculator::SkillCalculation(CStatusBase* user, CStatusBase* target, int SkillNo)
 {
+	//スキル情報取得。
+	SkillData skillInfo = m_skillData->GetSkillData(SkillNo);
 	int res = 0;	//効果値。
 	int type = static_cast<int>(SkillNo / 100);
 	switch (type)
 	{
 	case en_Attack:
-		res = AttackCalculation(user, target, SkillNo);
+		res = AttackCalculation(user, target, skillInfo);
 		break;
 	case en_Heal:
-		res = HealCalculation(user, target, SkillNo);
+		res = HealCalculation(user, target, skillInfo);
 		break;
 	case en_Buff:
-		res = BuffCalculation(user, target, SkillNo);
+		res = BuffCalculation(user, target, skillInfo);
 		break;
 	case en_Debuff:
-		res = DebuffCalculation(user, target, SkillNo);
+		res = DebuffCalculation(user, target, skillInfo);
 		break;
 	default:
 		break;
 	}
-	//スキル情報取得。
-	SkillData skillInfo = m_skillData->GetSkillData(SkillNo);
 	//クールタイムの設定。
 	user->SetCoolTime(skillInfo.CoolTime);
 	return res;
@@ -52,9 +52,22 @@ int SkillCalculator::SkillCalculation(CStatusBase* user, std::vector<CStatusBase
 	return res;
 }
 
-int SkillCalculator::AttackCalculation(CStatusBase* user, CStatusBase* target, int SkillNo)
+bool SkillCalculator::IsAvailableSkill(CStatusBase * user, const int SkillNo)
 {
 	SkillData skillInfo = m_skillData->GetSkillData(SkillNo);
+
+	//使用可能。ついでにMP消費。
+	if (user->UseMP(skillInfo.useMP))
+	{
+		return true;
+	}
+
+	//MPが足りない。
+	return false;
+}
+
+int SkillCalculator::AttackCalculation(CStatusBase* user, CStatusBase* target, SkillData& skill)
+{
 	//ダメージ計算を行う。
 	int damage = 0;
 
@@ -62,11 +75,11 @@ int SkillCalculator::AttackCalculation(CStatusBase* user, CStatusBase* target, i
 	int Defence = target->GetStatus().DEF;
 
 	//ダメージ計算式。
-	damage = (int)((float)(Attack - Defence / 2) * skillInfo.Power);
+	damage = (int)((float)(Attack - Defence / 2) * skill.Power);
 	//0を下回らないようにする。
 	damage = max(damage, 0);
 
-	if (skillInfo.HitRate * 100 < g_random.GetRandomInt() % 100 + 1) {
+	if (skill.HitRate * 100 < g_random.GetRandomInt() % 100 + 1) {
 		damage = 0;
 	}
 	else
@@ -78,30 +91,27 @@ int SkillCalculator::AttackCalculation(CStatusBase* user, CStatusBase* target, i
 	return damage;
 }
 
-int SkillCalculator::HealCalculation(CStatusBase* user, CStatusBase* target, int SkillNo)
+int SkillCalculator::HealCalculation(CStatusBase* user, CStatusBase* target, SkillData& skill)
 {
-	SkillData skillInfo = m_skillData->GetSkillData(SkillNo);
 	//回復量の計算。
-	int res = static_cast<int>(user->GetStatus().MAT * skillInfo.Power);
+	int res = static_cast<int>(user->GetStatus().MAT * skill.Power);
 	res = target->Healing(res);
 	return res;
 }
 
-int SkillCalculator::BuffCalculation(CStatusBase* user, CStatusBase* target, int SkillNo)
+int SkillCalculator::BuffCalculation(CStatusBase* user, CStatusBase* target, SkillData& skill)
 {
-	SkillData skillInfo = m_skillData->GetSkillData(SkillNo);
 	//バフの効果時間。
 	float Time = BUFF_TIME + static_cast<float>(user->GetStatus().MAT) * (3.0f);
-	int res = target->Monster_Buff(skillInfo.StatusChange, skillInfo.Power, Time);
+	int res = target->Monster_Buff(skill.StatusChange, skill.Power, Time);
 	return res;
 }
 
-int SkillCalculator::DebuffCalculation(CStatusBase* user, CStatusBase* target, int SkillNo)
+int SkillCalculator::DebuffCalculation(CStatusBase* user, CStatusBase* target, SkillData& skill)
 {
-	SkillData skillInfo = m_skillData->GetSkillData(SkillNo);
 	//デバフの効果時間。
 	float Time = BUFF_TIME + static_cast<float>(user->GetStatus().MAT) * (3.0f);
-	int res = target->Monster_Debuff(skillInfo.StatusChange, skillInfo.Power, Time);
+	int res = target->Monster_Debuff(skill.StatusChange, skill.Power, Time);
 	return res;
 }
 

@@ -93,6 +93,8 @@ private:
 	SkillList skillList;							//!<スキルリスト。
 	SkillBase* m_usingSkill = nullptr;				//現在使用中のスキル。
 	BattleState m_battleState = enState_ATB;
+	float m_battleCoolTime = 0.0f;			//行動後のクールタイム。
+	const float COOL_TIME = 0.2f;			//行動後に止める時間(秒)
 	bool m_isBattle = false;
 };
 

@@ -83,8 +83,17 @@ bool MonsterBase::ACTScoring()
 	{
 		//スキルログを消す。
 		auto sLog = SkillLog::GetInstance();
-		DeleteGO(sLog);
-		return true;
+		if (sLog == nullptr)
+		{
+			//消え去った。
+			return true;
+		}
+		else
+		{
+			//ログをある程度出しておく。
+			sLog->SetDelete(true);
+			return false;
+		}
 	}
 	//もうちょいこの辺も切り離したいかなぁ
 	//評価の選択の処理。

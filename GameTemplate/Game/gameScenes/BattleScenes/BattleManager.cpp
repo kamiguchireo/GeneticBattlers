@@ -31,6 +31,12 @@ bool BattleManager::Start()
 void BattleManager::Update()
 {
 	if (!m_isBattle) return;
+	if (m_battleCoolTime > 0.0f)
+	{
+		//クールタイムを減算。
+		m_battleCoolTime -= g_gameTime.GetFrameDeltaTime();
+		return;
+	}
 	switch (m_battleState)
 	{
 	case enState_ATB:
@@ -196,6 +202,8 @@ void BattleManager::MonsterScoring()
 		}
 		else {
 			m_battleState = enState_ACT;
+			//行動前に一定時間止めておく。
+			m_battleCoolTime = COOL_TIME;
 		}
 
 	}
