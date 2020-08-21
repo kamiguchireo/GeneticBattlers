@@ -16,7 +16,7 @@ namespace JOB_Status
 	const Status HEALER =
 	{
 		130,		//HP
-		20,			//MP
+		70,			//MP
 		5,			//ATK
 		10,			//DEF
 		30,			//HEAL
@@ -26,7 +26,7 @@ namespace JOB_Status
 	const Status SUPPOTER =
 	{
 		130,		//HP
-		20,			//MP
+		90,			//MP
 		5,			//ATK
 		15,			//DEF
 		10,			//HEAL

@@ -142,29 +142,8 @@ void EvaluationCalculator::Action()
 	SetTargetList(skill);
 
 	//スキルを使用する。
-	SkillData sData = m_skillData->GetSkillData(skill);
-	//全体効果のスキルか？
-	if (sData.targetNum == en_JobNum)
-	{
-		//全体に対して使用。
-		for (auto& data : m_targetList)
-		{
-			m_skillCalc->SkillCalculation(
-				monsterACT.actionMonster->GetStatusManager(),
-				data->GetStatusManager(),
-				skill
-			);
-		}
-	}
-	else
-	{
-		//ターゲットに対して使用。
-		m_skillCalc->SkillCalculation(
-			monsterACT.actionMonster->GetStatusManager(),
-			m_targetList[target]->GetStatusManager(),
-			skill
-		);
-	}
+	UseSkill(skill, target);
+
 	//敵の行動カウント。
 	if (monsterACT.IsEnemy)
 	{
@@ -268,6 +247,41 @@ void EvaluationCalculator::SetTargetList(int skill)
 	{
 		//味方のリスト作成。
 		m_targetList = memberList;
+	}
+}
+
+void EvaluationCalculator::UseSkill(const int skill,const int target)
+{
+	//MPが足りているかどうか。
+	if (!m_skillCalc->IsAvailableSkill(
+		monsterACT.actionMonster->GetStatusManager(),
+		skill)){
+		//足りていないなら中断。
+		return;
+	}
+	//スキルを使用する。
+	SkillData sData = m_skillData->GetSkillData(skill);
+	//全体効果のスキルか？
+	if (sData.targetNum == en_JobNum)
+	{
+		//全体に対して使用。
+		for (auto& data : m_targetList)
+		{
+			m_skillCalc->SkillCalculation(
+				monsterACT.actionMonster->GetStatusManager(),
+				data->GetStatusManager(),
+				skill
+			);
+		}
+	}
+	else
+	{
+		//ターゲットに対して使用。
+		m_skillCalc->SkillCalculation(
+			monsterACT.actionMonster->GetStatusManager(),
+			m_targetList[target]->GetStatusManager(),
+			skill
+		);
 	}
 }
 
