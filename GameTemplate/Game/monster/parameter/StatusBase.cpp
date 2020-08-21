@@ -9,9 +9,9 @@ namespace JOB_Status
 		20,			//MP
 		50,			//ATK
 		10,			//DEF
-		5,			//MAT
-		10,			//MDF
-		10			//DEX
+		5,			//HEAL
+		5,			//BUF
+		12			//DEX
 	};
 	const Status HEALER =
 	{
@@ -19,8 +19,8 @@ namespace JOB_Status
 		20,			//MP
 		5,			//ATK
 		10,			//DEF
-		30,			//MAT
-		20,			//MDF
+		30,			//HEAL
+		10,			//BUF
 		10			//DEX
 	};
 	const Status SUPPOTER =
@@ -29,8 +29,8 @@ namespace JOB_Status
 		20,			//MP
 		5,			//ATK
 		15,			//DEF
-		20,			//MAT
-		15,			//MDF
+		10,			//HEAL
+		30,			//BUF
 		15			//DEX
 	};
 }
@@ -95,12 +95,12 @@ int CStatusBase::Monster_Buff(StatusBuff status, float pow, float time)
 
 		break;
 	case en_buff_MAT:
-		res = static_cast<int>(m_statusBase.MAT * pow);	//上昇値の計算。
+		res = static_cast<int>(m_statusBase.HEAL * pow);	//上昇値の計算。
 		m_buffValues[status] = res;
 
 		break;
 	case en_buff_MDF:
-		res = static_cast<int>(m_statusBase.MDF * pow);	//上昇値の計算。
+		res = static_cast<int>(m_statusBase.BUF * pow);	//上昇値の計算。
 		m_buffValues[status] = res;
 
 		break;
@@ -138,12 +138,12 @@ int CStatusBase::Monster_Debuff(StatusBuff status, float pow, float time)
 
 		break;
 	case en_buff_MAT:
-		res = static_cast<int>(m_statusBase.MAT * pow);//低下値の計算。
+		res = static_cast<int>(m_statusBase.HEAL * pow);//低下値の計算。
 		m_debuffValues[status] = res;
 
 		break;
 	case en_buff_MDF:
-		res = static_cast<int>(m_statusBase.MDF * pow);//低下値の計算。
+		res = static_cast<int>(m_statusBase.BUF * pow);//低下値の計算。
 		m_debuffValues[status] = res;
 
 		break;
@@ -176,10 +176,10 @@ void CStatusBase::SumBufAndDebuff(int status)
 		m_status.DEF = m_statusBase.DEF + m_buffValues[status] + m_debuffValues[status];
 		break;
 	case en_buff_MAT:
-		m_status.MAT = m_statusBase.MAT + m_buffValues[status] + m_debuffValues[status];
+		m_status.HEAL = m_statusBase.HEAL + m_buffValues[status] + m_debuffValues[status];
 		break;
 	case en_buff_MDF:
-		m_status.MDF = m_statusBase.MDF + m_buffValues[status] + m_debuffValues[status];
+		m_status.BUF = m_statusBase.BUF + m_buffValues[status] + m_debuffValues[status];
 		break;
 	case en_buff_DEX:
 		m_status.DEX = m_statusBase.DEX + m_buffValues[status] + m_debuffValues[status];
@@ -207,6 +207,27 @@ void CStatusBase::ResetDebuff(int i)
 
 	//ステータスの低下を元に戻す。
 	SumBufAndDebuff(i);
+}
+
+void CStatusBase::BuffDebuffTime(const float time)
+{
+	for (int i = 0; i < en_buff_num; i++) {
+		if (m_buffTimeList[i] == 0.0f) continue;
+
+		m_buffTimeList[i] -= time;
+		if (m_buffTimeList[i] < 0.0f) {
+			ResetBuff(i);
+		}
+	}
+	//デバフの効果時間減少。
+	for (int i = 0; i < en_buff_num; i++) {
+		if (m_debuffTimeList[i] == 0.0f) continue;
+
+		m_debuffTimeList[i] -= time;
+		if (m_debuffTimeList[i] < 0.0f) {
+			ResetDebuff(i);
+		}
+	}
 }
 
 //bool CStatusBase::AddATB()

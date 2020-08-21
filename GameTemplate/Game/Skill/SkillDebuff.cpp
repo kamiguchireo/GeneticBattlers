@@ -32,7 +32,7 @@ void SkillDebuff::Update()
 			//バフをかける。
 			if (!m_isWide) {
 				//効果時間を計算。
-				//float result = static_cast<float>(m_user->GetStatusManager().GetStatus().MAT * 5.0f);
+				//float result = static_cast<float>(m_user->GetStatusManager().GetStatus().HEAL * 5.0f);
 				res = m_calculator.SkillCalculation(m_user->GetStatusManager(), m_target->GetStatusManager(), m_skillNo);
 			}
 			else {	//全体にかける。

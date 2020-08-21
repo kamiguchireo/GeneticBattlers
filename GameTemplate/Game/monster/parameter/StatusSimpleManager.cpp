@@ -11,28 +11,14 @@ StatusSimpleManager::~StatusSimpleManager()
 
 bool StatusSimpleManager::AddATB()
 {
-	const float addTime = 2.0f;
 	//死亡時は処理を中断する。
 	if (m_stateAI == en_state_Death) return false;
-	//バフの効果時間減少。
+	//加算時間。
+	const float addTime = 2.0f;
+	//アクティブタイムを進める。
 	m_activeTime += static_cast<float>(m_status.DEX) * addTime;
-	for (int i = 0; i < en_buff_num; i++) {
-		if (m_buffTimeList[i] == 0.0f) continue;
-
-		m_buffTimeList[i] -= addTime;
-		if (m_buffTimeList[i] < 0.0f) {
-			ResetBuff(i);
-		}
-	}
-	//デバフの効果時間減少。
-	for (int i = 0; i < en_buff_num; i++) {
-		if (m_debuffTimeList[i] == 0.0f) continue;
-
-		m_debuffTimeList[i] -= addTime;
-		if (m_debuffTimeList[i] < 0.0f) {
-			ResetDebuff(i);
-		}
-	}
+	//バフの効果時間減少。
+	BuffDebuffTime(addTime);
 
 	if (m_activeTime > m_coolTime) {
 		m_activeTime -= m_coolTime;

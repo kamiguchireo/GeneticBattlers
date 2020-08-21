@@ -94,7 +94,7 @@ int SkillCalculator::AttackCalculation(CStatusBase* user, CStatusBase* target, S
 int SkillCalculator::HealCalculation(CStatusBase* user, CStatusBase* target, SkillData& skill)
 {
 	//回復量の計算。
-	int res = static_cast<int>(user->GetStatus().MAT * skill.Power);
+	int res = static_cast<int>(user->GetStatus().HEAL * skill.Power);
 	res = target->Healing(res);
 	return res;
 }
@@ -102,7 +102,7 @@ int SkillCalculator::HealCalculation(CStatusBase* user, CStatusBase* target, Ski
 int SkillCalculator::BuffCalculation(CStatusBase* user, CStatusBase* target, SkillData& skill)
 {
 	//バフの効果時間。
-	float Time = BUFF_TIME + static_cast<float>(user->GetStatus().MAT) * (3.0f);
+	float Time = BUFF_TIME + static_cast<float>(user->GetStatus().BUF) * (3.0f);
 	int res = target->Monster_Buff(skill.StatusChange, skill.Power, Time);
 	return res;
 }
@@ -110,7 +110,7 @@ int SkillCalculator::BuffCalculation(CStatusBase* user, CStatusBase* target, Ski
 int SkillCalculator::DebuffCalculation(CStatusBase* user, CStatusBase* target, SkillData& skill)
 {
 	//デバフの効果時間。
-	float Time = BUFF_TIME + static_cast<float>(user->GetStatus().MAT) * (3.0f);
+	float Time = BUFF_TIME + static_cast<float>(user->GetStatus().BUF) * (3.0f);
 	int res = target->Monster_Debuff(skill.StatusChange, skill.Power, Time);
 	return res;
 }

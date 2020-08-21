@@ -65,8 +65,8 @@ void MonsterBase::Draw()
 //	//hoge.MP = mp;
 //	hoge.ATK = atk;
 //	hoge.DEF = def;
-//	hoge.MAT = mat;
-//	hoge.MDF = mdf;
+//	hoge.HEAL = mat;
+//	hoge.BUF = mdf;
 //	hoge.DEX = dex;
 //	//ê›íËÅB
 //	m_status.SetStatus(hoge);

@@ -4,15 +4,15 @@
 /// ステータスの構造体。
 /// </summary>
 /// <remarks>
-/// 魔法攻撃力はINTだとint型と間違えそうだからMATとした。
+/// HEALは回復力。BUFはバフ、デバフ力。
 /// </remarks>
 struct Status {
 	int HP	= 0,
 		MP	= 0,
 		ATK = 0,
 		DEF = 0,
-		MAT = 0,
-		MDF = 0,
+		HEAL = 0,
+		BUF = 0,
 		DEX = 0;
 };
 
@@ -144,6 +144,11 @@ public:
 	/// </summary>
 	/// <returns>溜まり切ったかの判定。</returns>
 	virtual bool AddATB() = 0;
+	/// <summary>
+	/// バフ、デバフの効果時間を経過させる。
+	/// </summary>
+	/// <param name="time"></param>
+	void BuffDebuffTime(const float time);
 
 	void ClearATB()
 	{
