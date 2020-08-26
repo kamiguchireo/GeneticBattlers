@@ -97,6 +97,8 @@ public:
 	/// <returns>入ったダメージ量。</returns>
 	int Damage(int damage)
 	{
+		//死亡時返す。
+		if (m_IsDeath) return 0;
 		//現在HPとダメージ量の比較。
 		int res = min(m_status.HP, damage);
 		m_status.HP -= res;

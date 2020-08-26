@@ -52,6 +52,8 @@ void CStatusBase::StatusSupporter()
 
 int CStatusBase::Healing(int healing)
 {
+	//€–S•Ô‚·B
+	if (m_IsDeath) return 0;	
 	int res = healing;
 	m_status.HP += healing;
 	//Å‘åHP‚ğ’´‚¦‚½B
@@ -77,6 +79,9 @@ bool CStatusBase::UseMP(const int mp)
 
 int CStatusBase::Monster_Buff(StatusBuff status, float pow, float time)
 {
+	//€–S•Ô‚·B
+	if (m_IsDeath) return 0;
+
 	int res = 0;
 	//”{—¦‚©‚ç1‚ğˆø‚¢‚Ä‚¨‚­B
 	pow -= 1.0f;
@@ -120,6 +125,9 @@ int CStatusBase::Monster_Buff(StatusBuff status, float pow, float time)
 
 int CStatusBase::Monster_Debuff(StatusBuff status, float pow, float time)
 {
+	//€–S•Ô‚·B
+	if (m_IsDeath) return 0;
+
 	int res = 0;
 	//”{—¦‚©‚ç1‚ğˆø‚¢‚Ä‚¨‚­B
 	pow -= 1.0f;

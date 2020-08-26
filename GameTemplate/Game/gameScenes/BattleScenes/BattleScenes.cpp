@@ -78,7 +78,7 @@ bool BattleScenes::Start()
 			monster->SetRotation(objData.rotation);
 			monster->SetScale(objData.scale);
 			if (m_netScenes == nullptr){		//ネット通信でなければ。
-				monster->Init("Assets/AIData/DefaultData/AttackerDefault.bin");
+				monster->Init("Assets/AIData/EnemyData/EnemyAttacker.bin");
 			}
 			else {		//通信しているなら。
 				auto& ga = monster->GetAIManager();
@@ -101,7 +101,7 @@ bool BattleScenes::Start()
 			monster->SetRotation(objData.rotation);
 			monster->SetScale(objData.scale);
 			if (m_netScenes == nullptr){		//ネット通信でなければ。
-				monster->Init("Assets/AIData/DefaultData/SupporterDefault.bin");
+				monster->Init("Assets/AIData/EnemyData/EnemySupporter.bin");
 			}
 			else {		//通信しているなら。
 				auto& ga = monster->GetAIManager();
@@ -125,7 +125,7 @@ bool BattleScenes::Start()
 			monster->SetRotation(objData.rotation);
 			monster->SetScale(objData.scale);
 			if (m_netScenes == nullptr){		//ネット通信でなければ。
-				monster->Init("Assets/AIData/DefaultData/HealerDefault.bin");
+				monster->Init("Assets/AIData/EnemyData/EnemyHealer.bin");
 			}
 			else {		//通信しているなら。
 				auto& ga = monster->GetAIManager();
