@@ -274,3 +274,6 @@ paket-files/
 __pycache__/
 *.pyc
 /Game/Assets/font
+/GameTemplate/Game/Assets/AIData/Attacker.bin
+/GameTemplate/Game/Assets/AIData/Healer.bin
+/GameTemplate/Game/Assets/AIData/Supporter.bin
