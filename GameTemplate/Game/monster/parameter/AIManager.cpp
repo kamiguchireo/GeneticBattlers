@@ -2,8 +2,8 @@
 #include "AIManager.h"
 #include "Skill/SkillDataLoad.h"
 
-const float AIManager::SKILL_NEW_RATE = 0.3f;		//追加スキルの初期使用比率。
-const float AIManager::FIRST_RATE = 0.15f;			//新規行動の初期比率。
+const float AIManager::SKILL_NEW_RATE = 0.4f;		//スキル追加のために必要な使用頻度。
+const float AIManager::FIRST_RATE = 0.05f;			//新規行動の初期比率。
 const int AIManager::MAX_TARGET_COUNT = 3;			//ターゲットの最大数。
 
 

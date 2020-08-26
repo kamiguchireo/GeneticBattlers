@@ -1,6 +1,11 @@
 #include "stdafx.h"
 #include "AIBase.h"
 
+namespace
+{
+	const int RANDOM_RATE = 10000;		//0.01%ごとに判定。
+}
+
 AIBase::AIBase()
 {
 }
@@ -24,12 +29,12 @@ void AIBase::ActionDicide(int & skill, int & target)
 	//	return;
 	//}
 
-	int res = g_random.GetRandomInt() % 100;	//適当な乱数。
+	int res = g_random.GetRandomInt() % RANDOM_RATE;	//適当な乱数。
 	float sum = 0;
 
 	//行動テーブルをもとに行動させる。
 	for (int i = 0; i < m_AI.size(); i++) {
-		sum += m_AI[i].rate * 100;
+		sum += m_AI[i].rate * RANDOM_RATE;
 		if (sum > res) {
 			skill = m_AI[i].skillNo;
 			target = m_AI[i].target;
