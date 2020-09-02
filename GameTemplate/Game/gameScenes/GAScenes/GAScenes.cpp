@@ -60,7 +60,7 @@ bool GAScenes::Start()
 
 	//初期遺伝子をたくさん作成。
 	FirstGenesCreate();
-	m_currentCalcSize = m_currentGenetics.size();		//現在の遺伝子数を記録。
+	m_currentCalcSize = static_cast<int>(m_currentGenetics.size());		//現在の遺伝子数を記録。
 
 	m_fade = Fade::GetInstance();		//フェードクラス取得。
 	m_fade->StartFadeIn();
@@ -92,7 +92,7 @@ void GAScenes::Update()
 			GeneSelection();	//淘汰。
 			GenesCrossover();	//交叉。
 			Mutation();			//突然変異。
-			m_currentCalcSize = m_currentGenetics.size();	//現在の遺伝子数を記録。
+			m_currentCalcSize = static_cast<int>(m_currentGenetics.size());	//現在の遺伝子数を記録。
 
 			//CalcWinRate();		//評価。クソ遅い。
 			//SortGenes();		//ソート。
@@ -279,7 +279,7 @@ void GAScenes::SortGenes()
 			}
 			else if (a.result.winRate == b.result.winRate)
 			{
-				return a.result.actionCount < b.result.actionCount;
+				return a.result.resultValue > b.result.resultValue;
 			}
 			return false;
 		}
@@ -357,7 +357,7 @@ void GAScenes::GeneSwap(AITable & _t1, AITable & _t2)
 	//サイズが違う。
 	if (_t1.size() != _t2.size()) return;
 	////配列のサイズ。
-	int maxSize = _t1.size();
+	int maxSize = static_cast<int>(_t1.size());
 	//交叉する場所を決める。
 	int pMax = g_random.GetRandomInt() % maxSize;
 	pMax = min(pMax + 5, (maxSize-1));	//ある程度数値を持たせておく。0割り回避も含む。
@@ -386,7 +386,7 @@ void GAScenes::Mutation()
 void GAScenes::GeneMutation(AITable & _table)
 {
 	//配列の大きさ。
-	int AISize = _table.size();
+	int AISize = static_cast<int>(_table.size());
 
 	for (auto& ai : _table)
 	{	

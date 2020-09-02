@@ -9,9 +9,13 @@ public:
 	bool Start();
 
 private:
-	const char* GetDefaultDataPath() 
+	//const char* GetDefaultDataPath() 
+	//{
+	//	return "Assets/AIData/DefaultData/SupporterDefault.bin";
+	//}
+	const char* GetDefaultDataPath()
 	{
-		return "Assets/AIData/DefaultData/SupporterDefault.bin";
+		return "Assets/AIData/DefaultData/DataDefault.bin";
 	}
 	//const char m_filePath[] = "Assets/AIData/SupporterDefault.bin";
 };

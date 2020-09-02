@@ -19,7 +19,7 @@ namespace GA {
 	struct Evaluation	//評価値構造体
 	{
 		int winRate = 0;			//勝率
-		int actionCount = 0;		//敵の行動回数。
+		int resultValue = 0;		//行動の評価値
 	};
 	struct Genetic
 	{
@@ -72,7 +72,7 @@ private:		//定数。
 	static const int CHANGE_NUM;		//確率変動で作る数。
 	const int SELECT_ELETE = 15;		//選択するエリートの数。
 	const int MAX_GENERATION = 50;		//繰り返す世代数。
-	const float MUTATION_RATE = 0.05;	//突然変異の確率。
+	const float MUTATION_RATE = 0.05f;	//突然変異の確率。
 
 	enum Scene {
 		en_FadeIn,

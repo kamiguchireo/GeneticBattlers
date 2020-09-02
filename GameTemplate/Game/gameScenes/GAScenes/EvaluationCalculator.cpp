@@ -45,12 +45,16 @@ Evaluation EvaluationCalculator::Calculation(AITableList & table)
 	m_members[en_Attacker].GetAIManager().SetAIData(table[en_Attacker]);
 	m_members[en_Healer].GetAIManager().SetAIData(table[en_Healer]);
 	m_members[en_Supporter].GetAIManager().SetAIData(table[en_Supporter]);
+	//評価値リスト初期化。
+	m_resultValueList.clear();
 
 	int winCount = 0;		//勝利回数計測。
-	m_actionCount = 0;		//行動回数初期化。
 
 	for (int i = 0; i < LOOP_NUMBER; i++)
 	{
+		//評価値初期化。
+		m_resultValue = 0;
+
 		//ステータスを元に戻しておく。
 		for (auto& data : m_members)
 		{
@@ -70,7 +74,20 @@ Evaluation EvaluationCalculator::Calculation(AITableList & table)
 	Evaluation ret;
 	//勝率記録。
 	ret.winRate = static_cast<int>(static_cast<float>(winCount) / LOOP_NUMBER * 100);
-	ret.actionCount = m_actionCount;
+	int resAve = 0;		//評価平均値。
+	const int listSize = static_cast<const int>(m_resultValueList.size());
+	//配列が空じゃないなら。
+	if (listSize > 0)
+	{
+		//合計を求める。
+		for (auto res : m_resultValueList)
+		{
+			resAve += res;
+		}
+		resAve /= listSize;
+	}
+
+	ret.resultValue = resAve;
 	return ret;
 }
 
@@ -91,6 +108,8 @@ bool EvaluationCalculator::Battle()
 			ActiveTime();
 		}
 	}
+	//評価値記録。
+	m_resultValueList.push_back(m_resultValue);
 
 	return IsWin;
 }
@@ -142,14 +161,14 @@ void EvaluationCalculator::Action()
 	SetTargetList(skill);
 
 	//スキルを使用する。
-	UseSkill(skill, target);
+	int result = UseSkill(skill, target);
 
-	//敵の行動カウント。
-	if (monsterACT.IsEnemy)
+	//味方の行動評価値を記録。
+	if (!monsterACT.IsEnemy)
 	{
-		m_actionCount++;
+		m_resultValue +=result;
 	}
-	//m_actionCount++;
+	//m_resultValue++;
 	//行動終了。
 	m_actionList.erase(m_actionList.begin());
 	monsterACT = { nullptr,false };		//初期化。
@@ -250,24 +269,27 @@ void EvaluationCalculator::SetTargetList(int skill)
 	}
 }
 
-void EvaluationCalculator::UseSkill(const int skill,const int target)
+int EvaluationCalculator::UseSkill(const int skill,const int target)
 {
 	//MPが足りているかどうか。
 	if (!m_skillCalc->IsAvailableSkill(
 		monsterACT.actionMonster->GetStatusManager(),
 		skill)){
 		//足りていないなら中断。
-		return;
+		return 0;
 	}
 	//スキルを使用する。
 	SkillData sData = m_skillData->GetSkillData(skill);
+
+	int result = 0;
+
 	//全体効果のスキルか？
 	if (sData.targetNum == en_JobNum)
 	{
 		//全体に対して使用。
 		for (auto& data : m_targetList)
 		{
-			m_skillCalc->SkillCalculation(
+			result += m_skillCalc->SkillCalculation(
 				monsterACT.actionMonster->GetStatusManager(),
 				data->GetStatusManager(),
 				skill
@@ -277,12 +299,14 @@ void EvaluationCalculator::UseSkill(const int skill,const int target)
 	else
 	{
 		//ターゲットに対して使用。
-		m_skillCalc->SkillCalculation(
+		result += m_skillCalc->SkillCalculation(
 			monsterACT.actionMonster->GetStatusManager(),
 			m_targetList[target]->GetStatusManager(),
 			skill
 		);
 	}
+
+	return result;
 }
 
 bool EvaluationCalculator::MonsterStateUpdate(bool& isWin)

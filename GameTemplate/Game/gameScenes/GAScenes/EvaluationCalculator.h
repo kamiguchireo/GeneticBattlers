@@ -43,7 +43,7 @@ private:
 	//ターゲットリスト作成。
 	void SetTargetList(int skill);
 	//スキルを使う。
-	void UseSkill(const int skill,const int target);
+	int UseSkill(const int skill,const int target);
 	/// <summary>
 	/// 状態を更新する。
 	/// </summary>
@@ -62,8 +62,9 @@ private:
 	MonsterInfo monsterACT;			//現在行動中モンスターの情報。
 	MonsterList m_targetList;
 	std::vector<MonsterInfo> m_actionList;
+	std::vector<int> m_resultValueList;			//評価値の可変長配列。
 	SkillCalculator* m_skillCalc = nullptr;
 	SkillDataLoad* m_skillData = nullptr;
-	int m_actionCount = 0;
+	int m_resultValue = 0;
 };
 
