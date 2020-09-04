@@ -260,7 +260,7 @@ void AIManager::DeleteSkill()
 	}
 
 	//ämó¶Ç…ñﬂÇ∑ÅB
-	SkillRateCalc();
+	RateCalc();
 }
 
 void AIManager::SkillRateCalc()
