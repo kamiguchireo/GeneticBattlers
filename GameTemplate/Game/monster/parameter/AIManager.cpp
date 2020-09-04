@@ -71,6 +71,7 @@ void AIManager::Save()
 {
 	AIUpdate();
 	AddNewSkill();
+	DeleteSkill();
 
 	FILE* fp = fopen(m_AIPath, "wb");
 
@@ -219,6 +220,47 @@ int AIManager::DisideNewSkill(const SkillData & data)
 	}
 
 	return ret;
+}
+
+void AIManager::DeleteSkill()
+{
+	//スキルごとの使用確率計算。
+	SkillRateCalc();
+
+	std::vector<int> deleteSkillNo;		//削除リスト。
+
+	for (auto& s : m_skillRateList)
+	{
+		//使用確率が低い。
+		if (s.rate < 0.02f)
+		{
+			//記録しておく。
+			deleteSkillNo.push_back(s.skillNo);
+		}
+	}
+	
+	//削除するものがないならリターン。
+	if (deleteSkillNo.size() == 0)return;
+
+	//配列の中から探して削除。
+	for (auto itr = m_AI.begin(); itr != m_AI.end();itr++)
+	{
+		//削除していく。
+		for (auto no : deleteSkillNo)
+		{
+			//削除する。
+			if ((*itr).skillNo == no)
+			{
+				itr = m_AI.erase(itr);
+				//イテレータの位置調整。
+				itr--;
+				break;
+			}
+		}
+	}
+
+	//確率に戻す。
+	SkillRateCalc();
 }
 
 void AIManager::SkillRateCalc()

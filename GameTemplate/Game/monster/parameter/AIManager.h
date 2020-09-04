@@ -57,6 +57,10 @@ public:
 	/// <returns>決定したスキル番号。</returns>
 	int DisideNewSkill(const SkillData& data);
 	/// <summary>
+	/// 確率の低いスキルを消す。
+	/// </summary>
+	void DeleteSkill();
+	/// <summary>
 	/// 行動のリザルトを積む。
 	/// </summary>
 	/// <param name="damage">ダメージ量。</param>
