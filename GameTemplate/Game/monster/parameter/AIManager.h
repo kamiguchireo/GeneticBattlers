@@ -1,6 +1,8 @@
 #pragma once
 #include "AIBase.h"
 
+struct SkillData;
+
 struct ResultData {
 	int damage = 0;
 	int skillNo = 0;
@@ -49,6 +51,12 @@ public:
 	/// </summary>
 	void AddNewSkill();
 	/// <summary>
+	/// 新しいスキルを決定する。
+	/// </summary>
+	/// <param name="data">データ情報。</param>
+	/// <returns>決定したスキル番号。</returns>
+	int DisideNewSkill(const SkillData& data);
+	/// <summary>
 	/// 行動のリザルトを積む。
 	/// </summary>
 	/// <param name="damage">ダメージ量。</param>
@@ -66,6 +74,7 @@ private:
 private:
 	static const float SKILL_NEW_RATE;
 	static const float FIRST_RATE;
+	static const int NEW_SKILL_PLOB_WEIGHT[];
 	static const int MAX_TARGET_COUNT;
 
 private:

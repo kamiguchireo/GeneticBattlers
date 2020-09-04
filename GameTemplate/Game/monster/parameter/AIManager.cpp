@@ -4,6 +4,9 @@
 
 const float AIManager::SKILL_NEW_RATE = 0.4f;		//スキル追加のために必要な使用頻度。
 const float AIManager::FIRST_RATE = 0.05f;			//新規行動の初期比率。
+const int AIManager::NEW_SKILL_PLOB_WEIGHT[] = {	//スキル進化の確率重み(%)
+	60,30,10
+};
 const int AIManager::MAX_TARGET_COUNT = 3;			//ターゲットの最大数。
 
 
@@ -162,18 +165,14 @@ void AIManager::AddNewSkill()
 	{
 		//スキルデータ取得。
 		SkillData data = skillData->GetSkillData(No);
-
-		int NextSkillSize = static_cast<int>(data.NextSkillNo.size());
-
 		//次のスキルはない。
-		if (NextSkillSize == 0) continue;
+		if (data.NextSkillNo.size() == 0) continue;
 
 		AIData newData;
 
 		//次のスキル探査。
-		//乱数。
-		int r = g_random.GetRandomInt() % NextSkillSize;
-		newData.skillNo = data.NextSkillNo[r];
+		int newSkillNo = DisideNewSkill(data);
+		newData.skillNo = data.NextSkillNo[newSkillNo];
 
 		int i = 0;
 		for (i = 0; i < m_skillRateList.size(); i++)
@@ -184,6 +183,7 @@ void AIManager::AddNewSkill()
 		//中断。
 		if (i != m_skillRateList.size()) continue;
 
+		//スキルが存在しない。
 		for (int j = 0; j < MAX_TARGET_COUNT; j++)
 		{
 			//ターゲット決める。
@@ -197,6 +197,28 @@ void AIManager::AddNewSkill()
 
 	//確率に戻す。
 	RateCalc();
+}
+
+int AIManager::DisideNewSkill(const SkillData & data)
+{
+	int ret = 0;
+	//サイズ取得。
+	const int noSize = static_cast<const int>(data.NextSkillNo.size());
+
+	int r = g_random.GetRandomInt() % 100;		//乱数 0 ～　99
+	int prob = 0;
+	for (int i = 0;i < noSize;i++)
+	{
+		prob += NEW_SKILL_PLOB_WEIGHT[i];
+		//決定。
+		if (r < prob)
+		{
+			ret = data.NextSkillNo[i];
+			break;
+		}
+	}
+
+	return ret;
 }
 
 void AIManager::SkillRateCalc()
