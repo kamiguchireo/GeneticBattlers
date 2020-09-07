@@ -220,14 +220,14 @@ void BattleScenes::Update()
 		}
 		break;
 	case enState_Battle:
-		if (g_pad[0].IsTrigger(enButtonStart)) 
-		{
-			//戦闘中断。
-			m_battleManager->SetIsBattle(false);
-			//フェードさせる。
-			m_state = enState_FadeOut; 
-			m_fade->StartFadeOut();
-		}
+		//if (g_pad[0].IsTrigger(enButtonStart)) 
+		//{
+		//	//戦闘中断。
+		//	m_battleManager->SetIsBattle(false);
+		//	//フェードさせる。
+		//	m_state = enState_FadeOut; 
+		//	m_fade->StartFadeOut();
+		//}
 		break;
 
 	case enState_Result:
