@@ -173,7 +173,7 @@ void AIManager::AddNewSkill()
 
 		//Ÿ‚ÌƒXƒLƒ‹’T¸B
 		int newSkillNo = DisideNewSkill(data);
-		newData.skillNo = data.NextSkillNo[newSkillNo];
+		newData.skillNo = newSkillNo;
 
 		int i = 0;
 		for (i = 0; i < m_skillRateList.size(); i++)
