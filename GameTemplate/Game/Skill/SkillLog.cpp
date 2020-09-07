@@ -96,11 +96,24 @@ void SkillLog::Update()
 void SkillLog::CreateMPLog()
 {
 	m_mpSprite = NewGO<prefab::SpriteRender>(3);
-	m_mpSprite->Init(
-		L"Assets/sprite/BackWindow.dds",
-		WINDOW_SIZE.x,
-		WINDOW_SIZE.y
-	);
+	if (m_isUseEnemy)
+	{
+		//使用者が敵。
+		m_mpSprite->Init(
+			L"Assets/sprite/BackWindowR.dds",
+			WINDOW_SIZE.x,
+			WINDOW_SIZE.y
+		);
+	}
+	else
+	{
+		//使用者が味方。
+		m_mpSprite->Init(
+			L"Assets/sprite/BackWindow.dds",
+			WINDOW_SIZE.x,
+			WINDOW_SIZE.y
+		);
+	}
 	m_mpSprite->SetPosition({
 		MPLOG_POSITION.x,
 		MPLOG_POSITION.y,
