@@ -28,6 +28,7 @@ bool SkillBase::Start()
 {
 
 	m_log = NewGO<SkillLog>(4,"sLog");
+	m_log->SetUseEnemy(m_isUseEnemy);
 	m_log->SetText(skillName);
 	if (!m_calculator.IsAvailableSkill(m_user->GetStatusManager(),m_skillNo))
 	{

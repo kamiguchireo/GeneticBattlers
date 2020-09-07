@@ -128,6 +128,7 @@ void BattleManager::MonsterAction()
 		m_usingSkill = SkillList::GetInstance()->NewSkillData(skillTable, No);
 		//使用者、ターゲットの設定。
 		m_usingSkill->SetUser(m_monsterACT.actMonster);
+		m_usingSkill->SetUseEnemy(m_monsterACT.isEnemy);		//使用者が敵かどうかを設定。
 		if (m_monsterACT.isEnemy) {
 			if (m_usingSkill->IsAttack()) {
 				m_usingSkill->SetTarget(m_monsterTeam[target]);

@@ -34,11 +34,24 @@ SkillLog::~SkillLog()
 bool SkillLog::Start()
 {
 	m_sprite = NewGO<prefab::SpriteRender>(3);
-	m_sprite->Init(
-		L"Assets/sprite/BackWindow.dds",
-		WINDOW_SIZE.x,
-		WINDOW_SIZE.y
-	);
+	if (m_isUseEnemy)
+	{
+		//使用者が敵。
+		m_sprite->Init(
+			L"Assets/sprite/BackWindowR.dds",
+			WINDOW_SIZE.x,
+			WINDOW_SIZE.y
+		);
+	}
+	else
+	{
+		//使用者が味方。
+		m_sprite->Init(
+			L"Assets/sprite/BackWindow.dds",
+			WINDOW_SIZE.x,
+			WINDOW_SIZE.y
+		);
+	}
 	m_sprite->SetPosition({ 
 		SLOG_POSITION.x,
 		SLOG_POSITION.y,

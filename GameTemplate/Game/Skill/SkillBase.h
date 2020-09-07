@@ -62,6 +62,11 @@ public:
 	{
 		m_target = target;
 	}
+	//使用者が敵かどうか。
+	void SetUseEnemy(bool isEnemy)
+	{
+		m_isUseEnemy = isEnemy;
+	}
 	//再生するエフェクトのファイルパスを設定する。
 	void SetEffect(const wchar_t* path,int enPos, const wchar_t* sound = nullptr)
 	{
@@ -132,5 +137,6 @@ protected:
 	int m_skillNo = 0;
 	bool m_isWide = false;	//全体効果か？
 	bool m_isPlay = true;	//再生中か？
+	bool m_isUseEnemy = false;		//エネミーが使用しているか。
 };
 

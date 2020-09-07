@@ -28,6 +28,11 @@ public:
 	{
 		m_countDown = flag;
 	}
+	//使用者が敵かどうか。
+	void SetUseEnemy(bool isEnemy)
+	{
+		m_isUseEnemy = isEnemy;
+	}
 private:
 	void CreateMPLog();
 
@@ -49,5 +54,6 @@ private:
 
 	bool m_isMP = false;			//MPが足ないか？
 	bool m_countDown = false;		//時間経過後削除フラグ。
+	bool m_isUseEnemy = false;
 };
 
