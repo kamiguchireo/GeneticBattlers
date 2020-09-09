@@ -68,6 +68,7 @@ bool BattleScenes::Start()
 				objData.rotation,
 				objData.scale
 			);
+			m_model.SetLightColor(1.1f);
 			return true;
 		}
 		if (wcscmp(objData.name, L"EAttacker") == 0)

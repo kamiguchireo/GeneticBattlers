@@ -16,6 +16,7 @@ bool Supporter::Start()
 	m_model.Init(L"Assets/modelData/Barghest.cmo");
 	m_model.SetActiveDLFlag(0);
 	m_model.SetActiveRLFlag(1);
+	m_model.SetLightColor(0.8f);
 	
 	//アニメーションクリップの読み込み。
 	m_animClip[en_anim_Idle].Load(L"Assets/animData/Barghest/B_Idle.tka");

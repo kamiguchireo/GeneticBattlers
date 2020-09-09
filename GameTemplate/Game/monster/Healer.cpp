@@ -16,7 +16,8 @@ bool Healer::Start()
 	m_model.Init(L"Assets/modelData/MountainDragon.cmo");
 	m_model.SetActiveDLFlag(0);
 	m_model.SetActiveRLFlag(1);
-	
+	m_model.SetLightColor(0.8f);
+
 	//アニメーションクリップの読み込み。
 	m_animClip[en_anim_Idle].Load(L"Assets/animData/MountainDragon/MD_Idle.tka");
 	m_animClip[en_anim_Idle].SetLoopFlag(true);

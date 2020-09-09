@@ -50,7 +50,6 @@ void MonsterBase::Update()
 
 void MonsterBase::Draw()
 {
-
 	//•`‰æˆ—B
 	m_model.Draw(
 		g_camera3D.GetViewMatrix(),
