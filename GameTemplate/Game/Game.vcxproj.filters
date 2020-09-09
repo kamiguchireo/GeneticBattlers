@@ -613,6 +613,9 @@
     <None Include="Assets\modelData\DesertDragon.FBX">
       <Filter>Assets\modelData</Filter>
     </None>
+    <None Include="Assets\modelData\testModel.fbx">
+      <Filter>Assets\modelData</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <MeshContentTask Include="Assets\modelData\DesertDragon2.fbx">
@@ -628,9 +631,6 @@
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
     <MeshContentTask Include="Assets\modelData\testGround.fbx">
-      <Filter>Assets\modelData</Filter>
-    </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\testModel.fbx">
       <Filter>Assets\modelData</Filter>
     </MeshContentTask>
   </ItemGroup>

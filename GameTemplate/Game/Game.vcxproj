@@ -311,9 +311,9 @@
     <MeshContentTask Include="Assets\modelData\testGround.fbx">
       <FileType>Document</FileType>
     </MeshContentTask>
-    <MeshContentTask Include="Assets\modelData\testModel.fbx">
+    <None Include="Assets\modelData\testModel.fbx">
       <FileType>Document</FileType>
-    </MeshContentTask>
+    </None>
     <None Include="Assets\modelData\unityChan.fbx">
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
       <ContentOutput Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
