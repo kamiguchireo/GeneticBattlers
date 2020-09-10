@@ -67,14 +67,12 @@ SkillBase * SkillList::NewSkillAttack(int no)
 	switch (no)
 	{
 	case 0:
-		attackSkill->InitSkill(L"’ÊíUŒ‚", 1.0f, 30.0f, 0.95f, 0);
 		attackSkill->SetEffect(
 			L"Assets/effect/attack.efk",
 			en_PosTarget,
 			L"Assets/sound/battle/feed1.wav");
 		break;
 	case 1:
-		attackSkill->InitSkill(L"‹­UŒ‚", 1.8f, 50.0f, 0.85f, 1);
 		attackSkill->SetEffect(
 			L"Assets/effect/attack2.efk",
 			en_PosTarget,
