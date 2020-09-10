@@ -14,15 +14,8 @@ NetSceneText::~NetSceneText()
 
 bool NetSceneText::Start()
 {
-	////フォントデータのロード。
-	//m_spFont = std::make_unique<DirectX::SpriteFont>(
-	//	g_graphicsEngine->GetD3DDevice(),
-	//	L"Assets/font/myfile.spritefont"
-	//	);
-
 	//フォントレンダーの初期化。
 	m_fontRender = NewGO<prefab::FontRender>(3);
-	//m_fontRender->SetFont(m_spFont.get());
 	m_fontRender->SetPivot({ 0.5f,0.5f });
 
 	return true;

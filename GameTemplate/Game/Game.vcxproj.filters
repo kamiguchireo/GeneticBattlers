@@ -226,9 +226,6 @@
     <ClCompile Include="Skill\SkillHeal.cpp">
       <Filter>skill</Filter>
     </ClCompile>
-    <ClCompile Include="Skill\SkillMagic.cpp">
-      <Filter>skill</Filter>
-    </ClCompile>
     <ClCompile Include="monster\Supporter.cpp">
       <Filter>monster</Filter>
     </ClCompile>
@@ -458,9 +455,6 @@
       <Filter>skill</Filter>
     </ClInclude>
     <ClInclude Include="Skill\SkillHeal.h">
-      <Filter>skill</Filter>
-    </ClInclude>
-    <ClInclude Include="Skill\SkillMagic.h">
       <Filter>skill</Filter>
     </ClInclude>
     <ClInclude Include="monster\Supporter.h">

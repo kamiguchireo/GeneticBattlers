@@ -47,13 +47,14 @@ public:
 		return m_supporter;
 	}
 
+	//データをクリア。
 	void ClearData();
 
 private:
-	static AIResouce* m_instance;
+	static AIResouce* m_instance;			//インスタンス。
 
-	std::vector<AIData> m_attacker;
-	std::vector<AIData> m_healer;
-	std::vector<AIData> m_supporter;
+	std::vector<AIData> m_attacker;			//アタッカー情報
+	std::vector<AIData> m_healer;			//ヒーラー情報
+	std::vector<AIData> m_supporter;		//サポーター情報
 };
 

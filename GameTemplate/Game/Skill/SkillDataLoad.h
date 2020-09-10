@@ -1,8 +1,5 @@
 #pragma once
 
-//static const int NOSKILL = -1;			//次のスキル番号なし。
-//static const int MAX_NEXT_SIZE = 3;		//次のスキルのサイズ。
-
 enum StatusBuff;
 
 typedef std::vector<int> NextSkills;
@@ -54,7 +51,6 @@ public:
 	static const int MAX_TARGETS_MEMBER = 3;
 private:
 	const int NOSKILL = -1;			//次のスキル番号なし。
-	//const int MAX_NEXT_SIZE = 3;	//次のスキルのサイズ。
 private:
 	/// <summary>
 	/// ファイルからデータを読み込む。

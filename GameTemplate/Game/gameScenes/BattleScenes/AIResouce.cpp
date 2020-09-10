@@ -3,6 +3,7 @@
 
 AIResouce* AIResouce::m_instance = nullptr;
 
+//シングルトンパターン。
 AIResouce::AIResouce()
 {
 	if (m_instance == nullptr)
@@ -23,6 +24,7 @@ AIResouce::~AIResouce()
 	}
 }
 
+//データをクリア。
 void AIResouce::ClearData()
 {
 	m_attacker.clear();

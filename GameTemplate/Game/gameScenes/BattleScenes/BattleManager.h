@@ -75,8 +75,6 @@ private:
 	/// 評価させる。
 	/// </summary>
 	void MonsterScoring();
-	////HPでソートを行う。
-	//void SortTeams();
 
 	//バトルの処理切り替え
 	enum BattleState {

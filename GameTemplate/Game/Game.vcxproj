@@ -117,7 +117,6 @@
     <ClCompile Include="Skill\SkillBuff.cpp" />
     <ClCompile Include="Skill\SkillHeal.cpp" />
     <ClCompile Include="Skill\SkillLog.cpp" />
-    <ClCompile Include="Skill\SkillMagic.cpp" />
     <ClCompile Include="Skill\SkillAttack.cpp" />
     <ClCompile Include="SourceFile\graphic\font\FontRender.cpp" />
     <ClCompile Include="SourceFile\graphic\font\Font.cpp" />
@@ -215,7 +214,6 @@
     <ClInclude Include="Skill\SkillBuff.h" />
     <ClInclude Include="Skill\SkillHeal.h" />
     <ClInclude Include="Skill\SkillLog.h" />
-    <ClInclude Include="Skill\SkillMagic.h" />
     <ClInclude Include="Skill\SkillAttack.h" />
     <ClInclude Include="SourceFile\graphic\font\FontRender.h" />
     <ClInclude Include="SourceFile\graphic\font\Font.h" />

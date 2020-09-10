@@ -57,21 +57,6 @@ void MonsterBase::Draw()
 	);
 }
 
-//void MonsterBase::SetStatus(int hp, int atk, int def, int mat, int mdf, int dex)
-//{
-//	Status hoge;
-//	hoge.HP = hp;
-//	//hoge.MP = mp;
-//	hoge.ATK = atk;
-//	hoge.DEF = def;
-//	hoge.HEAL = mat;
-//	hoge.BUF = mdf;
-//	hoge.DEX = dex;
-//	//İ’èB
-//	m_status.SetStatus(hoge);
-//}
-
-
 //s“®‚Ì•]‰¿B
 bool MonsterBase::ACTScoring()
 {

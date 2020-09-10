@@ -98,8 +98,6 @@ void AIManager::AIUpdate()
 	float sum = 0.0f;
 	//スコアを合計する。
 	for (auto& res : m_actResList) {
-		////評価されていない。
-		//if (!res.score)	continue;
 		//スコアを合計する。
 		int i = 0;
 		for (i = 0; i < AISize; i++) {

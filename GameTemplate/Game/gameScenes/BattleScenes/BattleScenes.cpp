@@ -2,7 +2,6 @@
 #include "BattleScenes.h"
 #include "BattleManager.h"
 #include "monster/MonsterBase.h"
-//#include "monster/MonsterTeam1.h"
 #include "monster/Attacker.h"
 #include "monster/Healer.h"
 #include "monster/Supporter.h"
@@ -255,10 +254,6 @@ void BattleScenes::Update()
 			//戦闘後処理。
 			m_battleManager->SaveData();		//行動データの更新と保存。
 
-			////戦闘シーンの削除。
-			//DeleteGO(m_battleManager);
-			//m_battleManager = nullptr;
-
 			//フェードさせる。
 			m_state = enState_FadeOut;
 			m_fade->StartFadeOut();
@@ -274,22 +269,20 @@ void BattleScenes::Update()
 		}
 		if (!m_fade->IsFade())
 		{
-			//フェードが終わるとタイトルに戻る。
-			//NewGO<TitleScene>(0, nullptr);
+			//フェードが終わるとシーン移行。
 			NewGO<GAScenes>(0, nullptr);
 			DeleteGO(this);
 		}
 		break;
 	}
-
+	//BGMのボリューム設定。
 	m_bgm->SetVolume(m_bgmVol*SOUND_VOL);
-	////レベルの描画。
-	//m_level.Draw();
 }
 
 void BattleScenes::Draw()
 {
-	//ここで呼んでるとゲームループできないんだが。
+	//描画処理。
+	//影を落とすための処理。
 	auto shadowMap = g_graphicsEngine->GetShadowMap();
 	shadowMap->Update(CVector3::AxisY()*1000.0f + CVector3::AxisX()*200.0f, CVector3::Zero());
 	shadowMap->SendShadowRecieverParamToGpu();

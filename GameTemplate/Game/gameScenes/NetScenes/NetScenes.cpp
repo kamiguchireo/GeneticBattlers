@@ -204,7 +204,7 @@ void NetScenes::SendAIData(const char* filePath, int dataType)
 
 	fclose(fp);
 
-	//これで送れるのか？
+	//データを送信していく。
 	for (auto& data : dataList) {
 		m_net->putEvent(1, dataType);
 		m_net->putEvent(2, data.skillNo);

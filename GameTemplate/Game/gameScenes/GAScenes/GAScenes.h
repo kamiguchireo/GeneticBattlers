@@ -58,15 +58,6 @@ private:
 	//AIの確率を変動させる
 	void GeneMutation(GA::AITable & _table);
 
-	/// <summary>
-	/// １．勝率の測定処理。つまりは戦闘処理を行うクラスが必要なのでは...
-	///		ここで遺伝子を確率に直しておかないとですねぇ
-	///		んで計測結果を記録する関数と評価値でソートする関数が必要ですねぇ 終わりかなぁ
-	/// ２．交叉の処理。
-	/// ３．突然変異の処理。
-	/// </summary>
-
-
 private:		//定数。
 	static const float RATE_CHANGE;		//初期遺伝子生成時の確率変動幅
 	static const int CHANGE_NUM;		//確率変動で作る数。

@@ -1,5 +1,4 @@
 #pragma once
-//#include "Skill/SkillBase.h"
 #include "parameter/StatusManager.h"
 #include "parameter/StatusUI.h"
 #include "parameter/AIManager.h"
@@ -59,14 +58,6 @@ public:
 	{
 		return m_AIData;
 	}
-	////ステータスの設定。
-	////正直ファイルからロードしたい。
-	//void SetStatus(int hp, int atk, int def, int mat, int mdf, int dex);
-	////ステータスの設定。(ステータス構造体ver)。
-	//void SetStatus(const Status& status)
-	//{
-	//	m_status.SetStatus(status);
-	//}
 
 	//座標の設定。
 	void SetPosition(const CVector3& pos)
@@ -98,10 +89,6 @@ public:
 	{
 		m_teamMenber = list;
 	}
-
-	/// <summary>
-	/// モデル関係の処理もクラス分けしたほうがいいんかなぁ？
-	/// </summary>
 
 	//魔法のアニメーションを再生。
 	void AnimationMagic()
@@ -149,24 +136,10 @@ public:
 	}
 
 	/// <summary>
-	/// この辺の処理ステータスのほうでまとめたほうがいいのでは？
-	/// </summary>
-
-	/// <summary>
 	/// ダメージのアニメーションor回避。
 	/// </summary>
 	/// <param name="damage">ダメージ量。</param>
 	void Damage(int damage);
-
-	///// <summary>
-	///// HPを回復させる。
-	///// </summary>
-	///// <param name="healing">回復量。</param>
-	///// <returns>回復できた量。</returns>
-	//int Healing(int healing) {
-	//	if (IsDeath()) return 0;		//死亡時は回復しない。
-	//	return m_status.Healing(healing);
-	//};
 
 	/// <summary>
 	/// バフをかける。

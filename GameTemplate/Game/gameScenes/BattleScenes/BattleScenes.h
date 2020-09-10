@@ -1,7 +1,6 @@
 #pragma once
 #include "Skill/SkillList.h"
 #include "level/Level.h"
-//#include "BattleManager.h"
 
 class MonsterBase;
 class MonsterTeam1;
