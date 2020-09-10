@@ -47,6 +47,7 @@ GAScenes::~GAScenes()
 		DeleteGO(m_evaluationCalc);
 	}
 	DeleteGO(m_ui);
+	DeleteGO(m_bgm);
 }
 
 bool GAScenes::Start()
@@ -64,6 +65,12 @@ bool GAScenes::Start()
 
 	m_fade = Fade::GetInstance();		//フェードクラス取得。
 	m_fade->StartFadeIn();
+
+	m_bgm = NewGO<prefab::CSoundSource>(0);
+	m_bgm->Init(L"Assets/sound/bgm/bgm_GA.wav");
+	m_bgm->Play(true);
+	m_bgm->SetVolume(m_bgmVol);
+
 	m_sceneState = en_FadeIn;
 
 	return true;
@@ -74,6 +81,10 @@ void GAScenes::Update()
 	switch (m_sceneState)
 	{
 	case GAScenes::en_FadeIn:
+		if (m_bgmVol < 1.0f) {
+			m_bgmVol += g_gameTime.GetFrameDeltaTime();
+			m_bgmVol = min(1.0f, m_bgmVol);
+		}
 		if (!m_fade->IsFade())
 		{
 			//読み込み失敗。
@@ -93,9 +104,6 @@ void GAScenes::Update()
 			GenesCrossover();	//交叉。
 			Mutation();			//突然変異。
 			m_currentCalcSize = static_cast<int>(m_currentGenetics.size());	//現在の遺伝子数を記録。
-
-			//CalcWinRate();		//評価。クソ遅い。
-			//SortGenes();		//ソート。
 
 			//テキスト変更。
 			m_ui->SetWinRate(m_currentGenerationNum, m_maxWinRate, m_aveWinRate);
@@ -139,7 +147,12 @@ void GAScenes::Update()
 			m_fade->StartFadeOut();
 		}
 		break;
-	case GAScenes::en_FadeOut:	
+	case GAScenes::en_FadeOut:
+		//bgmのフェードアウト。
+		if (m_bgmVol > 0.0f) {
+			m_bgmVol -= g_gameTime.GetFrameDeltaTime();
+			m_bgmVol = max(0.0f, m_bgmVol);
+		}
 		if (!m_fade->IsFade())	//フェードアウトが終わった。
 		{
 			//フェードアウト後タイトルへ。
@@ -150,6 +163,8 @@ void GAScenes::Update()
 	default:
 		break;
 	}
+	//BGMのボリューム設定。
+	m_bgm->SetVolume(m_bgmVol*SOUND_VOL);
 }
 
 void GAScenes::LoadAIData(const char * filePath, AITable & ai)

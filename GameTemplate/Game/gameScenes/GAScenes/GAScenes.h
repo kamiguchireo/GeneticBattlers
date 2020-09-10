@@ -84,6 +84,9 @@ private:		//メンバ変数。
 	GA::AITable m_enemyAI[GA::en_JobNum];	//敵のAIデータ。
 	GA::GeneticsList m_currentGenetics;	//現行世代の遺伝子。
 	GA::GeneticsList m_eliteGenetics;		//エリート遺伝子のリスト。
+	prefab::CSoundSource* m_bgm = nullptr;	//サウンドソース。
+	float m_bgmVol = 0.0f;					//bgmのボリューム。
+	const float SOUND_VOL = 0.6f;			//全体的なボリューム。
 	int m_geneSize = 0;		//遺伝子のサイズ。
 	int m_currentGenerationNum = 0;		//世代数。
 	int m_maxWinRate = 0;		//最高遺伝子の勝率(%)。
