@@ -84,7 +84,7 @@ SkillBase * SkillList::NewSkillAttack(int no)
 		attackSkill->SetEffect(
 			L"Assets/effect/wideAttack.efk",
 			en_PosTarget,
-			L"Assets/sound/battle/kick-high1.wav");
+			L"Assets/sound/battle/super-arts-hit1.wav");
 
 	default:
 		DeleteGO(attackSkill);
