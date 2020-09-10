@@ -82,7 +82,6 @@ int CStatusBase::Monster_Buff(StatusBuff status, float pow, float time)
 	//死亡時返す。
 	if (m_IsDeath) return 0;
 
-	int res = 0;
 	//倍率から1を引いておく。
 	pow -= 1.0f;
 
@@ -90,28 +89,23 @@ int CStatusBase::Monster_Buff(StatusBuff status, float pow, float time)
 	switch (status)
 	{
 	case en_buff_ATK:
-		res = static_cast<int>(m_statusBase.ATK * pow);	//上昇値の計算。
-		m_buffValues[status] = res;
+		m_buffValues[status] = static_cast<int>(m_statusBase.ATK * pow);	//上昇値の計算。
 
 		break;
 	case en_buff_DEF:
-		res = static_cast<int>(m_statusBase.DEF * pow);	//上昇値の計算。
-		m_buffValues[status] = res;
+		m_buffValues[status] = static_cast<int>(m_statusBase.DEF * pow);	//上昇値の計算。
 
 		break;
 	case en_buff_MAT:
-		res = static_cast<int>(m_statusBase.HEAL * pow);	//上昇値の計算。
-		m_buffValues[status] = res;
+		m_buffValues[status] = static_cast<int>(m_statusBase.HEAL * pow);	//上昇値の計算。
 
 		break;
 	case en_buff_MDF:
-		res = static_cast<int>(m_statusBase.BUF * pow);	//上昇値の計算。
-		m_buffValues[status] = res;
+		m_buffValues[status] = static_cast<int>(m_statusBase.BUF * pow);	//上昇値の計算。
 
 		break;
 	case en_buff_DEX:
-		res = static_cast<int>(m_statusBase.DEX * pow);	//上昇値の計算。
-		m_buffValues[status] = res;
+		m_buffValues[status] = static_cast<int>(m_statusBase.DEX * pow);	//上昇値の計算。
 
 		break;
 	}
@@ -119,6 +113,9 @@ int CStatusBase::Monster_Buff(StatusBuff status, float pow, float time)
 	m_buffTimeList[status] = time;
 	//バフの効果を反映。
 	SumBufAndDebuff(status);
+
+	//効果時間を整数型に
+	int res = static_cast<int>(time);
 
 	return res;
 }
@@ -128,7 +125,6 @@ int CStatusBase::Monster_Debuff(StatusBuff status, float pow, float time)
 	//死亡時返す。
 	if (m_IsDeath) return 0;
 
-	int res = 0;
 	//倍率から1を引いておく。
 	pow -= 1.0f;
 
@@ -136,28 +132,23 @@ int CStatusBase::Monster_Debuff(StatusBuff status, float pow, float time)
 	switch (status)
 	{
 	case en_buff_ATK:
-		res = static_cast<int>(m_statusBase.ATK * pow);//低下値の計算。
-		m_debuffValues[status] = res;
+		m_debuffValues[status] = static_cast<int>(m_statusBase.ATK * pow);//低下値の計算。
 
 		break;
 	case en_buff_DEF:
-		res = static_cast<int>(m_statusBase.DEF * pow);//低下値の計算。
-		m_debuffValues[status] = res;
+		m_debuffValues[status] = static_cast<int>(m_statusBase.DEF * pow);//低下値の計算。
 
 		break;
 	case en_buff_MAT:
-		res = static_cast<int>(m_statusBase.HEAL * pow);//低下値の計算。
-		m_debuffValues[status] = res;
+		m_debuffValues[status] = static_cast<int>(m_statusBase.HEAL * pow);//低下値の計算。
 
 		break;
 	case en_buff_MDF:
-		res = static_cast<int>(m_statusBase.BUF * pow);//低下値の計算。
-		m_debuffValues[status] = res;
+		m_debuffValues[status] = static_cast<int>(m_statusBase.BUF * pow);//低下値の計算。
 
 		break;
 	case en_buff_DEX:
-		res = static_cast<int>(m_statusBase.DEX * pow);//低下値の計算。
-		m_debuffValues[status] = res;
+		m_debuffValues[status] = static_cast<int>(m_statusBase.DEX * pow);//低下値の計算。
 
 		break;
 	}
@@ -166,8 +157,8 @@ int CStatusBase::Monster_Debuff(StatusBuff status, float pow, float time)
 	//デバフの効果を反映。
 	SumBufAndDebuff(status);
 
-	//効果値の絶対値を取る。
-	res = abs(res);
+	//効果時間を整数型に
+	int res = static_cast<int>(time);
 
 	return res;
 }
