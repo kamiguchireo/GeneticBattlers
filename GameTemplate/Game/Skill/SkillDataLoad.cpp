@@ -28,6 +28,7 @@ SkillDataLoad::~SkillDataLoad()
 
 bool SkillDataLoad::Start()
 {
+	//スキル情報の読み込みを行う。
 	LoadData("Assets/SkillData/AttackSkill.csv",en_Attack);
 	LoadData("Assets/SkillData/HealSkill.csv", en_Heal);
 	LoadData("Assets/SkillData/BuffSkill.csv", en_Buff);

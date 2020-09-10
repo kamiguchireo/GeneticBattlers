@@ -101,13 +101,11 @@ SkillBase * SkillList::NewSkillHeal(int no)
 	switch (no)
 	{
 	case 0:
-		//healSkill->InitSkill(L"ヒール", 0.7f, 30.0f, 1.0f, 100);
 		healSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
 		healSkill->SetEffect(L"Assets/effect/heal.efk",en_PosTarget,L"Assets/sound/battle/magic-status-cure1.wav");
 		break;
 
 	case 1:
-		//healSkill->InitSkill(L"ハイヒール", 1.3f, 50.0f, 1.0f, 101);
 		healSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
 		healSkill->SetEffect(L"Assets/effect/healS.efk",en_PosTarget, L"Assets/sound/battle/magic-status-cure1.wav");
 		break;
@@ -132,20 +130,15 @@ SkillBase * SkillList::NewSkillBuff(int no)
 	switch (no)
 	{
 	case 0:
-		//buffSkill->InitSkill(L"スクルト", 2.0f, 50.0f, 1.0f, 200);
-		buffSkill->SetStatusBuff(en_buff_DEF);
 		buffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
 		buffSkill->SetEffect(L"Assets/effect/BuffDef.efk", en_PosTarget,L"Assets/sound/battle/aura1.wav");
 		break;
 
 	case 1:
-		//buffSkill->InitSkill(L"スカラ", 1.5f, 60.0f, 1.0f, 201);
-		buffSkill->SetStatusBuff(en_buff_DEF);
 		buffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
 		buffSkill->SetEffect(L"Assets/effect/BuffDef.efk", en_PosTarget, L"Assets/sound/battle/aura1.wav");
 		break;
 	case 2:
-		buffSkill->SetStatusBuff(en_buff_ATK);
 		buffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
 		buffSkill->SetEffect(L"Assets/effect/BuffAtk.efk", en_PosTarget, L"Assets/sound/battle/aura1.wav");
 		break;
@@ -166,13 +159,11 @@ SkillBase * SkillList::NewSkillDebuff(int no)
 	switch (no)
 	{
 	case 0:
-		debuffSkill->SetStatusDebuff(en_buff_DEF);
 		debuffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
 		debuffSkill->SetEffect(L"Assets/effect/DebuffDef.efk", en_PosTarget, L"Assets/sound/battle/magic-gravity1.wav");
 		break;
 
 	case 1:
-		debuffSkill->SetStatusDebuff(en_buff_DEX);
 		debuffSkill->SetEffect(L"Assets/effect/chant1.efk", en_PosUser, L"Assets/sound/battle/magic-cure1.wav");
 		debuffSkill->SetEffect(L"Assets/effect/DebuffDex.efk", en_PosTarget, L"Assets/sound/battle/magic-gravity1.wav");
 		break;
@@ -183,47 +174,4 @@ SkillBase * SkillList::NewSkillDebuff(int no)
 	}
 	return debuffSkill;
 }
-
-//SkillBase * SkillList::NewSkillMagic(int no)
-//{
-//	return nullptr;
-//}
-
-
-////ダブルアタック。
-//bool DoubleAttack::UseSkill(MonsterBase * attack, MonsterBase * target)
-//{
-//	if (m_skillEffect == nullptr) {
-//		//エフェクトの再生。
-//		m_skillEffect = NewGO<prefab::CEffect>(0);
-//		m_skillEffect->Play(L"Assets/effect/test.efk");
-//		m_skillEffect->SetPosition(attack->GetPosition() + CVector3::AxisY()*20.0f);
-//		CQuaternion qRot;
-//		qRot.SetRotationDeg(CVector3::AxisY(), 90.0f);
-//		qRot.Multiply(attack->GetRotation());
-//		m_skillEffect->SetRotation(qRot);
-//		m_skillEffect->SetScale(CVector3::One() * 20.0f);
-//	}
-//	else if (!m_skillEffect->IsPlay()) {
-//		int res = 0;
-//		//ダメージの計算。
-//		int damage = DamageCalcuration();
-//		res += target->Damage(damage);
-//		//２回攻撃。
-//		damage = DamageCalcuration();
-//		res += target->Damage(damage);
-//		
-//		//attack->SetActResult(m_skillNo, res);
-//
-//		//クールタイムの設定。
-//		attack->SetCoolTime(coolTime);
-//
-//		m_skillEffect = nullptr;
-//
-//		return true;
-//	}
-//
-//
-//	return false;
-//}
 

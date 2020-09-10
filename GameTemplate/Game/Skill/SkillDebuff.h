@@ -18,17 +18,9 @@ public:
 		return true;
 	}
 
-	void SetStatusChange(int status)override;
-
-	void SetStatusDebuff(StatusBuff status)
-	{
-		m_status = status;
-	}
 private:
 	const float DEBUFF_TIME = 100.0f;		//ƒfƒoƒt‚ÌŒø‰ÊŽžŠÔ
 private:
 	int WideDebuff();
-
-	StatusBuff m_status = en_buff_ATK;
 };
 
