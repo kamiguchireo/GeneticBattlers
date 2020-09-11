@@ -193,7 +193,15 @@ void NetScenes::SendAIData(const char* filePath, int dataType)
 	FILE* fp;
 	fp = fopen(filePath, "rb");
 
-	if (fp == nullptr)	return;
+	if (fp == nullptr)
+	{
+		//開けなかったらデフォルト情報を送信する。
+		fp = fopen("Assets/AIData/DefaultData/DataDefault.bin", "rb");
+		if (fp == nullptr)
+		{
+			return;
+		}
+	}
 
 	AIData hoge;
 	std::vector<AIData> dataList;

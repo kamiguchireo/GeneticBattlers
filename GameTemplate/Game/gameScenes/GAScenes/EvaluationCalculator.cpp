@@ -153,7 +153,8 @@ void EvaluationCalculator::Action()
 		m_skillData = SkillDataLoad::GetInstance();
 	}
 
-	int skill, target;
+	int skill = 0;		//スキル番号。
+	int target = 0;		//ターゲット番号。
 	//行動決定の処理。
 	DisideSkill(skill, target);
 
