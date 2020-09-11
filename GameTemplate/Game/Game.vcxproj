@@ -92,7 +92,7 @@
       <AdditionalDependencies>DirectXTK.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;d3d11.lib;d3dcompiler.lib;%(AdditionalDependencies);xinput.lib;BulletCollision.lib;BulletDynamics.lib;LinearMath.lib;Photon-cpp_vc15_release_windows_mt_x64.lib;Common-cpp_vc15_release_windows_mt_x64.lib;LoadBalancing-cpp_vc15_release_windows_mt_x64.lib;dxguid.lib;Effekseer.Release.lib;EffekseerRendererDX11.Release.lib;XAudio2.lib;Winmm.lib</AdditionalDependencies>
     </Link>
     <ImageContentTask>
-      <ContentOutput>$(ProjectDir)\Resource\sprite\%(Filename).dds</ContentOutput>
+      <ContentOutput>$(ProjectDir)\Assets\sprite\%(Filename).dds</ContentOutput>
     </ImageContentTask>
     <MeshContentTask>
       <ContentOutput>$(ProjectDir)\Assets\modelData\%(Filename).cmo</ContentOutput>
