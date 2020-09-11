@@ -135,6 +135,7 @@ void NetScenes::SwitchEvent(int type)
 		m_state = enState_Exit;
 		if (m_text != nullptr)
 		{
+			//テキスト変更。
 			m_text->SetState(m_state);
 		}
 		break;
@@ -149,8 +150,10 @@ void NetScenes::SwitchEvent(int type)
 
 void NetScenes::SwitchError()
 {
+	//エラーが起きた。
 	if (m_state == enState_Exit || m_state == enState_Battle) return;
 	m_state = enState_Error;
+	//テキスト変更。
 	if (m_text != nullptr) {
 		m_text->SetState(m_state);
 	}
@@ -164,6 +167,7 @@ void NetScenes::PushBackData(int ListNum, int skill, int target, float rate)
 
 void NetScenes::SendData()
 {
+	//情報送信。
 	SendAIData("Assets/AIData/Attacker.bin", enAI_Attaker);
 	SendAIData("Assets/AIData/Healer.bin", enAI_Healer);
 	SendAIData("Assets/AIData/Supporter.bin", enAI_Supporter);
@@ -174,16 +178,19 @@ void NetScenes::SetStateIdle()
 	m_state = enState_Idle;
 	if (m_text != nullptr)
 	{
+		//テキスト変更。
 		m_text->SetState(m_state);
 	}
 }
 
 void NetScenes::SetStateSendGI()
 {
+	//情報の送信。
 	SendData();
 	m_state = enState_SendGI;
 	if (m_text != nullptr)
 	{
+		//テキスト変更。
 		m_text->SetState(m_state);
 	}
 }
