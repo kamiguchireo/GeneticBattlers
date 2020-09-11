@@ -277,3 +277,6 @@ __pycache__/
 /GameTemplate/Game/Assets/AIData/Attacker.bin
 /GameTemplate/Game/Assets/AIData/Healer.bin
 /GameTemplate/Game/Assets/AIData/Supporter.bin
+/GeneticBattlers_exe/Assets/AIData/Attacker.bin
+/GeneticBattlers_exe/Assets/AIData/Healer.bin
+/GeneticBattlers_exe/Assets/AIData/Supporter.bin
