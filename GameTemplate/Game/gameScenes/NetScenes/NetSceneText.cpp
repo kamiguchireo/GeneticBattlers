@@ -36,16 +36,16 @@ void NetSceneText::SetState(NetState state)
 	switch (m_state)
 	{
 	case enState_Idle:
-		m_fontRender->SetText(L"待機中。");
+		m_fontRender->SetText(L"           待機中。\nBボタンでタイトルに戻ります。");
 		break;
 	case enState_SendGI:
 		m_fontRender->SetText(L"AIデータの通信中。");
 		break;
 	case enState_Exit:
-		m_fontRender->SetText(L"通信が完了しました。");
+		m_fontRender->SetText(L"通信が完了しました。\nAボタンで開始します。");
 		break;
 	case enState_Error:
-		m_fontRender->SetText(L"通信に失敗しました。");
+		m_fontRender->SetText(L"    通信に失敗しました。\nBボタンでタイトルに戻ります。");
 		break;
 	default:
 		break;
